@@ -1,0 +1,5 @@
+
+
+class Aleatoire implements Effet{
+
+}
