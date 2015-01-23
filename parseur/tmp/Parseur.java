@@ -42,6 +42,7 @@ class Parseur {
 				System.out.println("molecule " + cellule.numero + " instant " + instant + " coord (" + posX + ", " + posY + ") info " + info);
 			    }
 			    else {
+			    //faire marcher le truc du pas et sqrt
 				CaracteristiqueTemporelle caracteristique = new CaracteristiqueTemporelle(posX, posY, 0, 0);
 				cellule.positions.addLast(caracteristique);
 				System.out.println("molecule " + cellule.numero + " instant " + instant + " coord (" + posX + ", " + posY + ") info " + info);
