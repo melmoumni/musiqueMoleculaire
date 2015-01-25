@@ -7,7 +7,7 @@ Cette classe contiens les différents attributs relatifs à une molécule
     private int numero;
     protected LinkedList<CaracteristiqueTemporelle> positions;
     private Timbre timbre;
-    private Noteref noteref;
+    private int noteref;
     private float alpha;
     private float msd;
     private int seuil_intens;

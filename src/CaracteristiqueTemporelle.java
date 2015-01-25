@@ -1,8 +1,8 @@
 
 
-class CaracteristiquesTemporelles{
+class CaracteristiqueTemporelle{
     float x;
     float y;
     int temps;
-    int intensité;
+    int intensite;
 }
