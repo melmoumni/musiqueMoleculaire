@@ -118,7 +118,7 @@ class Lecture {
 		 Scanner scan = new Scanner(currentLine);
 		 if (scan.findInLine(pattern) != null) {
 		     MatchResult match = scan.match();
-		     System.out.printf("Proteine %s, Instant %s, coordX : %s, coordY : %s, info1 : %s, info2 : %s%n", match.group(1), match.group(3), match.group(5), match.group(8), match.group(11), match.group(13));
+		     System.out.printf("Proteine %d, Instant %d, coordX : %f, coordY : %f, info1 : %s, info2 : %f%n", Integer.parseInt(match.group(1)), Integer.parseInt(match.group(3)), Float.parseFloat(match.group(5)), Float.parseFloat(match.group(8)), match.group(11), Float.parseFloat(match.group(13)));
 		 }
 		 /*
 		  * Cas d'erreur de formation du fichier à traiter
