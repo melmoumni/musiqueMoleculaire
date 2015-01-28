@@ -57,6 +57,5 @@ public class Midi{
 
 
     public void creerNote(int numChannel){
-	Track [] t = sequencer.getSequence().getTracks();
     }
 }
