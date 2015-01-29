@@ -1,4 +1,7 @@
+package exemples;
+
 import java.io.IOException;
+
 class Lancer{
   public static void main(String... args) {
     boolean estMisAssertion = false;

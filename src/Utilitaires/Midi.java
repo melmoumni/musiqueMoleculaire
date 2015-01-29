@@ -51,7 +51,7 @@ public class Midi{
     public void configurerChannel(int numChannel, int instrument){
 	MidiChannel[] m = synthetiseur.getChannels();
 	Soundbank soundbank = synthetiseur.getDefaultSoundbank();
-        Instrument[] instr = soundbank.getInstruments();
+	Instrument[] instr = soundbank.getInstruments();
 	m[numChannel].programChange(instr[instrument].getPatch().getBank(), instr[instrument].getPatch().getProgram());
     }
 

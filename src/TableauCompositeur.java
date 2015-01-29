@@ -1,7 +1,5 @@
 
-public class TableauCompositeur {
-	private int hauteur;
-	private int largeur;
+public class TableauCompositeur extends Fenetre {
 	private Timbre abs;
 	private Timbre ord;
 	

@@ -28,6 +28,6 @@ class CaracteristiqueTemporelle{
      * de la molécule en cours d'ajout dans la liste.
      */
     float calculePas(float x, float y){
-	return 5 // problème sur sqrt;
+	return 5; // problème sur sqrt;
     }
 }
