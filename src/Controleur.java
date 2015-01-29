@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+import java.util.Vector;
 
-class Controleur{
+abstract class Controleur{
 
-    Molecule molecules[];
+    ArrayList<Molecule> molecules;
     int duree;
+    public int noteRef; 
+    Vue vue;
+    Vector<Fenetre> fenetres;
     
-
 }
