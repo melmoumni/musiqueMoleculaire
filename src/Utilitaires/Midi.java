@@ -35,7 +35,6 @@ public class Midi{
 	 */
 	sequenceur.setSequence(new Sequence(Sequence.PPQ,960,16));
 	//chargement des instruments dans le synthetiseur
-	MidiChannel[] m = synthetiseur.getChannels();
 	Soundbank soundbank = synthetiseur.getDefaultSoundbank();
         synthetiseur.loadAllInstruments(soundbank);
     }
@@ -55,7 +54,19 @@ public class Midi{
 	m[numChannel].programChange(instr[instrument].getPatch().getBank(), instr[instrument].getPatch().getProgram());
     }
 
-
-    public void creerNote(int numChannel){
+    
+    public void ajouterEvent(int numTrack, MidiEvent e){
+	Track[] t = sequenceur.getSequence().getTracks();
+	t[numTrack].add(e);
     }
+
+    public MidiEvent creerEvent(int a, int status, int data1, int data2, long tick) throws InvalidMidiDataException{
+	return new MidiEvent(new ShortMessage(a, status, data1, data2), tick);
+	
+    }
+
+    public void jouerSequence(){
+	sequenceur.start();
+    }
+ 
 }
