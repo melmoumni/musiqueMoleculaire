@@ -1,4 +1,4 @@
-package exemples;
+//package exemples;
 
 import java.io.File;
 import java.io.Reader;
@@ -100,6 +100,7 @@ class Lecture {
 	 String patternEspace = "(\\s+)";
 	 String patternReel = "(\\d+(\\.\\d+)?)";
 	 String patternEntierRelatif = "(-\\d)";
+	 String patternEspaceEtoile = "(\\s*)";
 	 String FinDeLigne ="$";
 	 Pattern pattern = Pattern.compile(patternEntier+
 					   patternEspace+
@@ -112,19 +113,25 @@ class Lecture {
 					   patternEntierRelatif+
 					   patternEspace+
 					   patternReel+
+					   patternEspaceEtoile+
 					   FinDeLigne);
 	 try {
 	     BufferedReader reader = new BufferedReader(new FileReader(filepath));
 	     String currentLine;
+	     int compteur = 1;
 	     while ((currentLine = reader.readLine()) != null) {
 		 Scanner scan = new Scanner(currentLine);
 		 if (scan.findInLine(pattern) != null) {
 		     MatchResult match = scan.match();
 		     System.out.printf("Proteine %d, Instant %d, coordX : %f, coordY : %f, info1 : %s, info2 : %f%n", Integer.parseInt(match.group(1)), Integer.parseInt(match.group(3)), Float.parseFloat(match.group(5)), Float.parseFloat(match.group(8)), match.group(11), Float.parseFloat(match.group(13)));
 		 }
+		 else {
+		     System.out.println("Erreur de formation du fichier à la ligne " + compteur);
+		 }
 		 /*
 		  * Cas d'erreur de formation du fichier à traiter
 		  */
+		 compteur++;
 	     }
 	 }
 	 catch (FileNotFoundException exception) {
