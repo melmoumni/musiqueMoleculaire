@@ -17,9 +17,12 @@ Cette classe contiens les différents attributs relatifs à une molécule
 	positions = new LinkedList<CaracteristiqueTemporelle>();
     }
     
-    public Molecule(int numerot, LinkedList<CaracteristiqueTemporelle> positionst, float alphat, float msdt){
+    public Molecule(int numerot, LinkedList<CaracteristiqueTemporelle> positionst){
     	numero = numerot;
     	positions = positionst;
+    }
+
+    public void setMolecule(int alphat, int msdt){
     	alpha = alphat;
     	msd = msdt;
     }
@@ -44,9 +47,10 @@ Cette classe contiens les différents attributs relatifs à une molécule
     	tempo = tempot;
     }
     
-    public void setPas (int pas){
-    	pasMax = pas;
-    }
     
+    public void analyseMolecules(){
+    	
+    	
+    }
     
 }

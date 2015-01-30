@@ -8,10 +8,19 @@ abstract class Controleur{
     public int noteRef; 
     private Vue vue;
     public Vector<Fenetre> fenetres;
+    public int periode;
  
     public Controleur(){
     	vue = new Vue();
     	fenetres = new Vector<Fenetre>();
+    }
+    
+    public ArrayList<Molecule> molecules(){
+    	return molecules;
+    }
+    
+    public int periode(){
+    	return periode;
     }
     
     public void setMolecules(ArrayList<Molecule> newList){
@@ -24,6 +33,10 @@ abstract class Controleur{
 
     public void setNote(int newnote){
     	noteRef = newnote;
+    }
+    
+    public void setPeriode (int p){
+    	periode = p;
     }
     
     
