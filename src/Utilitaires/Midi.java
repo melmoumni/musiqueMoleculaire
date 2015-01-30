@@ -55,7 +55,15 @@ public class Midi{
 	m[numChannel].programChange(instr[instrument].getPatch().getBank(), instr[instrument].getPatch().getProgram());
     }
 
-
-    public void creerNote(int numChannel){
+    
+    public void ajouterEvent(int numTrack, MidiEvent e){
+	Tracks[] t = sequenceur.getSequence().getTracks();
+	t[numTrack].add(e);
     }
+
+    public void creerEvent(byte[] msg, long tick){
+	return new MidiEvent(new MidiMessage(msg), tick);
+    }
+
+    
 }
