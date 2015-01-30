@@ -2,7 +2,12 @@ import java.util.ArrayList;
 
 
 public class TableauChercheur extends Fenetre {
-	ArrayList<Float> absisses;
-	ArrayList<Float> ordonnees;
+	public ArrayList<Float> absisses;
+	public ArrayList<Float> ordonnees;
 	
+	
+	public TableauChercheur (){
+		absisses = new ArrayList<Float>();
+		ordonnees = new ArrayList<Float>();
+	}
 }
