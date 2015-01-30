@@ -128,9 +128,6 @@ class Lecture {
 		 else {
 		     System.out.println("Erreur de formation du fichier à la ligne " + compteur);
 		 }
-		 /*
-		  * Cas d'erreur de formation du fichier à traiter
-		  */
 		 compteur++;
 	     }
 	 }
@@ -139,5 +136,80 @@ class Lecture {
 	 }
 	 
      }
+
+    public void testLecture5(String filepath) throws IOException {
+	String patternEntier = "(\\d+)";
+	Stirng patternMot = "(\\w+)";
+	String patternEspace = "(\\s+)";
+	String patternReel = "(\\d+(\\.\\d+)?)";
+	String patternEspaceEtoile = "(\\s*)";
+	String FinDeLigne ="$";
+	Pattern titre = Pattern.compile();
+	
+	Pattern frametime = Pattern.compile("frametime:"+
+					    patternEspace+
+					    patternReel+
+					    patternEspace+
+					    "s"+
+					    patternEspaceEtoile+
+					    FinDeLigne);
+	
+	Pattern pixelsize = Pattern.compile("pixelsize:"+
+					    patternEspace+
+					    patternReel+
+					    patternEspace+
+					    patternMot+
+					    patternEspaceEtoile+
+					    FinDeLigne);
+	
+	Pattern minpointMSD = Pattern.compile("minpointMSD:"+
+					      patternEspace+
+					      patternEntier+
+					      patternEspaceEtoile+
+					      FinDeLigne);
+	
+	Pattern pourcentage = Pattern.compile("pourcentage_trajectory:"+
+					      patternEspace+
+					      patternEntier+
+					      patternEspaceEtoile+
+					      FinDeLigne);
+	
+	Pattern pattern = Pattern.compile(patternEntier+
+					  patternEspace+
+					  patternEntier+
+					  patternEspace+
+					  patternReel+
+					  patternEspace+
+					  patternReel+
+					  patternEspace+
+					  patternEntierRelatif+
+					  patternEspace+
+					  patternReel+
+					  patternEspaceEtoile+
+					  FinDeLigne);
+	try {
+	    BufferedReader reader = new BufferedReader(new FileReader(filepath));
+	    String currentLine;
+	    int compteur = 1;
+	    while ((currentLine = reader.readLine()) != null) {
+		Scanner scan = new Scanner(currentLine);
+		if (scan.findInLine(pattern) != null) {
+		    MatchResult match = scan.match();
+		    System.out.printf("Proteine %d, Instant %d, coordX : %f, coordY : %f, info1 : %s, info2 : %f%n", Integer.parseInt(match.group(1)), Integer.parseInt(match.group(3)), Float.parseFloat(match.group(5)), Float.parseFloat(match.group(8)), match.group(11), Float.parseFloat(match.group(13)));
+		}
+		else {
+		    System.out.println("Erreur de formation du fichier à la ligne " + compteur);
+		}
+		/*
+		 * Cas d'erreur de formation du fichier à traiter
+		 */
+		compteur++;
+	    }
+	}
+	catch (FileNotFoundException exception) {
+	    System.out.println ("Le fichier n'a pas été trouvé");
+	}
+	 
+    }
 }
 
