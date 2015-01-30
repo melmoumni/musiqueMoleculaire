@@ -35,7 +35,6 @@ public class Midi{
 	 */
 	sequenceur.setSequence(new Sequence(Sequence.PPQ,960,16));
 	//chargement des instruments dans le synthetiseur
-	MidiChannel[] m = synthetiseur.getChannels();
 	Soundbank soundbank = synthetiseur.getDefaultSoundbank();
         synthetiseur.loadAllInstruments(soundbank);
     }
