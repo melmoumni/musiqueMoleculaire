@@ -56,12 +56,12 @@ public class Midi{
 
     
     public void ajouterEvent(int numTrack, MidiEvent e){
-	Tracks[] t = sequenceur.getSequence().getTracks();
+	Track[] t = sequenceur.getSequence().getTracks();
 	t[numTrack].add(e);
     }
 
-    public void creerEvent(byte[] msg, long tick){
-	return new MidiEvent(new MidiMessage(msg), tick);
+    public MidiEvent creerEvent(byte[] msg, long tick){
+	//return new MidiEvent(new MidiMessage(msg), tick);
     }
 
     
