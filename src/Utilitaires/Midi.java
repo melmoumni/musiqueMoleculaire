@@ -60,9 +60,6 @@ public class Midi{
 	t[numTrack].add(e);
     }
 
-    public MidiEvent creerEvent(byte[] msg, long tick){
-	//return new MidiEvent(new MidiMessage(msg), tick);
-    }
 
     
 }
