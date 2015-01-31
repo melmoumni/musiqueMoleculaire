@@ -60,9 +60,10 @@ public class Midi{
 	t[numTrack].add(e);
     }
 
-    public MidiEvent creerEvent(int a, int status, int data1, int data2, long tick) throws InvalidMidiDataException{
-	return new MidiEvent(new ShortMessage(a, status, data1, data2), tick);
-	
+    public MidiEvent creerEvent(int command, int channel, int data1, int data2, long tick) throws InvalidMidiDataException{
+	ShortMessage msg = new ShortMessage();
+	msg.setMessage(command, channel, data1, data2);
+	return new MidiEvent(msg, tick);
     }
 
     public void jouerSequence(){
