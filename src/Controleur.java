@@ -40,4 +40,8 @@ abstract class Controleur{
     }
     
     
+    protected void setTempo (){
+    	
+    }
+    
 }

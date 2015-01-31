@@ -5,6 +5,10 @@ class CaracteristiqueTemporelle{
     public float y;
     public int temps;
     public float intensite;
+
+    public CaracteristiqueTemporelle(){
+    	
+    }
     
     public CaracteristiqueTemporelle(float xt, float yt, int tempst, float intensitet){
     	x = xt;
