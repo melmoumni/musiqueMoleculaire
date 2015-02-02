@@ -138,15 +138,22 @@ class Lecture {
      }
 
     public void testLecture5(String filepath) throws IOException {
+	int posAlpha=0;
 	String patternEntier = "(\\d+)";
-	Stirng patternMot = "(\\w+)";
-	String patternEspace = "(\\s+)";
-	String patternReel = "(\\d+(\\.\\d+)?)";
-	String patternEspaceEtoile = "(\\s*)";
+	String patternMot = "(\\w+)";
+	String patternPonctuation ="\\W";
+	String patternEspace = "\\s+";
+	String patternReel = "(-*\\d+(\\.\\d+)?)";
+	String patternEspaceEtoile = "\\s*";
+	String patternLigneTableau = "([a-zA-Z0-9\\-_/]+(\\((.*?)\\))*\\s*)*";
+	String patternCaseTableau = "([a-zA-Z0-9\\-_/]+(\\((.*?)\\))*)";
+	String patternLigneNumerique = "("+patternReel+"\\s*)*";
 	String FinDeLigne ="$";
-	Pattern titre = Pattern.compile();
+	//Pattern titre = Pattern.compile(); à compléter plus tard
 	
-	Pattern frametime = Pattern.compile("frametime:"+
+	Pattern frametime = Pattern.compile(//"frametime:"+
+					    patternMot+
+					    patternPonctuation+
 					    patternEspace+
 					    patternReel+
 					    patternEspace+
@@ -154,7 +161,9 @@ class Lecture {
 					    patternEspaceEtoile+
 					    FinDeLigne);
 	
-	Pattern pixelsize = Pattern.compile("pixelsize:"+
+	Pattern pixelsize = Pattern.compile(//"pixelsize:"+
+					    patternMot+
+					    patternPonctuation+
 					    patternEspace+
 					    patternReel+
 					    patternEspace+
@@ -162,41 +171,132 @@ class Lecture {
 					    patternEspaceEtoile+
 					    FinDeLigne);
 	
-	Pattern minpointMSD = Pattern.compile("minpointMSD:"+
+	Pattern minpointMSD = Pattern.compile(//"minpointMSD:"+
+					      patternMot+
+					      patternPonctuation+
 					      patternEspace+
 					      patternEntier+
 					      patternEspaceEtoile+
 					      FinDeLigne);
 	
-	Pattern pourcentage = Pattern.compile("pourcentage_trajectory:"+
+	Pattern pourcentage = Pattern.compile(//"pourcentage_trajectory:"+
+					      patternMot+
+					      patternPonctuation+
 					      patternEspace+
 					      patternEntier+
 					      patternEspaceEtoile+
 					      FinDeLigne);
 	
-	Pattern pattern = Pattern.compile(patternEntier+
-					  patternEspace+
-					  patternEntier+
-					  patternEspace+
-					  patternReel+
-					  patternEspace+
-					  patternReel+
-					  patternEspace+
-					  patternEntierRelatif+
-					  patternEspace+
-					  patternReel+
-					  patternEspaceEtoile+
-					  FinDeLigne);
+	Pattern debutTableau = Pattern.compile(patternLigneTableau+FinDeLigne);
+	Pattern caseT = Pattern.compile(patternCaseTableau);
+	Pattern caseN = Pattern.compile(patternReel);
+	Pattern pattern = Pattern.compile(patternLigneNumerique+FinDeLigne);
+			        
 	try {
 	    BufferedReader reader = new BufferedReader(new FileReader(filepath));
 	    String currentLine;
+	    MatchResult match;
+	    Scanner scan;
 	    int compteur = 1;
-	    while ((currentLine = reader.readLine()) != null) {
-		Scanner scan = new Scanner(currentLine);
-		if (scan.findInLine(pattern) != null) {
-		    MatchResult match = scan.match();
-		    System.out.printf("Proteine %d, Instant %d, coordX : %f, coordY : %f, info1 : %s, info2 : %f%n", Integer.parseInt(match.group(1)), Integer.parseInt(match.group(3)), Float.parseFloat(match.group(5)), Float.parseFloat(match.group(8)), match.group(11), Float.parseFloat(match.group(13)));
+	    currentLine = reader.readLine();
+	    //	    System.out.println(currentLine);
+	    if (currentLine == null){
+		//gérer l'erreur
+		System.out.println("Erreur de lecture du fichier");
+	    }
+	    scan = new Scanner(currentLine);
+	    if (scan.findInLine(pattern) != null) {
+		match = scan.match();
+		System.out.printf("Ligne %d ignorée\n", compteur);
+	    }
+	    compteur++;
+	    currentLine = reader.readLine();
+	    //	    System.out.println(currentLine);
+	    if (currentLine == null){
+		//gérer l'erreur
+		System.out.println("Erreur de lecture du fichier");
+	    }
+	    scan = new Scanner(currentLine);
+	    if (scan.findInLine(frametime) != null) {
+		match = scan.match();
+		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
+	    }
+	    compteur++;
+	    currentLine = reader.readLine();
+	    if (currentLine == null){
+		//gérer l'erreur
+		System.out.println("Erreur de lecture du fichier");
+	    }
+	    scan = new Scanner(currentLine);
+	    
+	    if (scan.findInLine(pixelsize) != null) {
+		match = scan.match();
+		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
+	    }
+	    compteur++;
+	    currentLine = reader.readLine();
+	    if (currentLine == null){
+		//gérer l'erreur
+		System.out.println("Erreur de lecture du fichier");
+	    }
+	    scan = new Scanner(currentLine);
+	    if (scan.findInLine(minpointMSD) != null) {
+		match = scan.match();
+		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
+	    }
+	    compteur++;
+	    currentLine = reader.readLine();
+	    //System.out.println(currentLine);
+	    if (currentLine == null){
+		//gérer l'erreur
+		System.out.println("Erreur de lecture du fichier");
+	    }
+	    scan = new Scanner(currentLine);
+	    if (scan.findInLine(pourcentage) != null) {
+		match = scan.match();
+		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
+	    }
+	    currentLine = reader.readLine();
+	    System.out.println(currentLine);
+	    if (currentLine == null){
+		//gérer l'erreur
+		System.out.println("Erreur de lecture du fichier");
+	    }
+	    compteur++;
+	    scan = new Scanner(currentLine);
+	    if (scan.findInLine(debutTableau) != null) {
+		match = scan.match();
+		System.out.printf("Ligne %d : %s\n", compteur, match.group(0));
+		//scan = new Scanner(currentLine);
+		Matcher matcher2 = caseT.matcher(currentLine);
+		int occur = 0;
+		while(matcher2.find()) {
+		    //  System.out.println(matcher2.group());
+		    if (matcher2.group().equals("alpha")) {
+			posAlpha = occur;
+			}
+			occur ++;
 		}
+		//System.out.println(occur);;
+	    }
+	    compteur++;
+	    while ((currentLine = reader.readLine()) != null) {
+		scan = new Scanner(currentLine);
+		if (scan.findInLine(pattern) != null) {
+		    match = scan.match();
+		    System.out.printf("%s\n", match.group(0));
+		    Matcher matcher3 = caseN.matcher(currentLine);
+		    int occur2 = 0;
+		    while(matcher3.find()) {
+			//  System.out.println(matcher2.group());
+			if (occur2 == posAlpha) {
+			    System.out.println(matcher3.group());
+			}
+			occur2++;
+		    }
+		    System.out.println(occur2);
+		}
+
 		else {
 		    System.out.println("Erreur de formation du fichier à la ligne " + compteur);
 		}

@@ -1,4 +1,4 @@
-package exemples;
+//package exemples;
 
 import java.io.IOException;
 
@@ -17,6 +17,7 @@ class Lancer{
     //jauge.lancerTestsJaugeNaturel();
     try{
 	test.testLecture4("./p.trc");
+	test.testLecture5("./test.txt");
     }
     catch (IOException e)
 	{
