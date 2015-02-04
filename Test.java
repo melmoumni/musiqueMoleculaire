@@ -17,17 +17,18 @@ public class Test{
 	    m.initialiser();
 	    m.configurerChannel(0, 56);
 	    //tremolo entre la note 60 et 63
-	    // for(i = 0; i<=30; i++){
-	    // 	if(i%2 == 0){
-	    // 	    m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_ON,0,60,60,i*100));
-	    // 	    m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_OFF,0,62,0,i*100));
-	    // 	}
-	    // 	else{
-	    // 	    m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_ON,0,62,60,i*100));
-	    // 	    m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_OFF,0,60,0,i*100));
+	    /*
+	     for(i = 0; i<=30; i++){
+	     	if(i%2 == 0){
+	     	    m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_ON,0,60,60,i*100));
+	     	    m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_OFF,0,64,0,i*100));
+	    	}
+	     	else{
+	     	    m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_ON,0,64,60,i*100));
+	     	    m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_OFF,0,60,0,i*100));
 
-	    // 	}
-	    // }
+	     	}
+	     }*/
 	    //vibrato sur la note 63
 	    // m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_ON,0,63,100,0));
 	    // for(i = 0; i<=3000; i++){
@@ -43,6 +44,7 @@ public class Test{
 	    // for(i = 0; i<=127; i++)
 	    // 	m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,0,63,i,(i+1)*100 + 6500));
 	    
+	    m.tremolo(60, 56, 60, 0, 1000);
 	    m.jouerSequence();
 	}
 	catch(MidiUnavailableException e){}
