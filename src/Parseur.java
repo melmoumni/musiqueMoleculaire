@@ -18,6 +18,8 @@ class Parseur {
      */
     void lireFichierTrajectoire(String nomDuFichier) {
 	Controleur controleur = new Controleur();
+	int index = 0;
+	
 	String patternEntier = "(\\d+)";
 	String patternEspace = "(\\s+)";
 	String patternReel = "(\\d+(\\.\\d+)?)";
@@ -28,8 +30,8 @@ class Parseur {
 	try {
 	    BufferedReader reader = new BufferedReader(new FileReader(nomDuFichier));
 	    String currentLine;
+	    int proteineEnRemplissage = (controleur.molecules.get(index)).numero;
 	    int compteur = 1; // pour connaitre la ligne en cours de traitement
-	    int proteineEnRemplissage = -1;
 	    LinkedList listeEnRemplissage = new LinkedList<CaracteristiqueTemporelle>();
 	    while ((currentLine = reader.readLine()) != null) {
 		Scanner scan = new Scanner(currentLine);
@@ -37,11 +39,13 @@ class Parseur {
 		    MatchResult match = scan.match();
 		    int numeroProteine = Integer.parseInt(match.group(1));
 		    
-		    if ( (numeroProteine != proteineEnRemplissage) && (proteineEnRemplissage != -1)){
-			//ici on crée le nouvelle molecule
-			controleur.molecules.addLast(new Molecule(proteineEnRemplissage, listeEnRemplissage));
+		    if (numeroProteine != proteineEnRemplissage) {
+			//on renseigne les champs de la molécule en cours : on a fini de la traiter
+			(controleur.molecules.get(index)).setPositions(listeEnRemplissage);
+			//on passe à la molécule suivante
+			index++;
 			// on met à jour le numéro de proteine en cours
-			proteineEnRemplissage = numeroProteine;
+			proteineEnRemplissage = controleur.molecules.get(index).numero;
 			//et la nouvelle liste de position intermediaire
 			listeEnRemplissage = new LinkedList<CaracteristiqueTemporelle>();
 		    }
@@ -73,7 +77,7 @@ class Parseur {
 	int caseMolecule = 0;
 	int positionMSD = 0;
 	float alpha = 0;
-	float MSD = 0;
+	float valeurMSD = 0;
 	int numeroMolecule = 0;
 	
 	//expressions régulières qui décrivent les éléments du fichier
@@ -219,12 +223,12 @@ class Parseur {
 			    else {
 				if (occur2 ==  positionMSD) {
 				    System.out.printf("Ligne %d MSD %d\n", compteur, Float.parseFloat(matcher3.group()));
-				    MSD = Float.parseFloat(matcher3.group());
+				    valeurMSD = Float.parseFloat(matcher3.group());
 				}
 			    }
 			occur2++;
 		    }
-		    controleur.molecules.addLast(new Molecule(numeroMolecule, posAlpha, ));
+		    controleur.molecules.addLast(new Molecule(numeroMolecule, posAlpha, valeurMSD));
 		}
 		else {
 		    System.out.println("Erreur de formation du fichier à la ligne " + compteur);

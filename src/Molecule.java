@@ -8,7 +8,7 @@ class Molecule{
 Cette classe contiens les différents attributs relatifs à une molécule
 */
     private int numero;
-	protected LinkedList<CaracteristiqueTemporelle> positions;
+    protected LinkedList<CaracteristiqueTemporelle> positions;
     private float vitesseAbs;
     private float vitesseOrd;
     private Timbre timbre;
@@ -27,13 +27,23 @@ Cette classe contiens les différents attributs relatifs à une molécule
     	analyseMolecules();
     }
 
-    public void setMolecule(int alphat, int msdt){
+    public Molecule(int numerot, float alphat, float msdt) {
+	numero = numerot;
+	alpha = alphat;
+	msd = msdt;
+    }
+    
+    public void setMolecule(float alphat, float msdt){
     	alpha = alphat;
     	msd = msdt;
     }
     
     public int numero(){
     	return numero;
+    }
+    
+    public void setPositions(LinkedList<CaracteristiqueTemporelle> positionst) {
+	positions = positionst;
     }
     
     public LinkedList<CaracteristiqueTemporelle> positions(){
