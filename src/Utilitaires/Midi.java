@@ -2,7 +2,7 @@ package Utilitaires;
 import javax.sound.midi.*;
 
 
-
+import static java.lang.System.out;
 
 public class Midi{
     
@@ -68,6 +68,45 @@ public class Midi{
 
     public void jouerSequence(){
 	sequenceur.start();
+    }
+    
+    public void tremolo(int note, int timbre, int volume, int debut, int fin) throws InvalidMidiDataException{  //pour tester, en théorie on doit ne passer que la molécule
+    	int i;
+    	int nbPas=10;  //à definir suivant la vitesse initiale, eventuellement
+    	int pas=(fin-debut)/nbPas;  
+    	int channel=retournerChannel(timbre);
+    		//System.out.println("timbre: "+ timbre +"  channel " + channel +" pas " +pas);
+	     for(i = 0; i<= nbPas; i++){
+	     	//System.out.println("debut+i*pas " + debut+ i*pas + "\n");
+	     	if(i%2 == 0){
+	     	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut+i*pas));
+	     	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note+4,0,debut+i*pas));    //le +4 donne la tierce
+	     	}
+	     	else{
+	    	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note+4,volume,debut+i*pas));
+	    	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note,0,debut+i*pas));
+
+	     	}
+	     }
+    
+    }
+    
+   /* public void glissando(int note, int timbre, int volume, int debut, int fin) throws InvalidMidiDataException{
+      int channel=retournerChannel(timbre);
+      m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_ON,channel,note,volume,0));
+	  for(i = 64; i>=0; i--)
+	     	m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,channel,note,i,(64-i+1)*100));
+	     for(i = 0; i<=127; i++)
+	     	m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,channel,note,i,(i+1)*100 + 6500));
+    }*/
+    
+    private int retournerChannel(int timbre){
+    	MidiChannel[] m = synthetiseur.getChannels();
+    	for(int i=0; i<16; i++){
+    		if(m[i].getProgram()==timbre)
+    			return i;
+    	}
+    	return -1;// s'il ne trouve pas il faudrait lever une exception
     }
  
 }
