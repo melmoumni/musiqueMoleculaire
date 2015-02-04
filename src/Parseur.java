@@ -49,13 +49,17 @@ class Parseur {
 			//et la nouvelle liste de position intermediaire
 			listeEnRemplissage = new LinkedList<CaracteristiqueTemporelle>();
 		    }
-		    int instant = Integer.parseInt(match.group(3));
-		    CaracteristiqueTemporelle caracteristique = new CaracteristiqueTemporelle(/*position en x*/Float.parseFloat(match.group(5)),
-											      /*position en y*/Float.parseFloat(match.group(8)),
-											      instant,
-											      /*intensite*/Float.parseFloat(match.group(13)));
-		    listeEnRemplissage.addLast(caracteristique);
-		    System.out.printf("Proteine %d, Instant %d, coordX : %f, coordY : %f, info1 : %s, info2 : %f%n", Integer.parseInt(match.group(1)), Integer.parseInt(match.group(3)), Float.parseFloat(match.group(5)), Float.parseFloat(match.group(8)), match.group(11), Float.parseFloat(match.group(13)));
+		    else {
+			if (proteineEnRemplissage == numeroProteine) {
+			    int instant = Integer.parseInt(match.group(3));
+			    CaracteristiqueTemporelle caracteristique = new CaracteristiqueTemporelle(/*position en x*/Float.parseFloat(match.group(5)),
+												      /*position en y*/Float.parseFloat(match.group(8)),
+												      instant,
+												      /*intensite*/Float.parseFloat(match.group(13)));
+			    listeEnRemplissage.addLast(caracteristique);
+			    System.out.printf("Proteine %d, Instant %d, coordX : %f, coordY : %f, info1 : %s, info2 : %f%n", Integer.parseInt(match.group(1)), Integer.parseInt(match.group(3)), Float.parseFloat(match.group(5)), Float.parseFloat(match.group(8)), match.group(11), Float.parseFloat(match.group(13)));
+			}
+		    }
 		}
 		else {
 		    System.out.println("Erreur de formation du fichier à la ligne " + compteur);
