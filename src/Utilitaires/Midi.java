@@ -91,14 +91,19 @@ public class Midi{
     
     }
     
-   /* public void glissando(int note, int timbre, int volume, int debut, int fin) throws InvalidMidiDataException{
+   public void glissando(int note, int timbre,int volume,int debut, int fin, int distanceParcourrue) throws InvalidMidiDataException{
+   		int nbPas=100;int i;
+   		int pas= distanceParcourrue/nbPas;
       int channel=retournerChannel(timbre);
-      m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_ON,channel,note,volume,0));
-	  for(i = 64; i>=0; i--)
-	     	m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,channel,note,i,(64-i+1)*100));
-	     for(i = 0; i<=127; i++)
-	     	m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,channel,note,i,(i+1)*100 + 6500));
-    }*/
+      ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,0));
+	 /* for(i = 64; i>=0; i--)
+	     	ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,i,(64-i+1)*pas));
+	  for(i = 0; i<=127; i++)
+	     	ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,i,(i+1)*pas + pas*65));*/
+	      for(i = 0; i<=127; i++)
+					ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,i,debut+i*pas ));
+	      
+    }
     
     private int retournerChannel(int timbre){
     	MidiChannel[] m = synthetiseur.getChannels();

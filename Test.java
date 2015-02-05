@@ -38,13 +38,14 @@ public class Test{
 	    // 	    m.ajouterEvent(0, m.creerEvent(ShortMessage.POLY_PRESSURE,0,63,80,i));		
 	    // }
 	    // //glissande sur la note 63
-	    // m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_ON,0,63,100,0));
-	    // for(i = 64; i>=0; i--)
-	    // 	m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,0,63,i,(64-i+1)*100));
-	    // for(i = 0; i<=127; i++)
-	    // 	m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,0,63,i,(i+1)*100 + 6500));
+	    /* m.ajouterEvent(0, m.creerEvent(ShortMessage.NOTE_ON,0,63,100,0));
+	     for(i = 64; i>=0; i--)
+	     	m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,0,63,i,(64-i+1)*100));
+	     for(i = 0; i<=127; i++)
+	     	m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,0,63,i,(i+1)*100 + 6500));*/
 	    
-	    m.tremolo(60, 56, 60, 0, 1000);
+	   // m.tremolo(60, 56, 60, 0, 1000);
+	   	m.glissando(60, 56,100, 0, 500, 10000);
 	    m.jouerSequence();
 	}
 	catch(MidiUnavailableException e){}
