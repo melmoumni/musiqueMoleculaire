@@ -96,12 +96,8 @@ public class Midi{
    		int pas= distanceParcourrue/nbPas;
       int channel=retournerChannel(timbre);
       ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,0));
-	 /* for(i = 64; i>=0; i--)
-	     	ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,i,(64-i+1)*pas));
-	  for(i = 0; i<=127; i++)
-	     	ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,i,(i+1)*pas + pas*65));*/
-	      for(i = 0; i<=127; i++)
-					ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,i,debut+i*pas ));
+      for(i = 0; i<=127; i++)   //le i maximal devrait probablement etre determiné par la distance parcourrue, mais de quellle manière?
+				ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,i,debut+i*pas ));
 	      
     }
     
