@@ -8,7 +8,7 @@ class Molecule{
 Cette classe contiens les différents attributs relatifs à une molécule
 */
     private int numero;
-    protected LinkedList<CaracteristiqueTemporelle> positions;
+    protected ArrayList<CaracteristiqueTemporelle> positions;
     private float vitesseAbs;
     private float vitesseOrd;
     private Timbre timbre;
@@ -18,28 +18,28 @@ Cette classe contiens les différents attributs relatifs à une molécule
     private int tempo;
     private int pasMax;
     Molecule(){
-	positions = new LinkedList<CaracteristiqueTemporelle>();
+	positions = new ArrayList<CaracteristiqueTemporelle>();
     }
     
     public void printMolecule(){
     	System.out.println("==================================");
-    	System.out.println("Mol�cule n�"+numero);
+    	System.out.println("Molecule numero "+numero);
     	System.out.println("Positions :");
     	for (CaracteristiqueTemporelle CT : positions){
     		System.out.printf("%d %d, ",CT.x, CT.y);
     	}
     	System.out.println("vitesseAbs : "+ vitesseAbs+" , vitesseOrd : "+ vitesseOrd);
-    	System.out.println("Timbre : "+ timbre.timbreMIDI() + " (min : " + timbre.min() + " max : "+timbre.max() + " OctRef : "+ timbre.octaveRef());
+    	//System.out.println("Timbre : "+ timbre.timbreMIDI() + " (min : " + timbre.min() + " max : "+timbre.max() + " OctRef : "+ timbre.octaveRef());
     	System.out.println("alpha : " + alpha);
     	System.out.println("MSD : " + msd);
-    	System.out.println("Effet" + effet.getClass().getName());
-    	System.out.println("Tempo : "+tempo);
+    	//System.out.println("Effet" + effet.getClass().getName());
+    	//System.out.println("Tempo : "+tempo);
     	System.out.println("PasMax : " + pasMax);
     	System.out.println("==================================");
 
     }
     
-    public Molecule(int numerot, LinkedList<CaracteristiqueTemporelle> positionst){
+    public Molecule(int numerot, ArrayList<CaracteristiqueTemporelle> positionst){
     	numero = numerot;
     	positions = positionst;
     	analyseMolecules();
@@ -60,11 +60,11 @@ Cette classe contiens les différents attributs relatifs à une molécule
     	return numero;
     }
     
-    public void setPositions(LinkedList<CaracteristiqueTemporelle> positionst) {
+    public void setPositions(ArrayList<CaracteristiqueTemporelle> positionst) {
 	positions = positionst;
     }
     
-    public LinkedList<CaracteristiqueTemporelle> positions(){
+    public ArrayList<CaracteristiqueTemporelle> positions(){
     	return positions;
     }
 
