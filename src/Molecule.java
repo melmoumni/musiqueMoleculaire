@@ -21,6 +21,24 @@ Cette classe contiens les diff√©rents attributs relatifs √† une mol√©cule
 	positions = new LinkedList<CaracteristiqueTemporelle>();
     }
     
+    public void printMolecule(){
+    	System.out.println("==================================");
+    	System.out.println("MolÈcule n∞"+numero);
+    	System.out.println("Positions :");
+    	for (CaracteristiqueTemporelle CT : positions){
+    		System.out.printf("%d %d, ",CT.x, CT.y);
+    	}
+    	System.out.println("vitesseAbs : "+ vitesseAbs+" , vitesseOrd : "+ vitesseOrd);
+    	System.out.println("Timbre : "+ timbre.timbreMIDI() + " (min : " + timbre.min() + " max : "+timbre.max() + " OctRef : "+ timbre.octaveRef());
+    	System.out.println("alpha : " + alpha);
+    	System.out.println("MSD : " + msd);
+    	System.out.println("Effet" + effet.getClass().getName());
+    	System.out.println("Tempo : "+tempo);
+    	System.out.println("PasMax : " + pasMax);
+    	System.out.println("==================================");
+
+    }
+    
     public Molecule(int numerot, LinkedList<CaracteristiqueTemporelle> positionst){
     	numero = numerot;
     	positions = positionst;

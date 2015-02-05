@@ -15,6 +15,12 @@ abstract class Controleur{
     	fenetres = new Vector<Fenetre>();
     }
     
+    public void printMolecules(){
+    	for (Molecule mol : molecules){
+    		mol.printMolecule();
+    	}
+    }
+    
     public ArrayList<Molecule> molecules(){
     	return molecules;
     }
