@@ -72,7 +72,7 @@ public class Midi{
     
     public void tremolo(int note, int timbre, int volume, int debut, int fin) throws InvalidMidiDataException{  //pour tester, en théorie on doit ne passer que la molécule
     	int i;
-    	int nbPas=10;  //à definir suivant la vitesse initiale, eventuellement
+    	int nbPas=10;  //A FAIRE: à definir suivant la vitesse initiale, eventuellement
     	int pas=(fin-debut)/nbPas;  
     	int channel=retournerChannel(timbre);
     		//System.out.println("timbre: "+ timbre +"  channel " + channel +" pas " +pas);
@@ -91,13 +91,25 @@ public class Midi{
     
     }
     
-   public void glissando(int note, int timbre,int volume,int debut, int fin, int distanceParcourrue) throws InvalidMidiDataException{
-   		int nbPas=100;int i;
-   		int pas= distanceParcourrue/nbPas;
+   public void glissando(int note, int timbre,int volume,int debut, int fin, int distanceParcourrue, int vitesseOrd) throws InvalidMidiDataException{
+   /
+   // nbPas  égal à 64 pour la molécule ayant la distanceParcourrue la plus grande parmi toutes les molécules
+   //ainsi, i (angle de la molette) sera au max pour une molécule parcourrant la plus grande distance
+	
+   		int nbPas=64 * distanceParcourrue / 100; //100 <==>  distanceMaximale provisoire;
+		int i;
+   		int pas= (fin-debut)/nbPas;
       int channel=retournerChannel(timbre);
       ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,0));
-      for(i = 0; i<=127; i++)   //le i maximal devrait probablement etre determiné par la distance parcourrue, mais de quellle manière?
-				ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,i,debut+i*pas ));
+      
+      if(vitesseOrd >=0)	  //glissando montant (suivant la vitesse ordonnée)
+      	for(i =0; i< nbPas; i++)  
+				ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64+i,debut+i*pas ));      
+      
+      else                //glissando descendant
+      	for(i = 0; i<=nbPas; i++)   
+				ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64-i,debut+i*pas ));
+      
 	      
     }
     

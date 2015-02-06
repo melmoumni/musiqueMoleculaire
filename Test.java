@@ -45,7 +45,8 @@ public class Test{
 	     	m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,0,63,i,(i+1)*100 + 6500));*/
 	    
 	   // m.tremolo(60, 56, 60, 0, 1000);
-	   	m.glissando(60, 56,100, 0, 500, 10000);
+	  	m.glissando(60, 56,100, 0, 1000, 100, 15);
+	  	m.glissando(60, 56,100, 1001, 2000, 100, -15);
 	    m.jouerSequence();
 	}
 	catch(MidiUnavailableException e){}
