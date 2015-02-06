@@ -47,12 +47,9 @@ abstract class Controleur{
 	    BufferedReader reader = new BufferedReader(new FileReader(nomDuFichier));
 	    String currentLine;
 	    int proteineEnRemplissage = (this.molecules.get(index)).numero();
-	    System.out.println(proteineEnRemplissage);
 	    int compteur = 1; // pour connaitre la ligne en cours de traitement
 	    ArrayList listeEnRemplissage = new ArrayList<CaracteristiqueTemporelle>();
-	    System.out.println("Début");
 	    while (((currentLine = reader.readLine()) != null)&&(index<nombreMolecules)) {
-		System.out.println(proteineEnRemplissage);
 		Scanner scan = new Scanner(currentLine);
 		if (scan.findInLine(pattern) != null) {
 		    MatchResult match = scan.match();
@@ -80,14 +77,13 @@ abstract class Controleur{
 												      instant,
 												      /*intensite*/Float.parseFloat(match.group(13)));
 			    listeEnRemplissage.add((CaracteristiqueTemporelle)caracteristique);
-			    System.out.printf("Proteine %d, Instant %d, coordX : %f, coordY : %f, info1 : %s, info2 : %f%n", Integer.parseInt(match.group(1)), Integer.parseInt(match.group(3)), Float.parseFloat(match.group(5)), Float.parseFloat(match.group(8)), match.group(11), Float.parseFloat(match.group(13)));
 			}
 		    }
 		}
 		else {
 		    System.out.println("Erreur de formation du fichier à la ligne " + compteur);
 		}
-		
+		scan.close();
 		compteur++;
 	    }
 	    reader.close();
@@ -140,17 +136,17 @@ abstract class Controleur{
 	    int compteur = 1;
 	    
 	    // Premiere ligne
-
 	    currentLine = reader.readLine();
 	    if (currentLine == null){
 		System.out.println("Erreur de lecture du fichier");
 	    }
 	    scan = new Scanner(currentLine);
 	    if (currentLine != null) {
-		System.out.printf("Ligne %d ignorée\n", compteur);
+		//verification eventuelle de la premiere ligne
 	    }
 	    compteur++;
-		
+	    scan.close();
+
 	    // Deuxieme ligne : frametime
 	    currentLine = reader.readLine();
 	    if (currentLine == null){
@@ -159,10 +155,9 @@ abstract class Controleur{
 	    scan = new Scanner(currentLine);
 	    if (scan.findInLine(frametime) != null) {
 		match = scan.match();
-		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
 	    }
 	    compteur++;
-		
+	    scan.close();
 	    // Troisieme ligne pixelsize
 	    currentLine = reader.readLine();
 	    if (currentLine == null){
@@ -171,9 +166,9 @@ abstract class Controleur{
 	    scan = new Scanner(currentLine);
 	    if (scan.findInLine(pixelsize) != null) {
 		match = scan.match();
-		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
 	    }
 	    compteur++;
+	    scan.close();
 	    
 	    //4e ligne minPointMSD
 	    currentLine = reader.readLine();
@@ -183,34 +178,30 @@ abstract class Controleur{
 	    scan = new Scanner(currentLine);
 	    if (scan.findInLine(minpointMSD) != null) {
 		match = scan.match();
-		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
 	    }
 	    compteur++;
+	    scan.close();
 
 	    //5e ligne seuil
 	    currentLine = reader.readLine();
-	    //System.out.println(currentLine);
 	    if (currentLine == null){
 		System.out.println("Erreur de lecture du fichier");
 	    }
 	    scan = new Scanner(currentLine);
 	    if (scan.findInLine(pourcentage) != null) {
 		match = scan.match();
-		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
 	    }
 	    compteur++;
+	    scan.close();
 
 	    //6e ligne cases du tableau
 	    currentLine = reader.readLine();
-	    //System.out.println(currentLine);
 	    if (currentLine == null){
-		//gérer l'erreur
 		System.out.println("Erreur de lecture du fichier");
 	    }
 	    scan = new Scanner(currentLine);
 	    if (scan.findInLine(debutTableau) != null) {
 		match = scan.match();
-		System.out.printf("Ligne %d : %s\n", compteur, match.group(0));
 		Matcher matcher2 = caseT.matcher(currentLine);
 		int occur = 0;
 		while(matcher2.find()) {
@@ -231,6 +222,7 @@ abstract class Controleur{
 		}
 	    }
 	    compteur++;
+	    scan.close();
 
 	    // Lecture du tableau de nombres
 	    while ((currentLine = reader.readLine()) != null) {
@@ -241,17 +233,14 @@ abstract class Controleur{
 		    int occur2 = 0;
 		    while(matcher3.find()) {
 			if (occur2 == posAlpha) {
-			    System.out.printf("Ligne %d alpha = %f\n", compteur, Float.parseFloat(matcher3.group()));
 			    alpha = Float.parseFloat(matcher3.group());
 			}
 			else {
 			    if (occur2 == caseMolecule) {
-				System.out.printf("Ligne %d molecule numéro %d\n", compteur, Integer.parseInt(matcher3.group()));
 				numeroMolecule = Integer.parseInt(matcher3.group());
 			    }
 			    else {
 				if (occur2 ==  positionMSD) {
-				    System.out.printf("Ligne %d MSD %f\n", compteur, Float.parseFloat(matcher3.group()));
 				    valeurMSD = Float.parseFloat(matcher3.group());
 				}
 			    }
@@ -264,6 +253,7 @@ abstract class Controleur{
 		    System.out.println("Erreur de formation du fichier à la ligne " + compteur);
 		}
 		compteur++;
+		scan.close();
 	    }
 	    reader.close();
 	}
