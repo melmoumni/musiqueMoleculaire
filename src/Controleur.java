@@ -38,7 +38,7 @@ abstract class Controleur{
 	int nombreMolecules = this.molecules.size();
 	String patternEntier = "(\\d+)";
 	String patternEspace = "(\\s+)";
-	String patternReel = "(\\d+(\\.\\d+)?)";
+	String patternReel = "(\\d*(\\.\\d+)?)";
 	String patternEntierRelatif = "(-\\d)";
 	String patternEspaceEtoile = "(\\s*)";
 	String FinDeLigne ="$";
@@ -51,7 +51,7 @@ abstract class Controleur{
 	    int compteur = 1; // pour connaitre la ligne en cours de traitement
 	    ArrayList listeEnRemplissage = new ArrayList<CaracteristiqueTemporelle>();
 	    System.out.println("Début");
-	    while ((currentLine = reader.readLine()) != null) {
+	    while (((currentLine = reader.readLine()) != null)&&(index<nombreMolecules)) {
 		System.out.println(proteineEnRemplissage);
 		Scanner scan = new Scanner(currentLine);
 		if (scan.findInLine(pattern) != null) {
@@ -60,7 +60,7 @@ abstract class Controleur{
 		    
 		    if ((numeroProteine != proteineEnRemplissage) && (numeroProteine > proteineEnRemplissage)){
 			//on renseigne les champs de la molécule en cours : on a fini de la traiter
-			(this.molecules.get(index)).setPositions(listeEnRemplissage);
+			(this.molecules.get(index )).setPositions(listeEnRemplissage);
 			//on passe à la molécule suivante
 			if (index < nombreMolecules) { //problème pour le dernier élément de la liste dépassement
 			    index++;

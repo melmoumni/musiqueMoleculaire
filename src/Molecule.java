@@ -26,7 +26,7 @@ Cette classe contiens les différents attributs relatifs à une molécule
     	System.out.println("Molecule numero "+numero);
     	System.out.println("Positions :");
     	for (CaracteristiqueTemporelle CT : positions){
-    		System.out.printf("%d %d, ",CT.x, CT.y);
+    		System.out.printf("%f %f, ",CT.x, CT.y);
     	}
     	System.out.println("vitesseAbs : "+ vitesseAbs+" , vitesseOrd : "+ vitesseOrd);
     	//System.out.println("Timbre : "+ timbre.timbreMIDI() + " (min : " + timbre.min() + " max : "+timbre.max() + " OctRef : "+ timbre.octaveRef());
