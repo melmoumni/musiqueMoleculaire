@@ -47,12 +47,12 @@ abstract class Controleur{
 	    BufferedReader reader = new BufferedReader(new FileReader(nomDuFichier));
 	    String currentLine;
 	    int proteineEnRemplissage = (this.molecules.get(index)).numero();
-	    System.out.println(proteineEnRemplissage);
+	    //System.out.println(proteineEnRemplissage);
 	    int compteur = 1; // pour connaitre la ligne en cours de traitement
 	    ArrayList listeEnRemplissage = new ArrayList<CaracteristiqueTemporelle>();
-	    System.out.println("Début");
+	    //System.out.println("Début");
 	    while (((currentLine = reader.readLine()) != null)&&(index<nombreMolecules)) {
-		System.out.println(proteineEnRemplissage);
+		//System.out.println(proteineEnRemplissage);
 		Scanner scan = new Scanner(currentLine);
 		if (scan.findInLine(pattern) != null) {
 		    MatchResult match = scan.match();
@@ -80,7 +80,7 @@ abstract class Controleur{
 												      instant,
 												      /*intensite*/Float.parseFloat(match.group(13)));
 			    listeEnRemplissage.add((CaracteristiqueTemporelle)caracteristique);
-			    System.out.printf("Proteine %d, Instant %d, coordX : %f, coordY : %f, info1 : %s, info2 : %f%n", Integer.parseInt(match.group(1)), Integer.parseInt(match.group(3)), Float.parseFloat(match.group(5)), Float.parseFloat(match.group(8)), match.group(11), Float.parseFloat(match.group(13)));
+			    //System.out.printf("Proteine %d, Instant %d, coordX : %f, coordY : %f, info1 : %s, info2 : %f%n", Integer.parseInt(match.group(1)), Integer.parseInt(match.group(3)), Float.parseFloat(match.group(5)), Float.parseFloat(match.group(8)), match.group(11), Float.parseFloat(match.group(13)));
 			}
 		    }
 		}
@@ -140,14 +140,13 @@ abstract class Controleur{
 	    int compteur = 1;
 	    
 	    // Premiere ligne
-
 	    currentLine = reader.readLine();
 	    if (currentLine == null){
 		System.out.println("Erreur de lecture du fichier");
 	    }
 	    scan = new Scanner(currentLine);
 	    if (currentLine != null) {
-		System.out.printf("Ligne %d ignorée\n", compteur);
+		//System.out.printf("Ligne %d ignorée\n", compteur);
 	    }
 	    compteur++;
 		
@@ -159,7 +158,7 @@ abstract class Controleur{
 	    scan = new Scanner(currentLine);
 	    if (scan.findInLine(frametime) != null) {
 		match = scan.match();
-		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
+		//System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
 	    }
 	    compteur++;
 		
@@ -171,7 +170,7 @@ abstract class Controleur{
 	    scan = new Scanner(currentLine);
 	    if (scan.findInLine(pixelsize) != null) {
 		match = scan.match();
-		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
+		//System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
 	    }
 	    compteur++;
 	    
@@ -183,7 +182,7 @@ abstract class Controleur{
 	    scan = new Scanner(currentLine);
 	    if (scan.findInLine(minpointMSD) != null) {
 		match = scan.match();
-		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
+		//System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
 	    }
 	    compteur++;
 
@@ -196,7 +195,7 @@ abstract class Controleur{
 	    scan = new Scanner(currentLine);
 	    if (scan.findInLine(pourcentage) != null) {
 		match = scan.match();
-		System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
+		//System.out.printf("Ligne %d : %s %s\n", compteur, match.group(1), match.group(2));
 	    }
 	    compteur++;
 
@@ -210,7 +209,7 @@ abstract class Controleur{
 	    scan = new Scanner(currentLine);
 	    if (scan.findInLine(debutTableau) != null) {
 		match = scan.match();
-		System.out.printf("Ligne %d : %s\n", compteur, match.group(0));
+		//System.out.printf("Ligne %d : %s\n", compteur, match.group(0));
 		Matcher matcher2 = caseT.matcher(currentLine);
 		int occur = 0;
 		while(matcher2.find()) {
@@ -241,17 +240,17 @@ abstract class Controleur{
 		    int occur2 = 0;
 		    while(matcher3.find()) {
 			if (occur2 == posAlpha) {
-			    System.out.printf("Ligne %d alpha = %f\n", compteur, Float.parseFloat(matcher3.group()));
+			    // System.out.printf("Ligne %d alpha = %f\n", compteur, Float.parseFloat(matcher3.group()));
 			    alpha = Float.parseFloat(matcher3.group());
 			}
 			else {
 			    if (occur2 == caseMolecule) {
-				System.out.printf("Ligne %d molecule numéro %d\n", compteur, Integer.parseInt(matcher3.group()));
+				//System.out.printf("Ligne %d molecule numéro %d\n", compteur, Integer.parseInt(matcher3.group()));
 				numeroMolecule = Integer.parseInt(matcher3.group());
 			    }
 			    else {
 				if (occur2 ==  positionMSD) {
-				    System.out.printf("Ligne %d MSD %f\n", compteur, Float.parseFloat(matcher3.group()));
+				    //System.out.printf("Ligne %d MSD %f\n", compteur, Float.parseFloat(matcher3.group()));
 				    valeurMSD = Float.parseFloat(matcher3.group());
 				}
 			    }
