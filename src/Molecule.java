@@ -15,8 +15,8 @@ Cette classe contiens les différents attributs relatifs à une molécule
     private float alpha;
     private float msd;
     private Effet effet;
-    private int tempo;
-    private int pasMax;
+    private int tempo; // ou pas !!!
+    private int pasMax; // juste pour les boucles
     Molecule(){
 	positions = new ArrayList<CaracteristiqueTemporelle>();
     }
@@ -90,6 +90,15 @@ Cette classe contiens les différents attributs relatifs à une molécule
     
     
     public void analyseMolecules(){
+    	analyseVitesse();
+    	analyseAlpha();
+    	
+    }	
+    private void analyseAlpha() {
+    	//cr�ation de l'effet
+	}
+
+	public void analyseVitesse(){
     	ArrayList<Float> vitesseAbsisses = new ArrayList<Float>(); 
     	ArrayList<Float> vitesseOrdonnees = new ArrayList<Float>();
     	CaracteristiqueTemporelle tmp = new CaracteristiqueTemporelle();
@@ -114,7 +123,6 @@ Cette classe contiens les différents attributs relatifs à une molécule
     		sumOrd += ord;
     	}
     	vitesseOrd = sumOrd / vitesseOrdonnees.size();
-
     }
 
     

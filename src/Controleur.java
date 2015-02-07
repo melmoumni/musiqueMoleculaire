@@ -20,11 +20,15 @@ abstract class Controleur{
     private Vue vue;
     public Vector<Fenetre> fenetres;
     public int periode;
+    public int[] alphaSeparation;
+
  
     public Controleur(){
     	vue = new Vue();
     	fenetres = new Vector<Fenetre>();
-	molecules = new ArrayList<Molecule>();
+		molecules = new ArrayList<Molecule>();
+	    alphaSeparation = new int[3];
+
     }
     
     public void printMolecules(){
