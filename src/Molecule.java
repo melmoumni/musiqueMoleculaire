@@ -32,7 +32,7 @@ Cette classe contiens les différents attributs relatifs à une molécule
     	//System.out.println("Timbre : "+ timbre.timbreMIDI() + " (min : " + timbre.min() + " max : "+timbre.max() + " OctRef : "+ timbre.octaveRef());
     	System.out.println("alpha : " + alpha);
     	System.out.println("MSD : " + msd);
-    	//System.out.println("Effet" + effet.getClass().getName());
+    	System.out.println("Effet" + effet.getClass().getName());
     	//System.out.println("Tempo : "+tempo);
     	System.out.println("PasMax : " + pasMax);
     	System.out.println("==================================");
@@ -96,14 +96,14 @@ Cette classe contiens les différents attributs relatifs à une molécule
     private void analyseAlpha(float[] alphaSeparation, boolean isChercheur) {
     	if (alpha < alphaSeparation[0]){
     		effet = new Tenu();
-    	}else if (alpha > alphaSeparation[0] && alpha > alphaSeparation[1] && isChercheur){
+    	}else if (alpha > alphaSeparation[0] && alpha < alphaSeparation[1] && isChercheur){
     		effet = new Boucle();
     	}
-    	else if (alpha > alphaSeparation[0] && alpha > alphaSeparation[1] && !isChercheur){
+    	else if (alpha > alphaSeparation[0] && alpha < alphaSeparation[1] && !isChercheur){
     		effet = new Tremolo();
-    	}else if (alpha > alphaSeparation[1] && alpha > alphaSeparation[2] && isChercheur){
+    	}else if (alpha > alphaSeparation[1] && alpha < alphaSeparation[2] && isChercheur){
     		effet = new Aleatoire();
-    	}else if (alpha > alphaSeparation[1] && alpha > alphaSeparation[2] && !isChercheur){
+    	}else if (alpha > alphaSeparation[1] && alpha < alphaSeparation[2] && !isChercheur){
     		effet = new Glissando();
     	}else {
     		effet = new Glissando(); 

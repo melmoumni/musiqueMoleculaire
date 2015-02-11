@@ -118,7 +118,7 @@ abstract class Controleur{
 		String patternMot = "(\\w+)";
 		String patternPonctuation ="\\W";
 		String patternEspace = "\\s+";
-		String patternReel = "(-*\\d+(\\.\\d+)?(e(-)[0-9]*)?)";
+		String patternReel = "(-*\\d+(\\.\\d+)?(e(-)[0-9]+)?)";
 		String patternEspaceEtoile = "\\s*";
 		String patternLigneTableau = "([a-zA-Z0-9\\-_/]+(\\((.*?)\\))*\\s*)*";
 		String patternCaseTableau = "([a-zA-Z0-9\\-_/]+(\\((.*?)\\))*)";
@@ -240,20 +240,20 @@ abstract class Controleur{
 					Matcher matcher3 = caseN.matcher(currentLine);
 					int occur2 = 0;
 					while(matcher3.find()) {
-						if (occur2 == posAlpha) {
-							alpha = Float.parseFloat(matcher3.group());
+					    if (occur2 == posAlpha) {
+						alpha = Float.parseFloat(matcher3.group());
+					    }
+					    else {
+						if (occur2 == caseMolecule) {
+						    numeroMolecule = Integer.parseInt(matcher3.group());
 						}
 						else {
-							if (occur2 == caseMolecule) {
-								numeroMolecule = Integer.parseInt(matcher3.group());
-							}
-							else {
-								if (occur2 ==  positionMSD) {
-									valeurMSD = Float.parseFloat(matcher3.group());
-								}
-							}
-							occur2++;
+						    if (occur2 ==  positionMSD) {
+							valeurMSD = Float.parseFloat(matcher3.group());
+						    }
 						}
+					    }
+					    occur2++;
 					}
 					this.molecules.add(new Molecule(numeroMolecule, alpha, valeurMSD));
 				}
