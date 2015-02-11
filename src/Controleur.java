@@ -20,15 +20,16 @@ abstract class Controleur{
     private Vue vue;
     public Vector<Fenetre> fenetres;
     public int periode;
-    public int[] alphaSeparation;
-
+    public float[] alphaSeparation;
+    public boolean isChercheur;
  
-    public Controleur(){
+    public Controleur(boolean ischercheur){
     	vue = new Vue();
     	fenetres = new Vector<Fenetre>();
 		molecules = new ArrayList<Molecule>();
-	    alphaSeparation = new int[3];
-
+	    alphaSeparation = new float[3];
+	    setAlphaTab((float) 0.25, (float) 0.9, (float) 1.1);
+	    isChercheur = ischercheur;
     }
     
     public void printMolecules(){
@@ -279,6 +280,12 @@ abstract class Controleur{
     	molecules = newList;
     }
     
+    public void setAlphaTab (float x1, float x2, float x3){
+    	alphaSeparation[0] = x1;
+    	alphaSeparation[1] = x2;
+    	alphaSeparation[2] = x3;
+    }
+    
     public void setDuree(int newduree){
     	duree = newduree;
     }
@@ -294,6 +301,12 @@ abstract class Controleur{
     
     protected void setTempo (){
     	
+    }
+    
+    protected void analyseMolecules(){
+    	for (Molecule mol : molecules){
+    		mol.analyseMolecule(alphaSeparation, isChercheur);
+    	}
     }
     
 }

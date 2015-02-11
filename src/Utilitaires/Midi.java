@@ -92,7 +92,7 @@ public class Midi{
     }
     
    public void glissando(int note, int timbre,int volume,int debut, int fin, int distanceParcourrue, int vitesseOrd) throws InvalidMidiDataException{
-   /
+   
    // nbPas  égal à 64 pour la molécule ayant la distanceParcourrue la plus grande parmi toutes les molécules
    //ainsi, i (angle de la molette) sera au max pour une molécule parcourrant la plus grande distance
 	

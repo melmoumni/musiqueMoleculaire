@@ -42,7 +42,6 @@ Cette classe contiens les différents attributs relatifs à une molécule
     public Molecule(int numerot, ArrayList<CaracteristiqueTemporelle> positionst){
     	numero = numerot;
     	positions = positionst;
-    	analyseMolecules();
     }
 
     public Molecule(int numerot, float alphat, float msdt) {
@@ -89,12 +88,21 @@ Cette classe contiens les différents attributs relatifs à une molécule
     }
     
     
-    public void analyseMolecules(){
+    public void analyseMolecule(float[] alphaSeparation, boolean isChercheur){
     	analyseVitesse();
-    	analyseAlpha();
+    	analyseAlpha(alphaSeparation, isChercheur);
     	
     }	
-    private void analyseAlpha() {
+    private void analyseAlpha(float[] alphaSeparation, boolean isChercheur) {
+    	if (alpha < alphaSeparation[0]){
+    		
+    	}else if (alpha > alphaSeparation[0] && alpha > alphaSeparation[1]){
+    		
+    	}else if (alpha > alphaSeparation[1] && alpha > alphaSeparation[2]){
+    		
+    	}else {
+    		
+    	}
     	//cr�ation de l'effet
 	}
 

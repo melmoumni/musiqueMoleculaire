@@ -3,7 +3,7 @@ public class Compositeur extends Controleur {
 	public int seuilIntensite;
 
     public Compositeur(int seuilIntensitet) {
-	super();
+	super(false);
 	seuilIntensite = seuilIntensitet;
     }
 	
