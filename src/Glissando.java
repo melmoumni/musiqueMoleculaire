@@ -8,5 +8,7 @@ class Glissando implements Effet{
     public Glissando (int noteFinale){
     	noteF = noteFinale;
     }
-    
+
+    public Glissando (){
+    }
 }

@@ -95,13 +95,18 @@ Cette classe contiens les différents attributs relatifs à une molécule
     }	
     private void analyseAlpha(float[] alphaSeparation, boolean isChercheur) {
     	if (alpha < alphaSeparation[0]){
-    		
-    	}else if (alpha > alphaSeparation[0] && alpha > alphaSeparation[1]){
-    		
-    	}else if (alpha > alphaSeparation[1] && alpha > alphaSeparation[2]){
-    		
+    		effet = new Tenu();
+    	}else if (alpha > alphaSeparation[0] && alpha > alphaSeparation[1] && isChercheur){
+    		effet = new Boucle();
+    	}
+    	else if (alpha > alphaSeparation[0] && alpha > alphaSeparation[1] && !isChercheur){
+    		effet = new Tremolo();
+    	}else if (alpha > alphaSeparation[1] && alpha > alphaSeparation[2] && isChercheur){
+    		effet = new Aleatoire();
+    	}else if (alpha > alphaSeparation[1] && alpha > alphaSeparation[2] && !isChercheur){
+    		effet = new Glissando();
     	}else {
-    		
+    		effet = new Glissando(); 
     	}
     	//creation de l'effet
 	}
@@ -133,5 +138,10 @@ Cette classe contiens les différents attributs relatifs à une molécule
     	vitesseOrd = sumOrd / vitesseOrdonnees.size();
     }
 
-    
+	public void remplirSequenceMolecule(){
+		effet.remplirSequenceur();
+	}
+
+	
+	
 }

@@ -7,5 +7,9 @@ class Boucle implements Effet{
     public Boucle (int nbNotes){
     	nbnotes = nbNotes;
     }
+
+    public Boucle (){
+
+    }
     
 }
