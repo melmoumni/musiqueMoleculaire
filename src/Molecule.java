@@ -103,7 +103,7 @@ Cette classe contiens les différents attributs relatifs à une molécule
     	}else {
     		
     	}
-    	//cr�ation de l'effet
+    	//creation de l'effet
 	}
 
 	public void analyseVitesse(){
