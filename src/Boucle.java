@@ -12,4 +12,5 @@ class Boucle implements Effet{
 
     }
     
+    public void remplirSequenceur( Molecule mol){}
 }
