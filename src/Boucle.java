@@ -1,3 +1,4 @@
+import javax.sound.midi.*;
 
 
 class Boucle implements Effet{
@@ -12,5 +13,5 @@ class Boucle implements Effet{
 
     }
     
-    public void remplirSequenceur( Molecule mol){}
+    public void remplirSequenceur( Molecule mol) throws InvalidMidiDataException {}
 }

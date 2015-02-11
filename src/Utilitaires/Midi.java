@@ -7,8 +7,8 @@ import static java.lang.System.out;
 public class Midi{
     
 
-    private Sequencer sequenceur;
-    private Synthesizer synthetiseur;
+    static private Sequencer sequenceur;
+    static private Synthesizer synthetiseur;
 
     public Midi(){
 	try{
@@ -55,12 +55,12 @@ public class Midi{
     }
 
     
-    public void ajouterEvent(int numTrack, MidiEvent e){
+    static public void ajouterEvent(int numTrack, MidiEvent e){
 	Track[] t = sequenceur.getSequence().getTracks();
 	t[numTrack].add(e);
     }
 
-    public MidiEvent creerEvent(int command, int channel, int data1, int data2, long tick) throws InvalidMidiDataException{
+    static public MidiEvent creerEvent(int command, int channel, int data1, int data2, long tick) throws InvalidMidiDataException{
 	ShortMessage msg = new ShortMessage();
 	msg.setMessage(command, channel, data1, data2);
 	return new MidiEvent(msg, tick);
@@ -91,7 +91,7 @@ public class Midi{
     
     }
     
-   public void glissando(int note, int timbre,int volume,int debut, int fin, int distanceParcourrue, int vitesseOrd) throws InvalidMidiDataException{
+   static public void glissando(int note, int timbre,int volume,int debut, int fin, int distanceParcourrue, int vitesseOrd) throws InvalidMidiDataException{
    
    // nbPas  égal à 64 pour la molécule ayant la distanceParcourrue la plus grande parmi toutes les molécules
    //ainsi, i (angle de la molette) sera au max pour une molécule parcourrant la plus grande distance
@@ -121,7 +121,7 @@ public class Midi{
      }
      
     
-    private int retournerChannel(int timbre){
+    static private int retournerChannel(int timbre){
     	MidiChannel[] m = synthetiseur.getChannels();
     	for(int i=0; i<16; i++){
     		if(m[i].getProgram()==timbre)
