@@ -1,14 +1,14 @@
-comp: src/*.java
-	javac -d build src/*.java
+comp: midi src/*.java test
+	javac -cp build -d build src/*.java
 
-exec: comp
+exec:
 	java -cp build Main
 
-midi: comp
+midi: 
 	javac src/Utilitaires/Midi.java -d build -cp build
 
-test: comp
+test:
 	javac ./Test.java -d build -cp build
 
 clean:
-	rm build/*.class
+	rm -rf build/*
