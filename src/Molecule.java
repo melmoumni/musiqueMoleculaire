@@ -139,7 +139,7 @@ Cette classe contiens les différents attributs relatifs à une molécule
     }
 
 	public void remplirSequenceMolecule(){
-		effet.remplirSequenceur();
+		effet.remplirSequenceur(this);
 	}
 
 	

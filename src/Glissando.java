@@ -10,7 +10,7 @@ class Glissando implements Effet{
     
     
     public void remplirSequenceur( Molecule mol){
-    	glissando(mol);
+    	//glissando(mol);
     }
 
 
