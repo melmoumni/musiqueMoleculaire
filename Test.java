@@ -44,9 +44,14 @@ public class Test{
 	     for(i = 0; i<=127; i++)
 	     	m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,0,63,i,(i+1)*100 + 6500));*/
 	    
-	   // m.tremolo(60, 56, 60, 0, 1000);
-	  	m.glissando(60, 56,100, 0, 1000, 100, 15);
-	  	m.glissando(60, 56,100, 1001, 2000, 100, -15);
+	    //m.tremolo(60,  56, 60, 3000, 4500);
+	  	
+	  	//m.glissando(60, 56,100, 0, 1000, 100, 15);
+	  	//m.glissando(60, 56,100, 1001, 2000, 100, -15);
+	  	
+	  	m.noteTenue(60,56,100,0,1000);m.noteTenue(64,56,100,1000,2000);m.noteTenue(69,56,100,2000,3000);
+	  	m.noteTenue(60,56,100,3000,4500);m.noteTenue(64,56,100,3000,4500);m.noteTenue(69,56,100,3000,4500);
+	  	
 	    m.jouerSequence();
 	}
 	catch(MidiUnavailableException e){}

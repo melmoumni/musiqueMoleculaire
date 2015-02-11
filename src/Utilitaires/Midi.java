@@ -92,11 +92,11 @@ public class Midi{
     }
     
    public void glissando(int note, int timbre,int volume,int debut, int fin, int distanceParcourrue, int vitesseOrd) throws InvalidMidiDataException{
-   /
+   
    // nbPas  égal à 64 pour la molécule ayant la distanceParcourrue la plus grande parmi toutes les molécules
    //ainsi, i (angle de la molette) sera au max pour une molécule parcourrant la plus grande distance
 	
-   		int nbPas=64 * distanceParcourrue / 100; //100 <==>  distanceMaximale provisoire;
+   		int nbPas=64*distanceParcourrue / 100; //100 <==>  distanceMaximale provisoire;
 		int i;
    		int pas= (fin-debut)/nbPas;
       int channel=retournerChannel(timbre);
@@ -112,6 +112,14 @@ public class Midi{
       
 	      
     }
+    
+     public void noteTenue(int note, int timbre,int volume,int debut, int fin) throws InvalidMidiDataException{
+		 int channel=retournerChannel(timbre);
+		 ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut));
+		 ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note,volume,fin));
+     
+     }
+     
     
     private int retournerChannel(int timbre){
     	MidiChannel[] m = synthetiseur.getChannels();
