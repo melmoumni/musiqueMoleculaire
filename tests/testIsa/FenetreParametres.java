@@ -8,19 +8,28 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JTextField;
 
-public class FenetreParametres {
+public class FenetreParametres implements ActionListener{
 
 	private JFrame frame;
+	private JTextField filenameT;
+	private JTextField filenameM;
+	JButton btnChoisirTrajectoires;
+	JButton btnChoisirMvt;
 
 	/**
 	 * Launch the application.
@@ -60,10 +69,20 @@ public class FenetreParametres {
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		
 		JLabel lblFichiers = new JLabel("Fichiers");
-		
 		JLabel lblTrajectoires = new JLabel("Trajectoires");
 		
 		JLabel lblMouvements = new JLabel("Mouvements");
+		
+		btnChoisirTrajectoires = new JButton("Choisir un fichier");
+		btnChoisirTrajectoires.addActionListener(this);
+		btnChoisirMvt = new JButton("Choisir un fichier");
+		btnChoisirMvt.addActionListener(this);
+		
+		filenameT = new JTextField();
+		filenameT.setColumns(10);
+		
+		filenameM = new JTextField();
+		filenameM.setColumns(10);
 		
 		JLabel lblTailleDeLimage = new JLabel("Taille de l'image");
 		
@@ -82,6 +101,7 @@ public class FenetreParametres {
 		JLabel lblNoteDeRfrnce = new JLabel("Note de référénce");
 		
 		String[] listeNotes = { "do", "ré", "mi", "fa", "sol", "la","si" };
+		//JComboBox<String> notes = new JComboBox<String>(listeNotes);
 		JComboBox notes = new JComboBox(listeNotes);
 		
 		JLabel lblSeuils = new JLabel("Seuils");
@@ -117,11 +137,15 @@ public class FenetreParametres {
 		
 		JLabel lblS = new JLabel("s");
 		
+		ButtonGroup groupe = new ButtonGroup();
 		JRadioButton rdbtnChercheur = new JRadioButton("Chercheur");
 		rdbtnChercheur.setToolTipText("Tableau des instruments");
+		groupe.add(rdbtnChercheur);
 		
 		JRadioButton rdbtnCompositeur = new JRadioButton("Compositeur");
 		rdbtnCompositeur.setToolTipText("Analyse axiale");
+		groupe.add(rdbtnCompositeur);
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -149,62 +173,70 @@ public class FenetreParametres {
 														.addComponent(btnValider)
 														.addComponent(valeurAlpha2, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)))
 												.addGroup(gl_panel.createSequentialGroup()
-													.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(lblConfines)
+													.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+														.addGroup(gl_panel.createSequentialGroup()
+															.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+															.addPreferredGap(ComponentPlacement.RELATED)
+															.addComponent(lblConfines))
+														.addComponent(rdbtnChercheur))
 													.addGap(18)
-													.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
-												.addComponent(rdbtnChercheur))))
-									.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+													.addGap(33)
+													.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+														.addComponent(rdbtnCompositeur)
+														.addComponent(lblDirectionnelles))
+													.addPreferredGap(ComponentPlacement.RELATED)))))
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblDirectionnelles)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addGap(2)
-											.addComponent(rdbtnCompositeur))))
+											.addGap(46)
+											.addComponent(label_3))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addGap(38)
+											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+												.addComponent(valeurAlpha3, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+												.addGroup(gl_panel.createSequentialGroup()
+													.addGap(46)
+													.addComponent(lblDiffusives))
+												.addGroup(gl_panel.createSequentialGroup()
+													.addComponent(lblDure)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(valeurDuree, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))))))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addContainerGap()
 									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lblLargeur)
-										.addGroup(gl_panel.createSequentialGroup()
-											.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-												.addComponent(lblTailleDeLimage)
-												.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-													.addComponent(lblMouvements)
-													.addComponent(lblTrajectoires)))
-											.addGap(18)
-											.addComponent(lblX)))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(valeurH, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(lblPixels))
-										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(valeurL, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(label_1)))))
-							.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addGap(7)
-									.addComponent(valeurAlpha3, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(lblDure, Alignment.TRAILING)
-										.addComponent(label_3, Alignment.TRAILING))
+										.addComponent(lblTailleDeLimage)
+										.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+											.addComponent(lblMouvements)
+											.addComponent(lblTrajectoires)))
 									.addGap(18)
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblDiffusives)
+										.addComponent(lblLargeur)
+										.addComponent(filenameM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(filenameT, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblX))
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(valeurDuree, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(lblS)))))
-							.addGap(28))
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_panel.createSequentialGroup()
+													.addComponent(valeurH, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(lblPixels))
+												.addGroup(gl_panel.createSequentialGroup()
+													.addComponent(valeurL, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(label_1))))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addGap(30)
+											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+												.addComponent(btnChoisirTrajectoires, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+												.addComponent(btnChoisirMvt))))))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblS, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblFichiers)))
-					.addContainerGap(20, Short.MAX_VALUE))
+					.addContainerGap(49, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -212,10 +244,16 @@ public class FenetreParametres {
 					.addGap(18)
 					.addComponent(lblFichiers)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblTrajectoires)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblTrajectoires)
+						.addComponent(filenameT, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnChoisirTrajectoires, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblMouvements)
-					.addGap(25)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblMouvements)
+						.addComponent(filenameM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnChoisirMvt, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+					.addGap(21)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTailleDeLimage)
 						.addComponent(lblX)
@@ -226,10 +264,10 @@ public class FenetreParametres {
 						.addComponent(lblS))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblLargeur)
 						.addComponent(valeurL, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(label_1))
-					.addGap(29)
+						.addComponent(label_1)
+						.addComponent(lblLargeur))
+					.addGap(13)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(notes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNoteDeRfrnce))
@@ -242,8 +280,8 @@ public class FenetreParametres {
 						.addComponent(lblConfines)
 						.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblDirectionnelles)
-						.addComponent(lblDiffusives)
-						.addComponent(label_3))
+						.addComponent(label_3)
+						.addComponent(lblDiffusives))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
@@ -259,5 +297,28 @@ public class FenetreParametres {
 		);
 		panel.setLayout(gl_panel);
 		
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+	    if (e.getSource() == btnChoisirTrajectoires) {
+	    	JFileChooser chooser = new JFileChooser();
+	    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt");
+	    	chooser.setFileFilter(filter);
+	    	int returnVal = chooser.showOpenDialog(frame);
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            filenameT.setText(chooser.getSelectedFile().getPath());
+	        
+	        }
+	   }
+	    else if (e.getSource() == btnChoisirMvt) {
+	    	JFileChooser chooser = new JFileChooser();
+	    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt");
+	    	chooser.setFileFilter(filter);
+	    	int returnVal = chooser.showOpenDialog(frame);
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            filenameM.setText(chooser.getSelectedFile().getPath());
+	        
+	        } 
+	   } 
 	}
 }
