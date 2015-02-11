@@ -1,0 +1,7 @@
+EOS2-20ms-4000f001_MIA-Filter-10pt.trc 
+frametime: 0.02 s
+pixelsize: 0.16 micron
+minpointMSD: 10
+pourcentage_trajectory: 60
+number length(frame) intersect_MSD(um^2) Dinst(micron^2/s)  D(micron^2/s)   V(micron/s) r2/t(um2/s) R-square(D,V)   adjusted_R-square(D,V)  Vseul   R-square(Vseul) adjusted_R-square(Vseul)    Dseul R-square(Dseul)   adjusted_R-square(Dseul)  a2   A2 b alpha R-square-alpha 
+18706              23    0.0236182127    0.0907607708   0.00697722847  3.5564277e-005   0.00709010662     0.301428628     0.237922139     0.312583917     0.296105942     0.254700409    0.0069698487      0.30142855     0.260336112     0.078934519     0.728770588    0.0357300472     0.117127438      0.33799375
