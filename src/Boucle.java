@@ -7,5 +7,5 @@ class Boucle implements Effet{
     public Boucle (int nbNotes){
     	nbnotes = nbNotes;
     }
-    
+    public void remplirSequenceur( Molecule mol){}
 }
