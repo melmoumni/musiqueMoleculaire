@@ -95,7 +95,7 @@ Cette classe contiens les différents attributs relatifs à une molécule
     	
     }	
     private void analyseAlpha() {
-    	//cr�ation de l'effet
+    	//creation de l'effet
 	}
 
 	public void analyseVitesse(){
