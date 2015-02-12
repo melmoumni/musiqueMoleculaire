@@ -1,4 +1,6 @@
 import java.io.IOException;
+import Utilitaires.Midi;
+
 public class Main {
 
 	
@@ -28,11 +30,14 @@ public class Main {
 	}
 	controleur.analyseMolecules();
 	controleur.printMolecules();
+	
 	//5b - pour le compositeur : Choisir les molecules ou lui demander de choisir. 
 	//6 - Afficher le tableau des timbres
 	//7 - Renseigner le timbre correspondant pour chaque molecule.
 	//8 - Offrir la possibilite a l'utilisateur de jouer le son.
 	//9 - Jouer le son de toutes les molecules et Reconstituer la video des positions de chaque molecules
+	controleur.remplirSequence();
+	Midi.jouerSequence();
 	//10 - Relancer a l'etape 0, 2, 6 ou 8.
 		
     }

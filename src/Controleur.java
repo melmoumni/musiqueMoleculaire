@@ -12,11 +12,17 @@ import java.util.regex.Matcher;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
+
+import Utilitaires.Midi;
+
+
 abstract class Controleur{
 
 	public ArrayList<Molecule> molecules;
 	public int duree;
-	public int noteRef; 
+	static public int noteRef; 
 	private Vue vue;
 	public Vector<Fenetre> fenetres;
 	public int periode;
@@ -313,9 +319,14 @@ abstract class Controleur{
     }
     
     void remplirSequence(){
-    	for (Molecule mol : molecules){
-    		mol.remplirSequenceMolecule();
-    	}
+    	try{
+    		Midi.initialiser();
+    		Midi.configurerChannel(0, 56);
+    		for (Molecule mol : molecules){
+    			mol.remplirSequenceMolecule();
+    		}
+    	}catch(MidiUnavailableException e){}
+    	catch(InvalidMidiDataException e){}
     }
     
 }

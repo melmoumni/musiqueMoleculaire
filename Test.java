@@ -13,9 +13,9 @@ public class Test{
     public static void main(String[] args){
 	int i = 0;
 	try{
-	    Midi m = new Midi();
-	    m.initialiser();
-	    m.configurerChannel(0, 56);
+	    //Midi m = new Midi();
+	    Midi.initialiser();
+	    Midi.configurerChannel(0, 56);
 	    //tremolo entre la note 60 et 63
 	    /*
 	           for(i = 0; i<=30; i++){
@@ -48,27 +48,27 @@ public class Test{
 	    //m.glissando(60, 56,100, 0, 1000, 100, 15);
 	    //m.glissando(60, 56,100, 1001, 2000, 100, -15);
 
-	    m.noteTenue(64,0,100,0,500);
-	    m.noteTenue(63,0,100,500,1000);
-	    m.noteTenue(64,0,100,1000,1500);
-	    m.noteTenue(63,0,100,1500,2000);
-	    m.noteTenue(64,0,100,2000,2500);
-	    m.noteTenue(59,0,100,2500,3000);
-	    m.noteTenue(62,0,100,3000,3500);
-	    m.noteTenue(60,0,100,3500,4000);
-	    m.noteTenue(57,0,100,4000,5000);
+	    Midi.noteTenue(64,0,100,0,500);
+	    Midi.noteTenue(63,0,100,500,1000);
+	    Midi.noteTenue(64,0,100,1000,1500);
+	    Midi.noteTenue(63,0,100,1500,2000);
+	    Midi.noteTenue(64,0,100,2000,2500);
+	    Midi.noteTenue(59,0,100,2500,3000);
+	    Midi.noteTenue(62,0,100,3000,3500);
+	    Midi.noteTenue(60,0,100,3500,4000);
+	    Midi.noteTenue(57,0,100,4000,5000);
 
-	    m.noteTenue(48,0,100,5500,6000);
-	    m.noteTenue(52,0,100,6000,6500);
-	    m.noteTenue(57,0,100,6500,7000);
-	    m.noteTenue(59,0,100,7000,8000);
+	    Midi.noteTenue(48,0,100,5500,6000);
+	    Midi.noteTenue(52,0,100,6000,6500);
+	    Midi.noteTenue(57,0,100,6500,7000);
+	    Midi.noteTenue(59,0,100,7000,8000);
 
-	    m.noteTenue(52,0,100,8500,9000);
-	    m.noteTenue(56,0,100,9000,9500);
-	    m.noteTenue(59,0,100,9500,10000);
-	    m.noteTenue(60,0,100,10000,11500);
+	    Midi.noteTenue(52,0,100,8500,9000);
+	    Midi.noteTenue(56,0,100,9000,9500);
+	    Midi.noteTenue(59,0,100,9500,10000);
+	    Midi.noteTenue(60,0,100,10000,11500);
 	    
-	    m.jouerSequence();
+	    Midi.jouerSequence();
 	}
 	catch(MidiUnavailableException e){}
 	catch(InvalidMidiDataException e){}
