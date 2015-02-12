@@ -1,0 +1,4 @@
+Pour le lien entre Molecules et le son :
+- noteRef compris entre 0 et 8 -> faire référence à l'octave de référence
+- temps fin trop court -> solution provisoire x1000
+- volume ?
