@@ -109,7 +109,7 @@ public class Midi{
 		int i;
 		int pas= (fin-debut)/nbPas;
 		int channel=retournerChannel(timbre);
-		ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,0));
+		ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut));
 		if(vitesseOrd >=0){	  //glissando montant (suivant la vitesse ordonnée)
 			for(i =0; i< nbPas; i++)  {
 				ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64+i,debut+i*pas ));

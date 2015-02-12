@@ -43,9 +43,12 @@ public class Test{
 		         for(i = 0; i<=127; i++)
 			 m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,0,63,i,(i+1)*100 + 6500));*/
 
-	    Midi.tremolo(60,  56, 60, 3000, 4500);
+	    //	    Midi.tremolo(60,  56, 60, 3000, 4500);
 
-	    //Midi.glissando(60, 56,100, 0, 1000, 100, 15);
+	    //Midi.glissando(60, 0,100, 0, 4000, 100, 3000);
+	    //Midi.glissando(62, 0,100, 4000, 8000, 100, 3000);
+	    //	    Midi.noteTenue(61,0,100, 5000,5201);
+	    Midi.glissando(60,56,100,10000, 20000, 100, 30);
 	    //m.glissando(60, 56,100, 1001, 2000, 100, -15);
 
 //	    Midi.noteTenue(64,0,100,0,500);
