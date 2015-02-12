@@ -49,7 +49,7 @@ public class Midi{
 
 
 	//liberer le sequeceur et le synthetiseur
-	public void liberer(){
+	static public void liberer(){
 		sequenceur.close();
 		synthetiseur.close();
 	}
@@ -78,9 +78,10 @@ public class Midi{
 		sequenceur.start();
 	}
 
-	public void tremolo(int note, int timbre, int volume, int debut, int fin) throws InvalidMidiDataException{  //pour tester, en théorie on doit ne passer que la molécule
+	static public void tremolo(int note, int timbre, int volume, int debut, int fin) throws InvalidMidiDataException{  //pour tester, en théorie on doit ne passer que la molécule
 		int i;
-		int nbPas=10;  //A FAIRE: à definir suivant la vitesse initiale, eventuellement
+		//int nbPas=10;  //A FAIRE: à definir suivant la vitesse initiale, eventuellement
+		int nbPas = (fin - debut)/75;
 		int pas=(fin-debut)/nbPas;  
 		int channel=retournerChannel(timbre);
 		//System.out.println("timbre: "+ timbre +"  channel " + channel +" pas " +pas);
@@ -109,16 +110,16 @@ public class Midi{
 		int pas= (fin-debut)/nbPas;
 		int channel=retournerChannel(timbre);
 		ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,0));
-
-		if(vitesseOrd >=0)	  //glissando montant (suivant la vitesse ordonnée)
-			for(i =0; i< nbPas; i++)  
-				ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64+i,debut+i*pas ));      
-
-		else                //glissando descendant
-			for(i = 0; i<=nbPas; i++)   
+		if(vitesseOrd >=0){	  //glissando montant (suivant la vitesse ordonnée)
+			for(i =0; i< nbPas; i++)  {
+				ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64+i,debut+i*pas ));
+			}
+		}
+		else{                //glissando descendant
+			for(i = 0; i<=nbPas; i++){   
 				ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64-i,debut+i*pas ));
-
-
+			}
+		}
 	}
 
 	static public void noteTenue(int note, int timbre,int volume,int debut, int fin) throws InvalidMidiDataException{

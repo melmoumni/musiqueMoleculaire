@@ -13,7 +13,9 @@ class Glissando implements Effet{
     
     
     public void remplirSequenceur( Molecule mol) throws InvalidMidiDataException{
-    	Midi.glissando(1, 0, 1, 1, 3, 5, 5);
+    	System.out.println("ON EST LA");
+    	System.out.println("60  0  100 " + mol.positions.get(0).temps + " " + mol.positions.get(mol.positions.size() - 1).temps*1000 + " 70 " + (int) mol.vitesseOrd());
+    	Midi.glissando(60, 0, 100, mol.positions.get(0).temps, mol.positions.get(mol.positions.size() - 1).temps *1000, 20, (int) mol.vitesseOrd());
     }
 
 

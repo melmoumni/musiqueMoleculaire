@@ -43,31 +43,31 @@ public class Test{
 		         for(i = 0; i<=127; i++)
 			 m.ajouterEvent(0, m.creerEvent(ShortMessage.PITCH_BEND,0,63,i,(i+1)*100 + 6500));*/
 
-	    //m.tremolo(60,  56, 60, 3000, 4500);
+	    Midi.tremolo(60,  56, 60, 3000, 4500);
 
-	    //m.glissando(60, 56,100, 0, 1000, 100, 15);
+	    //Midi.glissando(60, 56,100, 0, 1000, 100, 15);
 	    //m.glissando(60, 56,100, 1001, 2000, 100, -15);
 
-	    Midi.noteTenue(64,0,100,0,500);
-	    Midi.noteTenue(63,0,100,500,1000);
-	    Midi.noteTenue(64,0,100,1000,1500);
-	    Midi.noteTenue(63,0,100,1500,2000);
-	    Midi.noteTenue(64,0,100,2000,2500);
-	    Midi.noteTenue(59,0,100,2500,3000);
-	    Midi.noteTenue(62,0,100,3000,3500);
-	    Midi.noteTenue(60,0,100,3500,4000);
-	    Midi.noteTenue(57,0,100,4000,5000);
-
-	    Midi.noteTenue(48,0,100,5500,6000);
-	    Midi.noteTenue(52,0,100,6000,6500);
-	    Midi.noteTenue(57,0,100,6500,7000);
-	    Midi.noteTenue(59,0,100,7000,8000);
-
-	    Midi.noteTenue(52,0,100,8500,9000);
-	    Midi.noteTenue(56,0,100,9000,9500);
-	    Midi.noteTenue(59,0,100,9500,10000);
-	    Midi.noteTenue(60,0,100,10000,11500);
-	    
+//	    Midi.noteTenue(64,0,100,0,500);
+//	    Midi.noteTenue(63,0,100,500,1000);
+//	    Midi.noteTenue(64,0,100,1000,1500);
+//	    Midi.noteTenue(63,0,100,1500,2000);
+//	    Midi.noteTenue(64,0,100,2000,2500);
+//	    Midi.noteTenue(59,0,100,2500,3000);
+//	    Midi.noteTenue(62,0,100,3000,3500);
+//	    Midi.noteTenue(60,0,100,3500,4000);
+//	    Midi.noteTenue(57,0,100,4000,5000);
+//
+//	    Midi.noteTenue(48,0,100,5500,6000);
+//	    Midi.noteTenue(52,0,100,6000,6500);
+//	    Midi.noteTenue(57,0,100,6500,7000);
+//	    Midi.noteTenue(59,0,100,7000,8000);
+//
+//	    Midi.noteTenue(52,0,100,8500,9000);
+//	    Midi.noteTenue(56,0,100,9000,9500);
+//	    Midi.noteTenue(59,0,100,9500,10000);
+//	    Midi.noteTenue(60,0,100,10000,11500);
+//	    
 	    Midi.jouerSequence();
 	}
 	catch(MidiUnavailableException e){}

@@ -14,7 +14,7 @@ public class Main {
 	//4 - Parser le fichier analyse.trc
 	// 4-1 Remplir la liste des molecules avec le alpha et le numero de la proteine
 	try {
-	    controleur.lireFichierAnalyse("./data/fichiersTests/analyseTestImmobile.txt");
+	    controleur.lireFichierAnalyse("./data/fichiersTests/analyseTestConfine.txt");
 	}
 	catch (IOException e) {
 	}
@@ -22,7 +22,7 @@ public class Main {
 	//5 - Parser le fichier trajectoires.trc
 	// 5-1 Completer les informations des proteines avec la liste des positions.
 	try {	
-	    controleur.lireFichierTrajectoire("./data/fichiersTests/trajectoiresTestImmobile.trc");
+	    controleur.lireFichierTrajectoire("./data/fichiersTests/trajectoiresTestConfine.trc");
 	    System.out.println("Lecture du 2e fichier");
 	
 	}
@@ -38,6 +38,8 @@ public class Main {
 	//9 - Jouer le son de toutes les molecules et Reconstituer la video des positions de chaque molecules
 	controleur.remplirSequence();
 	Midi.jouerSequence();
+	//System.out.println("Libération");
+	//Midi.liberer();
 	//10 - Relancer a l'etape 0, 2, 6 ou 8.
 		
     }

@@ -2,3 +2,8 @@ Pour le lien entre Molecules et le son :
 - noteRef compris entre 0 et 8 -> faire rÃ©fÃ©rence Ã  l'octave de rÃ©fÃ©rence
 - temps fin trop court -> solution provisoire x1000
 - volume ?
+
+Pour le glissando :
+- Ajouter la distance dans la structure Molécule (somme des distances à chaque pas)
+- Ajouter le max des distances effectuées par les molécules dans le controleur (et ajouter le paramètre dans la méthode glissando)
+- Le pitch-bend c'est pas un glissando (en note) :/
