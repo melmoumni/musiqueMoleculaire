@@ -154,12 +154,12 @@ Cette classe contiens les différents attributs relatifs à une molécule
 	    float ordTmp = positions.get(0).y;
 	    index++;
 	    while(index < positions.size()) {
-		//float pas = distancePas(absTmp, ordTmp, positions.get(index).x, positions.get(index).y);
+		float pas = distancePas(absTmp, ordTmp, positions.get(index).x, positions.get(index).y);
 		distance += pas;
 		if (pasMax < pas) {
 		    pasMax = pas;
 		}
-		System.out.println(distance);
+		//System.out.println(distance);
 		absTmp = positions.get(index).x;
 		ordTmp = positions.get(index).y;
 		index++;
