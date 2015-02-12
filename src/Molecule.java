@@ -12,11 +12,12 @@ Cette classe contiens les différents attributs relatifs à une molécule
     private float vitesseAbs;
     private float vitesseOrd;
     private Timbre timbre;
+    private float distance;
     private float alpha;
     private float msd;
     private Effet effet;
     private int tempo; // ou pas !!!
-    private int pasMax; // juste pour les boucles
+    private float pasMax; // juste pour les boucles
     Molecule(){
 	positions = new ArrayList<CaracteristiqueTemporelle>();
     }
@@ -35,6 +36,7 @@ Cette classe contiens les différents attributs relatifs à une molécule
     	System.out.println("Effet" + effet.getClass().getName());
     	//System.out.println("Tempo : "+tempo);
     	System.out.println("PasMax : " + pasMax);
+    	System.out.println("Distance parcourue : " + distance);
     	System.out.println("==================================");
 
     }
@@ -77,6 +79,10 @@ Cette classe contiens les différents attributs relatifs à une molécule
     
     public int vitesse(){
     	return (int) Math.sqrt(vitesseAbs()*vitesseAbs() + vitesseOrd() * vitesseOrd());
+    }
+    
+    public float distancePas(float abs1, float ord1, float abs2, float ord2) {
+	return (float) Math.sqrt(Math.abs (Math.pow( (abs2-abs1), 2.0) + Math.pow( (ord2-ord1), 2.0))) ; 
     }
     
     public void setEffet (Effet effett){
@@ -137,6 +143,28 @@ Cette classe contiens les différents attributs relatifs à une molécule
     	}
     	vitesseOrd = sumOrd / vitesseOrdonnees.size();
     }
+
+    	public void analyseDistance(){
+	    //ArrayList<Float> vitesseAbsisses = new ArrayList<Float>(); 
+	    //ArrayList<Float> vitesseOrdonnees = new ArrayList<Float>();
+	    //CaracteristiqueTemporelle tmp = new CaracteristiqueTemporelle();
+	    int index = 0;
+	    distance = 0;
+	    float absTmp = positions.get(0).x;
+	    float ordTmp = positions.get(0).y;
+	    index++;
+	    while(index < positions.size()) {
+		//float pas = distancePas(absTmp, ordTmp, positions.get(index).x, positions.get(index).y);
+		distance += pas;
+		if (pasMax < pas) {
+		    pasMax = pas;
+		}
+		System.out.println(distance);
+		absTmp = positions.get(index).x;
+		ordTmp = positions.get(index).y;
+		index++;
+	    }
+	}
 
 	public void remplirSequenceMolecule(){
 		try{

@@ -315,6 +315,7 @@ abstract class Controleur{
     protected void analyseMolecules(){
     	for (Molecule mol : molecules){
     		mol.analyseMolecule(alphaSeparation, isChercheur);
+		mol.analyseDistance();
     	}
     }
     
