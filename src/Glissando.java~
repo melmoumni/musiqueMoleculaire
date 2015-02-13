@@ -3,7 +3,7 @@ import javax.sound.midi.*;
 
 
 
-// chercheur : mouvement directionnel;  compositeur: mouvements diffusifs et directionnels
+//mouvement directionnel
 class Glissando implements Effet{
 
 	

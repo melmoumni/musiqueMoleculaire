@@ -6,7 +6,7 @@ Le nombre de note sera compris entre 2 (surface minimale) et 9 (surface maximale
 Par exemple si la note principale est le Do, alors la protéine ayant la surface minimale par rapport aux autres sera composée des notes Do-Mi, tandis que celle ayant la surface maximale sera composée des notes Do-Mi-Sol-Do-Mi-Sol-Do-Mi-Sol sur 3 octaves.*/
 
 
-//où sont définies les surfaces max et min? dans effet?
+//où sont définis les surfaces max et min? dans effet?
 
 class Boucle implements Effet{
 

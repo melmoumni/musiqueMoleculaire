@@ -97,7 +97,7 @@ Cette classe contiens les différents attributs relatifs à une molécule
    		timbre=new Timbre(timbret);
    	}
    	
-   	public int getTimbre(){
+   	public void getTimbre(){
    		return timbre.timbreMIDI();
    	}
     
