@@ -40,7 +40,7 @@ class Boucle implements Effet{
     	
     	// nbNotes entre 4 et 7.
     	int nbNotes =  (int) (3* ((mol.msd() - minMSD) / (maxMSD - minMSD)) + 4);
-		System.out.printf("NbNote : %d \n", nbNotes);
+		//System.out.printf("NbNote : %d \n", nbNotes);
     	while (ti < tf){
     		nextIntervalle = 4;
     		//tmpNote = Controleur.noteRef;
@@ -48,7 +48,7 @@ class Boucle implements Effet{
     		for (int i = 0 ; i < nbNotes ; i++){
     			if (ti < tf){
 
-    				System.out.printf("%d ", tmpNote);
+    				//System.out.printf("%d ", tmpNote);
     				Midi.noteTenue(tmpNote, 56, 100, ti, ti + INTER_NOTES);
     				tmpNote += nextIntervalle;
     			}
