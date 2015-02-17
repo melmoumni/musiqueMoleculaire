@@ -59,7 +59,7 @@ public class FenetreParametres implements ActionListener{
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Param√®tres de l'application");
+		frame.setTitle("Parametres de l'application");
 		frame.setBounds(100, 100, 630, 450);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
@@ -98,9 +98,9 @@ public class FenetreParametres implements ActionListener{
 		
 		JLabel label_1 = new JLabel("pixels");
 		
-		JLabel lblNoteDeRfrnce = new JLabel("Note de r√©f√©r√©nce");
+		JLabel lblNoteDeRfrnce = new JLabel("Note de rÈfÈrence");
 		
-		String[] listeNotes = { "do", "r√©", "mi", "fa", "sol", "la","si" };
+		String[] listeNotes = { "do", "rÈ", "mi", "fa", "sol", "la","si" };
 		//JComboBox<String> notes = new JComboBox<String>(listeNotes);
 		JComboBox notes = new JComboBox(listeNotes);
 		
@@ -108,7 +108,7 @@ public class FenetreParametres implements ActionListener{
 		
 		JLabel lblImmobiles = new JLabel("Immobiles");
 		
-		JLabel lblConfines = new JLabel("Confin√©es");
+		JLabel lblConfines = new JLabel("ConfinÈes");
 		
 		JLabel lblDirectionnelles = new JLabel("Directionnelles");
 		
@@ -131,7 +131,7 @@ public class FenetreParametres implements ActionListener{
 		
 		JButton btnValider = new JButton("Valider");
 		
-		JLabel lblDure = new JLabel("Dur√©e");
+		JLabel lblDure = new JLabel("DurÈe");
 		
 		JSpinner valeurDuree = new JSpinner();
 		
@@ -302,7 +302,7 @@ public class FenetreParametres implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 	    if (e.getSource() == btnChoisirTrajectoires) {
 	    	JFileChooser chooser = new JFileChooser();
-	    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt");
+	    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt", "trc");
 	    	chooser.setFileFilter(filter);
 	    	int returnVal = chooser.showOpenDialog(frame);
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -312,7 +312,7 @@ public class FenetreParametres implements ActionListener{
 	   }
 	    else if (e.getSource() == btnChoisirMvt) {
 	    	JFileChooser chooser = new JFileChooser();
-	    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt");
+	    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt", "trc");
 	    	chooser.setFileFilter(filter);
 	    	int returnVal = chooser.showOpenDialog(frame);
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {

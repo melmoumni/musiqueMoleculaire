@@ -61,6 +61,10 @@ Cette classe contiens les différents attributs relatifs à une molécule
     	return numero;
     }
     
+    public float msd(){
+    	return msd;
+    }
+    
     public void setPositions(ArrayList<CaracteristiqueTemporelle> positionst) {
 	positions = positionst;
     }
