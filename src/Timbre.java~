@@ -29,7 +29,7 @@ class Timbre{
     	return octaveRef;
     }
     
-    private void setInfo(int timbre){  //affecter min, max et octave ref suivant le fichier liste d'instruments.txt
+    private void setInfo(int timbre){  //affecter mix, max et octave ref suivant le fichier liste d'instruments.txt
     
     
     
