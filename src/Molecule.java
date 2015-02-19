@@ -12,6 +12,7 @@ Cette classe contiens les différents attributs relatifs à une molécule
 	private float vitesseAbs;
 	private float vitesseOrd;
 	private Timbre timbre;
+	private int volume = 100;           //� mettre dans constructeur plus tard et faire varier
 	private float distance;
 	private float alpha;
 	private float msd;
@@ -109,6 +110,14 @@ Cette classe contiens les différents attributs relatifs à une molécule
 		return timbre.timbreMIDI();
 	}
 
+	public void setVolume(int volumet){
+		volume=volumet;
+	}
+
+	public int getVolume(){
+		return volume;
+	}
+	
 	public void analyseMolecule(float[] alphaSeparation, boolean isChercheur){
 		analyseVitesse();
 		analyseAlpha(alphaSeparation, isChercheur);

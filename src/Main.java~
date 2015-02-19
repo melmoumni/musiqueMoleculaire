@@ -14,7 +14,7 @@ public class Main {
 	//4 - Parser le fichier analyse.trc
 	// 4-1 Remplir la liste des molecules avec le alpha et le numero de la proteine
 	try {
-	    controleur.lireFichierAnalyse("../data/fichiersTests/analyseTestdiffusif.txt");
+	    controleur.lireFichierAnalyse("../data/fichiersTests/analyseTestDiffusif.txt");
 	}
 	catch (IOException e) {
 	}

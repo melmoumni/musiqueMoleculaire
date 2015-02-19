@@ -49,7 +49,7 @@ class Boucle implements Effet{
     			if (ti < tf){
 
     				//System.out.printf("%d ", tmpNote);
-    				Midi.noteTenue(tmpNote, 56, 100, ti, ti + INTER_NOTES);
+    				Midi.noteTenue(tmpNote,  mol.getTimbre(), mol.getVolume(), ti, ti + INTER_NOTES);
     				tmpNote += nextIntervalle;
     			}
     			ti+=INTER_NOTES;
@@ -67,7 +67,7 @@ class Boucle implements Effet{
     				nextIntervalle = 4;    				
     				break;
     			default:
-    				System.err.println("Bug du prochain interalle");
+    				System.err.println("Bug du prochain intervalle");
     				break;
     			}
     		}
