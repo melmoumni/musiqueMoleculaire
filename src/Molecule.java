@@ -11,14 +11,14 @@ Cette classe contiens les diff√©rents attributs relatifs √† une mol√©cule
 	protected ArrayList<CaracteristiqueTemporelle> positions;
 	private float vitesseAbs;
 	private float vitesseOrd;
-	private Timbre timbre;
-	private int volume = 100;           //‡ mettre dans constructeur plus tard et faire varier
+	private Timbre timbre = new Timbre(56); // changer ensuite
+	private int volume = 100;           //mettre dans constructeur plus tard et faire varier
 	private float distance;
 	private float alpha;
 	private float msd;
 	private Effet effet;
 	private int tempo; // ou pas !!!
-	private float pasMax; // juste pour les alÈatoires
+	private float pasMax; // juste pour les aleatoires
 	Molecule(){
 		positions = new ArrayList<CaracteristiqueTemporelle>();
 	}
