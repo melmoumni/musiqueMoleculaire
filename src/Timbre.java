@@ -7,6 +7,13 @@ class Timbre{
     final private int max;
     final private int octaveRef;
     
+    public Timbre(int timbre){//ne sert que pour les tests actuels
+	timbreMIDI = timbre;
+	min = 0;
+	max = 0;
+	octaveRef = 0;
+    }
+
     public Timbre(int timbre, int mint, int maxt, int octave){
 	timbreMIDI = timbre;
 	min = mint;

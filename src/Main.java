@@ -8,7 +8,7 @@ public class Main {
 		
 	//0 - Creer le controleur initial.
 	Controleur controleur = new Chercheur();
-	Parseur p = new Parseur(controleur);
+	Parseur p = new Parseur();
 	//1 - Lancer la vue
 	//2 - Lancer la fenetre de parametrage (choix chercheur/compositeur, noteRef, alpha, seuil ...)
 	//3 - Creer le controleur correspondant, le tableau correspondant
@@ -29,9 +29,9 @@ public class Main {
 	}
 	catch (IOException e) {
 	}
-
-	p.controleur.analyseMolecules();
-	p.controleur.printMolecules();
+	controleur.setMolecules(p);
+	controleur.analyseMolecules();
+	controleur.printMolecules();
 	
 	//5b - pour le compositeur : Choisir les molecules ou lui demander de choisir. 
 	//6 - Afficher le tableau des timbres
@@ -39,7 +39,7 @@ public class Main {
 	//8 - Offrir la possibilite a l'utilisateur de jouer le son.
 	
 	//9 - Jouer le son de toutes les molecules et Reconstituer la video des positions de chaque molecules
-	p.controleur.remplirSequence();
+	controleur.remplirSequence();
 	Midi.jouerSequence();
 	//System.out.println("Liberation");
 	//Midi.liberer();

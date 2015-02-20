@@ -19,41 +19,46 @@ import Utilitaires.Midi;
 
 
 abstract class Controleur{
+    
+    public Parseur parseur;
+    public ArrayList<Molecule> molecules;
+    public int duree;
+    static public int noteRef; 
+    private Vue vue;
+    public Vector<Fenetre> fenetres;
+    public int periode;
+    public float[] alphaSeparation;
+    public boolean isChercheur;
 
-	public ArrayList<Molecule> molecules;
-	public int duree;
-	static public int noteRef; 
-	private Vue vue;
-	public Vector<Fenetre> fenetres;
-	public int periode;
-	public float[] alphaSeparation;
-	public boolean isChercheur;
+    public Controleur(boolean ischercheur){
+	vue = new Vue();
+	parseur = new Parseur();
+	fenetres = new Vector<Fenetre>();
+	molecules = new ArrayList<Molecule>();
+	alphaSeparation = new float[3];
+	setAlphaTab((float) 0.25, (float) 0.9, (float) 1.1);
+	isChercheur = ischercheur;
+    }
 
-	public Controleur(boolean ischercheur){
-		vue = new Vue();
-		fenetres = new Vector<Fenetre>();
-		molecules = new ArrayList<Molecule>();
-		alphaSeparation = new float[3];
-		setAlphaTab((float) 0.25, (float) 0.9, (float) 1.1);
-		isChercheur = ischercheur;
+    public void printMolecules(){
+	for (Molecule mol : molecules){
+	    mol.printMolecule();
 	}
+    }
 
-	public void printMolecules(){
-		for (Molecule mol : molecules){
-			mol.printMolecule();
-		}
-	}
+    public void setMolecules(Parseur parseur){
+	molecules = parseur.molecules;
+    }
 
+    public ArrayList<Molecule> molecules(){
+	return molecules;
+    }
 
-	public ArrayList<Molecule> molecules(){
-		return molecules;
-	}
+    public int periode(){
+	return periode;
+    }
 
-	public int periode(){
-		return periode;
-	}
-
-	public void setMolecules(ArrayList<Molecule> newList){
+    public void setMolecules(ArrayList<Molecule> newList){
     	molecules = newList;
     }
     
@@ -82,18 +87,18 @@ abstract class Controleur{
     
     protected void analyseMolecules(){
     	for (Molecule mol : molecules){
-    		mol.analyseMolecule(alphaSeparation, isChercheur);
-		mol.analyseDistance();
+	    mol.analyseMolecule(alphaSeparation, isChercheur);
+	    mol.analyseDistance();
     	}
     }
     
     void remplirSequence(){
     	try{
-    		Midi.initialiser();
-    		Midi.configurerChannel(0, 56);
-    		for (Molecule mol : molecules){
-    			mol.remplirSequenceMolecule();
-    		}
+	    Midi.initialiser();
+	    Midi.configurerChannel(0, 56);
+	    for (Molecule mol : molecules){
+		mol.remplirSequenceMolecule();
+	    }
     	}catch(MidiUnavailableException e){}
     	catch(InvalidMidiDataException e){}
     }

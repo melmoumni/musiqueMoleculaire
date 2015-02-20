@@ -13,17 +13,15 @@ import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
 class Parseur {
+    public ArrayList<Molecule> molecules;
 
-    public Controleur controleur;
-    
-
-    public Parseur(Controleur controleurt){
-	controleur = controleurt;
+    public Parseur(){
+	molecules = new ArrayList<Molecule>();
     }
     
     void lireFichierTrajectoire(String nomDuFichier) throws IOException {
 	int index = 0;
-	int nombreMolecules = controleur.molecules.size();
+	int nombreMolecules = molecules.size();
 	String patternEntier = "(\\d+)";
 	String patternEspace = "(\\s+)";
 	String patternReel = "(\\d*(\\.\\d+)?)";
@@ -34,7 +32,7 @@ class Parseur {
 	try {
 	    BufferedReader reader = new BufferedReader(new FileReader(nomDuFichier));
 	    String currentLine;
-	    int proteineEnRemplissage = (controleur.molecules.get(index)).numero();
+	    int proteineEnRemplissage = (molecules.get(index)).numero();
 	    int compteur = 1; // pour connaitre la ligne en cours de traitement
 	    ArrayList listeEnRemplissage = new ArrayList<CaracteristiqueTemporelle>();
 	    while (((currentLine = reader.readLine()) != null)&&(index<nombreMolecules)) {
@@ -45,16 +43,16 @@ class Parseur {
 
 		    if ((numeroProteine != proteineEnRemplissage) && (numeroProteine > proteineEnRemplissage)){
 			//on renseigne les champs de la molécule en cours : on a fini de la traiter
-			(controleur.molecules.get(index)).setPositions(listeEnRemplissage); // on remplit la liste de caracs temporelles ie les positions
-			(controleur.molecules.get(index)).setInstantInitial(controleur.molecules.get(index).positions.get(0).temps());//on remplit l'instant initial de la molecule avec la liste des caracs temporelles
-			(controleur.molecules.get(index)).setInstantFinal(controleur.molecules.get(index).positions.get(listeEnRemplissage.size() - 1).temps());// idem mais pour l'instant final
+			(molecules.get(index)).setPositions(listeEnRemplissage); // on remplit la liste de caracs temporelles ie les positions
+			(molecules.get(index)).setInstantInitial(molecules.get(index).positions.get(0).temps());//on remplit l'instant initial de la molecule avec la liste des caracs temporelles
+			(molecules.get(index)).setInstantFinal(molecules.get(index).positions.get(listeEnRemplissage.size() - 1).temps());// idem mais pour l'instant final
 			//on passe à la molécule suivante
 			if (index < nombreMolecules) { //problème pour le dernier élément de la liste dépassement
 			    index++;
 			}
 			// on met à jour le numéro de proteine en cours
 			if (index < nombreMolecules) { ////problème pour le dernier élément de la liste dépassement
-			    proteineEnRemplissage = controleur.molecules.get(index).numero();    
+			    proteineEnRemplissage = molecules.get(index).numero();    
 			}
 			//et la nouvelle liste de position intermediaire
 			listeEnRemplissage = new ArrayList<CaracteristiqueTemporelle>();
@@ -76,10 +74,10 @@ class Parseur {
 		scan.close();
 		compteur++;
 	    }
-	    if (index < nombreMolecules && controleur.molecules.get(index).positions==null){
-		(controleur.molecules.get(index)).setPositions(listeEnRemplissage); // on remplit la liste de caracs temporelles ie les positions
-		(controleur.molecules.get(index)).setInstantInitial(controleur.molecules.get(index).positions.get(0).temps()); //on remplit l'instant initial de la molecule avec la liste des caracs temporelles
-		(controleur.molecules.get(index)).setInstantFinal(controleur.molecules.get(index).positions.get(listeEnRemplissage.size() - 1).temps()); // idem mais pour l'instant final
+	    if (index < nombreMolecules && molecules.get(index).positions==null){
+		(molecules.get(index)).setPositions(listeEnRemplissage); // on remplit la liste de caracs temporelles ie les positions
+		(molecules.get(index)).setInstantInitial(molecules.get(index).positions.get(0).temps()); //on remplit l'instant initial de la molecule avec la liste des caracs temporelles
+		(molecules.get(index)).setInstantFinal(molecules.get(index).positions.get(listeEnRemplissage.size() - 1).temps()); // idem mais pour l'instant final
 	    }
 	    reader.close();
 	}
@@ -242,7 +240,7 @@ class Parseur {
 			}
 			occur2++;
 		    }
-		    controleur.molecules.add(new Molecule(numeroMolecule, alpha, valeurMSD));
+		    molecules.add(new Molecule(numeroMolecule, alpha, valeurMSD));
 		}
 		else {
 		    System.out.println("Erreur de formation du fichier à la ligne " + compteur);
