@@ -29,6 +29,7 @@ abstract class Controleur{
     public int periode;
     public float[] alphaSeparation;
     public boolean isChercheur;
+    static public Timbre[] tableauTimbre;
 
     public Controleur(boolean ischercheur){
 	vue = new Vue();
@@ -46,6 +47,16 @@ abstract class Controleur{
 	}
     }
 
+    public void printTimbres(){
+	for (Timbre timbre : tableauTimbre){
+	    timbre.printTimbre();
+	}
+    }
+    
+    public void initMolecules(Parseur parseur){
+	molecules = parseur.molecules;
+	tableauTimbre = parseur.tableauTimbre;
+    }
     public void setMolecules(Parseur parseur){
 	molecules = parseur.molecules;
     }
