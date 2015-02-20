@@ -2,30 +2,31 @@
 
 class Timbre{
 
-    static private int timbreMIDI;
-    static private int min;
-    static private int max;
-    static private int octaveRef;
-
+    final private int timbreMIDI;
+    final private int min;
+    final private int max;
+    final private int octaveRef;
     
-    public Timbre(int timbre){
-    	timbreMIDI = timbre;
-    	//setInfo(timbre);
+    public Timbre(int timbre, int mint, int maxt, int octave){
+	timbreMIDI = timbre;
+	min = mint;
+	max = maxt;
+	octaveRef = octave;
     }
     
-    static public int timbreMIDI(){
+    public int timbreMIDI(){
     	return timbreMIDI;
     }
 
-    static public int min(){
+    public int min(){
     	return min;
     }
     
-    static public int max(){
+    public int max(){
     	return max;
     }
     
-    static public int octaveRef(){
+    public int octaveRef(){
     	return octaveRef;
     }
     
