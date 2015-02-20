@@ -14,9 +14,11 @@ import java.util.regex.Pattern;
 
 class Parseur {
     public ArrayList<Molecule> molecules;
+    public Timbre[] tableauTimbre;
 
     public Parseur(){
 	molecules = new ArrayList<Molecule>();
+	tableauTimbre = new Timbre[128];
     }
     
     void lireFichierTrajectoire(String nomDuFichier) throws IOException {
@@ -271,8 +273,8 @@ class Parseur {
 					  patternEntier+
 					  patternEspace+
 					  patternEntier+
-					  patternEspace+
-					  patternEntier+
+					  //patternEspace+ servira pour l'octave
+					  //patternEntier+
 					  patternEspaceEtoile+
 					  FinDeLigne);
 	try {
@@ -281,9 +283,15 @@ class Parseur {
 	    int compteur = 1;
 	    while ((currentLine = reader.readLine()) != null) {
 		Scanner scan = new Scanner(currentLine);
+		System.out.println(currentLine);
 		if (scan.findInLine(pattern) != null) {
 		    MatchResult match = scan.match();
-		    System.out.printf("Instrument %d,  %s,  min : %d, max : %d%n", Integer.parseInt(match.group(1)), match.group(2), Integer.parseInt(match.group(3)), Integer.parseInt(match.group(4)));
+		    int numeroTimbre = Integer.parseInt(match.group(1));
+		    int fmin = Integer.parseInt(match.group(3));
+		    int fmax = Integer.parseInt(match.group(4));
+		    int oct = 0;//a remplacer par Integer.parseInt(match.group(5)) quand le fichier de timbre sera complet
+		    System.out.printf("Instrument %d,  %s,  min : %d, max : %d%n", numeroTimbre, match.group(2), fmin, fmax);
+		    tableauTimbre[compteur-1] = new Timbre(numeroTimbre,fmin,fmax,0);
 		}
 		else {
 		    System.out.println("Erreur de formation du fichier à la ligne " + compteur);

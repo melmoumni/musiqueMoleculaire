@@ -21,6 +21,16 @@ class Timbre{
 	octaveRef = octave;
     }
     
+    public void printTimbre(){
+	System.out.println("==================================");
+	System.out.println("Timbre Midi numéro : " + timbreMIDI);
+	System.out.println("Min : " + min);
+	System.out.println("Max : " + max);
+	//System.out.println("Octave : " + octaveRef);
+	System.out.println("==================================");
+
+    }
+
     public int timbreMIDI(){
     	return timbreMIDI;
     }

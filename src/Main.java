@@ -23,15 +23,21 @@ public class Main {
 	//5 - Parser le fichier trajectoires.trc
 	// 5-1 Completer les informations des proteines avec la liste des positions.
 	try {	
-	    p.lireFichierTrajectoire("./data/fichiersTests/trajectoiresTest.trc");
 	    System.out.println("Lecture du 2e fichier");
-	
+	    p.lireFichierTrajectoire("./data/fichiersTests/trajectoiresTest.trc");
 	}
 	catch (IOException e) {
 	}
-	controleur.setMolecules(p);
+	try {	
+	    System.out.println("Lecture du fichier de timbres");
+	    p.lectureTimbre("./data/listeInstruments.txt");
+	}
+	catch (IOException e) {
+	}
+	controleur.initMolecules(p);
 	controleur.analyseMolecules();
 	controleur.printMolecules();
+	controleur.printTimbres();
 	
 	//5b - pour le compositeur : Choisir les molecules ou lui demander de choisir. 
 	//6 - Afficher le tableau des timbres
