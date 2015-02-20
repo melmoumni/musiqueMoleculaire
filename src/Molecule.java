@@ -39,6 +39,8 @@ class Molecule{
 	System.out.println("Effet" + effet.getClass().getName());
 	//System.out.println("Tempo : "+tempo);
 	System.out.println("PasMax : " + pasMax);
+	System.out.println("Instant initial : " + instantInitial);
+	System.out.println("Instant final : " + instantFinal);
 	System.out.println("Distance parcourue : " + distance);
 	System.out.println("==================================");
 
