@@ -17,19 +17,19 @@ class CaracteristiqueTemporelle{
     	intensite = intensitet;    	
     }
     
-    protected float x (){
+    protected float x(){
     	return x;
     }
 
-    protected float y (){
+    protected float y(){
     	return y;
     }
     
-    protected float temps (){
+    protected int temps(){
     	return temps;
     }
     
-    protected float intensite (){
+    protected float intensite(){
     	return intensite;
     }
     

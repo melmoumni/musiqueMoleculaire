@@ -2,36 +2,33 @@
 
 class Timbre{
 
-    private int timbreMIDI;
-    private int min;
-    private int max;
-    private int octaveRef;
+    static private int timbreMIDI;
+    static private int min;
+    static private int max;
+    static private int octaveRef;
 
     
     public Timbre(int timbre){
     	timbreMIDI = timbre;
-    	setInfo(timbre);
+    	//setInfo(timbre);
     }
     
-    public int timbreMIDI(){
+    static public int timbreMIDI(){
     	return timbreMIDI;
     }
 
-    public int min(){
+    static public int min(){
     	return min;
     }
     
-    public int max(){
+    static public int max(){
     	return max;
     }
     
-    public int octaveRef(){
+    static public int octaveRef(){
     	return octaveRef;
     }
     
-    private void setInfo(int timbre){  //affecter min, max et octave ref suivant le fichier liste d'instruments.txt
-    
-    
-    
-    }
+    // static private void setInfo(int timbre){  //affecter min, max et octave ref suivant le fichier liste d'instruments.txt
+    // }
 }
