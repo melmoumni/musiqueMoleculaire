@@ -1,16 +1,9 @@
 package testIsa;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
-
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -22,55 +15,58 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextField;
-import java.awt.Font;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
 import javax.swing.border.TitledBorder;
 
-public class FenetreParametres implements ActionListener{
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.EventQueue;
 
-	private JFrame frame;
-	private JTextField filenameT;
-	private JTextField filenameM;
+public class FenetreParametres extends JFrame implements ActionListener{
+
+	private JTextField filenameT; // nom du fichier Trajectoires
+	private JTextField filenameM; // nom du fichier Mouvements
+	
+	/* Declaration des boutons, necessaires pour lancer des actions */
 	JButton btnChoisirTrajectoires;
 	JButton btnChoisirMvt;
-
+	JButton btnValider;
+	
+	JSpinner valeurH; // hauteur de l'image
+	JSpinner valeurL; // largeur de l'image
+	
+	JComboBox<String> notes; // liste des notes de references possibles
+	
+	JSpinner valeurDuree; // duree souhaitee pour l'enregistrement
+	
+	JSpinner valeurAlpha1; // valeur du 1er seuil alpha : entre immobiles et confinees
+	JSpinner valeurAlpha2; // valeur du 2eme seuil alpha : entre confinees et directionnelles 
+	JSpinner valeurAlpha3; // valeur du 3eme seuil alpha : entre directionnelles et diffusives
+	
+	ButtonGroup groupe;
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FenetreParametres window = new FenetreParametres();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		FenetreParametres param = new FenetreParametres();
 	}
 
 	/**
-	 * Create the application.
+	 * Creation de la fenetre et ajout des differents composants
 	 */
 	public FenetreParametres() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setTitle("Parametres de l'application");
-		frame.setBounds(100, 100, 630, 450);
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("Parametres de l'application");
+		this.setBounds(100, 100, 525, 500);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Donnees d'entrees", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Données d'entrées", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JLabel label = new JLabel("Fichiers");
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -93,67 +89,62 @@ public class FenetreParametres implements ActionListener{
 		JLabel label_7 = new JLabel("Taille de l'image");
 		label_7.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		JLabel lblHauteur = new JLabel("Hauteur");
-		
-		JLabel lblLargeur = new JLabel("Largeur");
-		
-		JSpinner valeurH = new JSpinner();
-		
-		JSpinner valeurL = new JSpinner();
+		JLabel lblHauteur = new JLabel("Hauteur");	
+		JLabel lblLargeur = new JLabel("Largeur");	
+		valeurH = new JSpinner();
+		valeurL = new JSpinner();
 		
 		JPanel panel = new JPanel();
 		
 		JLabel lblNoteDeRfrnce = new JLabel("Note de reference");
-
-		
 		String[] listeNotes = { "do", "ré", "mi", "fa", "sol", "la","si" };
-		//JComboBox<String> notes = new JComboBox<String>(listeNotes);
-		JComboBox notes = new JComboBox(listeNotes);
+		notes = new JComboBox<String>(listeNotes);
+		//notes = new JComboBox(listeNotes);
 		
 		JLabel lblSeuils = new JLabel("Seuils alpha");
 		lblSeuils.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		JLabel lblImmobiles = new JLabel("Immobiles");
-		
-
 		JLabel lblConfines = new JLabel("Confinees");
-
-		
-		JLabel lblDirectionnelles = new JLabel("Directionnelles");
-		
+		JLabel lblDirectionnelles = new JLabel("Directionnelles");	
 		JLabel lblDiffusives = new JLabel("Diffusives");
-		
 		JLabel label_2 = new JLabel("<");
 		
-		JSpinner valeurAlpha1 = new JSpinner();
+		valeurAlpha1 = new JSpinner();
 		valeurAlpha1.setModel(new SpinnerNumberModel(new Float(0.25), new Float(0), new Float(2), new Float(0.1)));
 		
-		JSpinner valeurAlpha2 = new JSpinner();
+		valeurAlpha2 = new JSpinner();
 		valeurAlpha2.setModel(new SpinnerNumberModel(new Float(0.90), new Float(0), new Float(2), new Float(0.1)));
 		
-		JSpinner valeurAlpha3 = new JSpinner();
+		valeurAlpha3 = new JSpinner();
 		valeurAlpha3.setModel(new SpinnerNumberModel(new Float(1.10), new Float(0), new Float(2), new Float(0.1)));
 		
-		JLabel label_4 = new JLabel("<");
-		
+		JLabel label_4 = new JLabel("<");	
 		JLabel label_3 = new JLabel("<");
 		
-		JButton btnValider = new JButton("Valider");
-		
-		JLabel lblDure = new JLabel("Duree");
-		JSpinner valeurDuree = new JSpinner();
-		
+		JLabel lblDure = new JLabel("Durée souhaitée");
+		valeurDuree = new JSpinner();
 		JLabel lblS = new JLabel("s");
 		
-		ButtonGroup groupe = new ButtonGroup();
+		groupe = new ButtonGroup();
 		JRadioButton rdbtnChercheur = new JRadioButton("Chercheur");
+		rdbtnChercheur.setActionCommand("chercheur");
 		rdbtnChercheur.setToolTipText("Tableau des instruments");
 		groupe.add(rdbtnChercheur);
 		
 		JRadioButton rdbtnCompositeur = new JRadioButton("Compositeur");
+		rdbtnCompositeur.setActionCommand("compositeur");
 		rdbtnCompositeur.setToolTipText("Analyse axiale");
 		groupe.add(rdbtnCompositeur);
 		
+		btnValider = new JButton("Valider");
+		btnChoisirTrajectoires.addActionListener(this);
+		
+		
+		/* Positionnement des differents composants 
+		 *  Layout GroupLayout
+		 *  Réalise a l'aide du plugin WindowsBuilder sur Eclipse
+		 */
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -251,7 +242,7 @@ public class FenetreParametres implements ActionListener{
 					.addContainerGap(30, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -347,9 +338,9 @@ public class FenetreParametres implements ActionListener{
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
-		frame.getContentPane().setLayout(groupLayout);
-		
+		this.getContentPane().setLayout(groupLayout);
 	}
+
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnChoisirTrajectoires) {
@@ -357,7 +348,7 @@ public class FenetreParametres implements ActionListener{
 	    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt", "trc");
 
 	    	chooser.setFileFilter(filter);
-	    	int returnVal = chooser.showOpenDialog(frame);
+	    	int returnVal = chooser.showOpenDialog(this);
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
 	            filenameT.setText(chooser.getSelectedFile().getPath());
 	        
@@ -367,10 +358,55 @@ public class FenetreParametres implements ActionListener{
 	    	JFileChooser chooser = new JFileChooser();
 	    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt","trc");
 	    	chooser.setFileFilter(filter);
-	    	int returnVal = chooser.showOpenDialog(frame);
+	    	int returnVal = chooser.showOpenDialog(this);
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
 	            filenameM.setText(chooser.getSelectedFile().getPath());
 	        }
 	    }
+	    else if (e.getSource() == btnValider){
+	    	
+	    	
+	    }
+	}
+	
+	/* Accesseurs pour les differents champs de formulaire */
+	public String getFilenameT(){
+		return filenameT.toString();
+	}
+	
+	public String getFilenameM(){
+		return filenameM.toString();
+	}
+	
+	public int getHauteur(){
+		return (Integer) valeurH.getValue();
+	}
+	
+	public int getLargeur(){
+		return (Integer) valeurL.getValue();
+	}
+	
+	public float getValeurAlpha1(){
+		return (Float) valeurAlpha1.getValue();
+	}
+	
+	public float getValeurAlpha2(){
+		return (Float) valeurAlpha2.getValue();
+	}
+	
+	public float getValeurAlpha3(){
+		return (Float) valeurAlpha3.getValue();
+	}
+	
+	public int getDuree(){
+		return (Integer) valeurDuree.getValue();
+	}
+	
+	public String getNoteRef(){
+		return notes.getSelectedItem().toString();
+	}
+	
+	public String getUtilisateur(){
+		return groupe.getSelection().getActionCommand();
 	}
 }

@@ -24,7 +24,7 @@ class Aleatoire implements Effet{
     	
     	int cpt = 1;
     	int maxAlea = 0;
-		Midi.noteTenue(note, 56, 100, ti, ti+INTER_NOTES);
+		Midi.noteTenue(note,  mol.getTimbre(), mol.getVolume(), ti, ti+INTER_NOTES);
     	while (ti < tf){
     		float pas = mol.distancePas(listPos.get(cpt-1).x, listPos.get(cpt-1).y, listPos.get(cpt).x, listPos.get(cpt).y);
     		//MaxAlea entre 4 et 8 pour avoir une note aleatoire entre -8 et -4 et 4 et 8 suivant la note reference.
@@ -33,7 +33,7 @@ class Aleatoire implements Effet{
     			maxAlea = -maxAlea;
     		}
     		System.out.printf("%d + %f \n",maxAlea, pas/mol.pasMax());
-    		Midi.noteTenue(note + maxAlea, 56, 100, ti, ti+INTER_NOTES);
+    		Midi.noteTenue(note + maxAlea, mol.getTimbre(), mol.getVolume(), ti, ti+INTER_NOTES);
     		ti +=INTER_NOTES;
     		cpt++;
     	}
