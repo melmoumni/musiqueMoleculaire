@@ -39,4 +39,5 @@ class Triplet {
     
     public void incrementeNombreMolecule(){
 	nombreMolecule += 1;
+    }
 }
