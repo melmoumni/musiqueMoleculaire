@@ -39,6 +39,7 @@ public class Main {
 	controleur.printMolecules();
 	controleur.printTimbres();
 	
+	
 	//5b - pour le compositeur : Choisir les molecules ou lui demander de choisir. 
 	//6 - Afficher le tableau des timbres
 	//7 - Renseigner le timbre correspondant pour chaque molecule.

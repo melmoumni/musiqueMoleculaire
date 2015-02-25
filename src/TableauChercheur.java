@@ -24,13 +24,15 @@ public class TableauChercheur extends Fenetre {
 		ordonnees = new ArrayList<Float>();
 		mat = new ArrayList<ArrayList<Timbre>>();
 		
-		for (int i = 0 ; i < x ; i++){
-			absisses.add((float) (i * (MAX_WIDTH/x)));
+		for (int i = 0 ; i < y ; i++){
+			absisses.add((float) (i * (MAX_WIDTH/y)));
 		}
+		absisses.add((float) MAX_WIDTH);
 		
-		for (int j = 0 ; j < j ; j++){
+		for (int j = 0 ; j < x ; j++){
 			ordonnees.add((float) (j * (MAX_HEIGHT/x)));
 		}
+		ordonnees.add((float) MAX_HEIGHT);
 		
 		for (int i = 0 ; i < y ; i++){
 			ArrayList<Timbre> t = new ArrayList<Timbre>(); 
@@ -77,15 +79,13 @@ public class TableauChercheur extends Fenetre {
 	}
 	
 	public void changerTailleColonne(int numColonne, float newTaille){
-		float oldSize = absisses.get(numColonne) - absisses.get(numColonne - 1);
+//		float oldSize = absisses.get(numColonne) - absisses.get(numColonne - 1);
 		absisses.set(numColonne, newTaille + absisses.get(numColonne - 1));
-		MAX_WIDTH += newTaille - oldSize;
 	}
 	
 	public void changerTailleLigne(int numLigne, float newTaille){
-		float oldSize = ordonnees.get(numLigne) - ordonnees.get(numLigne - 1);
+		//float oldSize = ordonnees.get(numLigne) - ordonnees.get(numLigne - 1);
 		ordonnees.set(numLigne, newTaille + ordonnees.get(numLigne - 1));
-		MAX_WIDTH += newTaille - oldSize;	
 	}
 	
 	
