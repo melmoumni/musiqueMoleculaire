@@ -290,8 +290,9 @@ class Parseur {
 		    int fmin = Integer.parseInt(match.group(3));
 		    int fmax = Integer.parseInt(match.group(4));
 		    int oct = 0;//a remplacer par Integer.parseInt(match.group(5)) quand le fichier de timbre sera complet
-		    System.out.printf("Instrument %d,  %s,  min : %d, max : %d%n", numeroTimbre, match.group(2), fmin, fmax);
-		    tableauTimbre[compteur-1] = new Timbre(numeroTimbre,fmin,fmax,0);
+		    String nom = match.group(2);
+		    System.out.printf("Instrument %d,  %s,  min : %d, max : %d%n", numeroTimbre, nom, fmin, fmax);
+		    tableauTimbre[compteur-1] = new Timbre(numeroTimbre, nom, fmin, fmax, 0);
 		}
 		else {
 		    System.out.println("Erreur de formation du fichier à la ligne " + compteur);
