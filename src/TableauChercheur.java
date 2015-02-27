@@ -74,7 +74,7 @@ public class TableauChercheur extends Fenetre {
 	}
 	
 	public void supprimerLigne(){
-		if (ordonnees.size() > 3){
+		if (ordonnees.size() > 4){
 			ordonnees.remove(ordonnees.size()-1);
 			for (ArrayList<Timbre> AT : mat){
 				AT.remove(AT.size() - 1);
