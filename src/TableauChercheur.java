@@ -6,8 +6,8 @@ public class TableauChercheur extends Fenetre {
 	public ArrayList<Float> ordonnees;
 	public ArrayList<ArrayList<Timbre>> mat;
 	
-	public static int MAX_HEIGHT = 1000;
-	public static int MAX_WIDTH = 1000;
+	public static int MAX_HEIGHT = 500;
+	public static int MAX_WIDTH = 500;
 	
 	
 	public TableauChercheur (){
@@ -47,9 +47,9 @@ public class TableauChercheur extends Fenetre {
 	
 	public void ajouterColonne(){
 		/* On sépare la dernière colonne en 2*/
-		absisses.add(MAX_WIDTH - absisses.get(absisses.size() - 1)/2 + absisses.get(absisses.size() - 1));
+		absisses.add(absisses.size() - 1, (MAX_WIDTH - absisses.get(absisses.size() - 2))/2 + absisses.get(absisses.size() - 2));
 		ArrayList<Timbre> t = new ArrayList<Timbre>();
-		ArrayList<Timbre> lastCol = mat.get(mat.get(0).size() - 1);
+		ArrayList<Timbre> lastCol = mat.get(mat.size()- 1);
 		for (Timbre tim : lastCol){
 			Timbre newTimbre = tim;
 			t.add(newTimbre);
@@ -59,7 +59,7 @@ public class TableauChercheur extends Fenetre {
 
 	public void ajouterLigne(){
 		/* On sépare la dernière ligne en 2*/
-		ordonnees.add(MAX_HEIGHT - ordonnees.get(ordonnees.size() - 1)/2 + ordonnees.get(ordonnees.size() - 1));
+		ordonnees.add(ordonnees.size() - 1,(MAX_HEIGHT - ordonnees.get(ordonnees.size()-2))/2 + ordonnees.get(ordonnees.size() - 2));
 		for (ArrayList<Timbre> AT : mat){
 			Timbre newTimbre = AT.get(AT.size() - 1);
 			AT.add(newTimbre);
@@ -67,25 +67,40 @@ public class TableauChercheur extends Fenetre {
 	}
 	
 	public void supprimerColonne(){
-		absisses.remove(absisses.size() - 1);
-		mat.remove(mat.size() - 1);
+		if (absisses.size() >3){
+			absisses.remove(absisses.size() - 1);
+			mat.remove(mat.size() - 1);
+		}
 	}
 	
 	public void supprimerLigne(){
-		ordonnees.remove(ordonnees.size()-1);
-		for (ArrayList<Timbre> AT : mat){
-			AT.remove(AT.size() - 1);
+		if (ordonnees.size() > 3){
+			ordonnees.remove(ordonnees.size()-1);
+			for (ArrayList<Timbre> AT : mat){
+				AT.remove(AT.size() - 1);
+			}
 		}
 	}
 	
 	public void changerTailleColonne(int numColonne, float newTaille){
-//		float oldSize = absisses.get(numColonne) - absisses.get(numColonne - 1);
-		absisses.set(numColonne, newTaille + absisses.get(numColonne - 1));
+
+		if(numColonne > 0 && numColonne < absisses.size()-1){
+			absisses.set(numColonne, newTaille + absisses.get(numColonne - 1));
+		}
+		else if (numColonne == absisses.size() - 1){
+			float oldSize = absisses.get(numColonne) - absisses.get(numColonne-1);
+			absisses.set(numColonne-1, (oldSize - newTaille) + absisses.get(numColonne - 1));
+		}
 	}
 	
 	public void changerTailleLigne(int numLigne, float newTaille){
-		//float oldSize = ordonnees.get(numLigne) - ordonnees.get(numLigne - 1);
-		ordonnees.set(numLigne, newTaille + ordonnees.get(numLigne - 1));
+		if(numLigne > 0 && numLigne < ordonnees.size()-1){
+			ordonnees.set(numLigne, newTaille + ordonnees.get(numLigne - 1));
+		}
+		else if (numLigne == ordonnees.size() - 1){
+			float oldSize = ordonnees.get(numLigne) - ordonnees.get(numLigne-1);
+			ordonnees.set(numLigne-1, (oldSize - newTaille) + ordonnees.get(numLigne - 1));
+		}
 	}
 	
 	

@@ -66,7 +66,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		this.setVisible(true);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Données d'entrées", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Donnï¿½es d'entrï¿½es", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JLabel label = new JLabel("Fichiers");
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -97,8 +97,8 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		JPanel panel = new JPanel();
 		
 		JLabel lblNoteDeRfrnce = new JLabel("Note de reference");
-		String[] listeNotes = { "do", "ré", "mi", "fa", "sol", "la","si" };
-		notes = new JComboBox<String>(listeNotes);
+		String[] listeNotes = { "do", "rï¿½", "mi", "fa", "sol", "la","si" };
+		notes = new JComboBox(listeNotes);
 		//notes = new JComboBox(listeNotes);
 		
 		JLabel lblSeuils = new JLabel("Seuils alpha");
@@ -122,7 +122,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		JLabel label_4 = new JLabel("<");	
 		JLabel label_3 = new JLabel("<");
 		
-		JLabel lblDure = new JLabel("Durée souhaitée");
+		JLabel lblDure = new JLabel("Durï¿½e souhaitï¿½e");
 		valeurDuree = new JSpinner();
 		JLabel lblS = new JLabel("s");
 		
@@ -143,7 +143,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		
 		/* Positionnement des differents composants 
 		 *  Layout GroupLayout
-		 *  Réalise a l'aide du plugin WindowsBuilder sur Eclipse
+		 *  Rï¿½alise a l'aide du plugin WindowsBuilder sur Eclipse
 		 */
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(

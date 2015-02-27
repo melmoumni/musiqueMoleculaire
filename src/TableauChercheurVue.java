@@ -1,44 +1,34 @@
-
-
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
-
-import java.awt.FlowLayout;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JSplitPane;
-import javax.swing.JLabel;
-
 import java.awt.Dimension;
-import java.awt.List;
-import java.awt.Choice;
-import java.awt.Scrollbar;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
-public class TableauChercheurVue extends JFrame {
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
-	int x = 6;
-	int y = 4;
+
+public class TableauChercheurVue extends JFrame implements ActionListener{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	JButton btnStart;
+	JButton btnAjouterUneLigne;
+	JButton btnAjouterUneColonne;
 	TableauChercheur TabC;
 
 	/**
@@ -67,12 +57,11 @@ public class TableauChercheurVue extends JFrame {
 		}
 		controleur.initMolecules(p);
 		
-		final TableauChercheur t = new TableauChercheur(4,3);
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TableauChercheurVue frame = new TableauChercheurVue(t);
+					TableauChercheurVue frame = new TableauChercheurVue(true, null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,28 +73,98 @@ public class TableauChercheurVue extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TableauChercheurVue(TableauChercheur tabChercheur) {
+	public TableauChercheurVue(boolean init, TableauChercheur tab) {
 		this.setResizable(false);
 
-		TabC = new TableauChercheur(x, y);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setBounds(100, 100, TabC.MAX_WIDTH*2, TabC.MAX_HEIGHT+100);
+		
+		if (init){
+			TabC = new TableauChercheur(5,3);
+		}
+		else {
+			TabC = tab;
+		}
 		
 		ArrayList<Integer> listeTimbres = new ArrayList<Integer>();		
 		for (int i = 0 ; i < 128 ; i++){
 			listeTimbres.add(Controleur.tableauTimbre[i].timbreMIDI());
 		}
 		
-		x = tabChercheur.mat.size();
-		y = tabChercheur.mat.get(0).size();
+		int x = TabC.mat.size();
+		int y = TabC.mat.get(0).size();
 		
-		System.out.println(x + " " + y + " " + tabChercheur.absisses.size() + " " + tabChercheur.ordonnees.size());
-		for (Float i : tabChercheur.absisses){
+		//System.out.println(tabChercheur.absisses.size() + " " + tabChercheur.ordonnees.size());
+		for (Float i : TabC.absisses){
 			System.out.printf("%f ",i);
 		}
 		System.out.println("");
-		for (Float i : tabChercheur.ordonnees){
+		for (Float i : TabC.ordonnees){
 			System.out.printf("%f ",i);
 		}
 		System.out.println("");
+		
+		
+		JPanel panel_1 = new JPanel();
+		getContentPane().add(panel_1, BorderLayout.CENTER);
+
+	    panel_1.setLayout(new FormLayout(new ColumnSpec[] {
+	    		FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+	    		ColumnSpec.decode("161px"),},
+	    	new RowSpec[] {
+	    		FormFactory.LINE_GAP_ROWSPEC,
+	    		RowSpec.decode("25px"),
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,}));
+	    
+	    btnAjouterUneLigne = new JButton("Ajouter Une Ligne");
+	    btnAjouterUneLigne.setName("btnAjouterUneLigne");
+	    btnAjouterUneLigne.addActionListener(this);
+	    panel_1.add(btnAjouterUneLigne, "2, 2");
+	    
+	    btnAjouterUneColonne = new JButton("Ajouter une Colonne");
+	    btnAjouterUneColonne.setName("btnAjouterUneColonne");
+	    btnAjouterUneColonne.addActionListener(this);
+	    panel_1.add(btnAjouterUneColonne, "2, 4");
+	    
+	    btnStart = new JButton("Valider le tableau");
+	    btnStart.setName("btnStart");
+	    btnStart.addActionListener(this);
+	    panel_1.add(btnStart, "2, 16");
+		
+		
+		
+		JPanel panel_2 = new JPanel();
+		getContentPane().add(panel_2, BorderLayout.SOUTH);
+		
+		JSplitPane splitPane = new JSplitPane();
+		getContentPane().add(splitPane, BorderLayout.WEST);
+
+
+		/* Creation de la premiere ligne de splitPane */
+		ArrayList<JSplitPane> tInit = new ArrayList<JSplitPane>();
+		tInit.add(splitPane);
+
+
+		
+		
+		/* Création de la matrice des splitPane locaux */
+		final ArrayList<ArrayList<JSplitPane>> mat = new ArrayList<ArrayList<JSplitPane>>();
+		
+		final ArrayList<JSplitPane> premiereLigne = new ArrayList<JSplitPane>();
 		
 		/* Utilisation :
 		 * 
@@ -117,25 +176,77 @@ public class TableauChercheurVue extends JFrame {
 		 * 
 		 */
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 500);
 
-		JSplitPane splitPane = new JSplitPane();
-		getContentPane().add(splitPane, BorderLayout.CENTER);
 
-		/* Création de la matrice des splitPane locaux */
-		ArrayList<ArrayList<JSplitPane>> mat = new ArrayList<ArrayList<JSplitPane>>();
+		/* Programme permettant la détection de changement du divider de chaque splitPane */
+		PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
+		      public void propertyChange(PropertyChangeEvent changeEvent) {
+		        JSplitPane sourceSplitPane = (JSplitPane) changeEvent.getSource();
+		        String propertyName = changeEvent.getPropertyName();
+		        if (propertyName.equals(JSplitPane.LAST_DIVIDER_LOCATION_PROPERTY)) {
+		        	if (sourceSplitPane.getOrientation() == JSplitPane.VERTICAL_SPLIT){
+		        		changeDividerVert(mat, sourceSplitPane);
+		        	}
+		        	else if (sourceSplitPane.getOrientation() == JSplitPane.HORIZONTAL_SPLIT){
+		        		changeDividerHor(premiereLigne, sourceSplitPane);
+		        	}
+		        	for (Float i : TabC.absisses){
+		        		System.out.printf("%f ",i);
+		        	}
+		        	System.out.println("");
+		        	for (Float i : TabC.ordonnees){
+		        		System.out.printf("%f ",i);
+		        	}
+		        	System.out.println("");
+		        }
+		      }
 
-		/* Creation de la premiere ligne de splitPane */
-		ArrayList<JSplitPane> tInit = new ArrayList<JSplitPane>();
-		tInit.add(splitPane);
+			private void changeDividerHor(ArrayList<JSplitPane> premiereLigne, JSplitPane sourceSplitPane) {
+				int current = sourceSplitPane.getDividerLocation();
+				int indexI = 0;
+				for (int i = 0 ; i < premiereLigne.size() ; i++){
+					if (sourceSplitPane.equals(premiereLigne.get(i))){
+						indexI = i;
+					}
+				}
+				TabC.absisses.set(indexI + 1,(float) current + TabC.absisses.get(indexI));
 
+			}
+
+			private void changeDividerVert(ArrayList<ArrayList<JSplitPane>> mat, JSplitPane sourceSplitPane) {
+				int indexI = 0;
+				for (int i = 0 ; i < mat.size() ; i++){
+					for (int j = 0 ; j < mat.get(0).size() ; j++){
+						if (sourceSplitPane.equals(mat.get(i).get(j))){
+							indexI = i;
+						}						
+					}
+				}
+
+				for (int i = 0 ; i < TabC.ordonnees.size() - 2 ; i++){
+					TabC.ordonnees.set(i + 1,(float) mat.get(indexI).get(i).getDividerLocation() + TabC.ordonnees.get(i));	
+				}
+				
+				for (int i = 0 ; i < mat.size() ; i++){
+					for (int j = 0 ; j < mat.get(0).size() ; j++ ){
+						mat.get(i).get(j).setDividerLocation(mat.get(indexI).get(j).getDividerLocation());
+					}
+				}
+			}
+		};
+		
+		
+
+	    splitPane.addPropertyChangeListener(propertyChangeListener);
+		
+		
 		JComboBox comboBox_1 = new JComboBox(listeTimbres.toArray());
 		splitPane.setLeftComponent(comboBox_1);
 		mat.add(tInit);
 		for (int j = 0 ; j < x-2 ; j++){
 			ArrayList<JSplitPane> t = new ArrayList<JSplitPane>();
 			JSplitPane splitPaneTmp = new JSplitPane();
+		    splitPaneTmp.addPropertyChangeListener(propertyChangeListener);
 			t.add(splitPaneTmp);
 			mat.get(j).get(0).setRightComponent(splitPaneTmp);
 			mat.add(t);
@@ -145,6 +256,7 @@ public class TableauChercheurVue extends JFrame {
 			ArrayList<JSplitPane> t = new ArrayList<JSplitPane>();
 			JSplitPane splitPaneTmp = new JSplitPane();
 			splitPaneTmp.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		    splitPaneTmp.addPropertyChangeListener(propertyChangeListener);
 			t.add(splitPaneTmp);
 			mat.get(x-2).get(0).setRightComponent(splitPaneTmp);
 			mat.add(t);
@@ -157,6 +269,7 @@ public class TableauChercheurVue extends JFrame {
 					JSplitPane splitPaneTmp = new JSplitPane();
 					mat.get(j).add(splitPaneTmp);
 					splitPaneTmp.setOrientation(JSplitPane.VERTICAL_SPLIT);
+				    splitPaneTmp.addPropertyChangeListener(propertyChangeListener);
 					mat.get(j).get(i-1).setLeftComponent(splitPaneTmp);
 
 				}
@@ -165,6 +278,7 @@ public class TableauChercheurVue extends JFrame {
 					JSplitPane splitPaneTmp = new JSplitPane();
 					mat.get(j).add(splitPaneTmp);
 					splitPaneTmp.setOrientation(JSplitPane.VERTICAL_SPLIT);
+				    splitPaneTmp.addPropertyChangeListener(propertyChangeListener);
 					mat.get(j).get(i-1).setRightComponent(splitPaneTmp);
 
 				}
@@ -174,35 +288,68 @@ public class TableauChercheurVue extends JFrame {
 				JSplitPane splitPaneTmp = new JSplitPane();
 				mat.get(x-1).add(splitPaneTmp);
 				splitPaneTmp.setOrientation(JSplitPane.VERTICAL_SPLIT);
+			    splitPaneTmp.addPropertyChangeListener(propertyChangeListener);
 				mat.get(x-1).get(i-2).setRightComponent(splitPaneTmp);
 			}
 		}
 
-		/* On supprime la premiere ligne qui a juste servi a ordonner la construction */
+		/* On supprime la premiere ligne qui a juste servi a ordonner la construction, mais on la stocke dans un autre tableau */
 		for (int i = 0 ; i < x-1 ; i++){
+			premiereLigne.add(mat.get(i).get(0));
 			mat.get(i).remove(0);
 		}
 
-		/* On affiche la matrice des splitPane */
-		//    	for (ArrayList<JSplitPane> a : mat){
-		//    		for (JSplitPane j : a){
-		//    			System.out.printf("1 ");
-		//    		}
-		//    		System.out.printf("\n");
-		//    	}
+
 
 		/* Definition des comboBox pour chaque Pane */
 		for (int i = 0 ; i < x ; i++){
 			for (int j = 0 ; j < y-1 ; j++){
 				JComboBox comboBox = new JComboBox(listeTimbres.toArray());
-				comboBox.setSelectedIndex(3);
-				Dimension pageSize=new Dimension((int) (tabChercheur.absisses.get(j+1) - tabChercheur.absisses.get(j)),(int) (tabChercheur.ordonnees.get(i+1) - tabChercheur.ordonnees.get(i)));
+				comboBox.setSelectedIndex(i*10 + j);
+				Dimension pageSize=new Dimension((int) (TabC.absisses.get(i+1) - TabC.absisses.get(i)),(int) (TabC.ordonnees.get(j+1) - TabC.ordonnees.get(j)));
 				comboBox.setPreferredSize(pageSize);
+				//System.out.println(i + " " + j + " Dim : " + (int) (tabChercheur.absisses.get(i+1) - tabChercheur.absisses.get(i))+ " " +(int) (tabChercheur.ordonnees.get(j+1) - tabChercheur.ordonnees.get(j)));
 				mat.get(i).get(j).setLeftComponent(comboBox);
 			}
 			JComboBox comboBox = new JComboBox(listeTimbres.toArray());
+			Dimension pageSize=new Dimension((int) (TabC.absisses.get(i+1) - TabC.absisses.get(i)),(int) (TabC.ordonnees.get(y) - TabC.ordonnees.get(y-1)));
+			//System.out.println(i + " " + (y-1) + " Dim : " + (int) (tabChercheur.absisses.get(i+1) - tabChercheur.absisses.get(i))+ " " +(int) (tabChercheur.ordonnees.get(y) - tabChercheur.ordonnees.get(y-1)));
+
+			comboBox.setPreferredSize(pageSize);
+			comboBox.setSelectedIndex(i*10 + y-1);
 			mat.get(i).get(y-2).setRightComponent(comboBox);
+			//System.out.println(mat.get(i).get(y-2).getRightComponent().getPreferredSize());
 		}
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		Object source = e.getSource();
+
+		if(source == btnStart){
+			System.out.println("Ca commence");
+		}
+		else if(source == btnAjouterUneColonne){
+			System.out.println("Vous avez ajouté une colonne.");
+			try {
+				dispose();
+				TabC.ajouterColonne();
+				TableauChercheurVue frame = new TableauChercheurVue(false, TabC);
+				frame.setVisible(true);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		else if(source == btnAjouterUneLigne){
+			System.out.println("Vous avez ajouté une ligne.");	
+			try{
+				dispose();
+				TabC.ajouterLigne();
+				TableauChercheurVue frame = new TableauChercheurVue(false, TabC);
+				frame.setVisible(true);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 	}
 }
