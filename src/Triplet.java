@@ -13,7 +13,16 @@ class Triplet {
 	nombreMolecule = nbMolecule;
     }
 
-    public int getInstantInitial(){
+    public void printTriplet(){
+	System.out.println("==================================");
+	System.out.println("Instant Initial : " + instantInitial);
+	System.out.println("Instant Final : " + instantFinal);
+	System.out.println("Max : " + nombreMolecule);
+	System.out.println("==================================");
+
+    }
+    
+    public int instantInitial(){
 	return instantInitial;
     }
 
@@ -21,7 +30,7 @@ class Triplet {
 	instantInitial = instantt;
     }
 
-    public int getInstantFinal(){
+    public int instantFinal(){
 	return instantFinal;
     }
 
@@ -29,7 +38,7 @@ class Triplet {
 	instantFinal = instantt;
     }
 	
-    public int getNombreMolecule(){
+    public int nombreMolecule(){
 	return nombreMolecule;
     }
 
