@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
+import java.util.Collections;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
@@ -101,6 +102,7 @@ abstract class Controleur{
 			mol.analyseMolecule(alphaSeparation, isChercheur);
 			mol.analyseDistance();
 		}
+	        Collections.sort(molecules);
 	}
 
 	void remplirSequence(){

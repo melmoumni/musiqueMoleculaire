@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 
 
-class Molecule{
+class Molecule implements Comparable<Molecule>{
     /*
       Cette classe contiens les différents attributs relatifs à une molécule
     */
@@ -218,6 +218,19 @@ class Molecule{
 	}
     }
 
-
-
+    @Override
+    public int compareTo(Molecule mol){
+	if ((instantInitial < mol.instantInitial) && (instantFinal < mol.instantFinal)) {
+	    return -1;
+	}
+	else {
+	    if ((instantFinal == mol.instantFinal) && (instantInitial < mol.instantInitial)) {
+		return 0;
+	    }
+	    else {
+		return 1;
+	    }
+	}
+    }
 }
+
