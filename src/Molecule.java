@@ -228,7 +228,12 @@ class Molecule implements Comparable<Molecule>{
 		return 0;
 	    }
 	    else {
-		return 1;
+		if ((instantInitial == mol.instantInitial) && (instantFinal > mol.instantFinal)){
+		    return -1;
+		}
+		else {
+		    return 1;
+		}
 	    }
 	}
     }

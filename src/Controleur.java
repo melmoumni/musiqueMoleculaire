@@ -114,22 +114,20 @@ abstract class Controleur{
     }
 
     void remplirIntervalles(){
-	Triplet enRemplissage = new Triplet(molecules.get(0).instantInitial(), molecules.get(0).instantFinal(), 1);
-	enRemplissage.printTriplet();
+	int index = -1;
+	Triplet enRemplissage = new Triplet(molecules.get(0).instantInitial(), molecules.get(0).instantFinal(), 0);
 	Triplet tmp = new Triplet(molecules.get(0).instantInitial(), molecules.get(0).instantFinal(), 1);
-	tmp.printTriplet();
 	for (Molecule mol : molecules){
 	    // cas 1 : intervalle prochaine molecule C intervalle en cours
 	    if (((enRemplissage.instantInitial()) < (mol.instantInitial())) && ((enRemplissage.instantFinal()) > (mol.instantFinal()))) {
-		enRemplissage.printTriplet();
 		enRemplissage.setInstantFinal(mol.instantInitial());
-		enRemplissage.printTriplet();
 		intervalles.add(enRemplissage);
+		index++;
 		enRemplissage.printTriplet();
 		enRemplissage = new Triplet(mol.instantInitial(), mol.instantFinal(), tmp.nombreMolecule() + 1);
-		enRemplissage.printTriplet();
 		intervalles.add(enRemplissage);
-		tmp = new Triplet(mol.instantFinal(), tmp.instantFinal(), 1);
+		index++;
+		tmp = new Triplet(mol.instantFinal(), tmp.instantFinal(), enRemplissage.nombreMolecule());
 		enRemplissage = tmp;
 	    }
 	    else {
@@ -139,27 +137,40 @@ abstract class Controleur{
 		    intervalles.add(enRemplissage);
 		    tmp = new Triplet(mol.instantInitial(), enRemplissage.instantFinal(), enRemplissage.nombreMolecule() + 1);
 		    intervalles.add(tmp);
-		    tmp = new Triplet(enRemplissage.instantFinal(), mol.instantFinal(), 1);
+		    index++;
+		    tmp = new Triplet(enRemplissage.instantFinal(), mol.instantFinal(), enRemplissage.nombreMolecule());
 		    enRemplissage = tmp;
 		}
 		else {
 		    // cas où les temps initiaux sont égaux 
 		    if (enRemplissage.instantInitial() == mol.instantInitial()) {
 			if (enRemplissage.instantFinal() > mol.instantFinal()){
-			    enRemplissage.setInstantFinal(mol.instantFinal());
-			    enRemplissage.incrementeNombreMolecule();
-			    intervalles.add(enRemplissage);
-			    enRemplissage = new Triplet(mol.instantInitial(), tmp.instantFinal(), tmp.nombreMolecule());
-			    tmp = enRemplissage;
+			    if ((intervalles.size() > 0) && (intervalles.get(index).instantFinal() > mol.instantFinal())){
+				intervalles.get(index).incrementeNombreMolecule();
+				intervalles.get(index).setInstantFinal(mol.instantFinal());
+				tmp.setInstantInitial(intervalles.get(index).instantFinal());
+				tmp.setInstantFinal(enRemplissage.instantFinal());
+			    }
+			    else {
+				enRemplissage.setInstantFinal(mol.instantFinal());
+				enRemplissage.incrementeNombreMolecule();
+				intervalles.add(enRemplissage);
+				index++;
+				enRemplissage = //new Triplet(tmp.instantInitial(), tmp.instantFinal(), tmp.nombreMolecule());
+				    tmp;
+				enRemplissage.printTriplet();
+			    }
+			    System.out.println("passage");
 			}
 			else {
 			    if (enRemplissage.instantFinal() == mol.instantFinal()) {
 				enRemplissage.incrementeNombreMolecule();
 			    }
 			    else {
-				intervalles.add(enRemplissage);
-				enRemplissage = new Triplet(tmp.instantFinal(), mol.instantFinal(), 1);
-				tmp = enRemplissage;
+				// intervalles.add(enRemplissage);
+				// index++;
+				// enRemplissage = new Triplet(tmp.instantFinal(), mol.instantFinal(), 1);
+				// tmp = enRemplissage;
 			    }
 			}// manque le cas d'intervalle disjoints à traiter
 		    }
