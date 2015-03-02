@@ -1,3 +1,4 @@
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 
@@ -6,8 +7,8 @@ public class TableauChercheur extends Fenetre {
 	public ArrayList<Float> ordonnees;
 	public ArrayList<ArrayList<Timbre>> mat;
 	
-	public static int MAX_HEIGHT = 500;
-	public static int MAX_WIDTH = 500;
+	public static int MAX_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	public static int MAX_WIDTH = (int) (4*Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5);
 	
 	
 	public TableauChercheur (){
@@ -25,19 +26,19 @@ public class TableauChercheur extends Fenetre {
 		mat = new ArrayList<ArrayList<Timbre>>();
 		
 		for (int i = 0 ; i < y ; i++){
-			absisses.add((float) (i * (MAX_WIDTH/y)));
+			absisses.add((float) (i * (MAX_WIDTH/y) - 25*i));
 		}
-		absisses.add((float) MAX_WIDTH);
+		absisses.add((float) MAX_WIDTH - 25*y);
 		
 		for (int j = 0 ; j < x ; j++){
-			ordonnees.add((float) (j * (MAX_HEIGHT/x)));
+			ordonnees.add((float) (j * (MAX_HEIGHT/x) - 25*j));
 		}
-		ordonnees.add((float) MAX_HEIGHT);
+		ordonnees.add((float) MAX_HEIGHT - 25 *x);
 		
 		for (int i = 0 ; i < y ; i++){
 			ArrayList<Timbre> t = new ArrayList<Timbre>(); 
 			for (int j = 0 ; j < x ; j++){
-				Timbre tim = new Timbre(1);
+				Timbre tim = new Timbre(0);
 				tim = Controleur.tableauTimbre[0];
 				t.add(tim);
 			}
@@ -47,7 +48,7 @@ public class TableauChercheur extends Fenetre {
 	
 	public void ajouterColonne(){
 		/* On sépare la dernière colonne en 2*/
-		absisses.add(absisses.size() - 1, (MAX_WIDTH - absisses.get(absisses.size() - 2))/2 + absisses.get(absisses.size() - 2));
+		absisses.add(absisses.size() - 1, (absisses.get(absisses.size() - 1) - absisses.get(absisses.size() - 2))/2 + absisses.get(absisses.size() - 2));
 		ArrayList<Timbre> t = new ArrayList<Timbre>();
 		ArrayList<Timbre> lastCol = mat.get(mat.size()- 1);
 		for (Timbre tim : lastCol){
@@ -59,7 +60,7 @@ public class TableauChercheur extends Fenetre {
 
 	public void ajouterLigne(){
 		/* On sépare la dernière ligne en 2*/
-		ordonnees.add(ordonnees.size() - 1,(MAX_HEIGHT - ordonnees.get(ordonnees.size()-2))/2 + ordonnees.get(ordonnees.size() - 2));
+		ordonnees.add(ordonnees.size() - 1,(ordonnees.get(ordonnees.size()-1) - ordonnees.get(ordonnees.size()-2))/2 + ordonnees.get(ordonnees.size() - 2));
 		for (ArrayList<Timbre> AT : mat){
 			Timbre newTimbre = AT.get(AT.size() - 1);
 			AT.add(newTimbre);
@@ -68,16 +69,16 @@ public class TableauChercheur extends Fenetre {
 	
 	public void supprimerColonne(){
 		if (absisses.size() >3){
-			absisses.remove(absisses.size() - 1);
+			absisses.remove(absisses.size() - 2);
 			mat.remove(mat.size() - 1);
 		}
 	}
 	
 	public void supprimerLigne(){
 		if (ordonnees.size() > 4){
-			ordonnees.remove(ordonnees.size()-1);
+			ordonnees.remove(ordonnees.size()-2);
 			for (ArrayList<Timbre> AT : mat){
-				AT.remove(AT.size() - 1);
+				AT.remove(AT.size() - 2);
 			}
 		}
 	}

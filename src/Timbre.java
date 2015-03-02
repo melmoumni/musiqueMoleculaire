@@ -39,6 +39,10 @@ class Timbre{
     	return timbreMIDI;
     }
 
+    public String nom(){
+    	return nom;
+    }
+    
     public int min(){
     	return min;
     }
