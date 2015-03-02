@@ -269,7 +269,7 @@ class Parseur {
 	String patternEntier = "(\\d+)";
 	String patternEspace = "\\s+";
 	String patternEspaceEtoile = "\\s*";
-	String patternNomInstrument = "([A-Za-z0-9\\(\\)\\-\\+]+)";
+	String patternNomInstrument = "([A-Za-z0-9\\(\\)\\-\\+\\s]+)";
 	String FinDeLigne ="$";
 	Pattern pattern = Pattern.compile(debutDeLigne+
 					  patternEntier+
