@@ -1,6 +1,5 @@
 comp: midi src/*.java test
-	javac -cp build -d build src/*.java
-
+	javac -cp "forms-1.3.0.jar:build" -d build src/*.java
 exec:
 	java -cp build Main
 
