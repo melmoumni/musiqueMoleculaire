@@ -218,6 +218,10 @@ class Molecule implements Comparable<Molecule>{
 	}
     }
 
+    /**
+     * fonction pour trier les molécules avec instant et initial dans l'ordre croissant
+     * et à instant initial égal les instants finaux dans l'ordre croissant
+     */
     @Override
     public int compareTo(Molecule mol){
 	if ((instantInitial < mol.instantInitial) && (instantFinal < mol.instantFinal)) {
@@ -228,7 +232,7 @@ class Molecule implements Comparable<Molecule>{
 		return 0;
 	    }
 	    else {
-		if ((instantInitial == mol.instantInitial) && (instantFinal > mol.instantFinal)){
+		if ((instantInitial == mol.instantInitial) && (instantFinal < mol.instantFinal)){
 		    return -1;
 		}
 		else {
