@@ -34,8 +34,10 @@ public class Main {
 	}
 	catch (IOException e) {
 	}
+	
 	controleur.initMolecules(p);
 	controleur.analyseMolecules();
+	controleur.printTrajectoires();
 	controleur.printMolecules();
 	controleur.printTimbres();
 	

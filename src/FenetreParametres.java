@@ -1,4 +1,4 @@
-package testIsa;
+
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
@@ -22,7 +22,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.Color;
-import java.awt.EventQueue;
 
 public class FenetreParametres extends JFrame implements ActionListener{
 
@@ -66,7 +65,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		this.setVisible(true);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Donnï¿½es d'entrï¿½es", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Donnés d'entrées", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JLabel label = new JLabel("Fichiers");
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -97,9 +96,8 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		JPanel panel = new JPanel();
 		
 		JLabel lblNoteDeRfrnce = new JLabel("Note de reference");
-		String[] listeNotes = { "do", "rï¿½", "mi", "fa", "sol", "la","si" };
-		notes = new JComboBox(listeNotes);
-		//notes = new JComboBox(listeNotes);
+		String[] listeNotes = { "do", "ré", "mi", "fa", "sol", "la","si" };
+		notes = new JComboBox<String>(listeNotes);
 		
 		JLabel lblSeuils = new JLabel("Seuils alpha");
 		lblSeuils.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -122,7 +120,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		JLabel label_4 = new JLabel("<");	
 		JLabel label_3 = new JLabel("<");
 		
-		JLabel lblDure = new JLabel("Durï¿½e souhaitï¿½e");
+		JLabel lblDure = new JLabel("Duréé souhaitée");
 		valeurDuree = new JSpinner();
 		JLabel lblS = new JLabel("s");
 		
@@ -137,13 +135,12 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		rdbtnCompositeur.setToolTipText("Analyse axiale");
 		groupe.add(rdbtnCompositeur);
 		
-		btnValider = new JButton("Valider");
-		btnChoisirTrajectoires.addActionListener(this);
+		btnValider = new JButton(new ChangerFenetre("Valider"));
 		
 		
 		/* Positionnement des differents composants 
 		 *  Layout GroupLayout
-		 *  Rï¿½alise a l'aide du plugin WindowsBuilder sur Eclipse
+		 *  Realise a l'aide du plugin WindowsBuilder sur Eclipse
 		 */
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -350,8 +347,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	    	chooser.setFileFilter(filter);
 	    	int returnVal = chooser.showOpenDialog(this);
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
-	            filenameT.setText(chooser.getSelectedFile().getPath());
-	        
+	            filenameT.setText(chooser.getSelectedFile().getPath()); 
 	        }
 	   }
 	    else if (e.getSource() == btnChoisirMvt) {
@@ -363,19 +359,15 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	            filenameM.setText(chooser.getSelectedFile().getPath());
 	        }
 	    }
-	    else if (e.getSource() == btnValider){
-	    	
-	    	
-	    }
 	}
 	
 	/* Accesseurs pour les differents champs de formulaire */
 	public String getFilenameT(){
-		return filenameT.toString();
+		return filenameT.getText();
 	}
 	
 	public String getFilenameM(){
-		return filenameM.toString();
+		return filenameM.getText();
 	}
 	
 	public int getHauteur(){

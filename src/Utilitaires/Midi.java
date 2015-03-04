@@ -133,10 +133,16 @@ public class Midi{
 	static private int retournerChannel(int timbre){
 		MidiChannel[] m = synthetiseur.getChannels();
 		for(int i=0; i<16; i++){
-			if(m[i].getProgram()==timbre)
-				return i;
-		}
+		    
+		    if(m[i].getProgram()==timbre){
+			return i;
+		    }
+		    else if ((i!=0)&&(m[i].getProgram()==0)){
+			configurerChannel(i,timbre);
+			return i;
+		    }
+		}  
 		return -1;// s'il ne trouve pas il faudrait lever une exception
 	}
-
+    
 }
