@@ -122,8 +122,11 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 			System.out.printf("%f ",i);
 		}
 		System.out.println("");
-		for (Float i : TabC.ordonnees){
-			System.out.printf("%f ",i);
+		for (ArrayList<Float> AL : TabC.ordonnees){
+			for (Float i : AL){
+				System.out.printf("%f ",i);
+			}
+			System.out.println("");
 		}
 		System.out.println("");
 		
@@ -270,18 +273,22 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 		        	else if ((sourceSplitPane.getOrientation() == JSplitPane.HORIZONTAL_SPLIT)  && ((int) changeEvent.getNewValue() != -1)){
 		        		changeDividerHor(premiereLigne, sourceSplitPane);
 		        	}
-//		        	for (Float i : TabC.absisses){
-//		        		System.out.printf("%f ",i);
-//		        	}
-//		        	System.out.println("");
-//		        	for (Float i : TabC.ordonnees){
-//		        		System.out.printf("%f ",i);
-//		        	}
-//		        	System.out.println("");
+//		    		for (Float i : TabC.absisses){
+//		    			System.out.printf("%f ",i);
+//		    		}
+//		    		System.out.println("");
+//		    		for (ArrayList<Float> AL : TabC.ordonnees){
+//		    			for (Float i : AL){
+//		    				System.out.printf("%f ",i);
+//		    			}
+//		    			System.out.println("");
+//		    		}
+//		    		System.out.println("");
 		        }
 		      }
 
 			private void changeDividerHor(ArrayList<JSplitPane> premiereLigne, JSplitPane sourceSplitPane) {
+
 				int current = sourceSplitPane.getDividerLocation();
 				int indexI = 0;
 				for (int i = 0 ; i < premiereLigne.size() ; i++){
@@ -294,25 +301,44 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 			}
 
 			private void changeDividerVert(ArrayList<ArrayList<JSplitPane>> mat, JSplitPane sourceSplitPane) {
+
+				
 				int indexI = 0;
+				int indexJ = 0;
 				for (int i = 0 ; i < mat.size() ; i++){
 					for (int j = 0 ; j < mat.get(0).size() ; j++){
 						if (sourceSplitPane.equals(mat.get(i).get(j))){
 							System.out.println(i + " " + j);
 							indexI = i;
+							indexJ = j;
 						}						
 					}
 				}
 
-				for (int i = 0 ; i < TabC.ordonnees.size() - 2 ; i++){
-					TabC.ordonnees.set(i + 1,(float) mat.get(indexI).get(i).getDividerLocation() + TabC.ordonnees.get(i));	
+				for (int i = 0 ; i < TabC.ordonnees.get(indexI).size() - 2 ; i++){
+					float f = (float) mat.get(indexI).get(i).getDividerLocation() +   TabC.ordonnees.get(indexI).get(i);
+					System.out.println(i + " " + f);
+					TabC.ordonnees.get(indexI).set(i + 1,f);	
 				}
+
+	    		for (Float i : TabC.absisses){
+	    			System.out.printf("%f ",i);
+	    		}
+	    		System.out.println("");
+	    		for (ArrayList<Float> AL : TabC.ordonnees){
+	    			for (Float i : AL){
+	    				System.out.printf("%f ",i);
+	    			}
+	    			System.out.println("");
+	    		}
+	    		System.out.println("");
+
 				
-				for (int i = 0 ; i < mat.size() ; i++){
-					for (int j = 0 ; j < mat.get(0).size() ; j++ ){
-						mat.get(i).get(j).setDividerLocation(mat.get(indexI).get(j).getDividerLocation());
-					}
-				}
+//				for (int i = 0 ; i < mat.size() ; i++){
+//					for (int j = 0 ; j < mat.get(0).size() ; j++ ){
+//						mat.get(i).get(j).setDividerLocation(mat.get(indexI).get(j).getDividerLocation());
+//					}
+//				}
 			}
 		};
 		
@@ -329,8 +355,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 			JSplitPane splitPaneTmp = new JSplitPane();
 		    splitPaneTmp.addPropertyChangeListener(propertyChangeListener);
 		    splitPaneTmp.setDividerSize(2);
-		    //System.out.println(TabC.absisses.get(j + 1) - TabC.absisses.get(j)/TabC.absisses.get(x) - TabC.absisses.get(j));
-		    //splitPaneTmp.setDividerLocation((TabC.absisses.get(j + 1) - TabC.absisses.get(j))/(TabC.absisses.get(x) - TabC.absisses.get(j)));
+		    splitPaneTmp.setMinimumSize(new Dimension (TableauChercheur.MIN_CELL_WIDTH, TableauChercheur.MIN_CELL_HEIGHT));
 		    splitPaneTmp.setBorder(BorderFactory.createEmptyBorder());
 			t.add(splitPaneTmp);
 			mat.get(j).get(0).setRightComponent(splitPaneTmp);
@@ -342,7 +367,8 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 			JSplitPane splitPaneTmp = new JSplitPane();
 			splitPaneTmp.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		    splitPaneTmp.addPropertyChangeListener(propertyChangeListener);
-			splitPaneTmp.setDividerSize(2);
+		    splitPaneTmp.setMinimumSize(new Dimension (TableauChercheur.MIN_CELL_WIDTH, TableauChercheur.MIN_CELL_HEIGHT));
+		    splitPaneTmp.setDividerSize(2);
 		    //splitPaneTmp.setDividerLocation((TabC.absisses.get(x-1) - TabC.absisses.get(x-2))/(TabC.absisses.get(x) - TabC.absisses.get(x-2)));
 			splitPaneTmp.setBorder(BorderFactory.createEmptyBorder());
 			t.add(splitPaneTmp);
@@ -359,6 +385,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 					splitPaneTmp.setOrientation(JSplitPane.VERTICAL_SPLIT);
 				    splitPaneTmp.addPropertyChangeListener(propertyChangeListener);
 				    splitPaneTmp.setDividerSize(2);
+				    splitPaneTmp.setMinimumSize(new Dimension (TableauChercheur.MIN_CELL_WIDTH, TableauChercheur.MIN_CELL_HEIGHT));
 				    splitPaneTmp.setBorder(BorderFactory.createEmptyBorder());
 					mat.get(j).get(i-1).setLeftComponent(splitPaneTmp);
 
@@ -370,6 +397,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 					splitPaneTmp.setOrientation(JSplitPane.VERTICAL_SPLIT);
 				    splitPaneTmp.addPropertyChangeListener(propertyChangeListener);
 				    splitPaneTmp.setDividerSize(2);
+				    splitPaneTmp.setMinimumSize(new Dimension (TableauChercheur.MIN_CELL_WIDTH, TableauChercheur.MIN_CELL_HEIGHT));
 				    splitPaneTmp.setBorder(BorderFactory.createEmptyBorder());
 					mat.get(j).get(i-1).setRightComponent(splitPaneTmp);
 
@@ -382,6 +410,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 				splitPaneTmp.setOrientation(JSplitPane.VERTICAL_SPLIT);
 			    splitPaneTmp.addPropertyChangeListener(propertyChangeListener);
 			    splitPaneTmp.setDividerSize(2);
+			    splitPaneTmp.setMinimumSize(new Dimension (TableauChercheur.MIN_CELL_WIDTH, TableauChercheur.MIN_CELL_HEIGHT));
 			    splitPaneTmp.setBorder(BorderFactory.createEmptyBorder());
 				mat.get(x-1).get(i-2).setRightComponent(splitPaneTmp);
 			}
@@ -393,7 +422,8 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 			mat.get(i).remove(0);
 		}
 
-
+		
+		
 
 		/* Definition des comboBox pour chaque Pane */
 		for (int i = 0 ; i < x ; i++){
@@ -401,7 +431,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 			for (int j = 0 ; j < y-1 ; j++){
 				JComboBox comboBox = new JComboBox(listeTimbres.toArray());
 				comboBox.setSelectedIndex(TabC.mat.get(i).get(j).timbreMIDI()-1);
-				Dimension pageSize=new Dimension((int) (TabC.absisses.get(i+1) - TabC.absisses.get(i)),(int) (TabC.ordonnees.get(j+1) - TabC.ordonnees.get(j)));
+				Dimension pageSize=new Dimension((int) (TabC.absisses.get(i+1) - TabC.absisses.get(i)),(int) (TabC.ordonnees.get(i).get(j+1) - TabC.ordonnees.get(i).get(j)));
 				comboBox.setPreferredSize(pageSize);
 				comboBox.addActionListener(actionListener);
 				t.add(comboBox);
@@ -409,7 +439,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 				mat.get(i).get(j).setLeftComponent(comboBox);
 			}
 			JComboBox comboBox = new JComboBox(listeTimbres.toArray());
-			Dimension pageSize=new Dimension((int) (TabC.absisses.get(i+1) - TabC.absisses.get(i)),(int) (TabC.ordonnees.get(y) - TabC.ordonnees.get(y-1)));
+			Dimension pageSize=new Dimension((int) (TabC.absisses.get(i+1) - TabC.absisses.get(i)),(int) (TabC.ordonnees.get(i).get(y) - TabC.ordonnees.get(i).get(y-1)));
 			//System.out.println(i + " " + (y-1) + " Dim : " + (int) (tabChercheur.absisses.get(i+1) - tabChercheur.absisses.get(i))+ " " +(int) (tabChercheur.ordonnees.get(y) - tabChercheur.ordonnees.get(y-1)));
 
 			comboBox.setPreferredSize(pageSize);

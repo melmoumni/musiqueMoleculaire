@@ -140,9 +140,9 @@ abstract class Controleur{
 	    else if (intervalles.get(i).instantFinal() < mol.instantFinal() ) {
 
 		int k = i;
-		while () {
-		    //modifs sur la liste jusqu'à l'instant où mol.tf < intervalles.i.ti
-		}
+//		while () {
+//		    //modifs sur la liste jusqu'à l'instant où mol.tf < intervalles.i.ti
+//		}
 	    }
 	    // Cas 3-1 : instant initial = et tf <
 	    else if ( (intervalles.get(i).instantInitial() == mol.instantInitial()) &&
