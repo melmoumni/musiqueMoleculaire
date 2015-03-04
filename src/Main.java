@@ -15,7 +15,7 @@ public class Main {
 	//4 - Parser le fichier analyse.trc
 	// 4-1 Remplir la liste des molecules avec le alpha et le numero de la proteine
 	try {
-	    p.lireFichierAnalyse("../data/fichiersTests/analyseTest.txt");
+	    p.lireFichierAnalyse("./data/fichiersTests/analyseTest.txt");
 	}
 	catch (IOException e) {
 	}
@@ -24,13 +24,13 @@ public class Main {
 	// 5-1 Completer les informations des proteines avec la liste des positions.
 	try {	
 	    System.out.println("Lecture du 2e fichier");
-	    p.lireFichierTrajectoire("../data/fichiersTests/trajectoiresTest.trc");
+	    p.lireFichierTrajectoire("./data/fichiersTests/trajectoiresTest.trc");
 	}
 	catch (IOException e) {
 	}
 	try {	
 	    System.out.println("Lecture du fichier de timbres");
-	    p.lectureTimbre("../data/listeInstruments.txt");
+	    p.lectureTimbre("./data/listeInstruments.txt");
 	}
 	catch (IOException e) {
 	}
