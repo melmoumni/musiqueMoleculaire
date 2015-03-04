@@ -63,7 +63,7 @@ abstract class Controleur{
     }
     
     public void printTrajectoires(){
-			FenetreTrajectoires f=  new FenetreTrajectoires();
+			FenetreTrajectoires f=  new FenetreTrajectoires(this.molecules());
     }
 
     public void initMolecules(Parseur parseur){
