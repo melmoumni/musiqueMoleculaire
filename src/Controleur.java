@@ -61,6 +61,10 @@ abstract class Controleur{
 	    timbre.printTimbre();
 	}
     }
+    
+    public void printTrajectoires(){
+			FenetreTrajectoires f=  new FenetreTrajectoires();
+    }
 
     public void initMolecules(Parseur parseur){
 	molecules = parseur.molecules;
