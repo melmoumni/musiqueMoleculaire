@@ -61,6 +61,10 @@ abstract class Controleur{
 	    timbre.printTimbre();
 	}
     }
+    
+    public void printTrajectoires(){
+			FenetreTrajectoires f=  new FenetreTrajectoires();
+    }
 
     public void initMolecules(Parseur parseur){
 	molecules = parseur.molecules;
@@ -124,8 +128,51 @@ abstract class Controleur{
 	    while ( (i < index) && (intervalles.get(i).instantInitial() < mol.instantInitial()) ) { //on cherche le triplet ayant un ti < mol.ti 
 		i++;
 	    }
+	    
+	    // Cas 3-2 : instant initial = et tf >
+	    if ((intervalles.get(i).instantInitial() == mol.instantInitial()) &&
+		      (intervalles.get(i).instantFinal() < mol.instantFinal()) ) {
+
+		//quasi-identique au cas 2
+		enRemplissage = intervalles.get(i);
+		int k = i;
+		while ( (k <= index) && (intervalles.get(k).instantFinal() < mol.instantFinal()) ) {
+		    //modifs sur la liste jusqu'à l'instant où mol.tf < intervalles.i.ti
+		    if (i == k) {
+			intervalles.get(k).incrementeNombreMolecule();
+			k++;
+		    }
+		    else {
+			intervalles.get(k).incrementeNombreMolecule();
+			enRemplissage = intervalles.get(k);
+			intervalles.get(k).setInstantInitial(intervalles.get(k-1).instantFinal());
+			intervalles.get(k).setInstantFinal(enRemplissage.instantFinal());
+			k++;
+		    }
+		}
+		if (k == 0){
+		    intervalles.get(k).incrementeNombreMolecule();
+		    System.out.println("toto");
+		}
+		if (k > index) {
+		    intervalles.add(new Triplet(intervalles.get(k-1).instantFinal(), mol.instantFinal(), 1));
+		    index++;
+		}
+		else {
+		  
+		    intervalles.add(k,new Triplet(intervalles.get(k).instantFinal(), mol.instantFinal(), intervalles.get(k).nombreMolecule()) );
+		    index++;
+		}
+	    }
+	    // Cas 3 ti et tf ==
+	    else if ((intervalles.get(i).instantInitial() == mol.instantInitial()) &&
+		     (intervalles.get(i).instantFinal() == mol.instantFinal()) ) {
+		intervalles.get(index).incrementeNombreMolecule();
+	    }
+
+
 	    // Cas 1 : dernier triplet de la liste englobe la molecule
-	    if (intervalles.get(i).instantFinal() > mol.instantFinal() ) {
+	    else if (intervalles.get(i).instantFinal() > mol.instantFinal() ) {
 		enRemplissage = intervalles.get(i);
 		enRemplissage.incrementeNombreMolecule();
 		intervalles.get(i).setInstantFinal(mol.instantInitial());
@@ -138,33 +185,34 @@ abstract class Controleur{
 	    }
 	    // Cas 2 : dernier triplet de la liste couvre le debut du triplet de la molecule
 	    else if (intervalles.get(i).instantFinal() < mol.instantFinal() ) {
-
+		enRemplissage = intervalles.get(i);
 		int k = i;
-		while () {
+		while ( (k <= index) && (intervalles.get(k).instantFinal() < mol.instantFinal()) ) {
 		    //modifs sur la liste jusqu'à l'instant où mol.tf < intervalles.i.ti
+		    if (i == k) {
+			enRemplissage.setInstantInitial(mol.instantInitial());
+			intervalles.get(k).setInstantFinal(mol.instantInitial());
+			intervalles.add(k+1, enRemplissage);
+			k+=2;
+		    }
+		    else {
+			intervalles.get(k).incrementeNombreMolecule();
+			enRemplissage = intervalles.get(k);
+			intervalles.get(k).setInstantInitial(intervalles.get(k-1).instantFinal());
+			intervalles.get(k).setInstantFinal(enRemplissage.instantFinal());
+			k++;
+		    }
+		}
+		if (k >= index) {
+		    intervalles.add(new Triplet(intervalles.get(k).instantFinal(), mol.instantFinal(), 1));
+		    index++;
+		}
+		else {
+		    intervalles.add(k,new Triplet(intervalles.get(k).instantFinal(), mol.instantFinal(), intervalles.get(k).nombreMolecule()) );
+		    index++;
 		}
 	    }
-	    // Cas 3-1 : instant initial = et tf <
-	    else if ( (intervalles.get(i).instantInitial() == mol.instantInitial()) &&
-		      (intervalles.get(i).instantFinal() > mol.instantFinal()) ) {
-		enRemplissage = intervalles.get(i);
-		intervalles.get(i).setInstantFinal(mol.instantFinal());
-		enRemplissage.setInstantInitial(mol.instantFinal());
-		intervalles.add(i+1, enRemplissage);
-		index++;
-		i+=1;
-	    }
-	    // Cas 3-2 : instant initial = et tf >
-	    else if ((intervalles.get(i).instantInitial() == mol.instantInitial()) &&
-		      (intervalles.get(i).instantFinal() < mol.instantFinal()) ) {
-
-		//quasi-identique au cas 2
-	    }
-	    // Cas 3 ti et tf ==
-	    else if ((intervalles.get(i).instantInitial() == mol.instantInitial()) &&
-		     (intervalles.get(i).instantFinal() == mol.instantFinal()) ) {
-		intervalles.get(index).incrementeNombreMolecule();
-	    }
+	   
 	    // Cas 4 : ensemble disjoints
 	    else {
 		enRemplissage.setInstantInitial(mol.instantInitial()); 
