@@ -21,6 +21,10 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import java.awt.*;
+import java.awt.geom.Line2D;
+import javax.swing.*;
+
 public class FenetreTrajectoires {
 	private float scale=1;
 	private ArrayList<Molecule> molecules;
@@ -94,6 +98,7 @@ public class FenetreTrajectoires {
    			final float luminance = 1.0f; //1.0 for brighter, 0.0 for black
    			Color color = Color.getHSBColor(hue, saturation, luminance);
    			g2d.setColor(color);
+   			g2d.setStroke(new BasicStroke(0));
    			System.out.println("mol \n");
    			
    	   		ListIterator <CaracteristiqueTemporelle> it = mol.positions().listIterator();
@@ -119,7 +124,7 @@ public class FenetreTrajectoires {
     
     public static void main(String[] args) {
 
-		Controleur controleur = new Chercheur();
+		final Controleur controleur = new Chercheur();
 		Parseur p = new Parseur();
 		try {
 			p.lireFichierAnalyse("./data/fichiersTests/analyseTest3.txt");
