@@ -130,14 +130,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 		}
 		System.out.println("");
 		
-		
-//		JPanel panel_1 = new JPanel();
-//		panel_1.setSize((int) dim.getWidth() / 5, (int) dim.getHeight());
-//		getContentPane().add(panel_1, BorderLayout.EAST);
 
-		
-//		JPanel panel_3 = new JPanel();
-//		getContentPane().add(panel_3, BorderLayout.EAST);
 		
 	    panel_1.setLayout(new FormLayout(new ColumnSpec[] {
 	    		FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
@@ -197,17 +190,13 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 		
 		
 		
-//		JPanel panel_2 = new JPanel();
-//		getContentPane().add(panel_2, BorderLayout.SOUTH);
 		
 		JSplitPane splitPane = new JSplitPane();
-//		splitPane.setSize(8*(int) dim.getWidth() / 10, (int) dim.getHeight());
-//		splitPane.setMinimumSize(new Dimension (8*(int) dim.getWidth() / 10, (int) dim.getHeight()));
 		panel.add(splitPane);
-		splitPane.setDividerSize(1);
-
+		splitPane.setDividerSize(2);
 	    splitPane.setBorder(BorderFactory.createEmptyBorder());		
-		/* Creation de la premiere ligne de splitPane */
+
+	    /* Creation de la premiere ligne de splitPane */
 		ArrayList<JSplitPane> tInit = new ArrayList<JSplitPane>();
 		tInit.add(splitPane);
 
@@ -231,6 +220,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 		 * 
 		 */
 
+		
 		/* Programme permettant la détection de changement de timbre */
 		ActionListener actionListener = new ActionListener(){
 
@@ -266,24 +256,12 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 		        JSplitPane sourceSplitPane = (JSplitPane) changeEvent.getSource();
 		        String propertyName = changeEvent.getPropertyName();
 		        if (propertyName.equals(JSplitPane.LAST_DIVIDER_LOCATION_PROPERTY)) {
-//		        	System.out.println(changeEvent);
 		        	if ((sourceSplitPane.getOrientation() == JSplitPane.VERTICAL_SPLIT)  && ((int) changeEvent.getNewValue() != -1)){
 		        		changeDividerVert(mat, sourceSplitPane);
 		        	}
 		        	else if ((sourceSplitPane.getOrientation() == JSplitPane.HORIZONTAL_SPLIT)  && ((int) changeEvent.getNewValue() != -1)){
 		        		changeDividerHor(premiereLigne, sourceSplitPane);
 		        	}
-//		    		for (Float i : TabC.absisses){
-//		    			System.out.printf("%f ",i);
-//		    		}
-//		    		System.out.println("");
-//		    		for (ArrayList<Float> AL : TabC.ordonnees){
-//		    			for (Float i : AL){
-//		    				System.out.printf("%f ",i);
-//		    			}
-//		    			System.out.println("");
-//		    		}
-//		    		System.out.println("");
 		        }
 		      }
 
@@ -334,11 +312,6 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 	    		System.out.println("");
 
 				
-//				for (int i = 0 ; i < mat.size() ; i++){
-//					for (int j = 0 ; j < mat.get(0).size() ; j++ ){
-//						mat.get(i).get(j).setDividerLocation(mat.get(indexI).get(j).getDividerLocation());
-//					}
-//				}
 			}
 		};
 		
@@ -369,7 +342,6 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 		    splitPaneTmp.addPropertyChangeListener(propertyChangeListener);
 		    splitPaneTmp.setMinimumSize(new Dimension (TableauChercheur.MIN_CELL_WIDTH, TableauChercheur.MIN_CELL_HEIGHT));
 		    splitPaneTmp.setDividerSize(2);
-		    //splitPaneTmp.setDividerLocation((TabC.absisses.get(x-1) - TabC.absisses.get(x-2))/(TabC.absisses.get(x) - TabC.absisses.get(x-2)));
 			splitPaneTmp.setBorder(BorderFactory.createEmptyBorder());
 			t.add(splitPaneTmp);
 			mat.get(x-2).get(0).setRightComponent(splitPaneTmp);
@@ -435,18 +407,15 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 				comboBox.setPreferredSize(pageSize);
 				comboBox.addActionListener(actionListener);
 				t.add(comboBox);
-				//System.out.println(i + " " + j + " Dim : " + (int) (tabChercheur.absisses.get(i+1) - tabChercheur.absisses.get(i))+ " " +(int) (tabChercheur.ordonnees.get(j+1) - tabChercheur.ordonnees.get(j)));
 				mat.get(i).get(j).setLeftComponent(comboBox);
 			}
 			JComboBox comboBox = new JComboBox(listeTimbres.toArray());
 			Dimension pageSize=new Dimension((int) (TabC.absisses.get(i+1) - TabC.absisses.get(i)),(int) (TabC.ordonnees.get(i).get(y) - TabC.ordonnees.get(i).get(y-1)));
-			//System.out.println(i + " " + (y-1) + " Dim : " + (int) (tabChercheur.absisses.get(i+1) - tabChercheur.absisses.get(i))+ " " +(int) (tabChercheur.ordonnees.get(y) - tabChercheur.ordonnees.get(y-1)));
 
 			comboBox.setPreferredSize(pageSize);
 			comboBox.setSelectedIndex(TabC.mat.get(i).get(y-1).timbreMIDI()-1);
 			comboBox.addActionListener(actionListener);
 			mat.get(i).get(y-2).setRightComponent(comboBox);
-			//System.out.println(mat.get(i).get(y-2).getRightComponent().getPreferredSize());
 			t.add(comboBox);
 			matCombo.add(t);
 		}

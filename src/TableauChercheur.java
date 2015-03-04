@@ -157,26 +157,6 @@ public class TableauChercheur extends Fenetre {
 		}
 	}
 	
-//	public void changerTailleColonne(int numColonne, float newTaille){
-//
-//		if(numColonne > 0 && numColonne < absisses.size()-1){
-//			absisses.set(numColonne, newTaille + absisses.get(numColonne - 1));
-//		}
-//		else if (numColonne == absisses.size() - 1){
-//			float oldSize = absisses.get(numColonne) - absisses.get(numColonne-1);
-//			absisses.set(numColonne-1, (oldSize - newTaille) + absisses.get(numColonne - 1));
-//		}
-//	}
-//	
-//	public void changerTailleLigne(int numLigne, float newTaille){
-//		if(numLigne > 0 && numLigne < ordonnees.size()-1){
-//			ordonnees.set(numLigne, newTaille + ordonnees.get(numLigne - 1));
-//		}
-//		else if (numLigne == ordonnees.size() - 1){
-//			float oldSize = ordonnees.get(numLigne) - ordonnees.get(numLigne-1);
-//			ordonnees.set(numLigne-1, (oldSize - newTaille) + ordonnees.get(numLigne - 1));
-//		}
-//	}
 	
 	
 }
