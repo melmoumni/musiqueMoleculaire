@@ -1,8 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
+
 import javax.swing.JApplet;
 import javax.swing.JFrame;
+
+import java.io.IOException;
 /*import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ArrayList;*/
@@ -12,7 +15,7 @@ public class FenetreTrajectoires extends JFrame {
 
 	private ArrayList<Molecule> molecules;
 	
-	public void FenetreTrajectoires(ArrayList<Molecule> mols){
+	public FenetreTrajectoires(ArrayList<Molecule> mols){
 		setMols(mols);
 		this.setResizable(false);
 
@@ -64,10 +67,42 @@ public class FenetreTrajectoires extends JFrame {
 	   		 }
 	   		 
 			}
-     public static void main(String[] args){
-      FenetreTrajectoires  ft = new FenetreTrajectoires();  
-      //FenetreTrajectoires.setVisible(true);
-   }
+   public static void main(String[] args) {
+
+		Controleur controleur = new Chercheur();
+		Parseur p = new Parseur();
+		try {
+			p.lireFichierAnalyse("./data/fichiersTests/analyseTest.txt");
+		}
+		catch (IOException e) {
+		}
+		try {	
+			System.out.println("Lecture du 2e fichier");
+			p.lireFichierTrajectoire("./data/fichiersTests/trajectoiresTest.trc");
+		}
+		catch (IOException e) {
+		}
+		try {	
+			System.out.println("Lecture du fichier de timbres");
+			p.lectureTimbre("./data/listeInstruments.txt");
+		}
+		catch (IOException e) {
+		}
+		controleur.initMolecules(p);
+		
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FenetreTrajectoires frame = new FenetreTrajectoires(controleur.molecules());
+					
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
       
   
@@ -81,3 +116,4 @@ public class FenetreTrajectoires extends JFrame {
 	}
    
 }
+

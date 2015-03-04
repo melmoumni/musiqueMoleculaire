@@ -137,7 +137,7 @@ abstract class Controleur{
 		enRemplissage = intervalles.get(i);
 		int k = i;
 		while ( (k <= index) && (intervalles.get(k).instantFinal() < mol.instantFinal()) ) {
-		    //modifs sur la liste jusqu'à l'instant où mol.tf < intervalles.i.ti
+		    //modifs sur la liste jusqu'Ã  l'instant oÃ¹ mol.tf < intervalles.i.ti
 		    if (i == k) {
 			intervalles.get(k).incrementeNombreMolecule();
 			k++;
@@ -188,7 +188,7 @@ abstract class Controleur{
 		enRemplissage = intervalles.get(i);
 		int k = i;
 		while ( (k <= index) && (intervalles.get(k).instantFinal() < mol.instantFinal()) ) {
-		    //modifs sur la liste jusqu'à l'instant où mol.tf < intervalles.i.ti
+		    //modifs sur la liste jusqu'Ã  l'instant oÃ¹ mol.tf < intervalles.i.ti
 		    if (i == k) {
 			enRemplissage.setInstantInitial(mol.instantInitial());
 			intervalles.get(k).setInstantFinal(mol.instantInitial());
@@ -237,3 +237,4 @@ abstract class Controleur{
     }
 
 }
+
