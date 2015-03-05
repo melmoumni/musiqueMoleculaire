@@ -4,20 +4,20 @@ import java.awt.Toolkit;
 public class TableauCompositeur extends Fenetre {
 	public Timbre[] timbreAbs;
 	public Timbre[] timbreOrd;
-	public int[] abscisses;
-	public int[] ordonnees;
+	public float[] abscisses;
+	public float[] ordonnees;
 	
-	public static int MAX_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	public static int MAX_WIDTH = (int) (4*Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5);
+	public static int MAX_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()-200;
+	public static int MAX_WIDTH = (int) (3*Toolkit.getDefaultToolkit().getScreenSize().getWidth()/5);
 
 	
 	TableauCompositeur (){
-		abscisses = new int[4];
-		ordonnees = new int[4];
+		abscisses = new float[4];
+		ordonnees = new float[4];
 		timbreAbs = new Timbre[3];
 		timbreOrd = new Timbre[3];
 		for (int i = 0 ; i <= 3 ; i++){
-			abscisses[i] = (MAX_WIDTH/3) * i;
+			abscisses[i] = (MAX_WIDTH/3) * (i+1);
 			ordonnees[i] = (MAX_HEIGHT/3) * i;
 		}
 		timbreAbs[0] = Controleur.tableauTimbre[43]; // Contrebasse
@@ -29,8 +29,8 @@ public class TableauCompositeur extends Fenetre {
 	}
 	
 	TableauCompositeur(Timbre[] Abs, Timbre[] Ord){
-		abscisses = new int[4];
-		ordonnees = new int[4];
+		abscisses = new float[4];
+		ordonnees = new float[4];
 		timbreAbs = new Timbre[3];
 		timbreOrd = new Timbre[3];
 		for (int i = 0 ; i < 3 ; i++){
@@ -44,8 +44,8 @@ public class TableauCompositeur extends Fenetre {
 	}
 
 	TableauCompositeur(Timbre[] Abs, Timbre[] Ord, int[] Abscisses, int[] Ordonnees){
-		abscisses = new int[4];
-		ordonnees = new int[4];
+		abscisses = new float[4];
+		ordonnees = new float[4];
 		timbreAbs = new Timbre[3];
 		timbreOrd = new Timbre[3];
 		for (int i = 0 ; i < 3 ; i++){

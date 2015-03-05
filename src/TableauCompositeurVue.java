@@ -33,10 +33,6 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	JButton btnStart;
-	JButton btnAjouterUneLigne;
-	JButton btnAjouterUneColonne;
-	JButton btnSupprimerUneLigne;
-	JButton btnSupprimerUneColonne;
 	TableauCompositeur TabC;
 
 	/**
@@ -117,6 +113,14 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		}
 		
 		
+		for (Float f : TabC.abscisses){
+			System.out.printf("%f ", f);
+		}
+		System.out.println();
+		for (Float f : TabC.ordonnees){
+			System.out.printf("%f ", f);
+		}
+		System.out.println();
 		
 	    panel_1.setLayout(new FormLayout(new ColumnSpec[] {
 	    		FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
@@ -149,25 +153,6 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	    		FormFactory.RELATED_GAP_ROWSPEC,
 	    		FormFactory.DEFAULT_ROWSPEC,}));
 	    
-	    btnAjouterUneLigne = new JButton("Ajouter Une Ligne");
-	    btnAjouterUneLigne.setName("btnAjouterUneLigne");
-	    btnAjouterUneLigne.addActionListener(this);
-	    panel_1.add(btnAjouterUneLigne, "2, 2");
-	    
-	    btnSupprimerUneLigne = new JButton("Supprimer Une Ligne");
-	    btnSupprimerUneLigne.setName("btnSupprimerUneLigne");
-	    btnSupprimerUneLigne.addActionListener(this);
-	    panel_1.add(btnSupprimerUneLigne, "2, 4");
-	    
-	    btnAjouterUneColonne = new JButton("Ajouter une Colonne");
-	    btnAjouterUneColonne.setName("btnAjouterUneColonne");
-	    btnAjouterUneColonne.addActionListener(this);
-	    panel_1.add(btnAjouterUneColonne, "2, 10");
-
-	    btnSupprimerUneColonne = new JButton("Supprimer une Colonne");
-	    btnSupprimerUneColonne.setName("btnSupprimerUneColonne");
-	    btnSupprimerUneColonne.addActionListener(this);
-	    panel_1.add(btnSupprimerUneColonne, "2, 12");
 	    
 	    btnStart = new JButton("Valider le tableau");
 	    btnStart.setName("btnStart");
@@ -213,7 +198,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 						indexI = i;
 					}
 				}
-				//TabC.absisses.set(indexI + 1,(float) current + TabC.absisses.get(indexI));
+				//TabC.abscisses.set(indexI + 1,(float) current + TabC.abscisses.get(indexI));
 
 			}
 
@@ -230,15 +215,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 							indexJ = j;
 						}						
 					}
-				}
-
-//				for (int i = 0 ; i < TabC.ordonnees.get(indexI).size() - 2 ; i++){
-//					float f = (float) mat.get(indexI).get(i).getDividerLocation() +   TabC.ordonnees.get(indexI).get(i);
-//					System.out.println(i + " " + f);
-//					TabC.ordonnees.get(indexI).set(i + 1,f);	
-//				}
-
-				
+				}				
 			}
 		};
 		panel.setLayout(null);
@@ -246,25 +223,25 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		
 		
 		JSplitPane splitPane00 = new JSplitPane();
-		splitPane00.setBounds(603, 0, 355, 79);
+		splitPane00.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[0],(int) (TabC.abscisses[3] - TabC.abscisses[0]), (int) (TabC.ordonnees[3] - TabC.ordonnees[0]));
+		splitPane00.setDividerLocation((int) (TabC.abscisses[1] - TabC.abscisses[0]));
 		panel.add(splitPane00);
 		splitPane00.setDividerSize(2);
 		splitPane00.setBorder(BorderFactory.createEmptyBorder());		
 		splitPane00.addPropertyChangeListener(propertyChangeListener);
 		
 		JSplitPane splitPane01 = new JSplitPane();
+		splitPane01.setBounds((int) TabC.abscisses[1], (int) TabC.ordonnees[0],(int) (TabC.abscisses[3] - TabC.abscisses[1]), (int) (TabC.ordonnees[3] - TabC.ordonnees[0]));
+		splitPane01.setDividerLocation((int) (TabC.abscisses[2] - TabC.abscisses[1]));
 		splitPane00.setRightComponent(splitPane01);
 		splitPane01.setDividerSize(2);
 		splitPane01.setBorder(BorderFactory.createEmptyBorder());		
 		splitPane01.addPropertyChangeListener(propertyChangeListener);
 		
-//		JSplitPane splitPane02 = new JSplitPane();
-//		panel.add(splitPane02);
-//		splitPane02.setDividerSize(2);
-//	    splitPane02.setBorder(BorderFactory.createEmptyBorder());		
-//	    splitPane02.addPropertyChangeListener(propertyChangeListener);
 	    		
 		JSplitPane splitPane10 = new JSplitPane();
+		splitPane10.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[0],(int) (TabC.abscisses[1] - TabC.abscisses[0]), (int) (TabC.ordonnees[3] - TabC.ordonnees[0]));
+		splitPane10.setDividerLocation((int) (TabC.ordonnees[1] - TabC.ordonnees[0]));
 		splitPane10.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane00.setLeftComponent(splitPane10);
 		splitPane10.setDividerSize(2);
@@ -272,6 +249,8 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		splitPane10.addPropertyChangeListener(propertyChangeListener);
 		
 		JSplitPane splitPane11 = new JSplitPane();
+		splitPane11.setBounds((int) TabC.abscisses[1], (int) TabC.ordonnees[0],(int) (TabC.abscisses[2] - TabC.abscisses[1]), (int) (TabC.ordonnees[3] - TabC.ordonnees[0]));
+		splitPane11.setDividerLocation((int) (TabC.ordonnees[1] - TabC.ordonnees[0]));
 		splitPane11.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane01.setRightComponent(splitPane11);
 		splitPane11.setDividerSize(2);
@@ -279,6 +258,8 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		splitPane11.addPropertyChangeListener(propertyChangeListener);
 		
 		JSplitPane splitPane12 = new JSplitPane();
+		splitPane12.setBounds((int) TabC.abscisses[2], (int) TabC.ordonnees[0],(int) (TabC.abscisses[3] - TabC.abscisses[2]), (int) (TabC.ordonnees[3] - TabC.ordonnees[0]));
+		splitPane12.setDividerLocation((int) (TabC.ordonnees[1] - TabC.ordonnees[0]));
 		splitPane12.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane01.setLeftComponent(splitPane12);
 		splitPane12.setDividerSize(2);
@@ -286,57 +267,93 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		splitPane12.addPropertyChangeListener(propertyChangeListener);
 		
 		JSplitPane splitPane20 = new JSplitPane();
+		splitPane20.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[1],(int) (TabC.abscisses[1] - TabC.abscisses[0]), (int) (TabC.ordonnees[3] - TabC.ordonnees[1]));
+		splitPane20.setDividerLocation((int) (TabC.ordonnees[2] - TabC.ordonnees[1]));
 		splitPane20.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane10.setRightComponent(splitPane20);
 		splitPane20.setDividerSize(2);
 		splitPane20.setBorder(BorderFactory.createEmptyBorder());		
-		splitPane20.addPropertyChangeListener(propertyChangeListener);
+		splitPane20.addPropertyChangeListener(propertyChangeListener);		
 		
 		JSplitPane splitPane21 = new JSplitPane();
 		splitPane21.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane21.setBounds((int) TabC.abscisses[1], (int) TabC.ordonnees[1],(int) (TabC.abscisses[2] - TabC.abscisses[1]), (int) (TabC.ordonnees[3] - TabC.ordonnees[1]));
+		splitPane21.setDividerLocation((int) (TabC.ordonnees[2] - TabC.ordonnees[1]));
 		splitPane11.setRightComponent(splitPane21);
 		splitPane21.setDividerSize(2);
 		splitPane21.setBorder(BorderFactory.createEmptyBorder());		
 		splitPane21.addPropertyChangeListener(propertyChangeListener);
-		
+
 		JSplitPane splitPane22 = new JSplitPane();
+		splitPane22.setBounds((int) TabC.abscisses[2], (int) TabC.ordonnees[1],(int) (TabC.abscisses[2] - TabC.abscisses[1]), (int) (TabC.ordonnees[3] - TabC.ordonnees[1]));
+		splitPane22.setDividerLocation((int) (TabC.ordonnees[2] - TabC.ordonnees[1]));
 		splitPane22.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane12.setRightComponent(splitPane22);
 		splitPane22.setDividerSize(2);
 		splitPane22.setBorder(BorderFactory.createEmptyBorder());
-		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(603, 92, 117, 22);
-		panel.add(comboBox_2);
-		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setBounds(724, 92, 117, 22);
-		panel.add(comboBox_3);
-		
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setBounds(839, 92, 119, 22);
-		panel.add(comboBox_4);
-		
-		JComboBox comboBox_5 = new JComboBox();
-		comboBox_5.setBounds(508, 0, 31, 22);
-		panel.add(comboBox_5);
-		
-		JComboBox comboBox_6 = new JComboBox();
-		comboBox_6.setBounds(508, 33, 31, 22);
-		panel.add(comboBox_6);
-		
-		JComboBox comboBox_7 = new JComboBox();
-		comboBox_7.setBounds(508, 68, 31, 22);
-		panel.add(comboBox_7);
 	    splitPane22.addPropertyChangeListener(propertyChangeListener);
-		JComboBox comboBox_1 = new JComboBox(listeTimbres.toArray());
+
+		
+		JPanel HautGauche = new JPanel();
+		splitPane10.setLeftComponent(HautGauche);
+		
+		JPanel HautCentre = new JPanel();
+		splitPane11.setLeftComponent(HautCentre);
+		
+		JPanel HautDroit = new JPanel();
+		splitPane12.setLeftComponent(HautDroit);
+		
+		JPanel CentreGauche = new JPanel();
+		splitPane20.setLeftComponent(CentreGauche);
+				
+		JPanel CentreCentre = new JPanel();
+		splitPane21.setLeftComponent(CentreCentre);
+		
+		JPanel CentreDroit = new JPanel();
+		splitPane22.setLeftComponent(CentreDroit);
+		
+		JPanel BasGauche = new JPanel();
+		splitPane20.setRightComponent(BasGauche);
+		
+		JPanel BasCentre = new JPanel();
+		splitPane21.setRightComponent(BasCentre);
+		
+		JPanel BasDroit = new JPanel();
+		splitPane22.setRightComponent(BasDroit);
+		
+
+		
+		JComboBox<String> comboVent3 = new JComboBox<String>();
+		comboVent3.setBounds(0, 0, TableauCompositeur.MAX_WIDTH/3  - 50, 25);
+		panel.add(comboVent3);
+		
+		JComboBox<String> comboVent2 = new JComboBox<String>();
+		comboVent2.setBounds(0, (int) TabC.ordonnees[1], TableauCompositeur.MAX_WIDTH/3 - 50, 25);
+		panel.add(comboVent2);
+		
+		JComboBox<String> comboVent1 = new JComboBox<String>();
+		comboVent1.setBounds(0, (int) TabC.ordonnees[2], TableauCompositeur.MAX_WIDTH/3 - 50, 25);
+		panel.add(comboVent1);
+		
+		JComboBox<String> comboCorde1 = new JComboBox<String>();
+		comboCorde1.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50, 25);
+		panel.add(comboCorde1);
+		
+		JComboBox<String> comboCorde2 = new JComboBox<String>();
+		comboCorde2.setBounds((int) TabC.abscisses[1], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50, 25);
+		panel.add(comboCorde2);
+		
+		JComboBox<String> comboCorde3 = new JComboBox<String>();
+		comboCorde3.setBounds((int) TabC.abscisses[2], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50 , 25);
+		panel.add(comboCorde3);
+		
 		
 		
 
 		/* Definition des comboBox pour chaque Pane */
 		JComboBox comboBox = new JComboBox(listeTimbres.toArray());
 		//comboBox.setSelectedIndex(TabC.mat.get(i).get(j).timbreMIDI()-1);
-		//Dimension pageSize=new Dimension((int) (TabC.absisses.get(i+1) - TabC.absisses.get(i)),(int) (TabC.ordonnees.get(i).get(j+1) - TabC.ordonnees.get(i).get(j)));
+		//Dimension pageSize=new Dimension((int) (TabC.abscisses.get(i+1) - TabC.abscisses.get(i)),(int) (TabC.ordonnees.get(i).get(j+1) - TabC.ordonnees.get(i).get(j)));
 		//comboBox.setPreferredSize(pageSize);
 		comboBox.addActionListener(actionListener);
 		
@@ -347,18 +364,6 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 
 		if(source == btnStart){
 			System.out.println("Ca commence");
-		}
-		else if(source == btnAjouterUneColonne){
-			System.out.println("Vous avez ajouté une colonne.");
-		}
-		else if(source == btnAjouterUneLigne){
-			System.out.println("Vous avez ajouté une ligne.");	
-		}
-		else if(source == btnSupprimerUneLigne){
-			System.out.println("Vous avez supprimé une ligne.");	
-		}
-		else if(source == btnSupprimerUneColonne){
-			System.out.println("Vous avez supprimé une colonne.");	
 		}
 	}
 }

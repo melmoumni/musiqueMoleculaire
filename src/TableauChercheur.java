@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 
 public class TableauChercheur extends Fenetre {
-	public ArrayList<Float> absisses;
+	public ArrayList<Float> abscisses;
 	public ArrayList<ArrayList<Float>> ordonnees;
 	public ArrayList<ArrayList<Timbre>> mat;
 	public final static int MIN_CELL_WIDTH = 150;
@@ -14,7 +14,7 @@ public class TableauChercheur extends Fenetre {
 	
 	
 	public TableauChercheur (){
-		absisses = new ArrayList<Float>();
+		abscisses = new ArrayList<Float>();
 		ordonnees = new ArrayList<ArrayList<Float>>();
 		mat = new ArrayList<ArrayList<Timbre>>();
 	}
@@ -23,14 +23,14 @@ public class TableauChercheur extends Fenetre {
 	 * de façon homogène et une matrice initialisée avec des timbres 0 (piano)
 	 */
 	public TableauChercheur (int x, int y){
-		absisses = new ArrayList<Float>();
+		abscisses = new ArrayList<Float>();
 		ordonnees = new ArrayList<ArrayList<Float>>();
 		mat = new ArrayList<ArrayList<Timbre>>();
 		
 		for (int i = 0 ; i < y ; i++){
-			absisses.add((float) (i * (MAX_WIDTH/y) - 25*i));
+			abscisses.add((float) (i * (MAX_WIDTH/y) - 25*i));
 		}
-		absisses.add((float) MAX_WIDTH - 25*y);
+		abscisses.add((float) MAX_WIDTH - 25*y);
 		
 		for (int i = 0 ; i < y ; i++){
 			ArrayList<Float> t = new ArrayList<Float>();
@@ -53,26 +53,26 @@ public class TableauChercheur extends Fenetre {
 	}
 	
 	public void ajouterColonne(){
-		int indice = absisses.size()-1;
+		int indice = abscisses.size()-1;
 		int gain = 0;
 		boolean full = false;
 		/* On sépare la dernière colonne en 2*/
-		if (absisses.get(indice) /(absisses.size()) >= MIN_CELL_WIDTH){
-			absisses.add(indice, (absisses.get(indice) - absisses.get(indice - 1))/2 + absisses.get(indice - 1));
+		if (abscisses.get(indice) /(abscisses.size()) >= MIN_CELL_WIDTH){
+			abscisses.add(indice, (abscisses.get(indice) - abscisses.get(indice - 1))/2 + abscisses.get(indice - 1));
 			
 			/* Ou on décale si c'est trop petit*/
-			if (((absisses.get(indice+1) - absisses.get(indice)) < MIN_CELL_WIDTH)){
+			if (((abscisses.get(indice+1) - abscisses.get(indice)) < MIN_CELL_WIDTH)){
 				while (gain < MIN_CELL_WIDTH && !full ){
-					if (absisses.get(indice + 1) - absisses.get(indice) > MIN_CELL_WIDTH ){
-						gain += absisses.get(indice + 1) - absisses.get(indice) - MIN_CELL_WIDTH;
+					if (abscisses.get(indice + 1) - abscisses.get(indice) > MIN_CELL_WIDTH ){
+						gain += abscisses.get(indice + 1) - abscisses.get(indice) - MIN_CELL_WIDTH;
 					}
 					
-					if (indice <= 0 && absisses.get(1) - absisses.get(0) < MIN_CELL_WIDTH*2){
+					if (indice <= 0 && abscisses.get(1) - abscisses.get(0) < MIN_CELL_WIDTH*2){
 						full = true;
 					}
 					
 					if (gain < MIN_CELL_WIDTH && indice > 0){
-						absisses.set(indice, absisses.get(indice+1)- MIN_CELL_WIDTH);
+						abscisses.set(indice, abscisses.get(indice+1)- MIN_CELL_WIDTH);
 					}
 					indice--;
 					
@@ -102,7 +102,7 @@ public class TableauChercheur extends Fenetre {
 		/* On sépare la dernière ligne en 2*/
 		if (ordonnees.get(0).get(indice) /(ordonnees.get(0).size()) >= MIN_CELL_HEIGHT){
 
-			for (int i = 0 ; i < absisses.size() -1; i++){
+			for (int i = 0 ; i < abscisses.size() -1; i++){
 				indice = ordonnees.get(i).size()-1;
 				gain = 0;
 				full = false;
@@ -139,8 +139,8 @@ public class TableauChercheur extends Fenetre {
 	}
 	
 	public void supprimerColonne(){
-		if (absisses.size() >3){
-			absisses.remove(absisses.size() - 2);
+		if (abscisses.size() >3){
+			abscisses.remove(abscisses.size() - 2);
 			ordonnees.remove(ordonnees.size() - 1);
 			mat.remove(mat.size() - 1);
 		}

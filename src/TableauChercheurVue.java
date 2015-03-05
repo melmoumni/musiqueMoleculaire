@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -15,7 +14,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.border.Border;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -36,7 +34,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 	JButton btnSupprimerUneColonne;
 	TableauChercheur TabC;
 	final ArrayList<ArrayList<JSplitPane>> mat;
-	final ArrayList<ArrayList<JComboBox>> matCombo;
+	final ArrayList<ArrayList<JComboBox<String>>> matCombo;
 
 	/**
 	 * Launch the application.
@@ -118,7 +116,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 		int x = TabC.mat.size();
 		int y = TabC.mat.get(0).size();
 		
-		for (Float i : TabC.absisses){
+		for (Float i : TabC.abscisses){
 			System.out.printf("%f ",i);
 		}
 		System.out.println("");
@@ -206,7 +204,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 		/* Création de la matrice des splitPane locaux */
 		mat = new ArrayList<ArrayList<JSplitPane>>();
 		
-		matCombo = new ArrayList<ArrayList<JComboBox>>();
+		matCombo = new ArrayList<ArrayList<JComboBox<String>>>();
 		
 		final ArrayList<JSplitPane> premiereLigne = new ArrayList<JSplitPane>();
 		
@@ -226,7 +224,8 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JComboBox comboBox = (JComboBox) e.getSource();
+				@SuppressWarnings("unchecked")
+				JComboBox<String> comboBox = (JComboBox<String>) e.getSource();
 				changeMatTimbre(comboBox); 
 				
 				for (int i = 0 ; i < TabC.mat.size() ; i++){
@@ -238,7 +237,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 				System.out.println("");				
 			}
 
-			private void changeMatTimbre(JComboBox comboBox) {
+			private void changeMatTimbre(JComboBox<String> comboBox) {
 				for (int i = 0 ; i < matCombo.size() ; i++){
 					for (int j = 0 ; j < matCombo.get(0).size() ; j++){
 						if (comboBox.equals(matCombo.get(i).get(j))){
@@ -274,7 +273,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 						indexI = i;
 					}
 				}
-				TabC.absisses.set(indexI + 1,(float) current + TabC.absisses.get(indexI));
+				TabC.abscisses.set(indexI + 1,(float) current + TabC.abscisses.get(indexI));
 
 			}
 
@@ -282,13 +281,11 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 
 				
 				int indexI = 0;
-				int indexJ = 0;
 				for (int i = 0 ; i < mat.size() ; i++){
 					for (int j = 0 ; j < mat.get(0).size() ; j++){
 						if (sourceSplitPane.equals(mat.get(i).get(j))){
 							System.out.println(i + " " + j);
 							indexI = i;
-							indexJ = j;
 						}						
 					}
 				}
@@ -299,7 +296,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 					TabC.ordonnees.get(indexI).set(i + 1,f);	
 				}
 
-	    		for (Float i : TabC.absisses){
+	    		for (Float i : TabC.abscisses){
 	    			System.out.printf("%f ",i);
 	    		}
 	    		System.out.println("");
@@ -320,7 +317,8 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 	    splitPane.addPropertyChangeListener(propertyChangeListener);
 		
 		
-		JComboBox comboBox_1 = new JComboBox(listeTimbres.toArray());
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		JComboBox<String> comboBox_1 = new JComboBox(listeTimbres.toArray());
 		splitPane.setLeftComponent(comboBox_1);
 		mat.add(tInit);
 		for (int j = 0 ; j < x-2 ; j++){
@@ -399,18 +397,20 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 
 		/* Definition des comboBox pour chaque Pane */
 		for (int i = 0 ; i < x ; i++){
-			ArrayList<JComboBox> t = new ArrayList<JComboBox>();
+			ArrayList<JComboBox<String>> t = new ArrayList<JComboBox<String>>();
 			for (int j = 0 ; j < y-1 ; j++){
-				JComboBox comboBox = new JComboBox(listeTimbres.toArray());
+				@SuppressWarnings({ "unchecked", "rawtypes" })
+				JComboBox<String> comboBox = new JComboBox(listeTimbres.toArray());
 				comboBox.setSelectedIndex(TabC.mat.get(i).get(j).timbreMIDI()-1);
-				Dimension pageSize=new Dimension((int) (TabC.absisses.get(i+1) - TabC.absisses.get(i)),(int) (TabC.ordonnees.get(i).get(j+1) - TabC.ordonnees.get(i).get(j)));
+				Dimension pageSize=new Dimension((int) (TabC.abscisses.get(i+1) - TabC.abscisses.get(i)),(int) (TabC.ordonnees.get(i).get(j+1) - TabC.ordonnees.get(i).get(j)));
 				comboBox.setPreferredSize(pageSize);
 				comboBox.addActionListener(actionListener);
 				t.add(comboBox);
 				mat.get(i).get(j).setLeftComponent(comboBox);
 			}
-			JComboBox comboBox = new JComboBox(listeTimbres.toArray());
-			Dimension pageSize=new Dimension((int) (TabC.absisses.get(i+1) - TabC.absisses.get(i)),(int) (TabC.ordonnees.get(i).get(y) - TabC.ordonnees.get(i).get(y-1)));
+			@SuppressWarnings({ "unchecked", "rawtypes" })
+			JComboBox<String> comboBox = new JComboBox(listeTimbres.toArray());
+			Dimension pageSize=new Dimension((int) (TabC.abscisses.get(i+1) - TabC.abscisses.get(i)),(int) (TabC.ordonnees.get(i).get(y) - TabC.ordonnees.get(i).get(y-1)));
 
 			comboBox.setPreferredSize(pageSize);
 			comboBox.setSelectedIndex(TabC.mat.get(i).get(y-1).timbreMIDI()-1);
