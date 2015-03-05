@@ -15,6 +15,8 @@ import java.util.Collections;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 
 import Utilitaires.Midi;
 
@@ -63,7 +65,12 @@ abstract class Controleur{
 	}
 
     public void printTrajectoires(){
-	FenetreTrajectoires f=  new FenetreTrajectoires(this.molecules());
+	//FenetreTrajectoires f=  new FenetreTrajectoires(this.molecules());
+	JFrame jf = new JFrame("test");
+    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    jf.setSize(400, 400);
+    jf.add(new JScrollPane(new FenetreTrajectoires(this.molecules())));
+    jf.setVisible(true);	
     }
 
 	public void initMolecules(Parseur parseur){
