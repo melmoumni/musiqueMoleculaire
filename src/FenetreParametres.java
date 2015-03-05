@@ -65,7 +65,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		this.setVisible(true);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Donnés d'entrées", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Donnees d'entrees", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JLabel label = new JLabel("Fichiers");
 		label.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -96,7 +96,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		JPanel panel = new JPanel();
 		
 		JLabel lblNoteDeRfrnce = new JLabel("Note de reference");
-		String[] listeNotes = { "do", "ré", "mi", "fa", "sol", "la","si" };
+		String[] listeNotes = { "do", "re", "mi", "fa", "sol", "la","si" };
 		notes = new JComboBox<String>(listeNotes);
 		
 		JLabel lblSeuils = new JLabel("Seuils alpha");
@@ -120,7 +120,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		JLabel label_4 = new JLabel("<");	
 		JLabel label_3 = new JLabel("<");
 		
-		JLabel lblDure = new JLabel("Duréé souhaitée");
+		JLabel lblDure = new JLabel("Duree souhaitee");
 		valeurDuree = new JSpinner();
 		JLabel lblS = new JLabel("s");
 		

@@ -22,7 +22,7 @@ public class ControleurFenetres {
 	}
 	
 	/* Choix de l'utilisateur : 
-	 * 	Lance la fenetre correspondant à l'utilisateur
+	 * 	Lance la fenetre correspondant a l'utilisateur
 	 */
 	public static void choixUtilisateur(){
 		System.out.println(params.getUtilisateur());
@@ -54,7 +54,7 @@ public class ControleurFenetres {
 		controleur.initMolecules(p);
 	}
 	
-	/* Récupère les différents paramêtres renseignées par l'utilisateur dans la fenetre de parametre */
+	/* Recupere les differents parametres renseignees par l'utilisateur dans la fenetre de parametre */
 	public static void recupereParametre(){
 		alpha1 = params.getValeurAlpha1();
 		alpha2 = params.getValeurAlpha2();
