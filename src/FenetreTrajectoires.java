@@ -28,7 +28,8 @@ import Utilitaires.Midi;
 
 public class FenetreTrajectoires extends javax.swing.JPanel {
 private ArrayList<Molecule> molecules;
-private Dimension preferredSize = new Dimension(400,400);    
+private Dimension preferredSize;   
+private int largeurInitiale, hauteurInitiale;
 
 
 public static void main(String[] args) { 
@@ -60,7 +61,7 @@ public static void main(String[] args) {
 			    JFrame jf = new JFrame("test");
 			    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			    jf.setSize(400, 400);
-			    jf.add(new JScrollPane(new FenetreTrajectoires(controleur.molecules())));
+			    jf.add(new JScrollPane(new FenetreTrajectoires(controleur.molecules(),1000,1000)));
 			    jf.setVisible(true);			
 				
 			} catch (Exception e) {
@@ -80,7 +81,10 @@ public static void main(String[] args) {
 public void setMols(ArrayList<Molecule> mols){
 	molecules=mols;
 }
-public FenetreTrajectoires(ArrayList<Molecule> mols) {
+public FenetreTrajectoires(ArrayList<Molecule> mols, int largeurVideo, int hauteurVideo) {
+	preferredSize= new Dimension(largeurVideo,hauteurVideo); 
+	largeurInitiale=largeurVideo;
+	hauteurInitiale=hauteurVideo;
 	setMols(mols);
     setBackground(Color.black);
     setForeground(Color.black);
@@ -133,6 +137,17 @@ public Dimension getPreferredSize() {
     return preferredSize;
 }
 
+public int getHauteurInit()
+{
+	return this.hauteurInitiale;
+}
+
+public int getLargeurInit()
+{
+	return this.largeurInitiale;
+}
+
+
 
 public void paint(Graphics g) {
     super.paint(g);
@@ -149,13 +164,11 @@ public void paint(Graphics g) {
 	 		 tmp=it.next();
 	 		 CaracteristiqueTemporelle tmp2 = new CaracteristiqueTemporelle();
 				while (it.hasNext()) {
-					 	float w = (float)getWidth()/(float)400;
-					    float h = (float)getHeight()/(float)400;
+					 	float w = (float)getWidth()/(float)getLargeurInit();
+					    float h = (float)getHeight()/(float)getHauteurInit();
 						tmp2=it.next();
-				/*		tmp2.setX(tmp2.x());
-						tmp2.setY( tmp2.y());*/
-						System.out.println(getWidth() + "  "+ getHeight());
-						System.out.println(w+" "+h+" "+"x " + tmp.x()*w + " y "+ tmp.y()*h+ " next x " + tmp2.x()*w+ " next y "+tmp2.y()*h +"\n");
+						//System.out.println(getWidth() + "  "+ getHeight());
+						//System.out.println(w+" "+h+" "+"x " + tmp.x()*w + " y "+ tmp.y()*h+ " next x " + tmp2.x()*w+ " next y "+tmp2.y()*h +"\n");
 						g2.draw(new Line2D.Float(tmp.x()*w, tmp.y()*h, tmp2.x()*w, tmp2.y()*h));
 						tmp=tmp2;
 					
