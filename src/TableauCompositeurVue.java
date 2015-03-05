@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -16,16 +15,13 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.border.Border;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+
 
 
 public class TableauCompositeurVue extends JFrame implements ActionListener{
@@ -37,6 +33,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	JButton btnStart;
 	TableauCompositeur TabC;
 	JSplitPane splitPane00, splitPane01, splitPane02,splitPane10 ,splitPane11, splitPane12, splitPane20, splitPane21, splitPane22;
+	JComboBox<String> comboVent1, comboVent2, comboVent3, comboCorde1, comboCorde2, comboCorde3;
 	
 	
 	
@@ -84,6 +81,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public TableauCompositeurVue(boolean init, TableauCompositeur tab) {
 		this.setResizable(false);
 
@@ -112,6 +110,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	    else {
 	    	TabC = tab;
 		}
+	    
 		
 		ArrayList<String> listeTimbres = new ArrayList<String>();		
 		for (int i = 0 ; i < 128 ; i++){
@@ -189,7 +188,6 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				@SuppressWarnings({ "rawtypes", "unchecked" })
 				JComboBox<String> comboBox = (JComboBox) e.getSource();
 				switch (comboBox.getName()){
 				case "comboVent1":
@@ -231,16 +229,39 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		        	else if ((sourceSplitPane.getOrientation() == JSplitPane.HORIZONTAL_SPLIT)  && ((int) changeEvent.getNewValue() != -1)){
 		        		changeDividerHor(sourceSplitPane);
 		        	}
+		        	for (Float f : TabC.abscisses){
+		    			System.out.printf("%f ", f);
+		    		}
+		    		System.out.println();
+		    		for (Float f : TabC.ordonnees){
+		    			System.out.printf("%f ", f);
+		    		}
+		    		System.out.println();
 		        }
 		      }
 
 			private void changeDividerHor(JSplitPane sourceSplitPane) {
-				int current = sourceSplitPane.getDividerLocation();
-				if (sourceSplitPane.getName().equals("splitPane00")){
-					TabC.abscisses[1] = current + TabC.abscisses[0];
-				}else if (sourceSplitPane.getName().equals("splitPane01")){
-					TabC.abscisses[2] = current + TabC.abscisses[1];
+				TabC.abscisses[1] = TabC.abscisses[0] + splitPane00.getDividerLocation();
+				TabC.abscisses[2] = TabC.abscisses[1] + splitPane01.getDividerLocation();
+				comboCorde1.setBounds((int) TabC.abscisses[0] ,
+						comboCorde1.getY(), 
+						min(TableauCompositeur.MAX_WIDTH/3 - 50, (int) (TabC.abscisses[1] - TabC.abscisses[0])), 
+						25);		
+				comboCorde2.setBounds((int) TabC.abscisses[1] ,
+						comboCorde2.getY(),
+						min(TableauCompositeur.MAX_WIDTH/3 - 50,(int) (TabC.abscisses[2] - TabC.abscisses[1])),
+						25);
+				comboCorde3.setBounds((int) TabC.abscisses[2] ,
+						comboCorde3.getY(), 
+						min(TableauCompositeur.MAX_WIDTH/3 - 50, (int) (TabC.abscisses[3] - TabC.abscisses[2])), 
+						25);		
+			}
+
+			private int min(int width, int i) {
+				if (width < i){
+					return width;
 				}
+				return i;
 			}
 
 			private void changeDividerVert(JSplitPane sourceSplitPane) {
@@ -270,9 +291,9 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 					break;
 				case "splitPane12":
 					if(splitPane12.isEnabled()){
+						TabC.ordonnees[1] = current + TabC.ordonnees[0];
 						splitPane10.setEnabled(false);
 						splitPane11.setEnabled(false);
-						TabC.ordonnees[1] = current + TabC.ordonnees[0];
 						splitPane10.setDividerLocation(current);
 						splitPane11.setDividerLocation(current);
 						splitPane10.setEnabled(true);
@@ -315,7 +336,11 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 				default:
 					break;
 				}
-			
+				TabC.ordonnees[2] = TabC.ordonnees[1] + splitPane20.getDividerLocation(); // Au cas ou les cases du bas bouge de maniere indirecte.
+
+				comboVent2.setBounds(0, (int) TabC.ordonnees[1], comboVent2.getWidth(), 25);
+				comboVent1.setBounds(0, (int) TabC.ordonnees[2], comboVent1.getWidth(), 25);
+
 			}
 		};
 		panel.setLayout(null);
@@ -440,44 +465,37 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		
 
 		
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		JComboBox<String> comboVent3 = new JComboBox(instrumentsVent);
+		comboVent3 = new JComboBox(instrumentsVent);
 		comboVent3.setName("comboVent3");
 		comboVent3.setBounds(0, 0, TableauCompositeur.MAX_WIDTH/3  - 50, 25);
 		comboVent3.addActionListener(actionListener);
 		panel.add(comboVent3);
 		
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-
-		JComboBox<String> comboVent2 = new JComboBox(instrumentsVent);
+		comboVent2 = new JComboBox(instrumentsVent);
 		comboVent2.setName("comboVent2");
 		comboVent2.setBounds(0, (int) TabC.ordonnees[1], TableauCompositeur.MAX_WIDTH/3 - 50, 25);
 		comboVent2.addActionListener(actionListener);
 		panel.add(comboVent2);
 		
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		JComboBox<String> comboVent1 = new JComboBox(instrumentsVent);
+		comboVent1 = new JComboBox(instrumentsVent);
 		comboVent1.setName("comboVent1");
 		comboVent1.setBounds(0, (int) TabC.ordonnees[2], TableauCompositeur.MAX_WIDTH/3 - 50, 25);
 		comboVent1.addActionListener(actionListener);
 		panel.add(comboVent1);
 		
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		JComboBox<String> comboCorde1 = new JComboBox(instrumentsCorde);
+		comboCorde1 = new JComboBox(instrumentsCorde);
 		comboCorde1.setName("comboCorde1");
 		comboCorde1.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50, 25);
 		comboCorde1.addActionListener(actionListener);
 		panel.add(comboCorde1);
 		
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		JComboBox<String> comboCorde2 = new JComboBox(instrumentsCorde);
+		comboCorde2 = new JComboBox(instrumentsCorde);
 		comboCorde2.setName("comboCorde2");
 		comboCorde2.setBounds((int) TabC.abscisses[1], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50, 25);
 		comboCorde2.addActionListener(actionListener);
 		panel.add(comboCorde2);
 		
-		@SuppressWarnings({ "unchecked", "rawtypes" })
-		JComboBox<String> comboCorde3 = new JComboBox(instrumentsCorde);
+		comboCorde3 = new JComboBox(instrumentsCorde);
 		comboCorde3.setName("comboCorde3");
 		comboCorde3.setBounds((int) TabC.abscisses[2], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50 , 25);
 		comboCorde3.addActionListener(actionListener);
