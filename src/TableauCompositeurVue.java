@@ -253,8 +253,8 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 						splitPane12.setEnabled(false);
 						splitPane11.setDividerLocation(current); // deplacement des deux autres divideurs en meme temps
 						splitPane12.setDividerLocation(current);
-						splitPane10.setEnabled(true); // on reactive les deux autres divideurs pour pouvoir les selectionner et les deplacer
-						splitPane11.setEnabled(true);
+						splitPane11.setEnabled(true); // on reactive les deux autres divideurs pour pouvoir les selectionner et les deplacer
+						splitPane12.setEnabled(true);
 					}
 					break;
 				case "splitPane11":
