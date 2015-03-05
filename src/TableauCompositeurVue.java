@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -35,7 +36,11 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	JButton btnStart;
 	TableauCompositeur TabC;
-
+	JSplitPane splitPane00, splitPane01, splitPane02,splitPane10 ,splitPane11, splitPane12, splitPane20, splitPane21, splitPane22;
+	
+	
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -122,7 +127,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		
 		/* instruments à corde */
 		ArrayList<String> listeTimbresCorde = new ArrayList<String>();		
-		for (int i = 0 ; i < 40 ; i++){
+		for (int i = 0 ; i < 8 ; i++){
 			listeTimbresCorde.add(listeTimbres.get(i));
 		}
 		for (int i = 24 ; i < 63 ; i++){
@@ -213,7 +218,6 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 
 		};
 
-
 		/* Programme permettant la détection de changement du divider de chaque splitPane */
 		PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
 		      public void propertyChange(PropertyChangeEvent changeEvent) {
@@ -243,22 +247,70 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 				int current = sourceSplitPane.getDividerLocation();
 				switch (sourceSplitPane.getName()){
 				case "splitPane10":
-					TabC.ordonnees[1] = current + TabC.ordonnees[0];
+					if(splitPane10.isEnabled()){ // on verfie que le composant est activé
+						TabC.ordonnees[1] = current + TabC.ordonnees[0];
+						splitPane11.setEnabled(false); // on desactive les autres divideurs pour eviter les deplacements en boucle
+						splitPane12.setEnabled(false);
+						splitPane11.setDividerLocation(current); // deplacement des deux autres divideurs en meme temps
+						splitPane12.setDividerLocation(current);
+						splitPane10.setEnabled(true); // on reactive les deux autres divideurs pour pouvoir les selectionner et les deplacer
+						splitPane11.setEnabled(true);
+					}
 					break;
 				case "splitPane11":
-					TabC.ordonnees[1] = current + TabC.ordonnees[0];
+					if(splitPane11.isEnabled()){
+						TabC.ordonnees[1] = current + TabC.ordonnees[0];
+						splitPane10.setEnabled(false);
+						splitPane12.setEnabled(false);
+						splitPane10.setDividerLocation(current);
+						splitPane12.setDividerLocation(current);
+						splitPane10.setEnabled(true);
+						splitPane12.setEnabled(true);
+					}
 					break;
 				case "splitPane12":
-					TabC.ordonnees[1] = current + TabC.ordonnees[0];
+					if(splitPane12.isEnabled()){
+						splitPane10.setEnabled(false);
+						splitPane11.setEnabled(false);
+						TabC.ordonnees[1] = current + TabC.ordonnees[0];
+						splitPane10.setDividerLocation(current);
+						splitPane11.setDividerLocation(current);
+						splitPane10.setEnabled(true);
+						splitPane11.setEnabled(true);
+					}
 					break;
 				case "splitPane20":
 					TabC.ordonnees[2] = current + TabC.ordonnees[1];
+					if(splitPane20.isEnabled()){
+						splitPane21.setEnabled(false);
+						splitPane22.setEnabled(false);
+						splitPane21.setDividerLocation(current);
+						splitPane22.setDividerLocation(current);
+						splitPane21.setEnabled(true);
+						splitPane22.setEnabled(true);
+					}
 					break;
 				case "splitPane21":
-					TabC.ordonnees[2] = current + TabC.ordonnees[1];
+					if(splitPane21.isEnabled()){
+						TabC.ordonnees[2] = current + TabC.ordonnees[1];
+						splitPane20.setEnabled(false);
+						splitPane22.setEnabled(false);
+						splitPane20.setDividerLocation(current);
+						splitPane22.setDividerLocation(current);
+						splitPane20.setEnabled(true);
+						splitPane22.setEnabled(true);
+					}
 					break;
 				case "splitPane22":
-					TabC.ordonnees[2] = current + TabC.ordonnees[1];
+					if(splitPane22.isEnabled()){
+						TabC.ordonnees[2] = current + TabC.ordonnees[1];
+						splitPane20.setEnabled(false);
+						splitPane21.setEnabled(false);
+						splitPane20.setDividerLocation(current);
+						splitPane21.setDividerLocation(current);
+						splitPane20.setEnabled(true);
+						splitPane21.setEnabled(true);
+					}
 					break;
 				default:
 					break;
@@ -269,8 +321,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		panel.setLayout(null);
 		
 		
-		
-		JSplitPane splitPane00 = new JSplitPane();
+		splitPane00 = new JSplitPane();
 		splitPane00.setName("splitPane00");
 		splitPane00.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[0],(int) (TabC.abscisses[3] - TabC.abscisses[0]), (int) (TabC.ordonnees[3] - TabC.ordonnees[0]));
 		splitPane00.setDividerLocation((int) (TabC.abscisses[1] - TabC.abscisses[0]));
@@ -279,7 +330,8 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		splitPane00.setBorder(BorderFactory.createEmptyBorder());		
 		splitPane00.addPropertyChangeListener(propertyChangeListener);
 		
-		JSplitPane splitPane01 = new JSplitPane();
+		
+		splitPane01 = new JSplitPane();
 		splitPane01.setName("splitPane01");
 		splitPane01.setBounds((int) TabC.abscisses[1], (int) TabC.ordonnees[0],(int) (TabC.abscisses[3] - TabC.abscisses[1]), (int) (TabC.ordonnees[3] - TabC.ordonnees[0]));
 		splitPane01.setDividerLocation((int) (TabC.abscisses[2] - TabC.abscisses[1]));
@@ -289,7 +341,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		splitPane01.addPropertyChangeListener(propertyChangeListener);
 		
 	    		
-		JSplitPane splitPane10 = new JSplitPane();
+		splitPane10 = new JSplitPane();
 		splitPane10.setName("splitPane10");
 		splitPane10.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[0],(int) (TabC.abscisses[1] - TabC.abscisses[0]), (int) (TabC.ordonnees[3] - TabC.ordonnees[0]));
 		splitPane10.setDividerLocation((int) (TabC.ordonnees[1] - TabC.ordonnees[0]));
@@ -299,7 +351,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		splitPane10.setBorder(BorderFactory.createEmptyBorder());		
 		splitPane10.addPropertyChangeListener(propertyChangeListener);
 		
-		JSplitPane splitPane11 = new JSplitPane();
+		splitPane11 = new JSplitPane();
 		splitPane11.setName("splitPane11");
 		splitPane11.setBounds((int) TabC.abscisses[1], (int) TabC.ordonnees[0],(int) (TabC.abscisses[2] - TabC.abscisses[1]), (int) (TabC.ordonnees[3] - TabC.ordonnees[0]));
 		splitPane11.setDividerLocation((int) (TabC.ordonnees[1] - TabC.ordonnees[0]));
@@ -309,7 +361,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		splitPane11.setBorder(BorderFactory.createEmptyBorder());		
 		splitPane11.addPropertyChangeListener(propertyChangeListener);
 		
-		JSplitPane splitPane12 = new JSplitPane();
+		splitPane12 = new JSplitPane();
 		splitPane12.setName("splitPane12");
 		splitPane12.setBounds((int) TabC.abscisses[2], (int) TabC.ordonnees[0],(int) (TabC.abscisses[3] - TabC.abscisses[2]), (int) (TabC.ordonnees[3] - TabC.ordonnees[0]));
 		splitPane12.setDividerLocation((int) (TabC.ordonnees[1] - TabC.ordonnees[0]));
@@ -319,7 +371,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		splitPane12.setBorder(BorderFactory.createEmptyBorder());		
 		splitPane12.addPropertyChangeListener(propertyChangeListener);
 		
-		JSplitPane splitPane20 = new JSplitPane();
+		splitPane20 = new JSplitPane();
 		splitPane20.setName("splitPane20");
 		splitPane20.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[1],(int) (TabC.abscisses[1] - TabC.abscisses[0]), (int) (TabC.ordonnees[3] - TabC.ordonnees[1]));
 		splitPane20.setDividerLocation((int) (TabC.ordonnees[2] - TabC.ordonnees[1]));
@@ -329,7 +381,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		splitPane20.setBorder(BorderFactory.createEmptyBorder());		
 		splitPane20.addPropertyChangeListener(propertyChangeListener);		
 		
-		JSplitPane splitPane21 = new JSplitPane();
+		splitPane21 = new JSplitPane();
 		splitPane21.setName("splitPane21");
 		splitPane21.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane21.setBounds((int) TabC.abscisses[1], (int) TabC.ordonnees[1],(int) (TabC.abscisses[2] - TabC.abscisses[1]), (int) (TabC.ordonnees[3] - TabC.ordonnees[1]));
@@ -339,7 +391,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		splitPane21.setBorder(BorderFactory.createEmptyBorder());		
 		splitPane21.addPropertyChangeListener(propertyChangeListener);
 
-		JSplitPane splitPane22 = new JSplitPane();
+		splitPane22 = new JSplitPane();
 		splitPane22.setName("splitPane22");
 		splitPane22.setBounds((int) TabC.abscisses[2], (int) TabC.ordonnees[1],(int) (TabC.abscisses[2] - TabC.abscisses[1]), (int) (TabC.ordonnees[3] - TabC.ordonnees[1]));
 		splitPane22.setDividerLocation((int) (TabC.ordonnees[2] - TabC.ordonnees[1]));
@@ -351,31 +403,40 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 
 		
 		JPanel HautGauche = new JPanel();
+		HautGauche.setBackground(Color.pink);
 		splitPane10.setLeftComponent(HautGauche);
 		
-		JPanel HautCentre = new JPanel();
-		splitPane11.setLeftComponent(HautCentre);
-		
 		JPanel HautDroit = new JPanel();
-		splitPane12.setLeftComponent(HautDroit);
+		HautDroit.setBackground(Color.pink);
+		splitPane11.setLeftComponent(HautDroit);
+		
+		JPanel HautCentre = new JPanel();
+		HautCentre.setBackground(Color.pink);
+		splitPane12.setLeftComponent(HautCentre);
 		
 		JPanel CentreGauche = new JPanel();
+		CentreGauche.setBackground(new Color(178,102,255));
 		splitPane20.setLeftComponent(CentreGauche);
 				
-		JPanel CentreCentre = new JPanel();
-		splitPane21.setLeftComponent(CentreCentre);
-		
 		JPanel CentreDroit = new JPanel();
-		splitPane22.setLeftComponent(CentreDroit);
+		CentreDroit.setBackground(Color.pink);
+		splitPane21.setLeftComponent(CentreDroit);
+		
+		JPanel CentreCentre = new JPanel();
+		CentreCentre.setBackground(new Color(178,102,255));
+		splitPane22.setLeftComponent(CentreCentre);
 		
 		JPanel BasGauche = new JPanel();
+		BasGauche.setBackground(new Color(102,178,255));
 		splitPane20.setRightComponent(BasGauche);
 		
-		JPanel BasCentre = new JPanel();
-		splitPane21.setRightComponent(BasCentre);
-		
 		JPanel BasDroit = new JPanel();
-		splitPane22.setRightComponent(BasDroit);
+		BasDroit.setBackground(Color.pink);
+		splitPane21.setRightComponent(BasDroit);
+		
+		JPanel BasCentre = new JPanel();
+		splitPane22.setRightComponent(BasCentre);
+		BasCentre.setBackground(new Color(178,102,255));
 		
 
 		
