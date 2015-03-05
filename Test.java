@@ -15,7 +15,7 @@ public class Test{
 	try{
 	    //Midi m = new Midi();
 	    Midi.initialiser();
-	    Midi.configurerChannel(0, 56);
+	    //Midi.configurerChannel(0, 56);
 	    //tremolo entre la note 60 et 63
 	    /*
 	           for(i = 0; i<=30; i++){
@@ -48,30 +48,36 @@ public class Test{
 	    //Midi.glissando(60, 0,100, 0, 4000, 100, 3000);
 	    //Midi.glissando(62, 0,100, 4000, 8000, 100, 3000);
 	    //	    Midi.noteTenue(61,0,100, 5000,5201);
-	    Midi.glissando(60,56,100,10000, 20000, 100, 30);
+	    //Midi.glissando(60,56,100,10000, 20000, 100, 30);
 	    //m.glissando(60, 56,100, 1001, 2000, 100, -15);
 
-//	    Midi.noteTenue(64,0,100,0,500);
-//	    Midi.noteTenue(63,0,100,500,1000);
-//	    Midi.noteTenue(64,0,100,1000,1500);
-//	    Midi.noteTenue(63,0,100,1500,2000);
-//	    Midi.noteTenue(64,0,100,2000,2500);
-//	    Midi.noteTenue(59,0,100,2500,3000);
-//	    Midi.noteTenue(62,0,100,3000,3500);
-//	    Midi.noteTenue(60,0,100,3500,4000);
-//	    Midi.noteTenue(57,0,100,4000,5000);
-//
-//	    Midi.noteTenue(48,0,100,5500,6000);
-//	    Midi.noteTenue(52,0,100,6000,6500);
-//	    Midi.noteTenue(57,0,100,6500,7000);
-//	    Midi.noteTenue(59,0,100,7000,8000);
-//
-//	    Midi.noteTenue(52,0,100,8500,9000);
-//	    Midi.noteTenue(56,0,100,9000,9500);
-//	    Midi.noteTenue(59,0,100,9500,10000);
-//	    Midi.noteTenue(60,0,100,10000,11500);
-//	    
-	    Midi.jouerSequence();
+	    //	    Midi.noteTenue(64,0,100,0,500);
+	    // Midi.noteTenue(63,1,100,500,1000);
+	    // Midi.noteTenue(64,2,100,1000,1500);
+	    // Midi.noteTenue(63,23,100,1500,2000);
+	    // Midi.noteTenue(64,5,100,2000,2500);
+	    // Midi.noteTenue(59,6,100,2500,3000);
+	    // Midi.noteTenue(62,0,100,3000,3500);
+	    // Midi.noteTenue(60,15,100,3500,4000);
+	    // Midi.noteTenue(57,0,100,4000,5000);
+
+	    // Midi.noteTenue(48,0,100,5500,6000);
+	    // Midi.noteTenue(52,0,100,6000,6500);
+	    // Midi.noteTenue(57,0,100,6500,7000);
+	    // Midi.noteTenue(59,0,100,7000,8000);
+
+	    // Midi.noteTenue(52,0,100,8500,9000);
+	    // Midi.noteTenue(56,0,100,9000,9500);
+	    // Midi.noteTenue(59,0,100,9500,10000);
+	    // Midi.noteTenue(60,0,100,10000,11500);
+
+	    for (i=0;i<15;i++){
+		Midi.noteTenue(60,i*3,100,500*i,500*(i+1));
+		System.out.println("La c'est le"+ i);
+	    }
+
+	    
+	     Midi.jouerSequence();
 	}
 	catch(MidiUnavailableException e){}
 	catch(InvalidMidiDataException e){}
