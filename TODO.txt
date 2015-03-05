@@ -30,5 +30,10 @@ Trucs à faire :
 4-3 - temps fin trop court -> solution provisoire x1000
 4-4 - Définir le volume en globale et créer une fonction permettant de la rendre automatique en fonction de l'intensité (au cas ouù ...)
 
+
 5 ----- RAPPORT ------
 ...pour ceux qui s'ennuient : https://www.overleaf.com/2331450bvbnfg
+
+----Agnes------
+Legende sur FenetreTrajectoires...que mettre?
+Avoir une fenetre de la taille de la video (info dans controleur fenetre)
