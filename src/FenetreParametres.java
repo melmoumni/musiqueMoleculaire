@@ -37,12 +37,13 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	JSpinner valeurL; // largeur de l'image
 	
 	JComboBox<String> notes; // liste des notes de references possibles
-	
 	JSpinner valeurDuree; // duree souhaitee pour l'enregistrement
 	
 	JSpinner valeurAlpha1; // valeur du 1er seuil alpha : entre immobiles et confinees
 	JSpinner valeurAlpha2; // valeur du 2eme seuil alpha : entre confinees et directionnelles 
 	JSpinner valeurAlpha3; // valeur du 3eme seuil alpha : entre directionnelles et diffusives
+	
+	JSpinner valeurI; // valeur du seuil intensité, uniquement pour le compositeur
 	
 	ButtonGroup groupe;
 	
@@ -58,7 +59,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	 */
 	public FenetreParametres() {
 		this.setTitle("Parametres de l'application");
-		this.setBounds(100, 100, 525, 500);
+		this.setBounds(100, 100, 525, 521);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,6 +125,9 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		valeurDuree = new JSpinner();
 		JLabel lblS = new JLabel("s");
 		
+		JLabel lblSeuilIntensite = new JLabel("Seuil intensite");
+		valeurI = new JSpinner();
+		
 		groupe = new ButtonGroup();
 		JRadioButton rdbtnChercheur = new JRadioButton("Chercheur");
 		rdbtnChercheur.setActionCommand("chercheur");
@@ -142,6 +146,9 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		 *  Layout GroupLayout
 		 *  Realise a l'aide du plugin WindowsBuilder sur Eclipse
 		 */
+		
+		
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -149,7 +156,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(10)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_panel.createSequentialGroup()
@@ -163,10 +170,11 @@ public class FenetreParametres extends JFrame implements ActionListener{
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addComponent(lblConfines)))
 									.addGap(29))
-								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+								.addGroup(gl_panel.createSequentialGroup()
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 										.addComponent(rdbtnChercheur)
-										.addComponent(valeurAlpha1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+										.addComponent(valeurAlpha1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+										.addComponent(valeurI, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
 									.addGap(49)))
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 								.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
@@ -180,26 +188,28 @@ public class FenetreParametres extends JFrame implements ActionListener{
 									.addGap(18)
 									.addComponent(lblDiffusives))
 								.addGroup(gl_panel.createSequentialGroup()
-									.addGap(77)
-									.addComponent(valeurAlpha3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(rdbtnCompositeur))))
+									.addGap(12)
+									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(rdbtnCompositeur)
+										.addComponent(valeurAlpha3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblNoteDeRfrnce)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(notes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(48)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnValider)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblDure)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(valeurDuree, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblS, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))))
-					.addContainerGap(69, Short.MAX_VALUE))
+							.addComponent(lblDure)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(valeurDuree, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblS, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(221)
+							.addComponent(btnValider))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblSeuilIntensite)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -212,11 +222,9 @@ public class FenetreParametres extends JFrame implements ActionListener{
 						.addComponent(valeurDuree, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblS))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(115)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(rdbtnCompositeur)
-								.addComponent(rdbtnChercheur)))
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addComponent(btnValider)
+							.addContainerGap())
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(16)
 							.addComponent(lblSeuils)
@@ -233,10 +241,16 @@ public class FenetreParametres extends JFrame implements ActionListener{
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(valeurAlpha2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(valeurAlpha3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(valeurAlpha1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addGap(18)
-					.addComponent(btnValider)
-					.addContainerGap(30, Short.MAX_VALUE))
+								.addComponent(valeurAlpha1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(25)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblSeuilIntensite)
+								.addComponent(valeurI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(rdbtnChercheur)
+								.addComponent(rdbtnCompositeur))
+							.addGap(57))))
 		);
 		panel.setLayout(gl_panel);
 		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
@@ -244,10 +258,10 @@ public class FenetreParametres extends JFrame implements ActionListener{
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 494, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(10)
-							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 465, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 465, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 511, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -255,8 +269,8 @@ public class FenetreParametres extends JFrame implements ActionListener{
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(4)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(21, Short.MAX_VALUE))
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		
 		JLabel lblPixels = new JLabel("pixels");
@@ -392,6 +406,10 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	
 	public int getDuree(){
 		return (Integer) valeurDuree.getValue();
+	}
+	
+	public int getIntensite(){
+		return (Integer) valeurI.getValue();
 	}
 	
 	public String getNoteRef(){
