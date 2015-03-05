@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ class Molecule implements Comparable<Molecule>{
     private float distance;
     private float alpha;
     private float msd;
+    private Color couleur;
     private Effet effet;
     private int tempo; // ou pas !!!
     private float pasMax; // juste pour les aleatoires
@@ -89,6 +91,14 @@ class Molecule implements Comparable<Molecule>{
     public float vitesseOrd(){
 	return vitesseOrd;
     }
+    
+    public Color getCouleur(){
+    	return couleur;
+      }
+
+    public void setCouleur(Color c){
+    	couleur=c;
+     }
     
     public void setInstantInitial(int instant){
 	instantInitial = instant;
