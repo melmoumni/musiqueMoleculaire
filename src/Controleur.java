@@ -69,7 +69,7 @@ abstract class Controleur{
 	JFrame jf = new JFrame("test");
     jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     jf.setSize(400, 400);
-    jf.add(new JScrollPane(new FenetreTrajectoires(this.molecules())));
+    jf.add(new JScrollPane(new FenetreTrajectoires(this.molecules(),400,400)));
     jf.setVisible(true);	
     }
 
