@@ -21,6 +21,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -111,6 +112,23 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		for (int i = 0 ; i < 128 ; i++){
 			listeTimbres.add(Integer.toString(Controleur.tableauTimbre[i].timbreMIDI()) + " - " + Controleur.tableauTimbre[i].nom());
 		}
+		
+		/* instruments à vent */
+		ArrayList<String> listeTimbresVent = new ArrayList<String>();		
+		for (int i = 57 ; i < 80 ; i++){
+			listeTimbresVent.add(listeTimbres.get(i));
+		}
+		Object[] instrumentsVent = listeTimbresVent.toArray();
+		
+		/* instruments à corde */
+		ArrayList<String> listeTimbresCorde = new ArrayList<String>();		
+		for (int i = 0 ; i < 40 ; i++){
+			listeTimbresCorde.add(listeTimbres.get(i));
+		}
+		for (int i = 24 ; i < 63 ; i++){
+			listeTimbresCorde.add(listeTimbres.get(i));
+		}
+		Object[] instrumentsCorde = listeTimbresCorde.toArray();
 		
 		
 		for (Float f : TabC.abscisses){
@@ -323,27 +341,33 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		
 
 		
-		JComboBox<String> comboVent3 = new JComboBox<String>();
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		JComboBox<String> comboVent3 = new JComboBox(instrumentsVent);
 		comboVent3.setBounds(0, 0, TableauCompositeur.MAX_WIDTH/3  - 50, 25);
 		panel.add(comboVent3);
 		
-		JComboBox<String> comboVent2 = new JComboBox<String>();
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		JComboBox<String> comboVent2 = new JComboBox(instrumentsVent);
 		comboVent2.setBounds(0, (int) TabC.ordonnees[1], TableauCompositeur.MAX_WIDTH/3 - 50, 25);
 		panel.add(comboVent2);
 		
-		JComboBox<String> comboVent1 = new JComboBox<String>();
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		JComboBox<String> comboVent1 = new JComboBox(instrumentsVent);
 		comboVent1.setBounds(0, (int) TabC.ordonnees[2], TableauCompositeur.MAX_WIDTH/3 - 50, 25);
 		panel.add(comboVent1);
 		
-		JComboBox<String> comboCorde1 = new JComboBox<String>();
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		JComboBox<String> comboCorde1 = new JComboBox(instrumentsCorde);
 		comboCorde1.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50, 25);
 		panel.add(comboCorde1);
 		
-		JComboBox<String> comboCorde2 = new JComboBox<String>();
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		JComboBox<String> comboCorde2 = new JComboBox(instrumentsCorde);
 		comboCorde2.setBounds((int) TabC.abscisses[1], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50, 25);
 		panel.add(comboCorde2);
 		
-		JComboBox<String> comboCorde3 = new JComboBox<String>();
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		JComboBox<String> comboCorde3 = new JComboBox(instrumentsCorde);
 		comboCorde3.setBounds((int) TabC.abscisses[2], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50 , 25);
 		panel.add(comboCorde3);
 		
