@@ -26,6 +26,7 @@ public class ControleurFenetres {
 	 */
 	public static void choixUtilisateur(){
 		System.out.println(params.getUtilisateur());
+		
 		if(params.getUtilisateur().compareTo("chercheur")==0){
 			params.dispose(); // fermeture de la fenetre parametre
 			controleur = new Chercheur();
@@ -33,8 +34,12 @@ public class ControleurFenetres {
 			fenetrePrincipale = new TableauChercheurVue(true,null);
 			fenetrePrincipale.setVisible(true);
 		}
-		else if(params.getUtilisateur().compareTo("compositeur")==1){
-			// to do
+		else if(params.getUtilisateur().compareTo("compositeur")==0){
+			controleur = new Compositeur(params.getIntensite());
+			params.dispose();
+			parser();
+			fenetrePrincipale = new TableauCompositeurVue(true, null);
+			fenetrePrincipale.setVisible(true);
 		}
 	}
 	
@@ -64,9 +69,7 @@ public class ControleurFenetres {
 		largeur = params.getLargeur();
 		hauteur = params.getHauteur();
 		fichierTrajectoire = params.getFilenameT();
-		System.out.println(fichierTrajectoire);
 		fichierMvts = params.getFilenameM();
-		System.out.println(fichierMvts);
 	}
 
 	
