@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
+import java.awt.geom.Point2D.Float;
 
 import javax.swing.*;
 
@@ -149,28 +150,46 @@ public int getLargeurInit()
 
 
 
+
+private Point2D.Float n1, n2;
+
+
 public void paint(Graphics g) {
+	int numMol =0;
     super.paint(g);
     ArrayList<Molecule> molecules= this.getMols();
 	  Graphics2D g2 = (Graphics2D) g;
 	  for (Molecule mol : molecules){
-	  if(mol.positions().size()>50){
-			g2.setColor(mol.getCouleur());
-		   
-		   
+		  numMol++;
+		
+	  if(mol.positions().size()>50){   //si la molecule a plus de 50 positions on l'affiche
+		  
 			ListIterator <CaracteristiqueTemporelle> it = mol.positions().listIterator();
 	   		CaracteristiqueTemporelle tmp = new CaracteristiqueTemporelle();
+			g2.setColor(mol.getCouleur());
+
 	   		 if(it.hasNext())	{
 		 		 tmp=it.next();
+		 		 
 		 		 CaracteristiqueTemporelle tmp2 = new CaracteristiqueTemporelle();
-					while (it.hasNext()) {
-						 	float w = (float)getWidth()/(float)getLargeurInit();
-						    float h = (float)getHeight()/(float)getHauteurInit();
-							tmp2=it.next();
-							//System.out.println(getWidth() + "  "+ getHeight());
-							//System.out.println(w+" "+h+" "+"x " + tmp.x()*w + " y "+ tmp.y()*h+ " next x " + tmp2.x()*w+ " next y "+tmp2.y()*h +"\n");
-							g2.draw(new Line2D.Float(tmp.x()*w, tmp.y()*h, tmp2.x()*w, tmp2.y()*h));
-							tmp=tmp2;
+		 		 //traçage d'une ligne entre chaque paire de point de la molécule
+					while (it.hasNext()) {		
+						
+					 	float w = (float)getWidth()/(float)getLargeurInit();
+					    float h = (float)getHeight()/(float)getHauteurInit();
+						tmp2=it.next();
+						
+						if(it.nextIndex()==2){ 					//on affiche le numero de molécule seulement entre les deux premiers points de sa trajectoire
+					        this.n1 = new Point2D.Float(tmp.x()*w,tmp.y()*h);
+					        this.n2 = new Point2D.Float(tmp2.x()*w, tmp2.y()*h);
+					        double d = n1.distance(n2);
+					        g2.drawString(String.valueOf(numMol),
+					            (n1.x + n2.x) / 2, (n1.y + n2.y) / 2);
+						}
+						//System.out.println(getWidth() + "  "+ getHeight());
+						//System.out.println(w+" "+h+" "+"x " + tmp.x()*w + " y "+ tmp.y()*h+ " next x " + tmp2.x()*w+ " next y "+tmp2.y()*h +"\n");
+						g2.draw(new Line2D.Float(tmp.x()*w, tmp.y()*h, tmp2.x()*w, tmp2.y()*h));
+						tmp=tmp2;
 						
 	   				}
 		 		 
