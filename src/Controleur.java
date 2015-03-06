@@ -20,113 +20,92 @@ import javax.swing.JScrollPane;
 
 import Utilitaires.Midi;
 
-
 abstract class Controleur{
-
-    //public Parseur parseur;
-	public ArrayList<Molecule> molecules;
-	public ArrayList<Intervalle> intervalles;
-	public int duree;
-	static public int noteRef; 
-	private Vue vue;
-	public Vector<Fenetre> fenetres;
-	public int periode;
-	public float[] alphaSeparation;
-	public boolean isChercheur;
-	static public Timbre[] tableauTimbre;
-
+    public static ArrayList<Molecule> molecules;
+    public ArrayList<Intervalle> intervalles;
+    public int duree;
+    static public int noteRef;
+    private Vue vue;
+    public Vector<Fenetre> fenetres;
+    public int periode;
+    
+    public static float[] alphaSeparation;
+    public static boolean isChercheur;
+    static public Timbre[] tableauTimbre;
     static {
 	tableauTimbre = new Timbre[128];
+	molecules = new ArrayList<Molecule>();
+	alphaSeparation = new float[3];
     }
-	public Controleur(boolean ischercheur){
-		vue = new Vue();
-		//parseur = new Parseur();
-		fenetres = new Vector<Fenetre>();
-		molecules = new ArrayList<Molecule>();
-		intervalles = new ArrayList<Intervalle>();
-		alphaSeparation = new float[3];
-		setAlphaTab((float) 0.25, (float) 0.9, (float) 1.1);
-		isChercheur = ischercheur;
+    public Controleur(boolean ischercheur){
+	vue = new Vue();
+	//parseur = new Parseur();
+	fenetres = new Vector<Fenetre>();
+	intervalles = new ArrayList<Intervalle>();
+	setAlphaTab((float) 0.25, (float) 0.9, (float) 1.1);
+	isChercheur = ischercheur;
+    }
+    public static void printMolecules(){
+	for (Molecule mol : molecules){
+	    mol.printMolecule();
 	}
-
-	public void printMolecules(){
-		for (Molecule mol : molecules){
-			mol.printMolecule();
-		}
+    }
+    
+    public static void printTimbres(){
+	for (Timbre timbre : tableauTimbre){
+	    timbre.printTimbre();
 	}
+    }
 
-	public void printIntervalles(){
-		for (Intervalle intervalle : intervalles){
-			intervalle.printIntervalle();
-		}
-	}
-
-	public void printTimbres(){
-		for (Timbre timbre : tableauTimbre){
-			timbre.printTimbre();
-		}
-	}
-
-    public void printTrajectoires(){
-	//FenetreTrajectoires f=  new FenetreTrajectoires(this.molecules());
+    public static void printTrajectoires(){
+	//FenetreTrajectoires f= new FenetreTrajectoires(this.molecules());
 	JFrame jf = new JFrame("test");
-    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    jf.setSize(400, 400);
-    jf.add(new JScrollPane(new FenetreTrajectoires(this.molecules(),400,400)));
-    jf.setVisible(true);	
+  	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  	jf.setSize(400, 400);
+  	jf.add(new JScrollPane(new FenetreTrajectoires(molecules(),400,400)));
+  	jf.setVisible(true);
     }
-
-    public void initMolecules(String cheminTraj, String cheminAnalyse, String cheminTimbre) throws IOException{
+  
+    public static void initMolecules(String cheminTraj, String cheminAnalyse, String cheminTimbre) throws IOException{
 	Parseur.lireFichierAnalyse(cheminAnalyse, molecules);
-	Parseur.lireFichierTrajectoire(cheminTraj, molecules);
+	Parseur.lireFichierTrajectoire(cheminTraj, molecules());
 	Parseur.lectureTimbre(cheminTimbre,tableauTimbre);
     }
-	// public void setMolecules(String chemin){
-	//     Parseur.lireFichierAnalyse(chemin,molecules);
-	// }
+    
+    public static ArrayList<Molecule> molecules(){
+	return molecules;
+    }
+    
+    public int periode(){
+	return periode;
+    }
+    
+    public void setMolecules(ArrayList<Molecule> newList){
+	molecules = newList;
+    }
+    
+    public void setAlphaTab (float x1, float x2, float x3){
+	alphaSeparation[0] = x1;
+	alphaSeparation[1] = x2;
+	alphaSeparation[2] = x3;
+    }
+    
+    public void setDuree(int newduree){
+	duree = newduree;
+    }
+    
+    public void setNote(int newnote){
+	noteRef = newnote;
+    }
+    
+    public void setPeriode (int p){
+	periode = p;
+    }
+    
 
-	public ArrayList<Molecule> molecules(){
-		return molecules;
-	}
-
-	public int periode(){
-		return periode;
-	}
-
-	public void setMolecules(ArrayList<Molecule> newList){
-		molecules = newList;
-	}
-
-	public void setAlphaTab (float x1, float x2, float x3){
-		alphaSeparation[0] = x1;
-		alphaSeparation[1] = x2;
-		alphaSeparation[2] = x3;
-	}
-
-	public void setDuree(int newduree){
-		duree = newduree;
-	}
-
-	public void setNote(int newnote){
-		noteRef = newnote;
-	}
-
-	public void setPeriode (int p){
-		periode = p;
-	}
-
-
-	protected void setTempo (){
-
-	}
-
-	protected void analyseMolecules(){
-		for (Molecule mol : molecules){
-			mol.analyseMolecule(alphaSeparation, isChercheur);
-			mol.analyseDistance();
-		}
-		Collections.sort(molecules);
-	}
+    protected void setTempo (){
+	
+    }
 
     void remplirIntervalles(){
 	int index = 0;
@@ -305,16 +284,23 @@ abstract class Controleur{
 	}
     }
 
-	void remplirSequence(){
-		try{
-			Midi.initialiser();
-			Midi.configurerChannel(0, 56);
-			for (Molecule mol : molecules){
-				mol.remplirSequenceMolecule();
-			}
-		}catch(MidiUnavailableException e){}
-		catch(InvalidMidiDataException e){}
+    
+    protected static void analyseMolecules(){
+	for (Molecule mol : molecules){
+	    mol.analyseMolecule(alphaSeparation, isChercheur);
+	    mol.analyseDistance();
+	    Collections.sort(molecules);
 	}
+    }
 
+    static void remplirSequence(){
+	try{
+	    Midi.initialiser();
+	    Midi.configurerChannel(0, 56);
+	    for (Molecule mol : molecules){
+		mol.remplirSequenceMolecule();
+	    }
+	}catch(MidiUnavailableException e){}
+	catch(InvalidMidiDataException e){}
+    }
 }
-
