@@ -68,6 +68,9 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 		this.add(typeInstruments);
 		this.add(boxInstruments);	
 		typeInstruments.addActionListener(this);
+		
+		indexInstrument = calculIndexInstrument();
+		
 
 	}
 
@@ -80,13 +83,17 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 	public int getIndexInstrument(){		
 		return indexInstrument;
 	}
-
-	@Override
-	public void itemStateChanged(ItemEvent e) {
+	
+	public int calculIndexInstrument(){
 		String name = boxInstruments.getSelectedItem().toString();
 		String nb[] = name.split("-");
 		String instrument = nb[0].trim();
-		indexInstrument = Integer.parseInt(instrument);
+		return Integer.parseInt(instrument);
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		indexInstrument = calculIndexInstrument();
 		System.out.println(indexInstrument);
 	}
 	
