@@ -158,44 +158,75 @@ public class TableauChercheur extends Fenetre {
 		}
 	}
 	
-	public void allocationTimbres(int tailleVideoLargeur,int tailleVideoHauteur ){
+	public void allocationTimbres(){
+		int i=0;
+		int index=-1;
 		final Controleur controleur = new Chercheur();
 		int timbre;
 		float maxTabAbsc=abscisses.get(abscisses.size()-1);
-		float maxTabOrd = ordonnees.get(0).size()-1;
-		float scaleAbsc= maxTabAbsc/tailleVideoLargeur;
-		float scaleOrd=maxTabOrd/tailleVideoHauteur;
+		float maxTabOrd = ordonnees.get(0).get(ordonnees.get(0).size()-1);
+		float scaleAbsc= maxTabAbsc/ControleurFenetres.getLargeurVideo();
+		float scaleOrd=maxTabOrd/ControleurFenetres.getHauteurVideo();
+		System.out.println("maxtababs et maxtabord : " + maxTabAbsc +" "+maxTabOrd);
 		for(Molecule mol: controleur.molecules()){
+			i++;System.out.println("mol "+i +" x et x converti : "+  mol.positions().get(0).x() + " "+ mol.positions().get(0).x() *scaleAbsc + " y et y converti : "+mol.positions().get(0).y()+" "+  mol.positions().get(0).y() *scaleOrd );
 			int x=0; int y = 0;
 			float  tmp,tmp2;
 			ListIterator<Float> it = abscisses.listIterator();
 			
 			if(it.hasNext())	{
 		 		tmp=it.next();
-		 		while (it.hasNext()) {	
+		 		while (it.hasNext()) {
+		 			index++;
 		 			tmp2=it.next();
-		 			if(mol.positions().get(0).x() *scaleAbsc > tmp && mol.positions().get(0).x()*scaleAbsc < tmp2 ){
-		 				x=it.nextIndex()-1;
+		 			if(mol.positions().get(0).x() *scaleAbsc >= tmp && mol.positions().get(0).x()*scaleAbsc <= tmp2 ){
+		 				x=index;
+		 				System.out.println("trouvé ");
 		 				break;
 		 			}
 		 			tmp=tmp2;
 		 		}
 			}
-		 		
-	 		it = ordonnees.get(x).listIterator();
+
+	 		/*it = ordonnees.get(x).listIterator();
 			if(it.hasNext())	{
+
 		 		tmp=it.next();
-		 		while (it.hasNext()) {	
+		 		while (it.hasNext()) {
+		 			index++;
 		 			tmp2=it.next();
 		 			if(mol.positions().get(0).y()*scaleOrd > tmp && mol.positions().get(0).y()*scaleOrd < tmp2 ){
-		 				y=it.nextIndex()-1;
+		 				y=index;
+
 		 				break;
 		 			}
 		 			tmp=tmp2;
 		 		}
-			}
-		 		
-			mol.setTimbre(mat.get(x).get(y).timbreMIDI());
+			}*/
+		 	              // first iterate through the "outer list"
+	 	 		
+	         for(int j=0; j<ordonnees.size()-1; j++){   // then iterate through all the "inner lists"
+	            	tmp=ordonnees.get(j).get(x);
+	            	tmp2=ordonnees.get(j+1).get(x);
+	                 if(ordonnees.get(j).get(x)* scaleAbsc>=tmp && ordonnees.get(j).get(x) * scaleAbsc <=tmp2){
+	                	 y=j;
+	                	 break;
+	                 }
+	            }
+         // first iterate through the "outer list"
+	
+	           /* for(int j=0; j<ordonnees.get(x).size()-1; j++){   // then iterate through all the "inner lists"
+	            	tmp=ordonnees.get(x).get(j);
+	            	tmp2=ordonnees.get(x).get(j+1);
+	                 if(ordonnees.get(x).get(j)* scaleAbsc>=tmp && ordonnees.get(x).get(j) * scaleAbsc <=tmp2){
+	                	 y=j;
+	                	 break;
+	                 }
+	            }*/
+	        
+	         //System.out.println("taille x y "+ mat.size()+ " " + mat.get(0).size());
+			System.out.println("x "+ x + " y "+y+" timbre " + mat.get(y).get(x).timbreMIDI());
+			mol.setTimbre(mat.get(y).get(x).timbreMIDI());
 			
 			
 		}

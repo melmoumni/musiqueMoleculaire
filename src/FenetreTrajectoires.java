@@ -49,7 +49,7 @@ public static void main(String[] args) {
 			    JFrame jf = new JFrame("test");
 			    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			    jf.setSize(400, 400);
-			    jf.add(new JScrollPane(new FenetreTrajectoires(controleur.molecules(),1000,1000)));
+			    jf.add(new JScrollPane(new FenetreTrajectoires(controleur.molecules())));
 			    jf.setVisible(true);			
 				
 			} catch (Exception e) {
@@ -69,10 +69,11 @@ public static void main(String[] args) {
 public void setMols(ArrayList<Molecule> mols){
 	molecules=mols;
 }
-public FenetreTrajectoires(ArrayList<Molecule> mols, int largeurVideo, int hauteurVideo) {
-	preferredSize= new Dimension(largeurVideo,hauteurVideo); 
-	largeurInitiale=largeurVideo;
-	hauteurInitiale=hauteurVideo;
+public FenetreTrajectoires(ArrayList<Molecule> mols) {
+	largeurInitiale=ControleurFenetres.getLargeurVideo();
+	hauteurInitiale=ControleurFenetres.getHauteurVideo();
+	preferredSize= new Dimension(largeurInitiale,hauteurInitiale); 
+
 	setMols(mols);
     setBackground(Color.black);
     setForeground(Color.black);

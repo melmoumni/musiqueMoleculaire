@@ -61,8 +61,8 @@ abstract class Controleur{
 	//FenetreTrajectoires f= new FenetreTrajectoires(this.molecules());
 	JFrame jf = new JFrame("test");
   	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  	jf.setSize(400, 400);
-  	jf.add(new JScrollPane(new FenetreTrajectoires(molecules(),400,400)));
+  	jf.setSize(ControleurFenetres.getLargeurVideo(), ControleurFenetres.getHauteurVideo());
+  	jf.add(new JScrollPane(new FenetreTrajectoires(molecules())));
   	jf.setVisible(true);
     }
   
@@ -289,8 +289,9 @@ abstract class Controleur{
 	for (Molecule mol : molecules){
 	    mol.analyseMolecule(alphaSeparation, isChercheur);
 	    mol.analyseDistance();
-	    Collections.sort(molecules);
+	    
 	}
+	Collections.sort(molecules);
     }
 
     static void remplirSequence(){

@@ -414,6 +414,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 
 		if(source == btnStart){
 			System.out.println("Ca commence");
+			TabC.allocationTimbres();
 			Controleur.printTrajectoires();
 			Controleur.remplirSequence();
 			Midi.jouerSequence();

@@ -19,7 +19,12 @@ public class ControleurFenetres {
 		params = new FenetreParametres();
 		params.setVisible(true);
 	}
-	
+	static public int getHauteurVideo(){
+		return hauteur;
+	}
+	static public int getLargeurVideo(){
+		return largeur;
+	}
 	/* Choix de l'utilisateur : 
 	 * 	Lance la fenetre correspondant a l'utilisateur
 	 */
@@ -83,4 +88,5 @@ public class ControleurFenetres {
 	public static void main(String[] args) {
 		ControleurFenetres vue = new ControleurFenetres();
 	}
+
 }
