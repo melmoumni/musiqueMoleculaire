@@ -7,12 +7,12 @@ public class Main {
 	public static void main (String[] args){
 
 		if (args.length == 1 && args[0].equals("test")){
-
+			
 		}
 		else{
 
 			//0 - Creer le controleur initial.
-			Controleur controleur = new Chercheur();
+			//Controleur controleur = new Chercheur();
 			//Parseur p = new Parseur();
 			//1 - Lancer la vue
 			//2 - Lancer la fenetre de parametrage (choix chercheur/compositeur, noteRef, alpha, seuil ...)
@@ -25,15 +25,15 @@ public class Main {
 			// 5-1 Completer les informations des proteines avec la liste des positions.
 
 			try {
-				controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
+				Controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
 			}
 			catch (IOException e) {
 			}
 			//controleur.initMolecules(p);
-			controleur.analyseMolecules();
-			controleur.printTrajectoires();
-			controleur.printMolecules();
-			controleur.printTimbres();
+			Controleur.analyseMolecules();
+			Controleur.printTrajectoires();
+			Controleur.printMolecules();
+			Controleur.printTimbres();
 
 
 			//5b - pour le compositeur : Choisir les molecules ou lui demander de choisir. 
@@ -42,7 +42,7 @@ public class Main {
 			//8 - Offrir la possibilite a l'utilisateur de jouer le son.
 
 			//9 - Jouer le son de toutes les molecules et Reconstituer la video des positions de chaque molecules
-			controleur.remplirSequence();
+			Controleur.remplirSequence();
 			Midi.jouerSequence();
 			//System.out.println("Liberation");
 			//Midi.liberer();
