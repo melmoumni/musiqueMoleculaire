@@ -5,6 +5,7 @@ import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -42,7 +43,7 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 		for (int i = 0 ; i < 8 ; i++){
 			listeTimbresCorde.add(listeTimbres.get(i));
 		}
-		for (int i = 24 ; i < 63 ; i++){
+		for (int i = 24 ; i < 56 ; i++){
 			listeTimbresCorde.add(listeTimbres.get(i));
 		}
 		Object[] instrumentsCorde = listeTimbresCorde.toArray();
@@ -61,11 +62,11 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 		models[1]= new DefaultComboBoxModel<>(instrumentsCorde);
 		models[2]= new DefaultComboBoxModel<>(percussions);
 
+		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		boxInstruments.setModel(models[0]);
 		boxInstruments.addItemListener(this);
-		this.add(boxInstruments);
 		this.add(typeInstruments);
-		boxInstruments.setVisible(false);
+		this.add(boxInstruments);	
 		typeInstruments.addActionListener(this);
 
 	}
@@ -74,19 +75,19 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 	public void actionPerformed(ActionEvent e) {
 		int i = typeInstruments.getSelectedIndex();
 		boxInstruments.setModel(models[i]);
-		boxInstruments.setVisible(true);
 	}
 
-	public int getIndexInstrument(){
-		String name = boxInstruments.getSelectedItem().toString();
-		String nb = name.substring(0,3);
-		nb = nb.trim();
-		return Integer.parseInt(nb);
+	public int getIndexInstrument(){		
+		return indexInstrument;
 	}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		indexInstrument = getIndexInstrument();
+		String name = boxInstruments.getSelectedItem().toString();
+		String nb[] = name.split("-");
+		String instrument = nb[0].trim();
+		indexInstrument = Integer.parseInt(instrument);
 		System.out.println(indexInstrument);
 	}
+	
 }
