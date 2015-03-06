@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /**
  * Classe qui sert à savoir combien de molécules sont présentes 
  * dans un intervalle de temps donné.
@@ -6,11 +7,13 @@ class Triplet {
     private int instantInitial;
     private int instantFinal;
     private int nombreMolecule;
+    private ArrayList<Integer> molecules;
     
     public Triplet(int instanti, int instantf, int nbMolecule) {
 	instantInitial = instanti;
 	instantFinal = instantf;
 	nombreMolecule = nbMolecule;
+	molecules = new ArrayList<Integer>();
     }
 
     public void printTriplet(){

@@ -47,6 +47,8 @@ public class ControleurFenetres {
 	    try {
 		controleur.initMolecules(fichierTrajectoire, fichierMvts, "./data/listeInstruments.txt");
 	    }
+	    catch (IOException e) {
+	    }
 	}
 	
 	/* Recupere les differents parametres renseignees par l'utilisateur dans la fenetre de parametre */
