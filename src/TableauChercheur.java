@@ -174,7 +174,7 @@ public class TableauChercheur extends Fenetre {
 		 		tmp=it.next();
 		 		while (it.hasNext()) {	
 		 			tmp2=it.next();
-		 			if(mol.positions().get(0).x() > tmp && mol.positions().get(0).x() < tmp2 ){
+		 			if(mol.positions().get(0).x() *scaleAbsc > tmp && mol.positions().get(0).x()*scaleAbsc < tmp2 ){
 		 				x=it.nextIndex()-1;
 		 				break;
 		 			}
@@ -187,7 +187,7 @@ public class TableauChercheur extends Fenetre {
 		 		tmp=it.next();
 		 		while (it.hasNext()) {	
 		 			tmp2=it.next();
-		 			if(mol.positions().get(0).y() > tmp && mol.positions().get(0).y() < tmp2 ){
+		 			if(mol.positions().get(0).y()*scaleOrd > tmp && mol.positions().get(0).y()*scaleOrd < tmp2 ){
 		 				y=it.nextIndex()-1;
 		 				break;
 		 			}
