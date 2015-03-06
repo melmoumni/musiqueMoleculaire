@@ -1,5 +1,6 @@
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 
 public class TableauChercheur extends Fenetre {
@@ -157,6 +158,49 @@ public class TableauChercheur extends Fenetre {
 		}
 	}
 	
+	public void allocationTimbres(int tailleVideoLargeur,int tailleVideoHauteur ){
+		final Controleur controleur = new Chercheur();
+		int timbre;
+		float maxTabAbsc=abscisses.get(abscisses.size()-1);
+		float maxTabOrd = ordonnees.get(0).size()-1;
+		float scaleAbsc= maxTabAbsc/tailleVideoLargeur;
+		float scaleOrd=maxTabOrd/tailleVideoHauteur;
+		for(Molecule mol: controleur.molecules()){
+			int x=0; int y = 0;
+			float  tmp,tmp2;
+			ListIterator<Float> it = abscisses.listIterator();
+			
+			if(it.hasNext())	{
+		 		tmp=it.next();
+		 		while (it.hasNext()) {	
+		 			tmp2=it.next();
+		 			if(mol.positions().get(0).x() > tmp && mol.positions().get(0).x() < tmp2 ){
+		 				x=it.nextIndex()-1;
+		 				break;
+		 			}
+		 			tmp=tmp2;
+		 		}
+			}
+		 		
+	 		it = ordonnees.get(x).listIterator();
+			if(it.hasNext())	{
+		 		tmp=it.next();
+		 		while (it.hasNext()) {	
+		 			tmp2=it.next();
+		 			if(mol.positions().get(0).y() > tmp && mol.positions().get(0).y() < tmp2 ){
+		 				y=it.nextIndex()-1;
+		 				break;
+		 			}
+		 			tmp=tmp2;
+		 		}
+			}
+		 		
+			mol.setTimbre(mat.get(x).get(y).timbreMIDI());
+			
+			
+		}
+		
+	}
 	
 	
 }
