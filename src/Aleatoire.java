@@ -24,7 +24,6 @@ class Aleatoire implements Effet{
     	
     	int cpt = 1;
     	int maxAlea = 0;
-    	System.out.println("prout");
 		//Midi.noteTenue(note,  mol.getTimbre(), mol.getVolume(), ti, ti+INTER_NOTES);
     	Midi.noteTenue(note,  56, 100, ti, ti+INTER_NOTES);
     	while (ti < tf){
@@ -34,7 +33,7 @@ class Aleatoire implements Effet{
     		if (Math.random() > 0.5){
     			maxAlea = -maxAlea;
     		}
-    		System.out.printf("%d + %f \n",maxAlea, pas/mol.pasMax());
+    		//System.out.printf("%d + %f \n",maxAlea, pas/mol.pasMax());
     		//Midi.noteTenue(note + maxAlea, mol.getTimbre(), mol.getVolume(), ti, ti+INTER_NOTES);
     		Midi.noteTenue(note + maxAlea, 56, 100, ti, ti+INTER_NOTES);
     		ti +=INTER_NOTES;

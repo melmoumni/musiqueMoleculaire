@@ -28,21 +28,36 @@ public class ControleurFenetres {
 		System.out.println(params.getUtilisateur());
 		
 		if(params.getUtilisateur().compareTo("chercheur")==0){
-			params.dispose(); // fermeture de la fenetre parametre
 			controleur = new Chercheur();
+			afficherParam(); 
+			params.dispose(); // fermeture de la fenetre parametre
 			parser();
 			fenetrePrincipale = new TableauChercheurVue(true,null);
 			fenetrePrincipale.setVisible(true);
 		}
 		else if(params.getUtilisateur().compareTo("compositeur")==0){
 			controleur = new Compositeur(params.getIntensite());
-			params.dispose();
+			afficherParam(); 
+			params.dispose(); // fermeture de la fenetre parametre
 			parser();
 			fenetrePrincipale = new TableauCompositeurVue(true, null);
 			fenetrePrincipale.setVisible(true);
 		}
 	}
 	
+	private static void afficherParam() {
+		System.out.println(alpha1);
+		System.out.println(alpha2);
+		System.out.println(alpha3);
+		System.out.println(noteRef);
+		System.out.println(duree);
+		System.out.println(largeur);
+		System.out.println(hauteur);
+		System.out.println(fichierTrajectoire);
+		System.out.println(fichierMvts);
+		
+	}
+
 	private static void parser(){
 	    try {
 		controleur.initMolecules(fichierTrajectoire, fichierMvts, "./data/listeInstruments.txt");
