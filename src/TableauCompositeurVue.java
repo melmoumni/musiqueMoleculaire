@@ -197,6 +197,15 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 					break;
 				}
 				
+	        	for (Timbre t : TabC.timbreAbs){
+	    			System.out.printf("%d ", t.timbreMIDI());
+	    		}
+	    		System.out.println();
+	    		for (Timbre t : TabC.timbreOrd){
+	    			System.out.printf("%d ", t.timbreMIDI());
+	    		}
+	    		System.out.println();
+				
 			}
 
 		};
