@@ -7,23 +7,24 @@ class Intervalle {
     private int instantInitial;
     private int instantFinal;
     private int nombreMolecule;
-    private ArrayList<Integer> timbres;
+    private ArrayList<Molecule> molecules;
     
     public Intervalle(int instanti, int instantf, int nbMolecule) {
 	instantInitial = instanti;
 	instantFinal = instantf;
 	nombreMolecule = nbMolecule;
-	timbres = new ArrayList<Integer>();
+	molecules = new ArrayList<Molecule>();
     }
-
+    
     public void printIntervalle(){
 	System.out.println("==================================");
 	System.out.println("Instant Initial : " + instantInitial);
 	System.out.println("Instant Final : " + instantFinal);
 	System.out.println("Max : " + nombreMolecule);
-	for (Integer nb : timbres){
-	    System.out.printf("%d ",nb);
+	for (Molecule mol : molecules){
+	    System.out.printf("%d ",mol.numero());
 	}
+	System.out.printf("%n");
 	System.out.println("==================================");
 
     }
@@ -56,30 +57,30 @@ class Intervalle {
 	nombreMolecule += 1;
     }
     
-    public void ajouterTimbre(int numero){
+    public void ajouterTimbre(Molecule mol){
 	int i = 0;
-	int index = timbres.size();
-	while ((i < index) && ( (int) timbres.get(i) < numero)) {
+	int index = molecules.size();
+	while ((i < index) && ( molecules.get(i).numero() < mol.numero())) {
 	    i++;
 	}
 	if (i >= index) {
-	    timbres.add(new Integer(numero));
+	    molecules.add(mol.clone());
 	}
 	else {
-	    if (timbres.get(i) == numero) {
+	    if (molecules.get(i).numero() == mol.numero()) {
 		return;
 	    }
 	    else {
-		timbres.add(i, new Integer(numero));
+		molecules.add(i, mol.clone());
 	    }
 	}
     }
 
-    public void copierTimbres(ArrayList<Integer> liste){
-	timbres = new ArrayList<Integer>(liste);
+    public void copierTimbres(ArrayList<Molecule> liste){
+	molecules = new ArrayList<Molecule>(liste);
     }
     
-    public ArrayList<Integer> timbres() {
-	return timbres;
+    public ArrayList<Molecule> molecules() {
+	return molecules;
     }
 }
