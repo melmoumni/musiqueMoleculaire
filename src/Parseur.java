@@ -13,15 +13,20 @@ import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
 class Parseur {
-    public ArrayList<Molecule> molecules;
-    public Timbre[] tableauTimbre;
+    //public ArrayList<Molecule> molecules;
+    //public Timbre[] tableauTimbre;
 
-    public Parseur(){
-	molecules = new ArrayList<Molecule>();
-	tableauTimbre = new Timbre[128];
-    }
+    // public Parseur(){
+    // 	molecules = new ArrayList<Molecule>();
+    // 	tableauTimbre = new Timbre[128];
+    // }
     
-    void lireFichierTrajectoire(String nomDuFichier) throws IOException {
+    /**
+     * fonction qui lit le fichier trajectoire et remplit les positions
+     * on suposse que le fichier fournit en entrée contient les molécules
+     * placés par numéro de molécule dans l'ordre croissant
+     */
+    static void lireFichierTrajectoire(String nomDuFichier, ArrayList<Molecule> molecules) throws IOException {
 	int index = 0;
 	int nombreMolecules = molecules.size();
 	String patternEntier = "(\\d+)";
@@ -94,10 +99,10 @@ class Parseur {
 	}
     }
 
-    /*
+    /**
      * remplit la liste de molecule avec le fichier d'analyse (ie alpha et msd)
      */
-    void lireFichierAnalyse(String nomDuFichier) throws IOException {
+    static void lireFichierAnalyse(String nomDuFichier, ArrayList<Molecule> molecules) throws IOException {
 	int posAlpha=0;
 	int caseMolecule = 0;
 	int positionMSD = 0;
@@ -263,8 +268,10 @@ class Parseur {
 	}
     }
 
-
-    public void lectureTimbre(String filepath) throws IOException {
+    /**
+     * fonction qui lit le fichier contenant les timbres midi, les noms d'instruments, ...
+     */
+    static public void lectureTimbre(String filepath, Timbre[] tableauTimbre) throws IOException {
 	String debutDeLigne = "^";
 	String patternEntier = "(\\d+)";
 	String patternEspace = "\\s+";

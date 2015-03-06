@@ -22,12 +22,11 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 
 	    public InstrumentsBox() {
 	    	controleur = new Chercheur();
-	    	Parseur p = new Parseur();
-			try {	
-				System.out.println("Lecture du fichier de timbres");
-				p.lectureTimbre("./data/listeInstruments.txt");
-			}
-			catch (IOException e) {}
+	    	
+		try {
+		    Parseur.lectureTimbre("./data/listeInstruments", controleur.tableauTimbre);
+		}
+		catch (IOException e){}
 			
 			ArrayList<String> listeTimbres = new ArrayList<String>();		
 			for (int i = 0 ; i < 128 ; i++){

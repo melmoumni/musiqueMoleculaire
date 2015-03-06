@@ -23,7 +23,7 @@ import Utilitaires.Midi;
 
 abstract class Controleur{
 
-	public Parseur parseur;
+    //public Parseur parseur;
 	public ArrayList<Molecule> molecules;
 	public ArrayList<Triplet> intervalles;
 	public int duree;
@@ -35,9 +35,12 @@ abstract class Controleur{
 	public boolean isChercheur;
 	static public Timbre[] tableauTimbre;
 
+    static {
+	tableauTimbre = new Timbre[128];
+    }
 	public Controleur(boolean ischercheur){
 		vue = new Vue();
-		parseur = new Parseur();
+		//parseur = new Parseur();
 		fenetres = new Vector<Fenetre>();
 		molecules = new ArrayList<Molecule>();
 		intervalles = new ArrayList<Triplet>();
@@ -73,13 +76,14 @@ abstract class Controleur{
     jf.setVisible(true);	
     }
 
-	public void initMolecules(Parseur parseur){
-		molecules = parseur.molecules;
-		tableauTimbre = parseur.tableauTimbre;
-	}
-	public void setMolecules(Parseur parseur){
-		molecules = parseur.molecules;
-	}
+    public void initMolecules(String cheminTraj, String cheminAnalyse, String cheminTimbre) throws IOException{
+	Parseur.lireFichierAnalyse(cheminAnalyse, molecules);
+	Parseur.lireFichierTrajectoire(cheminTraj, molecules);
+	Parseur.lectureTimbre(cheminTimbre,tableauTimbre);
+    }
+	// public void setMolecules(String chemin){
+	//     Parseur.lireFichierAnalyse(chemin,molecules);
+	// }
 
 	public ArrayList<Molecule> molecules(){
 		return molecules;

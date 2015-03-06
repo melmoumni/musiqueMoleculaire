@@ -44,26 +44,11 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	public static void main(String[] args) {
 
 		Controleur controleur = new Compositeur(1);
-		Parseur p = new Parseur();
 		try {
-			p.lireFichierAnalyse("./data/fichiersTests/analyseTest.txt");
+		    controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
 		}
 		catch (IOException e) {
 		}
-		try {	
-			System.out.println("Lecture du 2e fichier");
-			p.lireFichierTrajectoire("./data/fichiersTests/trajectoiresTest.trc");
-		}
-		catch (IOException e) {
-		}
-		try {	
-			System.out.println("Lecture du fichier de timbres");
-			p.lectureTimbre("./data/listeInstruments.txt");
-		}
-		catch (IOException e) {
-		}
-		controleur.initMolecules(p);
-		
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

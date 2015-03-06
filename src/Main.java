@@ -8,34 +8,23 @@ public class Main {
 		
 	//0 - Creer le controleur initial.
 	Controleur controleur = new Chercheur();
-	Parseur p = new Parseur();
+	//Parseur p = new Parseur();
 	//1 - Lancer la vue
 	//2 - Lancer la fenetre de parametrage (choix chercheur/compositeur, noteRef, alpha, seuil ...)
 	//3 - Creer le controleur correspondant, le tableau correspondant
 	//4 - Parser le fichier analyse.trc
 	// 4-1 Remplir la liste des molecules avec le alpha et le numero de la proteine
-	try {
-	    p.lireFichierAnalyse("./data/fichiersTests/analyseTest.txt");
-	}
-	catch (IOException e) {
-	}
+	
 	// 4-2 Creer l'effet correspondant pour la molecule.
 	//5 - Parser le fichier trajectoires.trc
 	// 5-1 Completer les informations des proteines avec la liste des positions.
-	try {	
-	    System.out.println("Lecture du 2e fichier");
-	    p.lireFichierTrajectoire("./data/fichiersTests/trajectoiresTest.trc");
-	}
-	catch (IOException e) {
-	}
-	try {	
-	    System.out.println("Lecture du fichier de timbres");
-	    p.lectureTimbre("./data/listeInstruments.txt");
-	}
-	catch (IOException e) {
-	}
 	
-	controleur.initMolecules(p);
+	try {
+	    controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
+	}
+	catch (IOException e) {
+	}
+	//controleur.initMolecules(p);
 	controleur.analyseMolecules();
 	controleur.printTrajectoires();
 	controleur.printMolecules();

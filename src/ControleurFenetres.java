@@ -14,7 +14,7 @@ public class ControleurFenetres {
 	static String fichierTrajectoire, fichierMvts;
 	
 	static Controleur controleur;
-	static Parseur p = new Parseur();
+    //static Parseur p = new Parseur();
 	
 	public ControleurFenetres(){
 		params = new FenetreParametres();
@@ -44,19 +44,9 @@ public class ControleurFenetres {
 	}
 	
 	private static void parser(){
-		try {
-			p.lireFichierAnalyse(fichierMvts);
-		}
-		catch (IOException e) {}
-		try {	
-			p.lireFichierTrajectoire(fichierTrajectoire);
-		}
-		catch (IOException e) {}
-		try {	
-			p.lectureTimbre("./data/listeInstruments.txt");
-		}
-		catch (IOException e) {}
-		controleur.initMolecules(p);
+	    try {
+		controleur.initMolecules(fichierTrajectoire, fichierMvts, "./data/listeInstruments.txt");
+	    }
 	}
 	
 	/* Recupere les differents parametres renseignees par l'utilisateur dans la fenetre de parametre */
