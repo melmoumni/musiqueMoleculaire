@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
+import Utilitaires.Midi;
+
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -441,8 +443,10 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 			for (Timbre t : TabC.timbreOrd){
 				System.out.printf("%d ", t.timbreMIDI());
 			}
-			System.out.println();
-				System.out.println("Ca commence");
-			}
+			System.out.println("Ca commence");
+			Controleur.printTrajectoires();
+			Controleur.remplirSequence();
+			Midi.jouerSequence();
 		}
+	}
 }
