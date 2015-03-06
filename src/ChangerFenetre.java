@@ -13,6 +13,5 @@ public class ChangerFenetre extends AbstractAction{
 	public void actionPerformed(ActionEvent e) {
         ControleurFenetres.recupereParametre();
         ControleurFenetres.choixUtilisateur();
-		System.out.println("coucou");
     }
 }
