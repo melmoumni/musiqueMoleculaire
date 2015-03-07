@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 
 
-class Molecule implements Comparable<Molecule>{
+class Molecule implements Comparable<Molecule>, Cloneable{
     /*
       Cette classe contiens les différents attributs relatifs à une molécule
     */
@@ -58,7 +58,7 @@ class Molecule implements Comparable<Molecule>{
 	alpha = alphat;
 	msd = msdt;
     }
-
+    
     public void setMolecule(float alphat, float msdt){
 	alpha = alphat;
 	msd = msdt;
@@ -233,7 +233,7 @@ class Molecule implements Comparable<Molecule>{
      * et à instant initial égal les instants finaux dans l'ordre croissant
      */
     @Override
-    public int compareTo(Molecule mol){
+	public int compareTo(Molecule mol){
 	if ((instantInitial < mol.instantInitial) && (instantFinal < mol.instantFinal)) {
 	    return -1;
 	}
@@ -250,6 +250,23 @@ class Molecule implements Comparable<Molecule>{
 		}
 	    }
 	}
+    }
+    
+    /**
+     * Sorte de constructeur par recopie
+     */
+    @Override
+	public Molecule clone(){
+	Molecule mol = null;
+	try {
+	    mol = (Molecule) super.clone();
+    	}
+	catch(CloneNotSupportedException cnse) {
+	}
+	// for (CaracteristiqueTemporelle carac : positions) {
+	//     mol.positions.add((CaracteristiqueTemporelle) carac.clone());
+	// }
+	return mol;
     }
 }
 

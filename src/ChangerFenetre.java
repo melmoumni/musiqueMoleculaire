@@ -3,6 +3,7 @@
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JOptionPane;
 
 public class ChangerFenetre extends AbstractAction{
 	
@@ -11,7 +12,9 @@ public class ChangerFenetre extends AbstractAction{
 	};
 
 	public void actionPerformed(ActionEvent e) {
-        ControleurFenetres.recupereParametre();
-        ControleurFenetres.choixUtilisateur();
+        if(ControleurFenetres.recupereParametre())
+        	ControleurFenetres.choixUtilisateur();
+        else
+        	ControleurFenetres.popupMessage();
     }
 }

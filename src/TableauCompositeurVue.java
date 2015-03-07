@@ -7,11 +7,9 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -35,7 +33,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	JButton btnStart;
 	TableauCompositeur TabC;
 	JSplitPane splitPane00, splitPane01, splitPane02,splitPane10 ,splitPane11, splitPane12, splitPane20, splitPane21, splitPane22;
-	InstrumentsBox comboOrdonnees1, comboOrdonnees2, comboOrdonnees3, comboAbcisses1, comboAbcisses2, comboAbcisses3 ;
+	InstrumentsBox comboOrdonnees1, comboOrdonnees2, comboOrdonnees3, comboAbscisses1, comboAbscisses2, comboAbscisses3 ;
 	
 	
 	/**
@@ -67,7 +65,6 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public TableauCompositeurVue(boolean init, TableauCompositeur tab) {
 		this.setResizable(false);
 
@@ -172,18 +169,22 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 			private void changeDividerHor(JSplitPane sourceSplitPane) {
 				TabC.abscisses[1] = TabC.abscisses[0] + splitPane00.getDividerLocation();
 				TabC.abscisses[2] = TabC.abscisses[1] + splitPane01.getDividerLocation();
-				comboAbcisses1.setBounds((int) TabC.abscisses[0] ,
-						comboAbcisses1.getY(), 
-						min(TableauCompositeur.MAX_WIDTH/3 - 50, (int) (TabC.abscisses[1] - TabC.abscisses[0])), 
-						25);		
-				comboAbcisses2.setBounds((int) TabC.abscisses[1] ,
-						comboAbcisses2.getY(),
-						min(TableauCompositeur.MAX_WIDTH/3 - 50,(int) (TabC.abscisses[2] - TabC.abscisses[1])),
-						25);
-				comboAbcisses3.setBounds((int) TabC.abscisses[2] ,
-						comboAbcisses3.getY(), 
-						min(TableauCompositeur.MAX_WIDTH/3 - 50, (int) (TabC.abscisses[3] - TabC.abscisses[2])), 
-						25);		
+				comboAbscisses1.setBounds((int) TabC.abscisses[0] ,
+						comboAbscisses1.getY(), 
+						min(TableauCompositeur.MAX_WIDTH/3 - 50, (int) (TabC.abscisses[1] - TabC.abscisses[0])-10), 
+						50);
+				System.out.println(TabC.abscisses[1]-TabC.abscisses[0]);
+				System.out.println(TableauCompositeur.MAX_WIDTH/3-50);
+				System.out.println(comboAbscisses1.getWidth());
+				
+				comboAbscisses2.setBounds((int) TabC.abscisses[1] ,
+						comboAbscisses2.getY(),
+						min(TableauCompositeur.MAX_WIDTH/3 - 50,(int) (TabC.abscisses[2] - TabC.abscisses[1])-10),
+						50);
+				comboAbscisses3.setBounds((int) TabC.abscisses[2] ,
+						comboAbscisses3.getY(), 
+						min(TableauCompositeur.MAX_WIDTH/3 - 50, (int) (TabC.abscisses[3] - TabC.abscisses[2])-10), 
+						50);		
 			}
 
 			private int min(int width, int i) {
@@ -267,8 +268,8 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 				}
 				TabC.ordonnees[2] = TabC.ordonnees[1] + splitPane20.getDividerLocation(); // Au cas ou les cases du bas bouge de maniere indirecte.
 
-				comboOrdonnees2.setBounds(0, (int) TabC.ordonnees[1], comboOrdonnees2.getWidth(), 25);
-				comboOrdonnees1.setBounds(0, (int) TabC.ordonnees[2], comboOrdonnees1.getWidth(), 25);
+				comboOrdonnees2.setBounds(0, (int) TabC.ordonnees[1], comboOrdonnees2.getWidth(), 50);
+				comboOrdonnees1.setBounds(0, (int) TabC.ordonnees[2], comboOrdonnees1.getWidth(), 50);
 
 			}
 		};
@@ -393,35 +394,35 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		BasCentre.setBackground(new Color(178,102,255));
 	
 
-		comboOrdonnees1 = new InstrumentsBox();
-		comboOrdonnees1.setName("comboOrdonnees3");
-		comboOrdonnees1.setBounds(0, 0, TableauCompositeur.MAX_WIDTH/3  - 50, 50);
-		panel.add(comboOrdonnees1);
+		comboOrdonnees3 = new InstrumentsBox();
+		comboOrdonnees3.setName("comboOrdonnees3");
+		comboOrdonnees3.setBounds(0, 0, TableauCompositeur.MAX_WIDTH/3  - 50, 50);
+		panel.add(comboOrdonnees3);
 		
 		comboOrdonnees2 = new InstrumentsBox();
 		comboOrdonnees2.setName("comboOrdonnees2");
 		comboOrdonnees2.setBounds(0, (int) TabC.ordonnees[1], TableauCompositeur.MAX_WIDTH/3 - 50, 50);
 		panel.add(comboOrdonnees2);
 		
-		comboOrdonnees3 = new InstrumentsBox();
-		comboOrdonnees3.setName("comboOrdonnees3");
-		comboOrdonnees3.setBounds(0, (int) TabC.ordonnees[2], TableauCompositeur.MAX_WIDTH/3 - 50, 50);
-		panel.add(comboOrdonnees3);
+		comboOrdonnees1 = new InstrumentsBox();
+		comboOrdonnees1.setName("comboOrdonnees1");
+		comboOrdonnees1.setBounds(0, (int) TabC.ordonnees[2], TableauCompositeur.MAX_WIDTH/3 - 50, 50);
+		panel.add(comboOrdonnees1);
 		
-		comboAbcisses1 = new InstrumentsBox();
-		comboAbcisses1.setName("comboAbcisses1");
-		comboAbcisses1.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50, 50);
-		panel.add(comboAbcisses1);
+		comboAbscisses1 = new InstrumentsBox();
+		comboAbscisses1.setName("comboAbscisses1");
+		comboAbscisses1.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50, 50);
+		panel.add(comboAbscisses1);
 		
-		comboAbcisses2 = new InstrumentsBox();
-		comboAbcisses2.setName("comboAbcisses2");
-		comboAbcisses2.setBounds((int) TabC.abscisses[1], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50, 50);
-		panel.add(comboAbcisses2);
+		comboAbscisses2 = new InstrumentsBox();
+		comboAbscisses2.setName("comboAbscisses2");
+		comboAbscisses2.setBounds((int) TabC.abscisses[1], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50, 50);
+		panel.add(comboAbscisses2);
 		
-		comboAbcisses3 = new InstrumentsBox();
-		comboAbcisses3.setName("comboAbcisses3");
-		comboAbcisses3.setBounds((int) TabC.abscisses[2], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50 , 50);
-		panel.add(comboAbcisses3);
+		comboAbscisses3 = new InstrumentsBox();
+		comboAbscisses3.setName("comboAbscisses3");
+		comboAbscisses3.setBounds((int) TabC.abscisses[2], (int) TabC.ordonnees[3] + 20, TableauCompositeur.MAX_WIDTH/3 - 50 , 50);
+		panel.add(comboAbscisses3);
 		
 	}
 	
@@ -433,9 +434,9 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 			TabC.timbreOrd[1] = Controleur.tableauTimbre[comboOrdonnees2.getIndexInstrument()-1];
 			TabC.timbreOrd[2] = Controleur.tableauTimbre[comboOrdonnees3.getIndexInstrument()-1];
 
-			TabC.timbreAbs[0] = Controleur.tableauTimbre[comboAbcisses1.getIndexInstrument()-1];
-			TabC.timbreAbs[1] = Controleur.tableauTimbre[comboAbcisses2.getIndexInstrument()-1];
-			TabC.timbreAbs[2] = Controleur.tableauTimbre[comboAbcisses3.getIndexInstrument()-1];
+			TabC.timbreAbs[0] = Controleur.tableauTimbre[comboAbscisses1.getIndexInstrument()-1];
+			TabC.timbreAbs[1] = Controleur.tableauTimbre[comboAbscisses2.getIndexInstrument()-1];
+			TabC.timbreAbs[2] = Controleur.tableauTimbre[comboAbscisses3.getIndexInstrument()-1];
 		
 	    	for (Timbre t : TabC.timbreAbs){
 				System.out.printf("%d ", t.timbreMIDI());
