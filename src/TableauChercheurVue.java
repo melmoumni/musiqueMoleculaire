@@ -45,7 +45,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 
 		Controleur controleur = new Chercheur();
 		try {
-		    controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
+		    Controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
 		}
 		catch (IOException e) {
 		}
@@ -414,6 +414,7 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 
 		if(source == btnStart){
 			System.out.println("Ca commence");
+			Controleur.analyseMolecules();
 			Controleur.printTrajectoires();
 			Controleur.remplirSequence();
 			Midi.jouerSequence();

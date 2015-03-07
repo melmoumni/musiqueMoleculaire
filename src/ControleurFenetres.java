@@ -63,7 +63,6 @@ public class ControleurFenetres {
 		}
 		catch (IOException e) {
 		}
-		Controleur.analyseMolecules();
 	}
 	
 	/* Recupere les differents parametres renseignees par l'utilisateur dans la fenetre de parametre */

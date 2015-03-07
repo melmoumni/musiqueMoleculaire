@@ -22,7 +22,7 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 
 	public InstrumentsBox() {
 		try {
-			Parseur.lectureTimbre("./data/listeInstruments", Controleur.tableauTimbre);
+			Parseur.lectureTimbre("./data/listeInstruments.txt", Controleur.tableauTimbre);
 		}
 		catch (IOException e){}
 

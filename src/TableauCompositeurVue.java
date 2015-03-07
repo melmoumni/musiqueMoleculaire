@@ -45,13 +45,14 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 
 		Controleur controleur = new Compositeur(1);
 		try {
-		    controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
+		    Controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
 		}
 		catch (IOException e) {
 		}
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+
 				try {
 					TableauCompositeurVue frame = new TableauCompositeurVue(true, null);
 					
@@ -444,6 +445,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 				System.out.printf("%d ", t.timbreMIDI());
 			}
 			System.out.println("Ca commence");
+			Controleur.analyseMolecules();
 			Controleur.printTrajectoires();
 			Controleur.remplirSequence();
 			Midi.jouerSequence();
