@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.Color;
+import java.io.IOException;
 
 public class FenetreParametres extends JFrame implements ActionListener{
 
@@ -91,8 +92,8 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		
 		JLabel lblHauteur = new JLabel("Hauteur");	
 		JLabel lblLargeur = new JLabel("Largeur");	
-		valeurH = new JSpinner();
-		valeurL = new JSpinner();
+		valeurH = new JSpinner(new SpinnerNumberModel(new Integer(0),new Integer(0),new Integer(5000),new Integer(1)));
+		valeurL = new JSpinner(new SpinnerNumberModel(new Integer(0),new Integer(0),new Integer(5000),new Integer(1)));
 		
 		JPanel panel = new JPanel();
 		
@@ -110,19 +111,19 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		JLabel label_2 = new JLabel("<");
 		
 		valeurAlpha1 = new JSpinner();
-		valeurAlpha1.setModel(new SpinnerNumberModel(new Float(0.25), new Float(0), new Float(2), new Float(0.1)));
+		valeurAlpha1.setModel(new SpinnerNumberModel(new Float(0.25), new Float(0), new Float(2), new Float(0.05)));
 		
 		valeurAlpha2 = new JSpinner();
-		valeurAlpha2.setModel(new SpinnerNumberModel(new Float(0.90), new Float(0), new Float(2), new Float(0.1)));
+		valeurAlpha2.setModel(new SpinnerNumberModel(new Float(0.90), new Float(0), new Float(2), new Float(0.05)));
 		
 		valeurAlpha3 = new JSpinner();
-		valeurAlpha3.setModel(new SpinnerNumberModel(new Float(1.10), new Float(0), new Float(2), new Float(0.1)));
+		valeurAlpha3.setModel(new SpinnerNumberModel(new Float(1.10), new Float(0), new Float(2), new Float(0.05)));
 		
 		JLabel label_4 = new JLabel("<");	
 		JLabel label_3 = new JLabel("<");
 		
 		JLabel lblDure = new JLabel("Duree souhaitee");
-		valeurDuree = new JSpinner();
+		valeurDuree = new JSpinner(new SpinnerNumberModel(new Integer(0),new Integer(0),new Integer(600),new Integer(1)));
 		JLabel lblS = new JLabel("s");
 		
 		JLabel lblSeuilIntensite = new JLabel("Seuil intensite");
@@ -417,6 +418,11 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	}
 	
 	public String getUtilisateur(){
-		return groupe.getSelection().getActionCommand();
+		String utilisateur="";
+		try{
+			utilisateur = groupe.getSelection().getActionCommand();
+		}
+		catch(NullPointerException e){}
+		return utilisateur;
 	}
 }

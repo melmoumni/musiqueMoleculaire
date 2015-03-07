@@ -3,6 +3,7 @@
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ControleurFenetres {
 	static FenetreParametres params;
@@ -12,6 +13,7 @@ public class ControleurFenetres {
 	static int duree;
 	static int largeur, hauteur;
 	static String fichierTrajectoire, fichierMvts;
+	static String utilisateur;
 	
 	static Controleur controleur;
 	
@@ -31,7 +33,7 @@ public class ControleurFenetres {
 	public static void choixUtilisateur(){
 		System.out.println(params.getUtilisateur());
 		
-		if(params.getUtilisateur().compareTo("chercheur")==0){
+		if(utilisateur.compareTo("chercheur")==0){
 			controleur = new Chercheur();
 			afficherParam(); 
 			params.dispose(); // fermeture de la fenetre parametre
@@ -39,7 +41,7 @@ public class ControleurFenetres {
 			fenetrePrincipale = new TableauChercheurVue(true,null);
 			fenetrePrincipale.setVisible(true);
 		}
-		else if(params.getUtilisateur().compareTo("compositeur")==0){
+		else if(utilisateur.compareTo("compositeur")==0){
 			controleur = new Compositeur(params.getIntensite());
 			afficherParam(); 
 			params.dispose(); // fermeture de la fenetre parametre
@@ -71,8 +73,11 @@ public class ControleurFenetres {
 		Controleur.analyseMolecules();
 	}
 	
-	/* Recupere les differents parametres renseignees par l'utilisateur dans la fenetre de parametre */
-	public static void recupereParametre(){
+	/* Recupere les differents parametres renseignees par l'utilisateur dans la fenetre de parametre 
+	 * Retourne vrai si les parametres ont tous ete rempli
+	 * 			faux sinon
+	 */
+	public static boolean recupereParametre(){
 		alpha1 = params.getValeurAlpha1();
 		alpha2 = params.getValeurAlpha2();
 		alpha3 = params.getValeurAlpha3();
@@ -82,6 +87,23 @@ public class ControleurFenetres {
 		hauteur = params.getHauteur();
 		fichierTrajectoire = params.getFilenameT();
 		fichierMvts = params.getFilenameM();
+		utilisateur = params.getUtilisateur();
+		
+		if((duree>0) && (largeur>0) && (hauteur>0) && !(fichierTrajectoire.isEmpty()) && !(fichierMvts.isEmpty())
+				&& !(utilisateur.isEmpty()))
+			return true;
+		else
+			return false;
+	}
+	
+	public static void popupMessage()
+	{
+		JOptionPane.showMessageDialog(params,
+    		    "Les parametres suivants doivent être renseignés :\n"
+    		    + " - Chemins des fichiers de trajectoires et d'analyse\n"
+    		    + " - Taille de l'image (Largeur et Hauteur) \n"
+    		    + " - Durée souhaitée  \n"
+    		    + " - Type d'utilisateur : Chercheur ou Compositeur  \n");
 	}
 
 	
