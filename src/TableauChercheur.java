@@ -160,7 +160,7 @@ public class TableauChercheur extends Fenetre {
 	
 	public void allocationTimbres(){
 		int i=0;
-		int index=-1;
+
 		final Controleur controleur = new Chercheur();
 		int timbre;
 		float maxTabAbsc=abscisses.get(abscisses.size()-1);
@@ -172,16 +172,17 @@ public class TableauChercheur extends Fenetre {
 			i++;System.out.println("mol "+i +" x et x converti : "+  mol.positions().get(0).x() + " "+ mol.positions().get(0).x() *scaleAbsc + " y et y converti : "+mol.positions().get(0).y()+" "+  mol.positions().get(0).y() *scaleOrd );
 			int x=0; int y = 0;
 			float  tmp,tmp2;
+			int index=-1;
 			ListIterator<Float> it = abscisses.listIterator();
 			
 			if(it.hasNext())	{
 		 		tmp=it.next();
 		 		while (it.hasNext()) {
 		 			index++;
-		 			tmp2=it.next();
+		 			tmp2=it.next();System.out.println("index "+ index+" tmp : "+tmp+" tmp2 "+ tmp2);
 		 			if(mol.positions().get(0).x() *scaleAbsc >= tmp && mol.positions().get(0).x()*scaleAbsc <= tmp2 ){
 		 				x=index;
-		 				System.out.println("trouvé ");
+		 				System.out.println("trouvé  x: "+x);
 		 				break;
 		 			}
 		 			tmp=tmp2;
@@ -205,11 +206,13 @@ public class TableauChercheur extends Fenetre {
 			}*/
 		 	              // first iterate through the "outer list"
 	 	 		
-	         for(int j=0; j<ordonnees.size()-1; j++){   // then iterate through all the "inner lists"
-	            	tmp=ordonnees.get(j).get(x);
-	            	tmp2=ordonnees.get(j+1).get(x);
-	                 if(ordonnees.get(j).get(x)* scaleAbsc>=tmp && ordonnees.get(j).get(x) * scaleAbsc <=tmp2){
+	         for(int j=0; j<ordonnees.get(0).size()-1; j++){   // then iterate through all the "inner lists"
+	            	tmp=ordonnees.get(x).get(j);
+	            	tmp2=ordonnees.get(x).get(j+1);
+	            	System.out.println("j "+j + " tmp "+tmp+ " tmp2 "+tmp2);
+	                 if(mol.positions().get(0).y()* scaleOrd>=tmp && mol.positions().get(0).y() * scaleOrd <=tmp2){
 	                	 y=j;
+	                	 System.out.println("trouvé  y: "+y);
 	                	 break;
 	                 }
 	            }
@@ -224,9 +227,10 @@ public class TableauChercheur extends Fenetre {
 	                 }
 	            }*/
 	        
-	         //System.out.println("taille x y "+ mat.size()+ " " + mat.get(0).size());
-			System.out.println("x "+ x + " y "+y+" timbre " + mat.get(y).get(x).timbreMIDI());
-			mol.setTimbre(mat.get(y).get(x).timbreMIDI());
+	       
+	        System.out.println("mat size x: " + mat.size()+" mat size y: " + mat.get(0).size());
+			System.out.println("x "+ x + " y "+y+" timbre " + mat.get(x).get(y).timbreMIDI());
+			mol.setTimbre(mat.get(x).get(y).timbreMIDI());
 			
 			
 		}

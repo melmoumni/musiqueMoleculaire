@@ -150,7 +150,7 @@ public void paint(Graphics g) {
 	  for (Molecule mol : molecules){
 		  numMol++;
 		
-	  if(mol.positions().size()>50){   //si la molecule a plus de 50 positions on l'affiche
+	  if(mol.positions().size()>0){   //si la molecule a plus de 50 positions on l'affiche
 		  
 			ListIterator <CaracteristiqueTemporelle> it = mol.positions().listIterator();
 	   		CaracteristiqueTemporelle tmp = new CaracteristiqueTemporelle();
