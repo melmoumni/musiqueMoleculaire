@@ -43,7 +43,6 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 	 */
 	public static void main(String[] args) {
 
-		Controleur controleur = new Chercheur();
 		try {
 		    Controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
 		}
