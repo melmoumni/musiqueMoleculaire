@@ -446,6 +446,7 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 				System.out.printf("%d ", t.timbreMIDI());
 			}
 			System.out.println("Ca commence");
+			TabC.allocationTimbres();
 			Controleur.analyseMolecules();
 			Controleur.printTrajectoires();
 			Controleur.remplirSequence();

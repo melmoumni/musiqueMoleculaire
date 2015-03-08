@@ -1,4 +1,5 @@
 import java.awt.Toolkit;
+import java.util.ListIterator;
 
 
 public class TableauCompositeur extends Fenetre {
@@ -68,5 +69,55 @@ public class TableauCompositeur extends Fenetre {
 		timbreOrd[0] = t1;
 		timbreOrd[1] = t2;
 		timbreOrd[2] = t3;
+	}
+	
+	
+	public void allocationTimbres(){
+		int i=0;
+		final Controleur controleur = new Chercheur();
+		int timbre;
+		float maxTabAbsc=abscisses[abscisses.length - 1];
+		float maxTabOrd = ordonnees[ordonnees.length-1];
+		float scaleAbsc= maxTabAbsc/ControleurFenetres.getLargeurVideo();
+		float scaleOrd=maxTabOrd/ControleurFenetres.getHauteurVideo();
+		System.out.println("maxtababs et maxtabord : " + maxTabAbsc +" "+maxTabOrd);
+		
+		System.out.println("absc: " + abscisses[0] + " "+abscisses[1] + " "+abscisses[2]+ " " +abscisses[3]);
+		System.out.println("timbre:" + timbreAbs[0].timbreMIDI() + " "+timbreAbs[1].timbreMIDI() + " "+timbreAbs[2].timbreMIDI());
+		System.out.println("ord: " + ordonnees[0] + " "+ordonnees[1] + " "+ordonnees[2]+" " +ordonnees[3]);
+		System.out.println("timbre: " + timbreOrd[0].timbreMIDI() + " "+timbreOrd[1].timbreMIDI() + " "+timbreOrd[2].timbreMIDI());
+		
+		for(Molecule mol: controleur.molecules()){
+			i++;System.out.println("mol "+i +" x et x converti : "+  mol.positions().get(0).x() + " "+ mol.positions().get(0).x() *scaleAbsc + " y et y converti : "+mol.positions().get(0).y()+" "+  mol.positions().get(0).y() *scaleOrd );
+			int x=0; int y = 0;
+			float  tmp,tmp2;
+
+
+		 	              // first iterate through the "outer list"
+			for(int j=0; j<abscisses.length-1; j++){   // then iterate through all the "inner lists"
+            	tmp=abscisses[j];
+            	tmp2=abscisses[j+1];;
+                 if(mol.positions().get(0).x()* scaleAbsc>=tmp && mol.positions().get(0).x() * scaleAbsc <=tmp2){
+                	 x=j;
+                	 break;
+                 }
+            }
+	 	 		
+	         for(int j=0; j<ordonnees.length-1; j++){   // then iterate through all the "inner lists"
+	            	tmp=ordonnees[ordonnees.length-1]-ordonnees[j]; //car les ordonnees sont de bas en haut sur la video, mais de haut en bas sur le tableau compositeur
+	            	tmp2=ordonnees[ordonnees.length-1]-ordonnees[j+1];
+	            	System.out.println("tmp1 et tmp2 " + tmp + " " + tmp2);
+	                 if(mol.positions().get(0).y()* scaleOrd<=tmp && mol.positions().get(0).y()* scaleOrd >=tmp2){
+	                	 y=j;
+	                	 break;
+	                 }
+	            }
+	         
+	        System.out.println("timbre x "+timbreAbs[x].timbreMIDI() + " timbre y "+timbreOrd[y].timbreMIDI());
+			mol.setTimbre(timbreAbs[x].timbreMIDI());   //pour le moment on affecte qu'un seul timbre
+			
+			
+		}
+		
 	}
 }
