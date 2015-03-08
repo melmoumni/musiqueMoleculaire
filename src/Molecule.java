@@ -13,6 +13,7 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	private float vitesseAbs;
 	private float vitesseOrd;
 	private Timbre timbre = new Timbre(56); // changer ensuite
+	private Timbre timbre2= new Timbre(56);  //deuxieme timbre pour la partie compositeur
 	private int volume = 100;           //mettre dans constructeur plus tard et faire varier
 	private int instantInitial;
 	private int instantFinal;
@@ -138,6 +139,14 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 
 	public int getTimbre(){
 		return timbre.timbreMIDI();
+	}
+	
+	public void setTimbre2(int timbret){
+		timbre2=new Timbre(timbret);
+	}
+
+	public int getTimbre2(){
+		return timbre2.timbreMIDI();
 	}
 
 	public void setVolume(int volumet){

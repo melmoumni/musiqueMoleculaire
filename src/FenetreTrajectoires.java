@@ -49,7 +49,7 @@ public static void main(String[] args) {
 			    JFrame jf = new JFrame("test");
 			    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			    jf.setSize(400, 400);
-			    jf.add(new JScrollPane(new FenetreTrajectoires(controleur.molecules())));
+			    jf.add(new JScrollPane(new FenetreTrajectoires(controleur.molecules(), 400,400)));
 			    jf.setVisible(true);			
 				
 			} catch (Exception e) {
@@ -72,9 +72,22 @@ public void setMols(ArrayList<Molecule> mols){
 public FenetreTrajectoires(ArrayList<Molecule> mols) {
 	largeurInitiale=ControleurFenetres.getLargeurVideo();
 	hauteurInitiale=ControleurFenetres.getHauteurVideo();
+	molecules=mols;
+	init();
+
+}
+
+public FenetreTrajectoires(ArrayList<Molecule> mols, int w, int h) {
+	largeurInitiale=w;
+	hauteurInitiale=h;
+	this.molecules=mols;
+	init();
+
+}
+
+private void init(){
 	preferredSize= new Dimension(largeurInitiale,hauteurInitiale); 
 
-	setMols(mols);
     setBackground(Color.black);
     setForeground(Color.black);
 
@@ -92,7 +105,10 @@ public FenetreTrajectoires(ArrayList<Molecule> mols) {
             updatePreferredSize(e.getWheelRotation(), e.getPoint());
         }
     });
+	
+	
 }
+
 private void updatePreferredSize(int wheelRotation, Point stablePoint) {
     double scaleFactor = findScaleFactor(wheelRotation);
     scaleBy(scaleFactor);
