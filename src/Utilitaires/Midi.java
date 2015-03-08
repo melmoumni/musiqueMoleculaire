@@ -48,7 +48,7 @@ public class Midi{
 	}
 
 
-	//liberer le sequeceur et le synthetiseur
+	//liberer le sequenceur et le synthetiseur
 	static public void liberer(){
 		sequenceur.close();
 		synthetiseur.close();
@@ -83,7 +83,7 @@ public class Midi{
 		//int nbPas=10;  //A FAIRE: à definir suivant la vitesse initiale, eventuellement
 		int nbPas = (fin - debut)/75;
 		int pas=(fin-debut)/nbPas;  
-		int channel=retournerChannel(timbre,debut);
+		int channel=retournerChannel(timbre,debut,fin);
 		//System.out.println("timbre: "+ timbre +"  channel " + channel +" pas " +pas);
 		for(i = 0; i<= nbPas; i++){
 			//System.out.println("debut+i*pas " + debut+ i*pas + "\n");
@@ -108,7 +108,7 @@ public class Midi{
 		int nbPas=64*distanceParcourrue / 100; //100 <==>  distanceMaximale provisoire;
 		int i;
 		int pas= (fin-debut)/nbPas;
-		int channel=retournerChannel(timbre,debut);
+		int channel=retournerChannel(timbre,debut,fin);
 		ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut));
 		if(vitesseOrd >=0){	  //glissando montant (suivant la vitesse ordonnée)
 			for(i =0; i< nbPas; i++)  {
@@ -121,25 +121,34 @@ public class Midi{
 			}
 		}
 	}
-
+    
     static public void noteTenue(int note, int timbre,int volume,int debut, int fin) throws InvalidMidiDataException{
-	int channel=retournerChannel(timbre,debut);
+	int channel=retournerChannel(timbre,debut,fin);
 	ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut));
 	ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note,volume,fin));
 	
     }
     
-
-    static private boolean isChannelLibre(int channel){
-	
-    	if (channel==4){
-    	    return true;
-    	}
-    	return false;
-    }
-       
     
-    static private int retournerChannel(int timbre, int temps)throws InvalidMidiDataException{
+    static private boolean isChannelLibre(int channel,int debut, int fin){
+	
+	//	int size = intervalles.size();
+	//      for (int i=0; i<size; i++){
+	//	    if ((intervalles.get(i).instantInitial()==debut)&&(intervalles.get(i).instantFinal()==fin)){
+	//	         int size2 = intervalles.get(i).tableautimbre.size()
+	//                for (int j = 0 ; j<16 ; j++){
+	//                    if(m[channel].getProgram()==intervalles.get(i).tableautimbre[j]){
+	//                         return false
+	//}
+	//  return true;
+	//}
+	//}
+	//  }
+	return true;
+    }
+    
+    
+    static private int retournerChannel(int timbre, int debut, int fin)throws InvalidMidiDataException{
 	
 	MidiChannel[] m = synthetiseur.getChannels();
 	for(int i=0; i<16; i++){
@@ -147,13 +156,13 @@ public class Midi{
 		return i;
 	    }
 	    else if ((i!=0)&&(m[i].getProgram()==0)){
-			configurerChannel(i,timbre);
-			return i;
+		configurerChannel(i,timbre);
+		return i;
 	    }
 	}
 	for(int i=1; i<16; i++){
-	    if(isChannelLibre(i)){
-		ajouterEvent(0, creerEvent(ShortMessage.PROGRAM_CHANGE,i,timbre,0, temps));
+	    if(isChannelLibre(i, debut, fin)){
+		ajouterEvent(0, creerEvent(ShortMessage.PROGRAM_CHANGE,i,timbre,0, debut));
 		return i;
 	    }
 	}
