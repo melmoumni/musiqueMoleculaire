@@ -76,13 +76,16 @@ public class TableauCompositeur extends Fenetre {
 		int i=0;
 		final Controleur controleur = new Chercheur();
 		int timbre;
-		float maxTabAbsc=abscisses[abscisses.length - 1];
+		float copieAbscisses[]=new float[4];
+		for(int k=0; k<4; k++)
+			copieAbscisses[k]=abscisses[k]-abscisses[0];   //abscisses décalées à cause de jpanel...donc correction
+		float maxTabAbsc=copieAbscisses[copieAbscisses.length - 1];
 		float maxTabOrd = ordonnees[ordonnees.length-1];
 		float scaleAbsc= maxTabAbsc/ControleurFenetres.getLargeurVideo();
 		float scaleOrd=maxTabOrd/ControleurFenetres.getHauteurVideo();
 		System.out.println("maxtababs et maxtabord : " + maxTabAbsc +" "+maxTabOrd);
 		
-		System.out.println("absc: " + abscisses[0] + " "+abscisses[1] + " "+abscisses[2]+ " " +abscisses[3]);
+		System.out.println("absc: " + copieAbscisses[0] + " "+copieAbscisses[1] + " "+copieAbscisses[2]+ " " +copieAbscisses[3]);
 		System.out.println("timbre:" + timbreAbs[0].timbreMIDI() + " "+timbreAbs[1].timbreMIDI() + " "+timbreAbs[2].timbreMIDI());
 		System.out.println("ord: " + ordonnees[0] + " "+ordonnees[1] + " "+ordonnees[2]+" " +ordonnees[3]);
 		System.out.println("timbre: " + timbreOrd[0].timbreMIDI() + " "+timbreOrd[1].timbreMIDI() + " "+timbreOrd[2].timbreMIDI());
@@ -94,9 +97,9 @@ public class TableauCompositeur extends Fenetre {
 
 
 		 	              // first iterate through the "outer list"
-			for(int j=0; j<abscisses.length-1; j++){   // then iterate through all the "inner lists"
-            	tmp=abscisses[j];
-            	tmp2=abscisses[j+1];;
+			for(int j=0; j<copieAbscisses.length-1; j++){   // then iterate through all the "inner lists"
+            	tmp=copieAbscisses[j];
+            	tmp2=copieAbscisses[j+1];;
                  if(mol.positions().get(0).x()* scaleAbsc>=tmp && mol.positions().get(0).x() * scaleAbsc <=tmp2){
                 	 x=j;
                 	 break;
@@ -115,7 +118,7 @@ public class TableauCompositeur extends Fenetre {
 	         
 	        System.out.println("timbre x "+timbreAbs[x].timbreMIDI() + " timbre y "+timbreOrd[y].timbreMIDI());
 			mol.setTimbre(timbreAbs[x].timbreMIDI());   //pour le moment on affecte qu'un seul timbre
-			
+			mol.setTimbre2(timbreOrd[y].timbreMIDI());
 			
 		}
 		

@@ -14,7 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollBar;
 
 public class FenetreChoixMolecules extends JFrame{
 
@@ -81,6 +83,8 @@ public class FenetreChoixMolecules extends JFrame{
 	    
 	    JPanel panelGauche = new JPanel();
 	    panelGauche.setBounds(0, 0, (int) (2*dim.getWidth()/3), (int) dim.getHeight());
+	    //panelGauche.add(new JScrollPane(new FenetreTrajectoires(Controleur.molecules())));
+	    panelGauche.setVisible(true);
 	    getContentPane().add(panelGauche);
 	    
 	    JPanel panelDroit = new JPanel();
@@ -227,6 +231,14 @@ public class FenetreChoixMolecules extends JFrame{
 	    });
 	    buttonDecocherAleatoire.setBounds(466, 643, 124, 25);
 	    panelDroit.add(buttonDecocherAleatoire);
+	    
+	    JButton btnValider = new JButton("Valider");
+	    btnValider.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent arg0) {
+	    	}
+	    });
+	    btnValider.setBounds(180, 709, 244, 37);
+	    panelDroit.add(btnValider);
 	    
 	    
 
