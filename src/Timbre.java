@@ -30,6 +30,7 @@ class Timbre{
 	System.out.println("Instrument : " + nom);
 	System.out.println("Min : " + min);
 	System.out.println("Max : " + max);
+	System.out.println("Ref : " + octaveRef);
 	//System.out.println("Octave : " + octaveRef);
 	System.out.println("==================================");
 

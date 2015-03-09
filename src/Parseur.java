@@ -13,18 +13,11 @@ import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
 class Parseur {
-    //public ArrayList<Molecule> molecules;
-    //public Timbre[] tableauTimbre;
-
-    // public Parseur(){
-    // 	molecules = new ArrayList<Molecule>();
-    // 	tableauTimbre = new Timbre[128];
-    // }
     
     /**
      * fonction qui lit le fichier trajectoire et remplit les positions
      * on suposse que le fichier fournit en entrée contient les molécules
-     * placés par numéro de molécule dans l'ordre croissant
+     * placées par numéro de molécule dans l'ordre croissant
      */
     static void lireFichierTrajectoire(String nomDuFichier, ArrayList<Molecule> molecules) throws IOException {
 	int index = 0;
@@ -286,8 +279,8 @@ class Parseur {
 					  patternEntier+
 					  patternEspace+
 					  patternEntier+
-					  //patternEspace+ servira pour l'octave
-					  //patternEntier+
+					  patternEspace+ //servira pour l'octave
+					  patternEntier+
 					  patternEspaceEtoile+
 					  FinDeLigne);
 	try {
@@ -302,10 +295,10 @@ class Parseur {
 		    int numeroTimbre = Integer.parseInt(match.group(1));
 		    int fmin = Integer.parseInt(match.group(3));
 		    int fmax = Integer.parseInt(match.group(4));
-		    int oct = 0;//a remplacer par Integer.parseInt(match.group(5)) quand le fichier de timbre sera complet
+		    int oct = Integer.parseInt(match.group(5));//a remplacer par Integer.parseInt(match.group(5)) quand le fichier de timbre sera complet
 		    String nom = match.group(2);
-		    System.out.printf("Instrument %d,  %s,  min : %d, max : %d%n", numeroTimbre, nom, fmin, fmax);
-		    tableauTimbre[compteur-1] = new Timbre(numeroTimbre, nom, fmin, fmax, 0);
+		    System.out.printf("Instrument %d,  %s,  min : %d, max : %d%n, moyenne %d%n", numeroTimbre, nom, fmin, fmax, oct);
+		    tableauTimbre[compteur-1] = new Timbre(numeroTimbre, nom, fmin, fmax, oct);
 		}
 		else {
 		    System.out.println("Erreur de formation du fichier à la ligne " + compteur);

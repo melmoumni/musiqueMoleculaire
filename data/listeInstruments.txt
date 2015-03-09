@@ -1,128 +1,128 @@
-1 AcousticGrandPiano 10 96
-2 BrightAcousticPiano 10 96
-3 ElectricGrandPiano 10 96
-4 Honky-tonkPiano 10 96
-5 ElectricPiano1 10 96
-6 ElectricPiano2 10 96
-7 Harpsichord 29 89
-8 Clavinet 10 96
-9 Celesta 60 108
-10 Glockenspiel 79 108
-11 MusicBox 10 96
-12 Vibraphone 53 89
-13 Marimba 45 96
-14 Xylophone 65 108
-15 TubularBells 60 77
-16 Dulcimer 38 74
-17 DrawbarOrgan 1 128
-18 PercussiveOrgan 1 128
-19 RockOrgan 1 128
-20 ChurchOrgan 1 128
-21 ReedOrgan 1 128
-22 Accordion 30 80
-23 Harmonica 36 85
-24 TangoAccordion 30 80
-25 AcousticGuitar(nylon) 26 74
-26 AcousticGuitar(steel) 26 74
-27 ElectricGuitar(jazz) 26 74
-28 ElectricGuitar(clean) 26 74
-29 ElectricGuitar(muted) 26 74
-30 OverdrivenGuitar 26 74
-31 DistortionGuitar 26 74
-32 Guitarharmonics 26 74
-33 AcousticBass 14 55
-34 ElectricBass(finger) 14 55
-35 ElectricBass(pick) 14 55
-36 FretlessBass 14 55
-37 SlapBass1 14 55 
-38 SlapBass2 14 55
-39 SynthBass1 14 55
-40 SynthBass2 14 55
-41 Violin 55 103
-42 Viola 48 91
-43 Cello 36 76
-44 Contrabass 28 67
-45 TremoloStrings 40 105
-46 PizzicatoStrings 40 105
-47 OrchestralHarp 24 103
-48 Timpani 24 55
-49 StringEnsemble1 10 96
-50 StringEnsemble2 10 96
-51 SynthStrings1 10 96
-52 SynthStrings2 10 96
-53 ChoirAahs 26 72
-54 VoiceOohs 26 72
-55 SynthVoice 26 72
-56 OrchestraHit 10 100
-57 Trumpet 38 82
-58 Trombone 10 62
-59 Tuba 10 65
-60 MutedTrumpet 38 82 
-61 FrenchHorn 15 70
-62 BrassSection 5 95
-63 SynthBrass1 5 95
-64 SynthBrass2 5 95
-65 SopranoSax 45 75
-66 AltoSax 37 73
-67 TenorSax 34 63
-68 BaritoneSax 25 62
-69 Oboe 47 80
-70 EnglishHorn 15 70
-71 Bassoon 22 65
-72 Clarinet 3 94
-73 Piccolo 60 108
-74 Flute 48 96
-75 Recorder 38 96
-76 PanFlute 48 96
-77 BlownBottle 48 96
-78 Shakuhachi 48 96
-79 Whistle 26 72
-80 Ocarina 48 96
-81 Lead1(square) 10 100
-82 Lead2(sawtooth) 10 100
-83 Lead3(calliope) 10 100
-84 Lead4(chiff) 10 100
-85 Lead5(charang) 10 100
-86 Lead6(voice) 10 100
-87 Lead7(fifths) 10 100
-88 Lead8(bass+lead) 10 100
-89 Pad1(newage) 10 100
-90 Pad2(warm) 10 100
-91 Pad3(polysynth) 10 100
-92 Pad4(choir) 10 100
-93 Pad5(bowed) 10 100
-94 Pad6(metallic) 10 100
-95 Pad7(halo) 10 100
-96 Pad8(sweep) 10 100
-97 FX1(rain) 10 100
-98 FX2(soundtrack) 10 100
-99 FX3(crystal) 10 100
-100 FX4(atmosphere) 10 100
-101 FX5(brightness) 10 100
-102 FX6(goblins) 10 100
-103 FX7(echoes) 10 100
-104 FX8(sci-fi) 10 100
-105 Sitar 26 74
-106 Banjo 26 94
-107 Shamisen 26 94
-108 Koto 26 94
-109 Kalimba 50 94
-110 Bagpipe 30 100
-111 Fiddle 55 103
-112 Shanai 30 70
-113 TinkleBell 10 100
-114 Agogo 10 100
-115 SteelDrums 10 100
-116 Woodblock 10 100
-117 TaikoDrum 10 100
-118 MelodicTom 10 100
-119 SynthDrum 10 100
-120 ReverseCymbal 10 100
-121 GuitarFretNoise 10 100
-122 BreathNoise 10 100
-123 Seashore 10 100
-124 BirdTweet 10 100
-125 TelephoneRing 10 100
-126 Helicopter 10 100
-127 Applause 10 100
-128 Gunshot 10 100
+1 Acoustic Grand Piano 10 96 53
+2 Bright Acoustic Piano 10 96 53
+3 Electric Grand Piano 10 96 53
+4 Honky-tonk Piano 10 96 53
+5 Electric Piano1 10 96 53
+6 Electric Piano2 10 96 53
+7 Harpsichord 29 89 59
+8 Clavinet 10 96 53
+9 Celesta 60 108 84
+10 Glockenspiel 79 108 93
+11 Music Box 10 96 53
+12 Vibraphone 53 89 71
+13 Marimba 45 96 70
+14 Xylophone 65 108 86
+15 Tubular Bells 60 77 68
+16 Dulcimer 38 74 56
+17 Drawbar Organ 1 128 64
+18 Percussive Organ 1 128 64
+19 Rock Organ 1 128 64
+20 Church Organ 1 128 64
+21 Reed Organ 1 128 64
+22 Accordion 30 80 55
+23 Harmonica 36 85 60
+24 Tango Accordion 30 80 55
+25 Acoustic Guitar (nylon) 26 74 50
+26 Acoustic Guitar (steel) 26 74 50
+27 Electric Guitar (jazz) 26 74 50
+28 Electric Guitar (clean) 26 74 50
+29 Electric Guitar (muted) 26 74 50
+30 Overdriven Guitar 26 74 50
+31 Distortion Guitar 26 74 50
+32 Guitar harmonics 26 74 50
+33 Acoustic Bass 14 55 34
+34 Electric Bass (finger) 14 55 34
+35 Electric Bass (pick) 14 55 34
+36 Fretless Bass 14 55 34
+37 Slap Bass1 14 55 34
+38 Slap Bass2 14 55 34
+39 Synth Bass1 14 55 34
+40 Synth Bass2 14 55 34
+41 Violin 55 103 79
+42 Viola 48 91 69
+43 Cello 36 76 56
+44 Contrabass 28 67 47
+45 Tremolo Strings 40 105 72
+46 Pizzicato Strings 40 105 72
+47 Orchestral Harp 24 103 63
+48 Timpani 24 55 39
+49 String Ensemble1 10 96 53
+50 String Ensemble2 10 96 53
+51 Synth Strings1 10 96 53
+52 Synth Strings2 10 96 53
+53 Choir Aahs 26 72 49
+54 Voice Oohs 26 72 49
+55 Synth Voice 26 72 49
+56 Orchestra Hit 10 100 55
+57 Trumpet 38 82 60
+58 Trombone 10 62 36
+59 Tuba 10 65 37
+60 Muted Trumpet 38 82 60
+61 French Horn 15 70 44
+62 Brass Section 5 95 50
+63 Synth Brass1 5 95 50
+64 Synth Brass2 5 95 50
+65 Soprano Sax 45 75 60
+66 Alto Sax 37 73 55
+67 Tenor Sax 34 63 48
+68 Baritone Sax 25 62 43
+69 Oboe 47 80 63
+70 English Horn 15 70 42
+71 Bassoon 22 65 43
+72 Clarinet 3 94 48
+73 Piccolo 60 108 84
+74 Flute 48 96 72
+75 Recorder 38 96 67
+76 Pan Flute 48 96 72
+77 Blown Bottle 48 96 72
+78 Shakuhachi 48 96 72
+79 Whistle 26 72 49
+80 Ocarina 48 96 72
+81 Lead1 (square) 10 100 55
+82 Lead2 (sawtooth) 10 100 55
+83 Lead3 (calliope) 10 100 55
+84 Lead4 (chiff) 10 100 55
+85 Lead5 (charang) 10 100 55
+86 Lead6 (voice) 10 100 55
+87 Lead7 (fifths) 10 100 55
+88 Lead8 (bass + lead) 10 100 55
+89 Pad1 (new age) 10 100 55
+90 Pad2 (warm) 10 100 55
+91 Pad3 (polysynth) 10 100 55
+92 Pad4 (choir) 10 100 55
+93 Pad5 (bowed) 10 100 55
+94 Pad6 (metallic) 10 100 55
+95 Pad7 (halo) 10 100 55
+96 Pad8 (sweep) 10 100 55
+97 FX1 (rain) 10 100 55
+98 FX2 (soundtrack) 10 100 55
+99 FX3 (crystal) 10 100 55
+100 FX4 (atmosphere) 10 100 55
+101 FX5 (brightness) 10 100 55
+102 FX6 (goblins) 10 100 55
+103 FX7 (echoes) 10 100 55
+104 FX8 (sci-fi) 10 100 55
+105 Sitar 26 74 50
+106 Banjo 26 94 60
+107 Shamisen 26 94 60
+108 Koto 26 94 60
+109 Kalimba 50 94 72
+110 Bag pipe 30 100 65
+111 Fiddle 55 103 79
+112 Shanai 30 70 50
+113 Tinkle Bell 10 100 55
+114 Agogo 10 100 55
+115 Steel Drums 10 100 55
+116 Woodblock 10 100 55
+117 Taiko Drum 10 100 55
+118 Melodic Tom 10 100 55
+119 Synth Drum 10 100 55
+120 Reverse Cymbal 10 100 55
+121 Guitar Fret Noise 10 100 55
+122 Breath Noise 10 100 55
+123 Seashore 10 100 55
+124 Bird Tweet 10 100 55
+125 Telephone Ring 10 100 55
+126 Helicopter 10 100 55
+127 Applause 10 100 55
+128 Gunshot 10 100 55
