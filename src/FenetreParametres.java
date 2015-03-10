@@ -13,6 +13,8 @@ import javax.swing.JComboBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -119,6 +121,36 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		valeurAlpha3 = new JSpinner();
 		valeurAlpha3.setModel(new SpinnerNumberModel(new Float(1.10), new Float(0), new Float(2), new Float(0.05)));
 		
+		ChangeListener listener = new ChangeListener() {
+		      public void stateChanged(ChangeEvent e) {
+		    	  Float alpha1 = getValeurAlpha1();
+		    	  Float alpha2 = getValeurAlpha2();
+		    	  Float alpha3 = getValeurAlpha3();
+		    	  if(e.getSource()==valeurAlpha1){  
+		    		  if(alpha1>alpha2){
+		    			  valeurAlpha2.setValue(alpha1 + 0.1f);
+		    		  }
+		    	  }
+		    	  else if(e.getSource()==valeurAlpha2){	  
+		    		  if(alpha2<=alpha1){
+		    			  valeurAlpha1.setValue(alpha2 - 0.1f);
+		    		  }
+		    		  if(alpha2>=alpha3){
+		    			  valeurAlpha3.setValue(alpha2 + 0.1f);
+		    		  }
+		    	  }
+		    	  else if(e.getSource()==valeurAlpha2){	  
+		    		  if(alpha3<=alpha2){
+		    			  valeurAlpha2.setValue(alpha3 - 0.1f);
+		    		  }
+		    	  }
+		      }
+		    };
+		
+		valeurAlpha1.addChangeListener(listener);
+		valeurAlpha2.addChangeListener(listener);
+		valeurAlpha3.addChangeListener(listener);
+		
 		JLabel label_4 = new JLabel("<");	
 		JLabel label_3 = new JLabel("<");
 		
@@ -147,9 +179,6 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		 *  Layout GroupLayout
 		 *  Realise a l'aide du plugin WindowsBuilder sur Eclipse
 		 */
-		
-		
-		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
