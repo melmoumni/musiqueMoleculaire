@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.AbstractButton;
 import javax.swing.Box;
@@ -139,7 +140,6 @@ public class FenetreChoixMolecules extends JFrame{
 	        	  abstractButton.setFont(new Font("default", Font.PLAIN, 12));
 	        	  ListeDynamique.remove(typeMolecule.get(indice));
 	          }
-	          System.out.println(selected + " " + typeMolecule.get(indice).numero() + " " + ListeDynamique.size());
 	          panelBasGauche.revalidate();
 	          panelBasGauche.repaint();
 	        }
@@ -364,9 +364,61 @@ public class FenetreChoixMolecules extends JFrame{
 	    panelDroit.add(btnValider);
 	    
 	    JButton btnSelectionAutomatique = new JButton("Selection automatique");
+	    btnSelectionAutomatique.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent arg0) {
+	    		selectRandomMolecule(2);
+	    	}
+	    });
 	    btnSelectionAutomatique.setBounds(167, 704, 263, 37);
 	    panelDroit.add(btnSelectionAutomatique);
 	   
 	}
 
+	protected void selectRandomMolecule(int nbMol) {
+		Random randomizer = new Random();
+		JCheckBox random;
+		ListeDynamique.clear();
+		toutDecocher();
+		ArrayList<JCheckBox> randomList = new ArrayList<JCheckBox>();
+		for (int i = 0 ; i < nbMol ; i++){
+			random = ListCheckBoxImmobile.get(randomizer.nextInt(ListCheckBoxImmobile.size()));
+			if (!(randomList.contains(random))){
+				//ListeDynamique.add(random);
+				random.doClick();
+			}
+			random = ListCheckBoxConfine.get(randomizer.nextInt(ListCheckBoxConfine.size()));
+			if (!(randomList.contains(random))){
+				random.doClick();
+			}
+			random = ListCheckBoxDirectionnelle.get(randomizer.nextInt(ListCheckBoxDirectionnelle.size()));
+			if (!(randomList.contains(random))){
+				random.doClick();
+			}
+			random = ListCheckBoxAleatoire.get(randomizer.nextInt(ListCheckBoxAleatoire.size()));
+			if (!(ListeDynamique.contains(random))){
+				random.doClick();
+			}
+		}
+		panelBasGauche.revalidate();
+		panelBasGauche.repaint();
+	}
+
+	private void toutDecocher() {
+		for (JCheckBox jc : ListCheckBoxImmobile){
+			jc.setSelected(false);
+			jc.setFont(new Font("default", Font.PLAIN, 12));
+		}
+		for (JCheckBox jc : ListCheckBoxConfine){
+			jc.setSelected(false);
+			jc.setFont(new Font("default", Font.PLAIN, 12));
+		}
+		for (JCheckBox jc : ListCheckBoxDirectionnelle){
+			jc.setSelected(false);
+			jc.setFont(new Font("default", Font.PLAIN, 12));
+		}
+		for (JCheckBox jc : ListCheckBoxAleatoire){
+			jc.setSelected(false);
+			jc.setFont(new Font("default", Font.PLAIN, 12));
+		}
+	}
 }

@@ -1,4 +1,4 @@
-package Utilitaires;
+//package Utilitaires;
 import javax.sound.midi.*;
 
 
@@ -131,21 +131,22 @@ public class Midi{
     
     
     static private boolean isChannelLibre(int channel,int debut, int fin){
-	
-	//	int size = intervalles.size();
-	//      for (int i=0; i<size; i++){
-	//	    if ((intervalles.get(i).instantInitial()==debut)&&(intervalles.get(i).instantFinal()==fin)){
-	//	         int size2 = intervalles.get(i).tableautimbre.size()
-	//                for (int j = 0 ; j<16 ; j++){
-	//                    if(m[channel].getProgram()==intervalles.get(i).tableautimbre[j]){
-	//                         return false
-	//}
-	//  return true;
-	//}
-	//}
-	//  }
+	MidiChannel[] m = synthetiseur.getChannels();
+    	int size = Controleur.intervalles().size();
+	for (int i=0; i<size; i++){
+	    if ((Controleur.intervalles().get(i).instantInitial()==debut)&&(Controleur.intervalles().get(i).instantFinal()==fin)){
+		int size2 = Controleur.intervalles.get(i).nombreMolecule();
+		for (int j = 0; j < size2; size++) {
+		    if(m[channel].getProgram()==Controleur.intervalles().get(i).molecules().get(j).getTimbre()){
+			return false;
+		    }
+		    
+		}
+	    }
+	}
 	return true;
     }
+    
     
     
     static private int retournerChannel(int timbre, int debut, int fin)throws InvalidMidiDataException{
