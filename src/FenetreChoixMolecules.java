@@ -1,22 +1,22 @@
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollBar;
+
 
 public class FenetreChoixMolecules extends JFrame{
 
@@ -28,6 +28,10 @@ public class FenetreChoixMolecules extends JFrame{
 	private ArrayList<JCheckBox> ListCheckBoxConfine;
 	private ArrayList<JCheckBox> ListCheckBoxDirectionnelle;
 	private ArrayList<JCheckBox> ListCheckBoxAleatoire;
+	
+	JPanel panelBasGauche;
+	
+	ArrayList<Molecule> ListeDynamique;
 	/**
 	 * 
 	 */
@@ -81,12 +85,67 @@ public class FenetreChoixMolecules extends JFrame{
 	    dim.width -= 50;
 		setBounds(0, 0, (int) dim.getWidth(), (int) dim.getHeight());
 	    
-	    JPanel panelGauche = new JPanel();
-	    panelGauche.setBounds(0, 0, (int) (2*dim.getWidth()/3), (int) dim.getHeight());
-	    //panelGauche.add(new JScrollPane(new FenetreTrajectoires(Controleur.molecules())));
-	    panelGauche.setVisible(true);
-	    getContentPane().add(panelGauche);
+	    JPanel panelHautGauche = new JPanel();
+	    panelHautGauche.setBounds(0, 0, (int) (2*dim.getWidth()/3), (int) dim.getHeight() / 2);
+	    FenetreTrajectoires TrajectoiresHaut = new FenetreTrajectoires(Controleur.molecules(), (int) (2*dim.getWidth()/3), (int) dim.getHeight()/2); 
+	    panelHautGauche.add(new JScrollPane(TrajectoiresHaut));
+	    panelHautGauche.setVisible(true);
+	    getContentPane().add(panelHautGauche);
 	    
+	    panelBasGauche = new JPanel();
+	    panelBasGauche.setBounds(0, (int) dim.getHeight() / 2, (int) (2*dim.getWidth()/3), (int) dim.getHeight() / 2);
+	    ListeDynamique = new ArrayList<Molecule>(Controleur.molecules());
+	    FenetreTrajectoires TrajectoiresBas = new FenetreTrajectoires(ListeDynamique, (int) (2*dim.getWidth()/3), (int) dim.getHeight()/2); 
+	    panelBasGauche.add(new JScrollPane(TrajectoiresBas));
+	    panelBasGauche.setVisible(true);
+	    getContentPane().add(panelBasGauche);
+
+	    
+	    ActionListener actionListener = new ActionListener() {
+	        public void actionPerformed(ActionEvent actionEvent) {
+	          AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
+	          boolean selected = abstractButton.getModel().isSelected();
+	          ArrayList<Molecule> typeMolecule = ListeImmobile;
+	          int indice = 0;
+	          for (JCheckBox jc : ListCheckBoxImmobile){
+	        	  if (jc.equals(abstractButton)){
+	        		  typeMolecule = ListeImmobile;
+	        		  indice = ListCheckBoxImmobile.indexOf(jc);
+	        	  }
+	          }
+	          for (JCheckBox jc : ListCheckBoxConfine){
+	        	  if (jc.equals(abstractButton)){
+	        		  typeMolecule = ListeConfine;
+	        		  indice = ListCheckBoxConfine.indexOf(jc);
+	        	  }
+	          }
+	          for (JCheckBox jc : ListCheckBoxDirectionnelle){
+	        	  if (jc.equals(abstractButton)){
+	        		  typeMolecule = ListeDirectionnelle;
+	        		  indice = ListCheckBoxDirectionnelle.indexOf(jc);
+	        	  }
+	          }
+	          for (JCheckBox jc : ListCheckBoxAleatoire){
+	        	  if (jc.equals(abstractButton)){
+	        		  typeMolecule = ListeAleatoire;
+	        		  indice = ListCheckBoxAleatoire.indexOf(jc);
+	        	  }
+	          }
+	          if (selected){
+	        	  abstractButton.setFont(new Font("default", Font.BOLD, 12));
+	        	  ListeDynamique.add(typeMolecule.get(indice));
+	          }
+	          else {
+	        	  abstractButton.setFont(new Font("default", Font.PLAIN, 12));
+	        	  ListeDynamique.remove(typeMolecule.get(indice));
+	          }
+	          System.out.println(selected + " " + typeMolecule.get(indice).numero() + " " + ListeDynamique.size());
+	          panelBasGauche.revalidate();
+	          panelBasGauche.repaint();
+	        }
+	      };
+	    
+	    	    
 	    JPanel panelDroit = new JPanel();
 	    panelDroit.setBounds((int) (2*dim.getWidth()/3), 0,(int) (1*dim.getWidth()/3), (int) dim.getHeight());
 	    getContentPane().add(panelDroit);
@@ -97,6 +156,8 @@ public class FenetreChoixMolecules extends JFrame{
 		boxHautGauche.add(labelHautGauche);
 		for (Molecule mol : ListeImmobile){
 			JCheckBox j = new JCheckBox("Immobile "+mol.numero());
+			j.setSelected(true);
+			j.addActionListener(actionListener);
 			boxHautGauche.add(j);
 			ListCheckBoxImmobile.add(j);
 		}
@@ -106,6 +167,8 @@ public class FenetreChoixMolecules extends JFrame{
 		boxHautDroit.add(labelHautDroit);
 		for (Molecule mol : ListeConfine){
 			JCheckBox j = new JCheckBox("Confine "+mol.numero());
+			j.setSelected(true);
+			j.addActionListener(actionListener);
 			boxHautDroit.add(j);
 			ListCheckBoxConfine.add(j);
 		}
@@ -115,6 +178,8 @@ public class FenetreChoixMolecules extends JFrame{
 		boxBasGauche.add(labelBasGauche);
 		for (Molecule mol : ListeDirectionnelle){
 			JCheckBox j = new JCheckBox("Directionnelle "+mol.numero());
+			j.setSelected(true);
+			j.addActionListener(actionListener);
 			boxBasGauche.add(j);
 			ListCheckBoxDirectionnelle.add(j);
 		}
@@ -124,6 +189,8 @@ public class FenetreChoixMolecules extends JFrame{
 		boxBasDroit.add(labelBasDroit);
 		for (Molecule mol : ListeAleatoire){
 			JCheckBox j = new JCheckBox("Aleatoire "+mol.numero());
+			j.setSelected(true);
+			j.addActionListener(actionListener);
 			boxBasDroit.add(j);
 			ListCheckBoxAleatoire.add(j);
 		}	    
@@ -150,6 +217,13 @@ public class FenetreChoixMolecules extends JFrame{
 	    		for (JCheckBox jc : ListCheckBoxImmobile){
 	    			jc.setSelected(true);
 	    		}
+	    		for (Molecule mol : ListeImmobile){
+	    			if (!(ListeDynamique.contains(mol))){
+	    				ListeDynamique.add(mol);
+	    			}
+	    		}
+	    		panelBasGauche.revalidate();
+	    		panelBasGauche.repaint();
 	    	}
 	    });
 	    buttonCocherImmobile.setBounds(0, 291, 110, 25);
@@ -161,6 +235,13 @@ public class FenetreChoixMolecules extends JFrame{
 	    		for (JCheckBox jc : ListCheckBoxImmobile){
 	    			jc.setSelected(false);
 	    		}
+	    		for (Molecule mol : ListeImmobile){
+	    			if (ListeDynamique.contains(mol)){
+	    				ListeDynamique.remove(mol);
+	    			}
+	    		}
+	    		panelBasGauche.revalidate();
+	    		panelBasGauche.repaint();
 	    	}
 	    });
 	    buttonDecocherImmobile.setBounds(146, 291, 124, 25);
@@ -172,6 +253,13 @@ public class FenetreChoixMolecules extends JFrame{
 	    		for (JCheckBox jc : ListCheckBoxConfine){
 	    			jc.setSelected(true);
 	    		}
+	    		for (Molecule mol : ListeConfine){
+	    			if (!(ListeDynamique.contains(mol))){
+	    				ListeDynamique.add(mol);
+	    			}
+	    		}
+	    		panelBasGauche.revalidate();
+	    		panelBasGauche.repaint();
 	    	}
 	    });
 	    buttonCocherConfine.setBounds(320, 291, 110, 25);
@@ -183,6 +271,13 @@ public class FenetreChoixMolecules extends JFrame{
 	    		for (JCheckBox jc : ListCheckBoxConfine){
 	    			jc.setSelected(false);
 	    		}
+	    		for (Molecule mol : ListeConfine){
+	    			if (ListeDynamique.contains(mol)){
+	    				ListeDynamique.remove(mol);
+	    			}
+	    		}
+	    		panelBasGauche.revalidate();
+	    		panelBasGauche.repaint();
 	    	}
 	    });
 	    buttonDecocherConfine.setBounds(466, 291, 124, 25);
@@ -194,6 +289,13 @@ public class FenetreChoixMolecules extends JFrame{
 	    		for (JCheckBox jc : ListCheckBoxDirectionnelle){
 	    			jc.setSelected(true);
 	    		}
+	    		for (Molecule mol : ListeDirectionnelle){
+	    			if (!(ListeDynamique.contains(mol))){
+	    				ListeDynamique.add(mol);
+	    			}
+	    		}
+	    		panelBasGauche.revalidate();
+	    		panelBasGauche.repaint();
 	    	}
 	    });
 	    buttonCocherDirectionnelle.setBounds(0, 643, 110, 25);
@@ -205,6 +307,13 @@ public class FenetreChoixMolecules extends JFrame{
 	    		for (JCheckBox jc : ListCheckBoxDirectionnelle){
 	    			jc.setSelected(false);
 	    		}
+	    		for (Molecule mol : ListeDirectionnelle){
+	    			if (ListeDynamique.contains(mol)){
+	    				ListeDynamique.remove(mol);
+	    			}
+	    		}
+	    		panelBasGauche.revalidate();
+	    		panelBasGauche.repaint();
 	    	}
 	    });
 	    buttonDecocherDirectionnelle.setBounds(146, 643, 124, 25);
@@ -216,6 +325,13 @@ public class FenetreChoixMolecules extends JFrame{
 	    		for (JCheckBox jc : ListCheckBoxAleatoire){
 	    			jc.setSelected(true);
 	    		}
+	    		for (Molecule mol : ListeAleatoire){
+	    			if (!(ListeDynamique.contains(mol))){
+	    				ListeDynamique.add(mol);
+	    			}
+	    		}
+	    		panelBasGauche.revalidate();
+	    		panelBasGauche.repaint();
 	    	}
 	    });
 	    buttonCocherAleatoire.setBounds(320, 643, 110, 25);
@@ -227,6 +343,13 @@ public class FenetreChoixMolecules extends JFrame{
 	    		for (JCheckBox jc : ListCheckBoxAleatoire){
 	    			jc.setSelected(false);
 	    		}
+	    		for (Molecule mol : ListeAleatoire){
+	    			if (ListeDynamique.contains(mol)){
+	    				ListeDynamique.remove(mol);
+	    			}
+	    		}
+	    		panelBasGauche.revalidate();
+	    		panelBasGauche.repaint();
 	    	}
 	    });
 	    buttonDecocherAleatoire.setBounds(466, 643, 124, 25);
@@ -237,12 +360,13 @@ public class FenetreChoixMolecules extends JFrame{
 	    	public void actionPerformed(ActionEvent arg0) {
 	    	}
 	    });
-	    btnValider.setBounds(180, 709, 244, 37);
+	    btnValider.setBounds(177, 804, 244, 37);
 	    panelDroit.add(btnValider);
 	    
-	    
-
-	 
-		
+	    JButton btnSelectionAutomatique = new JButton("Selection automatique");
+	    btnSelectionAutomatique.setBounds(167, 704, 263, 37);
+	    panelDroit.add(btnSelectionAutomatique);
+	   
 	}
+
 }

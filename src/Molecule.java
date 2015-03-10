@@ -281,5 +281,6 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	public float getAlpha() {
 		return alpha;
 	}
+
 }
 
