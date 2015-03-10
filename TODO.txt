@@ -2,17 +2,20 @@ Trucs à faire :
 
 
 ---IHM---
-1-1 - Créer le Tableau Compositeur (relire le CdC et copier sur le Tableau Chercheur si besoin).
-1-2 - Créer la reconstitution du mouvement des protéines (à chaque instant, afficher la position des protéines et si besoin faire des liaisons avec les précédentes positions)
-1-3 - Voir si c'est pareil pour le chercheur et le compositeur ... sinon faire les 2.
-1-4 - Faire le lien entre toutes les fenêtres pour qu'elles s'enchaînent.
+1-1 - Créer le Tableau Compositeur (relire le CdC et copier sur le Tableau Chercheur si besoin). : DONE
+1-2 - Créer la reconstitution du mouvement des protéines (à chaque instant, afficher la position des protéines et si besoin faire des liaisons avec les précédentes positions) : EN COURS
+1-3 - Voir si c'est pareil pour le chercheur et le compositeur ... sinon faire les 2. : Une seule fenêtre
+1-4 - Faire le lien entre toutes les fenêtres pour qu'elles s'enchaînent. : EN COURS
 
 
 ---Lien entre IHM et classes---
-2-1 - Modifier le main pour qu'il lance directement la fenêtre de paramètre (éventuellement mettre un paramètre au lancement appelé "test" qui permet de lancer comme ça pour qu'on continue les tests) 
-2-2 - Implémenter les liaisons sur le bouton "Continuer" de la fenêtre Paramètre (création de l'instance de Controleur voulue, lancer le parsing des fichiers et remplissage des attributs renseignés)
-2-3 - Faire le lien entre le TableauChercheur façonné par l'utilisateur et l'assignation des timbres pour chaque Molécule. 
+2-1 - Modifier le main pour qu'il lance directement la fenêtre de paramètre (éventuellement mettre un paramètre au lancement appelé "test" qui permet de lancer comme ça pour qu'on continue les tests) : DONE
+2-2 - Implémenter les liaisons sur le bouton "Continuer" de la fenêtre Paramètre (création de l'instance de Controleur voulue, lancer le parsing des fichiers et remplissage des attributs renseignés) : DONE
+2-3 - Faire le lien entre le TableauChercheur façonné par l'utilisateur et l'assignation des timbres pour chaque Molécule. : DONE mais il reste à tester
 2-4 - Chercher comment ça marche pour créer un exécutable à partir des source de notre projet
+
+2-5 - Prendre en compte les valeurs alphas resneignées par l'utilisateur pour faire correspondre les molécules au bon mouvement
+2-6 - Prendre en compte la durée souhaitée pour donner un enregsitrement adéquat
 
 
 ---MIDI---
@@ -33,6 +36,7 @@ Trucs à faire :
 
 5 ----- RAPPORT ------
 ...pour ceux qui s'ennuient : https://www.overleaf.com/2331450bvbnfg
+
 
 ----Agnes------
 Legende sur FenetreTrajectoires...que mettre?
