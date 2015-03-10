@@ -1,6 +1,5 @@
 import javax.sound.midi.*;
 
-import Utilitaires.Midi;
 
 
 //pour les mouvements confinés (coté chercheur)

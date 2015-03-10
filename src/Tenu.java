@@ -1,6 +1,5 @@
 import javax.sound.midi.*;
 
-import Utilitaires.Midi;
 
 //mouvement immobile
 class Tenu implements Effet{

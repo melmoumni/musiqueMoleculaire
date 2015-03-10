@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.lang.Math;
 import javax.sound.midi.*;
 
-import Utilitaires.Midi;
 
 //mouvements diffusifs (coté chercheur)
 

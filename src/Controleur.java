@@ -18,7 +18,7 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
-import Utilitaires.Midi;
+//import Utilitaires.Midi;
 
 abstract class Controleur{
 	public static ArrayList<Molecule> molecules;

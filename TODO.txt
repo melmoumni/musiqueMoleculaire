@@ -26,6 +26,10 @@ Trucs à faire :
 3-5 - Mettre de nouveaux attributs permettant de faire de la stéréo ! Et voir à quel moment l'utilisateur peuit modifier ces attributs.
 3-6 - ... rendre le glissando moins dégueulasse ...   
 
+3-7 - Prendre en compte le seuil d'intensité pour le compositeur -> jouer une percussion quand il est dépassé : peut être donner l'option d'activer ou de désactiver cette fonctionnalité (s'il laisse le seuil à 0 on ne le fait pas par exemple )
+
+3-8 - Chercheur : nombre de note des boucles adaptées à la surface parcourue par la molécule
+
 
 ---Lien entre MIDI et classes---
 4-1 - Pouvoir régler le tempo pour les boucles et les aléatoire (trouver une référence, la vitesse par exemple)

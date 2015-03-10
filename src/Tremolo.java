@@ -1,6 +1,5 @@
 import javax.sound.midi.*;
 
-import Utilitaires.Midi;
 
 //mouvement confiné (coté compositeur)
 class Tremolo implements Effet{
