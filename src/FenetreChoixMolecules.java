@@ -18,6 +18,9 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+
 
 public class FenetreChoixMolecules extends JFrame{
 
@@ -31,6 +34,8 @@ public class FenetreChoixMolecules extends JFrame{
 	private ArrayList<JCheckBox> ListCheckBoxAleatoire;
 	
 	JPanel panelBasGauche;
+	
+	JSpinner spinnerNbMol;
 	
 	ArrayList<Molecule> ListeDynamique;
 	/**
@@ -216,6 +221,7 @@ public class FenetreChoixMolecules extends JFrame{
 	    	public void actionPerformed(ActionEvent arg0) {
 	    		for (JCheckBox jc : ListCheckBoxImmobile){
 	    			jc.setSelected(true);
+	    			jc.setFont(new Font("default", Font.BOLD, 12));
 	    		}
 	    		for (Molecule mol : ListeImmobile){
 	    			if (!(ListeDynamique.contains(mol))){
@@ -234,6 +240,7 @@ public class FenetreChoixMolecules extends JFrame{
 	    	public void actionPerformed(ActionEvent arg0) {
 	    		for (JCheckBox jc : ListCheckBoxImmobile){
 	    			jc.setSelected(false);
+	    			jc.setFont(new Font("default", Font.PLAIN, 12));
 	    		}
 	    		for (Molecule mol : ListeImmobile){
 	    			if (ListeDynamique.contains(mol)){
@@ -252,6 +259,7 @@ public class FenetreChoixMolecules extends JFrame{
 	    	public void actionPerformed(ActionEvent arg0) {
 	    		for (JCheckBox jc : ListCheckBoxConfine){
 	    			jc.setSelected(true);
+	    			jc.setFont(new Font("default", Font.BOLD, 12));
 	    		}
 	    		for (Molecule mol : ListeConfine){
 	    			if (!(ListeDynamique.contains(mol))){
@@ -270,6 +278,7 @@ public class FenetreChoixMolecules extends JFrame{
 	    	public void actionPerformed(ActionEvent arg0) {
 	    		for (JCheckBox jc : ListCheckBoxConfine){
 	    			jc.setSelected(false);
+	    			jc.setFont(new Font("default", Font.PLAIN, 12));
 	    		}
 	    		for (Molecule mol : ListeConfine){
 	    			if (ListeDynamique.contains(mol)){
@@ -288,6 +297,7 @@ public class FenetreChoixMolecules extends JFrame{
 	    	public void actionPerformed(ActionEvent arg0) {
 	    		for (JCheckBox jc : ListCheckBoxDirectionnelle){
 	    			jc.setSelected(true);
+	    			jc.setFont(new Font("default", Font.BOLD, 12));
 	    		}
 	    		for (Molecule mol : ListeDirectionnelle){
 	    			if (!(ListeDynamique.contains(mol))){
@@ -306,6 +316,7 @@ public class FenetreChoixMolecules extends JFrame{
 	    	public void actionPerformed(ActionEvent arg0) {
 	    		for (JCheckBox jc : ListCheckBoxDirectionnelle){
 	    			jc.setSelected(false);
+	    			jc.setFont(new Font("default", Font.PLAIN, 12));
 	    		}
 	    		for (Molecule mol : ListeDirectionnelle){
 	    			if (ListeDynamique.contains(mol)){
@@ -324,6 +335,7 @@ public class FenetreChoixMolecules extends JFrame{
 	    	public void actionPerformed(ActionEvent arg0) {
 	    		for (JCheckBox jc : ListCheckBoxAleatoire){
 	    			jc.setSelected(true);
+	    			jc.setFont(new Font("default", Font.BOLD, 12));
 	    		}
 	    		for (Molecule mol : ListeAleatoire){
 	    			if (!(ListeDynamique.contains(mol))){
@@ -342,6 +354,7 @@ public class FenetreChoixMolecules extends JFrame{
 	    	public void actionPerformed(ActionEvent arg0) {
 	    		for (JCheckBox jc : ListCheckBoxAleatoire){
 	    			jc.setSelected(false);
+	    			jc.setFont(new Font("default", Font.PLAIN, 12));
 	    		}
 	    		for (Molecule mol : ListeAleatoire){
 	    			if (ListeDynamique.contains(mol)){
@@ -366,12 +379,43 @@ public class FenetreChoixMolecules extends JFrame{
 	    JButton btnSelectionAutomatique = new JButton("Selection automatique");
 	    btnSelectionAutomatique.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent arg0) {
-	    		selectRandomMolecule(2);
+	    		selectRandomMolecule((int) spinnerNbMol.getValue());
 	    	}
 	    });
-	    btnSelectionAutomatique.setBounds(167, 704, 263, 37);
+	    btnSelectionAutomatique.setBounds(255, 704, 263, 37);
 	    panelDroit.add(btnSelectionAutomatique);
+	    
+	    spinnerNbMol = new JSpinner();
+	    int maxNbMol = max(ListeAleatoire.size(),ListeConfine.size(),ListeDirectionnelle.size(),ListeImmobile.size());
+	    System.out.println(maxNbMol);
+	    spinnerNbMol.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), new Integer(maxNbMol), new Integer(1)));
+	    if (maxNbMol >1){
+	    	spinnerNbMol.setValue(new Integer(2));
+	    }
+	    spinnerNbMol.setBounds(192, 711, 30, 22);
+	    panelDroit.add(spinnerNbMol);
+	    
+	    JLabel lblNombreDeMolcules = new JLabel("Nombre de Molécules");
+	    lblNombreDeMolcules.setBounds(53, 693, 139, 37);
+	    panelDroit.add(lblNombreDeMolcules);
+	    
+	    JLabel lblParCatgorie = new JLabel("par catégorie :");
+	    lblParCatgorie.setBounds(81, 714, 124, 27);
+	    panelDroit.add(lblParCatgorie);
 	   
+	}
+
+	private int max(int i, int j, int k, int l) {
+		if(i>=j && i>=k && i>=l){
+			return i;
+		}
+		else if(j>=i && j>=k && j>=l){
+			return j;
+		}
+		else if (k>=i && k>=j && k>=l){
+			return k;
+		}
+		return l;
 	}
 
 	protected void selectRandomMolecule(int nbMol) {
