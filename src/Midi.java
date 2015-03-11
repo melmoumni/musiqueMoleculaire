@@ -84,23 +84,24 @@ public class Midi{
 		int nbPas = (fin - debut)/75;
 		int pas=(fin-debut)/nbPas;  
 		int channel=retournerChannel(timbre,debut,fin);
-		//System.out.println("timbre: "+ timbre +"  channel " + channel +" pas " +pas);
-		for(i = 0; i<= nbPas; i++){
+		if((channel>0)&&(channel<15)){
+		    //System.out.println("timbre: "+ timbre +"  channel " + channel +" pas " +pas);
+		    for(i = 0; i<= nbPas; i++){
 			//System.out.println("debut+i*pas " + debut+ i*pas + "\n");
 			if(i%2 == 0){
-				ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut+i*pas));
-				ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note+4,0,debut+i*pas));    //le +4 donne la tierce
+			    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut+i*pas));
+			    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note+4,0,debut+i*pas));    //le +4 donne la tierce
 			}
 			else{
-				ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note+4,volume,debut+i*pas));
-				ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note,0,debut+i*pas));
-
+			    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note+4,volume,debut+i*pas));
+			    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note,0,debut+i*pas));
 			}
+		    }
 		}
-
+		
 	}
-
-	static public void glissando(int note, int timbre,int volume,int debut, int fin, int distanceParcourrue, int vitesseOrd) throws InvalidMidiDataException{
+    
+    static public void glissando(int note, int timbre,int volume,int debut, int fin, int distanceParcourrue, int vitesseOrd) throws InvalidMidiDataException{
 
 		// nbPas  égal à 64 pour la molécule ayant la distanceParcourrue la plus grande parmi toutes les molécules
 		//ainsi, i (angle de la molette) sera au max pour une molécule parcourrant la plus grande distance
@@ -109,24 +110,28 @@ public class Midi{
 		int i;
 		int pas= (fin-debut)/nbPas;
 		int channel=retournerChannel(timbre,debut,fin);
-		ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut));
+		if((channel>0)&&(channel<15)){
+			    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut));
 		if(vitesseOrd >=0){	  //glissando montant (suivant la vitesse ordonnée)
-			for(i =0; i< nbPas; i++)  {
-				ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64+i,debut+i*pas ));
+		    for(i =0; i< nbPas; i++)  {
+			    ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64+i,debut+i*pas ));
 			}
 		}
 		else{                //glissando descendant
 			for(i = 0; i<=nbPas; i++){   
-				ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64-i,debut+i*pas ));
+			    ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64-i,debut+i*pas ));
 			}
 		}
+			}
 	}
     
     static public void noteTenue(int note, int timbre,int volume,int debut, int fin) throws InvalidMidiDataException{
 	int channel=retournerChannel(timbre,debut,fin);
+	System.out.println("channel" + channel);
+	if((channel>0)&&(channel<15)){
 	ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut));
 	ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note,volume,fin));
-	
+    }
     }
     
     
@@ -138,13 +143,13 @@ public class Midi{
 		int size2 = Controleur.intervalles.get(i).nombreMolecule();
 		for (int j = 0; j < size2; size++) {
 		    if(m[channel].getProgram()==Controleur.intervalles().get(i).molecules().get(j).getTimbre()){
-			return false;
+			return true;
 		    }
 		    
 		}
 	    }
 	}
-	return true;
+	return false;
     }
     
     
