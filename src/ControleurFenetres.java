@@ -34,7 +34,7 @@ public class ControleurFenetres {
 			controleur = new Chercheur();
 			afficherParam(); 
 			params.dispose(); // fermeture de la fenetre parametre
-			parser();
+			initialiserMolecules();
 			fenetrePrincipale = new TableauChercheurVue(true,null);
 			fenetrePrincipale.setVisible(true);
 		}
@@ -42,7 +42,7 @@ public class ControleurFenetres {
 			controleur = new Compositeur(params.getIntensite());
 			afficherParam(); 
 			params.dispose(); // fermeture de la fenetre parametre
-			parser();
+			initialiserMolecules();
 			fenetrePrincipale = new TableauCompositeurVue(true, null);
 			fenetrePrincipale.setVisible(true);
 		}
@@ -61,12 +61,15 @@ public class ControleurFenetres {
 		
 	}
 
-	private static void parser(){
+	private static void initialiserMolecules(){
 		try {
 			Controleur.initMolecules(fichierTrajectoire, fichierMvts, "./data/listeInstruments.txt");
 		}
 		catch (IOException e) {
 		}
+		float alphas[] = {alpha1, alpha2, alpha3};
+		Controleur.alphaSeparation = alphas;
+		Controleur.analyseMolecules();
 	}
 	
 	/* Recupere les differents parametres renseignees par l'utilisateur dans la fenetre de parametre 
@@ -95,10 +98,10 @@ public class ControleurFenetres {
 	public static void popupMessage()
 	{
 		JOptionPane.showMessageDialog(params,
-    		    "Les parametres suivants doivent etre renseigns :\n"
+    		    "Les parametres suivants doivent etre renseignees :\n"
     		    + " - Chemins des fichiers de trajectoires et d'analyse\n"
     		    + " - Taille de l'image (Largeur et Hauteur) \n"
-    		    + " - Dure souhaite  \n"
+    		    + " - Duree souhaitee  \n"
     		    + " - Type d'utilisateur : Chercheur ou Compositeur  \n");
 	}
 
