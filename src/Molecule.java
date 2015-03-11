@@ -23,7 +23,7 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	private Color couleur;
 	private Effet effet;
 	private int note;
-	private float intensite;
+	private float moyenneIntensite;
 	private int tempo; // ou pas !!!
 	private float pasMax; // juste pour les aleatoires
 	Molecule(){
@@ -44,6 +44,7 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		System.out.println("Effet" + effet.getClass().getName());
 		//System.out.println("Tempo : "+tempo);
 		System.out.println("PasMax : " + pasMax);
+		System.out.println("Intensité moyenne : " + moyenneIntensite);
 		System.out.println("Instant initial : " + instantInitial);
 		System.out.println("Instant final : " + instantFinal);
 		System.out.println("Distance parcourue : " + distance);
@@ -127,12 +128,12 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		return instantFinal;
 	}
 	
-	public float intensite(){
-		return intensite;
+	public float moyenneIntensite(){
+		return moyenneIntensite;
 	}
 	
-	public void setIntensite(float newIntensite){
-		intensite = newIntensite;
+	public void setMoyenneIntensite(float newIntensite){
+		moyenneIntensite = newIntensite;
 	}
 
 	public int vitesse(){
@@ -247,6 +248,16 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		}
 	}
 
+	public void analyseIntensite(){
+	    float res = (float) 0.0;
+	    int index = 0;
+	    for (CaracteristiqueTemporelle tmp : positions) {
+		res += tmp.intensite();
+		index++;
+	    }
+	    moyenneIntensite = res/(index*((float)1.0));
+	}
+
 	public void remplirSequenceMolecule(){
 		try{
 			effet.remplirSequenceur(this);
@@ -254,6 +265,8 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 
 		}
 	}
+
+	
 
 	/**
 	 * fonction pour trier les molécules avec instant et initial dans l'ordre croissant

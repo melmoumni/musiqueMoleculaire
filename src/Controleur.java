@@ -344,6 +344,7 @@ abstract class Controleur{
 		for (Molecule mol : molecules()){
 			mol.analyseMolecule(alphaSeparation, isChercheur);
 			mol.analyseDistance();
+			mol.analyseIntensite();
 		}
 		Collections.sort(molecules);
 	}

@@ -62,6 +62,7 @@ class Parseur {
 												  instant,
 												  /*intensite*/Float.parseFloat(match.group(13)));
 			listeEnRemplissage.add((CaracteristiqueTemporelle)caracteristique);
+			
 		    }
 		    else {
 			if (proteineEnRemplissage == numeroProteine) {
@@ -295,7 +296,7 @@ class Parseur {
 		    int numeroTimbre = Integer.parseInt(match.group(1));
 		    int fmin = Integer.parseInt(match.group(3));
 		    int fmax = Integer.parseInt(match.group(4));
-		    int oct = Integer.parseInt(match.group(5));//a remplacer par Integer.parseInt(match.group(5)) quand le fichier de timbre sera complet
+		    int oct = (int) Math.round((Integer.parseInt(match.group(5)))/12.0);//a remplacer par Integer.parseInt(match.group(5)) quand le fichier de timbre sera complet
 		    String nom = match.group(2);
 		    System.out.printf("Instrument %d,  %s,  min : %d, max : %d%n, moyenne %d%n", numeroTimbre, nom, fmin, fmax, oct);
 		    tableauTimbre[compteur-1] = new Timbre(numeroTimbre, nom, fmin, fmax, oct);
