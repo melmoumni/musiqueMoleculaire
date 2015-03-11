@@ -442,7 +442,7 @@ public class FenetreChoixMolecules extends JFrame{
 	protected void selectMoleculesContraintes(int nbPoints, int minIntensite) {
 		ArrayList<Molecule> copieListeDynamique = new ArrayList<Molecule>(ListeDynamique);
 		for (Molecule mol: copieListeDynamique){
-			if (((mol.positions().size() < nbPoints) || (mol.intensite() < minIntensite)) && ListeDynamique.contains(mol)){
+			if (((mol.positions().size() < nbPoints) || (mol.moyenneIntensite() < minIntensite)) && ListeDynamique.contains(mol)){
 				ListeDynamique.remove(mol);
 				if (ListeImmobile.contains(mol)){
 					ListCheckBoxImmobile.get(ListeImmobile.indexOf(mol)).doClick();
