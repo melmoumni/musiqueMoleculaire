@@ -36,6 +36,8 @@ public class FenetreChoixMolecules extends JFrame{
 	JPanel panelBasGauche;
 	
 	JSpinner spinnerNbMol;
+	JSpinner spinnerIntensite;
+	JSpinner spinnerPoints;
 	
 	ArrayList<Molecule> ListeDynamique;
 	/**
@@ -368,12 +370,12 @@ public class FenetreChoixMolecules extends JFrame{
 	    buttonDecocherAleatoire.setBounds(466, 643, 124, 25);
 	    panelDroit.add(buttonDecocherAleatoire);
 	    
-	    JButton btnValider = new JButton("Valider");
+	    JButton btnValider = new JButton("Valider le choix des proteines");
 	    btnValider.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent arg0) {
 	    	}
 	    });
-	    btnValider.setBounds(177, 804, 244, 37);
+	    btnValider.setBounds(159, 912, 317, 67);
 	    panelDroit.add(btnValider);
 	    
 	    JButton btnSelectionAutomatique = new JButton("Selection automatique");
@@ -382,7 +384,7 @@ public class FenetreChoixMolecules extends JFrame{
 	    		selectRandomMolecule((int) spinnerNbMol.getValue());
 	    	}
 	    });
-	    btnSelectionAutomatique.setBounds(255, 704, 263, 37);
+	    btnSelectionAutomatique.setBounds(255, 711, 211, 25);
 	    panelDroit.add(btnSelectionAutomatique);
 	    
 	    spinnerNbMol = new JSpinner();
@@ -392,7 +394,7 @@ public class FenetreChoixMolecules extends JFrame{
 	    if (maxNbMol >1){
 	    	spinnerNbMol.setValue(new Integer(2));
 	    }
-	    spinnerNbMol.setBounds(192, 711, 30, 22);
+	    spinnerNbMol.setBounds(192, 711, 51, 25);
 	    panelDroit.add(spinnerNbMol);
 	    
 	    JLabel lblNombreDeMolcules = new JLabel("Nombre de Molécules");
@@ -402,7 +404,59 @@ public class FenetreChoixMolecules extends JFrame{
 	    JLabel lblParCatgorie = new JLabel("par catégorie :");
 	    lblParCatgorie.setBounds(81, 714, 124, 27);
 	    panelDroit.add(lblParCatgorie);
-	   
+	    
+	    JLabel lblNombreDePoints = new JLabel("Nombre de points minimum :");
+	    lblNombreDePoints.setBounds(12, 789, 175, 37);
+	    panelDroit.add(lblNombreDePoints);
+	    
+	    JLabel lblContraintes = new JLabel("Contraintes :");
+	    lblContraintes.setFont(new Font("Tahoma", Font.BOLD, 14));
+	    lblContraintes.setBounds(12, 754, 124, 25);
+	    panelDroit.add(lblContraintes);
+	    
+	    JLabel lblIntensite = new JLabel("Intensite minimum :");
+	    lblIntensite.setBounds(12, 819, 124, 37);
+	    panelDroit.add(lblIntensite);
+	    
+	    spinnerPoints = new JSpinner();
+	    spinnerPoints.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+	    spinnerPoints.setBounds(186, 796, 51, 25);
+	    panelDroit.add(spinnerPoints);
+	    
+	    spinnerIntensite = new JSpinner();
+	    spinnerIntensite.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+	    spinnerIntensite.setBounds(186, 826, 51, 25);
+	    panelDroit.add(spinnerIntensite);
+
+	    JButton btnEnregistrerLesContraintes = new JButton("Enregistrer les contraintes");
+	    btnEnregistrerLesContraintes.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent arg0) {
+	    		selectMoleculesContraintes((int) spinnerPoints.getValue(), (int) spinnerIntensite.getValue());
+	    	}
+	    });
+	    btnEnregistrerLesContraintes.setBounds(255, 796, 211, 60);
+	    panelDroit.add(btnEnregistrerLesContraintes);
+	    
+	}
+
+	protected void selectMoleculesContraintes(int nbPoints, int minIntensite) {
+		ArrayList<Molecule> copieListeDynamique = new ArrayList<Molecule>(ListeDynamique);
+		for (Molecule mol: copieListeDynamique){
+			if (((mol.positions().size() < nbPoints) || (mol.intensite() < minIntensite)) && ListeDynamique.contains(mol)){
+				ListeDynamique.remove(mol);
+				if (ListeImmobile.contains(mol)){
+					ListCheckBoxImmobile.get(ListeImmobile.indexOf(mol)).doClick();
+				}else if (ListeConfine.contains(mol)){
+					ListCheckBoxConfine.get(ListeConfine.indexOf(mol)).doClick();					
+				}else if (ListeDirectionnelle.contains(mol)){
+					ListCheckBoxDirectionnelle.get(ListeDirectionnelle.indexOf(mol)).doClick();
+				}else if (ListeAleatoire.contains(mol)){
+					ListCheckBoxAleatoire.get(ListeAleatoire.indexOf(mol)).doClick();
+				}
+			}
+		}
+		panelBasGauche.revalidate();
+		panelBasGauche.repaint();
 	}
 
 	private int max(int i, int j, int k, int l) {
@@ -427,7 +481,6 @@ public class FenetreChoixMolecules extends JFrame{
 		for (int i = 0 ; i < nbMol ; i++){
 			random = ListCheckBoxImmobile.get(randomizer.nextInt(ListCheckBoxImmobile.size()));
 			if (!(randomList.contains(random))){
-				//ListeDynamique.add(random);
 				random.doClick();
 			}
 			random = ListCheckBoxConfine.get(randomizer.nextInt(ListCheckBoxConfine.size()));
