@@ -1,9 +1,11 @@
-comp: src/*.java test
+comp: src/*.java 
 	javac -cp "forms-1.3.0.jar:build" -d build src/*.java
 exec:
 	java -cp build Main
-test:
-	javac ./Test.java -d build -cp build
+exectest: test
+	java -cp build Test
+test: comp
+	javac -cp build ./Test.java -d build
 
 clean:
 	rm -rf build/*
