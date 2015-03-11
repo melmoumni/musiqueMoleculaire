@@ -153,16 +153,16 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		tempo = tempot;
 	}
 
-	public void setTimbre(int timbret){
-		timbre=new Timbre(timbret);
+	public void setTimbre(Timbre timbret){
+		timbre = timbret;
 	}
 
 	public Timbre getTimbre(){
 		return timbre;
 	}
 	
-	public void setTimbre2(int timbret){
-		timbre2=new Timbre(timbret);
+	public void setTimbre2(Timbre timbret){
+		timbre2=timbret;
 	}
 
 	public Timbre getTimbre2(){

@@ -9,14 +9,6 @@ class Timbre{
     final private int octaveRef;
     final private String nom;
     
-    public Timbre(int timbre){//ne sert que pour les tests actuels
-	timbreMIDI = timbre;
-	min = 0;
-	max = 0;
-	nom = "qqc";
-	octaveRef = 0;
-    }
-
     public Timbre(int timbre, String nomInstrument, int mint, int maxt, int octave){
 	timbreMIDI = timbre;
 	nom = nomInstrument;

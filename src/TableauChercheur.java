@@ -45,9 +45,9 @@ public class TableauChercheur{
 		for (int i = 0 ; i < y ; i++){
 			ArrayList<Timbre> t = new ArrayList<Timbre>(); 
 			for (int j = 0 ; j < x ; j++){
-				Timbre tim = new Timbre(0);
-				tim = Controleur.tableauTimbre[0];
-				t.add(tim);
+			    //Timbre tim = new Timbre(0);
+			    //	tim = Controleur.tableauTimbre[0];
+			    t.add(Controleur.tableauTimbre[j]);//test pour le moment à modifier
 			}
 			mat.add(t);
 		}
@@ -230,7 +230,7 @@ public class TableauChercheur{
 	       
 	        System.out.println("mat size x: " + mat.size()+" mat size y: " + mat.get(0).size());
 			System.out.println("x "+ x + " y "+y+" timbre " + mat.get(x).get(y).timbreMIDI());
-			mol.setTimbre(mat.get(x).get(y).timbreMIDI());
+			mol.setTimbre(mat.get(x).get(y));
 			
 			
 		}
