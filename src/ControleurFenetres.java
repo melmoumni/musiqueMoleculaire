@@ -1,7 +1,4 @@
-
-
 import java.io.IOException;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -98,10 +95,10 @@ public class ControleurFenetres {
 	public static void popupMessage()
 	{
 		JOptionPane.showMessageDialog(params,
-    		    "Les parametres suivants doivent être renseignés :\n"
+    		    "Les parametres suivants doivent etre renseigns :\n"
     		    + " - Chemins des fichiers de trajectoires et d'analyse\n"
     		    + " - Taille de l'image (Largeur et Hauteur) \n"
-    		    + " - Durée souhaitée  \n"
+    		    + " - Dure souhaite  \n"
     		    + " - Type d'utilisateur : Chercheur ou Compositeur  \n");
 	}
 

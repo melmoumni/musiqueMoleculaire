@@ -12,8 +12,8 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	protected ArrayList<CaracteristiqueTemporelle> positions;
 	private float vitesseAbs;
 	private float vitesseOrd;
-	private Timbre timbre = new Timbre(56); // changer ensuite
-	private Timbre timbre2= new Timbre(56);  //deuxieme timbre pour la partie compositeur
+	private Timbre timbre; // changer ensuite
+	private Timbre timbre2;  //deuxieme timbre pour la partie compositeur
 	private int volume = 100;           //mettre dans constructeur plus tard et faire varier
 	private int instantInitial;
 	private int instantFinal;
@@ -38,7 +38,6 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 			System.out.printf("%f %f, ",CT.x, CT.y);
 		}
 		System.out.println("vitesseAbs : "+ vitesseAbs+" , vitesseOrd : "+ vitesseOrd);
-		//System.out.println("Timbre : "+ timbre.timbreMIDI() + " (min : " + timbre.min() + " max : "+timbre.max() + " OctRef : "+ timbre.octaveRef());
 		System.out.println("alpha : " + alpha);
 		System.out.println("MSD : " + msd);
 		System.out.println("Effet" + effet.getClass().getName());
@@ -47,6 +46,8 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		System.out.println("Intensité moyenne : " + moyenneIntensite);
 		System.out.println("Instant initial : " + instantInitial);
 		System.out.println("Instant final : " + instantFinal);
+		timbre.printTimbre();
+		System.out.println("Note : " + note);
 		System.out.println("Distance parcourue : " + distance);
 		System.out.println("==================================");
 
@@ -156,16 +157,16 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		timbre=new Timbre(timbret);
 	}
 
-	public int getTimbre(){
-		return timbre.timbreMIDI();
+	public Timbre getTimbre(){
+		return timbre;
 	}
 	
 	public void setTimbre2(int timbret){
 		timbre2=new Timbre(timbret);
 	}
 
-	public int getTimbre2(){
-		return timbre2.timbreMIDI();
+	public Timbre getTimbre2(){
+		return timbre2;
 	}
 
 	public void setVolume(int volumet){

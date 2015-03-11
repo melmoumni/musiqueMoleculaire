@@ -1,5 +1,5 @@
 
 public class Fenetre {
-	private int largeur;
-	private int hauteur;
+    //private int largeur;
+    //	private int hauteur;
 }

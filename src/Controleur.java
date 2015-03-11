@@ -118,6 +118,14 @@ abstract class Controleur{
 
 	}
 
+
+    public static void allocationNotes() {
+	for (Molecule mol : molecules) {
+	    mol.setNote(mol.getTimbre().octaveRef() * 12 + noteRef);
+	    mol.setNote(mol.getTimbre2().octaveRef() * 12 + noteRef);
+	}
+    }
+	
 	static void remplirIntervalles(){
 		int index = 0;
 		int i = 0;

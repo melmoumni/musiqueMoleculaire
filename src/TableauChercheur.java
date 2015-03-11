@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 
-public class TableauChercheur extends Fenetre {
+public class TableauChercheur{
 	public ArrayList<Float> abscisses;
 	public ArrayList<ArrayList<Float>> ordonnees;
 	public ArrayList<ArrayList<Timbre>> mat;
@@ -20,8 +20,8 @@ public class TableauChercheur extends Fenetre {
 		mat = new ArrayList<ArrayList<Timbre>>();
 	}
 	
-	/* Initialisation du tableauChercheur pour une matrice X x Y avec des abscisses et ordonnées réparties
-	 * de façon homogène et une matrice initialisée avec des timbres 0 (piano)
+	/* Initialisation du tableauChercheur pour une matrice X x Y avec des abscisses et ordonnes rparties
+	 * de fon homogne et une matrice initialise avec des timbres 0 (piano)
 	 */
 	public TableauChercheur (int x, int y){
 		abscisses = new ArrayList<Float>();
@@ -100,7 +100,7 @@ public class TableauChercheur extends Fenetre {
 		int gain = 0;
 		boolean full = false;
 		
-		/* On sépare la dernière ligne en 2*/
+		/* On separe la dernere ligne en 2*/
 		if (ordonnees.get(0).get(indice) /(ordonnees.get(0).size()) >= MIN_CELL_HEIGHT){
 
 			for (int i = 0 ; i < abscisses.size() -1; i++){
@@ -110,7 +110,7 @@ public class TableauChercheur extends Fenetre {
 				
 				ordonnees.get(i).add(ordonnees.get(i).size() - 1,(ordonnees.get(i).get(ordonnees.get(i).size()-1) - ordonnees.get(i).get(ordonnees.get(i).size()-2))/2 + ordonnees.get(i).get(ordonnees.get(i).size() - 2));
 
-				/* Ou on décale si c'est trop petit*/
+				/* Ou on dale si c'est trop petit*/
 				if (((ordonnees.get(i).get(indice+1) - ordonnees.get(i).get(indice)) < MIN_CELL_HEIGHT)){
 					while (gain < MIN_CELL_HEIGHT && !full ){
 						if (ordonnees.get(i).get(indice + 1) - ordonnees.get(i).get(indice) > MIN_CELL_HEIGHT ){
@@ -161,14 +161,14 @@ public class TableauChercheur extends Fenetre {
 	public void allocationTimbres(){
 		int i=0;
 
-		final Controleur controleur = new Chercheur();
+		//final Controleur controleur = new Chercheur();
 		int timbre;
 		float maxTabAbsc=abscisses.get(abscisses.size()-1);
 		float maxTabOrd = ordonnees.get(0).get(ordonnees.get(0).size()-1);
 		float scaleAbsc= maxTabAbsc/ControleurFenetres.getLargeurVideo();
 		float scaleOrd=maxTabOrd/ControleurFenetres.getHauteurVideo();
 		System.out.println("maxtababs et maxtabord : " + maxTabAbsc +" "+maxTabOrd);
-		for(Molecule mol: controleur.molecules()){
+		for(Molecule mol: Controleur.molecules()){
 			i++;System.out.println("mol "+i +" x et x converti : "+  mol.positions().get(0).x() + " "+ mol.positions().get(0).x() *scaleAbsc + " y et y converti : "+mol.positions().get(0).y()+" "+  mol.positions().get(0).y() *scaleOrd );
 			int x=0; int y = 0;
 			float  tmp,tmp2;
@@ -182,7 +182,7 @@ public class TableauChercheur extends Fenetre {
 		 			tmp2=it.next();System.out.println("index "+ index+" tmp : "+tmp+" tmp2 "+ tmp2);
 		 			if(mol.positions().get(0).x() *scaleAbsc >= tmp && mol.positions().get(0).x()*scaleAbsc <= tmp2 ){
 		 				x=index;
-		 				System.out.println("trouv�  x: "+x);
+		 				System.out.println("trouv  x: "+x);
 		 				break;
 		 			}
 		 			tmp=tmp2;
@@ -212,7 +212,7 @@ public class TableauChercheur extends Fenetre {
 	            	System.out.println("j "+j + " tmp "+tmp+ " tmp2 "+tmp2);
 	                 if(mol.positions().get(0).y()* scaleOrd>=tmp && mol.positions().get(0).y() * scaleOrd <=tmp2){
 	                	 y=j;
-	                	 System.out.println("trouv�  y: "+y);
+	                	 System.out.println("trouve  y: "+y);
 	                	 break;
 	                 }
 	            }
@@ -234,8 +234,6 @@ public class TableauChercheur extends Fenetre {
 			
 			
 		}
-		
+		Controleur.allocationNotes();
 	}
-	
-	
 }

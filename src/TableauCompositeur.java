@@ -2,7 +2,7 @@ import java.awt.Toolkit;
 import java.util.ListIterator;
 
 
-public class TableauCompositeur extends Fenetre {
+public class TableauCompositeur {
 	public Timbre[] timbreAbs;
 	public Timbre[] timbreOrd;
 	public float[] abscisses;
@@ -74,11 +74,11 @@ public class TableauCompositeur extends Fenetre {
 	
 	public void allocationTimbres(){
 		int i=0;
-		final Controleur controleur = new Chercheur();
+		//final Controleur controleur = new Chercheur();
 		int timbre;
 		float copieAbscisses[]=new float[4];
 		for(int k=0; k<4; k++)
-			copieAbscisses[k]=abscisses[k]-abscisses[0];   //abscisses décalées à cause de jpanel...donc correction
+			copieAbscisses[k]=abscisses[k]-abscisses[0];   //abscisses dcals  cause de jpanel...donc correction
 		float maxTabAbsc=copieAbscisses[copieAbscisses.length - 1];
 		float maxTabOrd = ordonnees[ordonnees.length-1];
 		float scaleAbsc= maxTabAbsc/ControleurFenetres.getLargeurVideo();
@@ -90,7 +90,7 @@ public class TableauCompositeur extends Fenetre {
 		System.out.println("ord: " + ordonnees[0] + " "+ordonnees[1] + " "+ordonnees[2]+" " +ordonnees[3]);
 		System.out.println("timbre: " + timbreOrd[0].timbreMIDI() + " "+timbreOrd[1].timbreMIDI() + " "+timbreOrd[2].timbreMIDI());
 		
-		for(Molecule mol: controleur.molecules()){
+		for(Molecule mol: Controleur.molecules()){
 			i++;System.out.println("mol "+i +" x et x converti : "+  mol.positions().get(0).x() + " "+ mol.positions().get(0).x() *scaleAbsc + " y et y converti : "+mol.positions().get(0).y()+" "+  mol.positions().get(0).y() *scaleOrd );
 			int x=0; int y = 0;
 			float  tmp,tmp2;
@@ -121,6 +121,7 @@ public class TableauCompositeur extends Fenetre {
 			mol.setTimbre2(timbreOrd[y].timbreMIDI());
 			
 		}
-		
+		Controleur.allocationNotes();
 	}
+    
 }
