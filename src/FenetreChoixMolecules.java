@@ -3,6 +3,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,7 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 import java.awt.event.ActionEvent;
@@ -22,8 +26,11 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 
+
 public class FenetreChoixMolecules extends JFrame{
 
+	private Molecule moleculePropriete;
+	
 	private ArrayList<Molecule> ListeImmobile;
 	private ArrayList<Molecule> ListeConfine;
 	private ArrayList<Molecule> ListeDirectionnelle;
@@ -33,11 +40,11 @@ public class FenetreChoixMolecules extends JFrame{
 	private ArrayList<JCheckBox> ListCheckBoxDirectionnelle;
 	private ArrayList<JCheckBox> ListCheckBoxAleatoire;
 	
-	JPanel panelBasGauche;
+	private JPanel panelBasGauche;
 	
-	JSpinner spinnerNbMol;
-	JSpinner spinnerIntensite;
-	JSpinner spinnerPoints;
+	private JSpinner spinnerNbMol;
+	private JSpinner spinnerIntensite;
+	private JSpinner spinnerPoints;
 	
 	ArrayList<Molecule> ListeDynamique;
 	/**
@@ -72,7 +79,64 @@ public class FenetreChoixMolecules extends JFrame{
 	 * Create the frame.
 	 */
 	public FenetreChoixMolecules() {
-	   
+		final JPopupMenu menu = new JPopupMenu("Popup");
+
+		class MyJCheckBox extends JCheckBox {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public MyJCheckBox(String text, Molecule mol) {
+				super(text);
+				addMouseListener(new PopupTriggerListener());
+				moleculePropriete = mol;
+			}
+			
+			class PopupTriggerListener extends MouseAdapter {
+				public void mousePressed(MouseEvent ev) {
+					if (ev.isPopupTrigger()) {
+						menu.show(ev.getComponent(), ev.getX(), ev.getY());
+						MyJCheckBox ch = (MyJCheckBox) ev.getSource();
+						if (ListCheckBoxImmobile.contains(ch)){
+							moleculePropriete = ListeImmobile.get(ListCheckBoxImmobile.indexOf(ch));
+						}else if (ListCheckBoxConfine.contains(ch)){
+							moleculePropriete = ListeConfine.get(ListCheckBoxConfine.indexOf(ch));
+						}else if (ListCheckBoxDirectionnelle.contains(ch)){
+							moleculePropriete = ListeDirectionnelle.get(ListCheckBoxDirectionnelle.indexOf(ch));
+						}else if (ListCheckBoxAleatoire.contains(ch)){
+							moleculePropriete = ListeAleatoire.get(ListCheckBoxAleatoire.indexOf(ch));
+						}
+					}
+				}
+				public void mouseReleased(MouseEvent ev) {
+					if (ev.isPopupTrigger()) {
+						menu.show(ev.getComponent(), ev.getX(), ev.getY());
+						MyJCheckBox ch = (MyJCheckBox) ev.getSource();
+						if (ListCheckBoxImmobile.contains(ch)){
+							moleculePropriete = ListeImmobile.get(ListCheckBoxImmobile.indexOf(ch));
+						}else if (ListCheckBoxConfine.contains(ch)){
+							moleculePropriete = ListeConfine.get(ListCheckBoxConfine.indexOf(ch));
+						}else if (ListCheckBoxDirectionnelle.contains(ch)){
+							moleculePropriete = ListeDirectionnelle.get(ListCheckBoxDirectionnelle.indexOf(ch));
+						}else if (ListCheckBoxAleatoire.contains(ch)){
+							moleculePropriete = ListeAleatoire.get(ListCheckBoxAleatoire.indexOf(ch));
+						}
+					}
+				}
+				public void mouseClicked(MouseEvent ev) {
+				}
+			}
+		}
+
+		JMenuItem item = new JMenuItem("Propriete");
+		item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("FenetreProprieteMolecule" + moleculePropriete.numero());
+			}
+		});
+		menu.add(item);
+		
 		ListeImmobile = new ArrayList<Molecule>();
 		ListeConfine = new ArrayList<Molecule>();
 		ListeDirectionnelle = new ArrayList<Molecule>();
@@ -162,7 +226,7 @@ public class FenetreChoixMolecules extends JFrame{
 		Box boxHautGauche = Box.createVerticalBox();
 		boxHautGauche.add(labelHautGauche);
 		for (Molecule mol : ListeImmobile){
-			JCheckBox j = new JCheckBox("Immobile "+mol.numero());
+			JCheckBox j = new MyJCheckBox("Immobile "+mol.numero(), mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxHautGauche.add(j);
@@ -173,7 +237,7 @@ public class FenetreChoixMolecules extends JFrame{
 		Box boxHautDroit = Box.createVerticalBox();
 		boxHautDroit.add(labelHautDroit);
 		for (Molecule mol : ListeConfine){
-			JCheckBox j = new JCheckBox("Confine "+mol.numero());
+			JCheckBox j = new MyJCheckBox("Confine "+mol.numero(), mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxHautDroit.add(j);
@@ -184,7 +248,7 @@ public class FenetreChoixMolecules extends JFrame{
 		Box boxBasGauche = Box.createVerticalBox();
 		boxBasGauche.add(labelBasGauche);
 		for (Molecule mol : ListeDirectionnelle){
-			JCheckBox j = new JCheckBox("Directionnelle "+mol.numero());
+			JCheckBox j = new MyJCheckBox("Directionnelle "+mol.numero(), mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxBasGauche.add(j);
@@ -195,7 +259,7 @@ public class FenetreChoixMolecules extends JFrame{
 		Box boxBasDroit = Box.createVerticalBox();
 		boxBasDroit.add(labelBasDroit);
 		for (Molecule mol : ListeAleatoire){
-			JCheckBox j = new JCheckBox("Aleatoire "+mol.numero());
+			JCheckBox j = new MyJCheckBox("Aleatoire "+mol.numero(), mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxBasDroit.add(j);
