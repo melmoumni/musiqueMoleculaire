@@ -50,7 +50,9 @@ public class Test{
 	    //Midi.glissando(60,56,100,10000, 20000, 100, 30);
 	    //m.glissando(60, 56,100, 1001, 2000, 100, -15);
 
-	    //	    Midi.noteTenue(64,0,100,0,500);
+	    
+
+	    // 	    Midi.noteTenue(64,0,100,0,500);
 	    // Midi.noteTenue(63,1,100,500,1000);
 	    // Midi.noteTenue(64,2,100,1000,1500);
 	    // Midi.noteTenue(63,23,100,1500,2000);
@@ -70,11 +72,18 @@ public class Test{
 	    // Midi.noteTenue(59,0,100,9500,10000);
 	    // Midi.noteTenue(60,0,100,10000,11500);
 
-	    for (i=0;i<15;i++){
-		Midi.noteTenue(60,i*3,100,500*i,500*(i+1));
-		System.out.println("La c'est le"+ i);
-	    }
 
+	    //Test avec des molécules qui se recouvrent pas totalement
+	     for (i=0;i<100;i++){
+	     	Midi.noteTenue(60,i*1,100,300+i*100,300+i*800);
+	     	System.out.println("La c'est le"+ i);
+	     }
+
+	     //Test avec des molécules qui s'enchaine sans possibilités de remplacement
+	     // for (i=0;i<100;i++){
+	     // 	Midi.noteTenue(60,i*1,100,300+i*100,300+i*800);
+	     // 	System.out.println("La c'est le"+ i);
+	     // }
 	    
 	     Midi.jouerSequence();
 	}
