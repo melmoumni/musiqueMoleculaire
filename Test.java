@@ -1,5 +1,5 @@
 import javax.sound.midi.*;
-
+import java.io.IOException;
 
 /* Pour tester faites javac Test.java -d build -cp build
  * puis cd build
@@ -9,7 +9,7 @@ import javax.sound.midi.*;
 
 public class Test{
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException{
 	int i = 0;
 	try{
 	    //Midi m = new Midi();
@@ -86,6 +86,8 @@ public class Test{
 	     // }
 	    
 	     Midi.jouerSequence();
+	     
+	     Midi.saveMidi("./test1234.midi");
 	}
 	catch(MidiUnavailableException e){}
 	catch(InvalidMidiDataException e){}

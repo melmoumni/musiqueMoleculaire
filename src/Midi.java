@@ -1,6 +1,7 @@
 //package Utilitaires;
 import javax.sound.midi.*;
-
+import java.io.File;
+import java.io.IOException;
 
 import static java.lang.System.out;
 
@@ -142,7 +143,7 @@ public class Midi{
 	    if ((Controleur.intervalles().get(i).instantInitial()==debut)&&(Controleur.intervalles().get(i).instantFinal()==fin)){
 		int size2 = Controleur.intervalles.get(i).nombreMolecule();
 		for (int j = 0; j < size2; size++) {
-		    if(m[channel].getProgram()==Controleur.intervalles().get(i).molecules().get(j).getTimbre()){
+		    if(m[channel].getProgram()==Controleur.intervalles().get(i).molecules().get(j).getTimbre().timbreMIDI()){
 			return true;
 		    }
 		    
@@ -176,7 +177,13 @@ public class Midi{
 	return -1;// s'il ne trouve pas il faudrait lever une exception
     }
     
-    
-    
+    static public void saveMidi(String pathname)throws IOException{
+	Sequence seq = sequenceur.getSequence();
+	File file = new File(pathname);
+	int fileType = MidiSystem.getMidiFileTypes(seq)[0];
+	if (MidiSystem.isFileTypeSupported(fileType,seq)){
+	    MidiSystem.write(seq,fileType,file);
+	}
+    }
     
 }
