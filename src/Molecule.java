@@ -22,6 +22,8 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	private float msd;
 	private Color couleur;
 	private Effet effet;
+	private int note;
+	private float intensite;
 	private int tempo; // ou pas !!!
 	private float pasMax; // juste pour les aleatoires
 	Molecule(){
@@ -69,6 +71,14 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		return numero;
 	}
 
+	public int note(){
+		return note;
+	}
+	
+	public void setNote(int newNote){
+		note = newNote;
+	}
+	
 	public float msd(){
 		return msd;
 	}
@@ -115,6 +125,14 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 
 	public int instantFinal(){
 		return instantFinal;
+	}
+	
+	public float intensite(){
+		return intensite;
+	}
+	
+	public void setIntensite(float newIntensite){
+		intensite = newIntensite;
 	}
 
 	public int vitesse(){
