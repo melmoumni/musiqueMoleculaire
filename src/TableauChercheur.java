@@ -20,8 +20,8 @@ public class TableauChercheur{
 		mat = new ArrayList<ArrayList<Timbre>>();
 	}
 	
-	/* Initialisation du tableauChercheur pour une matrice X x Y avec des abscisses et ordonnes rparties
-	 * de fon homogne et une matrice initialise avec des timbres 0 (piano)
+	/* Initialisation du tableauChercheur pour une matrice X x Y avec des abscisses et ordonnees reparties
+	 * de facon homogene et une matrice initialisee avec des timbres 0 (piano)
 	 */
 	public TableauChercheur (int x, int y){
 		abscisses = new ArrayList<Float>();
@@ -45,9 +45,7 @@ public class TableauChercheur{
 		for (int i = 0 ; i < y ; i++){
 			ArrayList<Timbre> t = new ArrayList<Timbre>(); 
 			for (int j = 0 ; j < x ; j++){
-			    //Timbre tim = new Timbre(0);
-			    //	tim = Controleur.tableauTimbre[0];
-			    t.add(Controleur.tableauTimbre[j]);//test pour le moment à modifier
+			    t.add(Controleur.tableauTimbre[0]);
 			}
 			mat.add(t);
 		}
@@ -161,7 +159,6 @@ public class TableauChercheur{
 	public void allocationTimbres(){
 		int i=0;
 
-		//final Controleur controleur = new Chercheur();
 		int timbre;
 		float maxTabAbsc=abscisses.get(abscisses.size()-1);
 		float maxTabOrd = ordonnees.get(0).get(ordonnees.get(0).size()-1);
