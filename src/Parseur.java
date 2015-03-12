@@ -55,12 +55,14 @@ class Parseur {
 						}
 						//et la nouvelle liste de position intermediaire
 						listeEnRemplissage = new ArrayList<CaracteristiqueTemporelle>();
+						if (proteineEnRemplissage == numeroProteine){
 						int instant = Integer.parseInt(match.group(3));
 						CaracteristiqueTemporelle caracteristique = new CaracteristiqueTemporelle(/*position en x*/Float.parseFloat(match.group(5)),
 								/*position en y*/Float.parseFloat(match.group(8)),
 								instant,
 								/*intensite*/Float.parseFloat(match.group(13)));
 						listeEnRemplissage.add((CaracteristiqueTemporelle)caracteristique);
+						}
 
 					}
 					else {
