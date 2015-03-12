@@ -24,9 +24,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.JCheckBox;
 
 public class FenetreParametres extends JFrame implements ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField filenameT; // nom du fichier Trajectoires
 	private JTextField filenameM; // nom du fichier Mouvements
 	
@@ -37,6 +42,8 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	
 	JSpinner valeurH; // hauteur de l'image
 	JSpinner valeurL; // largeur de l'image
+	
+	JCheckBox chckbxAjusterLaTaille;
 	
 	JComboBox<String> notes; // liste des notes de references possibles
 	JSpinner valeurDuree; // duree souhaitee pour l'enregistrement
@@ -53,7 +60,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		FenetreParametres param = new FenetreParametres();
+		new FenetreParametres();
 	}
 
 	/**
@@ -305,6 +312,8 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		JLabel lblPixels = new JLabel("pixels");
 		
 		JLabel label_1 = new JLabel("pixels");
+		
+		chckbxAjusterLaTaille = new JCheckBox("<html>Ajuster la taille par rapport au fichier</html>");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -328,23 +337,28 @@ public class FenetreParametres extends JFrame implements ActionListener{
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnChoisirMvt)
 								.addComponent(btnChoisirTrajectoires)))
-						.addComponent(label_7)
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addGap(27)
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+								.addComponent(label_7)
 								.addGroup(gl_panel_1.createSequentialGroup()
-									.addComponent(lblLargeur)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(valeurL, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(label_1))
-								.addGroup(gl_panel_1.createSequentialGroup()
-									.addComponent(lblHauteur)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(valeurH, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(lblPixels)))))
-					.addContainerGap(85, Short.MAX_VALUE))
+									.addGap(27)
+									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_1.createSequentialGroup()
+											.addComponent(lblLargeur)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(valeurL, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(label_1))
+										.addGroup(gl_panel_1.createSequentialGroup()
+											.addComponent(lblHauteur)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(valeurH, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(lblPixels)))))
+							.addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+							.addComponent(chckbxAjusterLaTaille, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addContainerGap(34, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -363,19 +377,22 @@ public class FenetreParametres extends JFrame implements ActionListener{
 						.addComponent(filenameM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnChoisirMvt))
 					.addGap(18)
-					.addComponent(label_7)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblHauteur)
-						.addComponent(valeurH, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPixels))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblLargeur)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-							.addComponent(valeurL, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(label_1)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(label_7)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblHauteur)
+								.addComponent(valeurH, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPixels))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblLargeur)
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+									.addComponent(valeurL, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(label_1))))
+						.addComponent(chckbxAjusterLaTaille, GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		panel_1.setLayout(gl_panel_1);
 		this.getContentPane().setLayout(groupLayout);
@@ -452,5 +469,9 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		}
 		catch(NullPointerException e){}
 		return utilisateur;
+	}
+	
+	public boolean isAutoSize(){
+		return chckbxAjusterLaTaille.isSelected();
 	}
 }

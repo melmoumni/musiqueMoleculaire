@@ -159,7 +159,6 @@ public class TableauChercheur{
 	public void allocationTimbres(){
 		int i=0;
 
-		int timbre;
 		float maxTabAbsc=abscisses.get(abscisses.size()-1);
 		float maxTabOrd = ordonnees.get(0).get(ordonnees.get(0).size()-1);
 		float scaleAbsc= maxTabAbsc/ControleurFenetres.getLargeurVideo();

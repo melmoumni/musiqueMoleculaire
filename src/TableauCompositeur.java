@@ -1,5 +1,4 @@
 import java.awt.Toolkit;
-import java.util.ListIterator;
 
 
 public class TableauCompositeur {
@@ -74,8 +73,6 @@ public class TableauCompositeur {
 	
 	public void allocationTimbres(){
 		int i=0;
-		//final Controleur controleur = new Chercheur();
-		int timbre;
 		float copieAbscisses[]=new float[4];
 		for(int k=0; k<4; k++)
 			copieAbscisses[k]=abscisses[k]-abscisses[0];   //abscisses dcals  cause de jpanel...donc correction

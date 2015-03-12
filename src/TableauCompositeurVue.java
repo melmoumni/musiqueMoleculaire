@@ -39,7 +39,6 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	 */
 	public static void main(String[] args) {
 
-		Controleur controleur = new Compositeur(1);
 		try {
 		    Controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
 		}

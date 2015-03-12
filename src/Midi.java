@@ -1,9 +1,21 @@
 //package Utilitaires;
-import javax.sound.midi.*;
 import java.io.File;
 import java.io.IOException;
 
-import static java.lang.System.out;
+import javax.sound.midi.Instrument;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiChannel;
+import javax.sound.midi.MidiEvent;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Sequencer;
+import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Soundbank;
+import javax.sound.midi.Synthesizer;
+import javax.sound.midi.Track;
+import javax.sound.midi.Transmitter;
 
 public class Midi{
 

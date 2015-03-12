@@ -1,4 +1,6 @@
+import java.awt.Dimension;
 import java.io.IOException;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -67,6 +69,12 @@ public class ControleurFenetres {
 		}
 		catch (IOException e) {
 		}
+		if (params.isAutoSize()){
+			Dimension dim = Controleur.maxDimension();
+			System.out.println(dim);
+			largeur = (int) dim.getWidth();
+			hauteur = (int) dim.getHeight();			
+		}
 		float alphas[] = {alpha1, alpha2, alpha3};
 		Controleur.alphaSeparation = alphas;
 		Controleur.analyseMolecules();
@@ -88,7 +96,7 @@ public class ControleurFenetres {
 		fichierMvts = params.getFilenameM();
 		utilisateur = params.getUtilisateur();
 		
-		if((duree>0) && (largeur>0) && (hauteur>0) && !(fichierTrajectoire.isEmpty()) && !(fichierMvts.isEmpty())
+		if((duree>0) && (((largeur>0) && (hauteur>0)) || (params.isAutoSize())) && !(fichierTrajectoire.isEmpty()) && !(fichierMvts.isEmpty())
 				&& !(utilisateur.isEmpty()))
 			return true;
 		else
@@ -107,7 +115,7 @@ public class ControleurFenetres {
 
 	
 	public static void main(String[] args) {
-		ControleurFenetres vue = new ControleurFenetres();
+		new ControleurFenetres();
 	}
 
 }

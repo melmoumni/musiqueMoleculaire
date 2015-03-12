@@ -1,7 +1,6 @@
 import java.awt.Color;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 class Molecule implements Comparable<Molecule>, Cloneable{

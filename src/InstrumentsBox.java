@@ -13,13 +13,19 @@ import javax.swing.JPanel;
 
 public class InstrumentsBox extends JPanel implements ActionListener, ItemListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JComboBox<String> typeInstruments = new JComboBox<String>(new String[]{"Instruments a vent","Instruments a corde", "Percussions" });
 	private JComboBox<String> boxInstruments = new JComboBox<String>();
 
+	@SuppressWarnings("rawtypes")
 	private ComboBoxModel[] models = new ComboBoxModel[3];
 
 	int indexInstrument;
 
+	@SuppressWarnings("unchecked")
 	public InstrumentsBox() {
 		try {
 			Parseur.lectureTimbre("./data/listeInstruments.txt", Controleur.tableauTimbre);
@@ -74,6 +80,7 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int i = typeInstruments.getSelectedIndex();
