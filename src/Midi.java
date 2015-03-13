@@ -39,8 +39,8 @@ public class Midi{
 	catch(MidiUnavailableException e){}
     }
 	
-    static public void initialiser() throws MidiUnavailableException, InvalidMidiDataException{
-	//lier le sequenceur ar defaut au synthetiseur par defaut
+    static public void initialiser(String chemin) throws MidiUnavailableException, InvalidMidiDataException{
+	//lier le sequenceur par defaut au synthetiseur par defaut
 	Transmitter seqTrans = sequenceur.getTransmitter();
 	Receiver synthRcvr = synthetiseur.getReceiver(); 
 	seqTrans.setReceiver(synthRcvr);     
@@ -48,6 +48,18 @@ public class Midi{
 	sequenceur.open();
 	//ouvrir synthetiseur
 	synthetiseur.open();
+	//Charger la banque de sons
+	try{
+	    File src = new File(chemin);
+	    Soundbank soundbank = MidiSystem.getSoundbank(src);
+	    if(synthetiseur.isSoundbankSupported(soundbank))
+		synthetiseur.loadAllInstruments(soundbank);
+	    else
+		System.out.println("Soundbank not supported by default synthesizer");	    
+	}
+	catch(MidiUnavailableException e){}
+	catch(InvalidMidiDataException e){}
+	catch(IOException e){}
 	/* charge une nouvelle sequence avec 16 tracks
 	 * resolution = 1000PPQ
 	 * ticksParSeconde = resolution * (Tempo / 60.0);
@@ -56,8 +68,6 @@ public class Midi{
 	 */
 	sequenceur.setSequence(new Sequence(Sequence.PPQ,1000,16));
 	//chargement des instruments dans le synthetiseur
-	Soundbank soundbank = synthetiseur.getDefaultSoundbank();
-	synthetiseur.loadAllInstruments(soundbank);
     }
 
     static public void jouerTempo(int tempo, int duration){
