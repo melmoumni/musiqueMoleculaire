@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 abstract class Controleur{
 	public static ArrayList<Molecule> molecules;
 	public static ArrayList<Intervalle> intervalles;
-	public int duree;
 	static public int noteRef;
 	//private Vue vue;
 	public Vector<Fenetre> fenetres;
@@ -23,7 +22,8 @@ abstract class Controleur{
 	public static float[] alphaSeparation;
 	public static boolean isChercheur;
 	static public Timbre[] tableauTimbre;
-
+	public static int dureeNoire;
+	
 	static {
 		tableauTimbre = new Timbre[128];
 		molecules = new ArrayList<Molecule>();
@@ -101,8 +101,8 @@ abstract class Controleur{
 		alphaSeparation[2] = x3;
 	}
 
-	public void setDuree(int newduree){
-		duree = newduree;
+	public void setDureeNoire(int newduree){
+		dureeNoire = newduree;
 	}
 
 	protected void setTempo (){

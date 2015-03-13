@@ -46,7 +46,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	JCheckBox chckbxAjusterLaTaille;
 	
 	JComboBox<String> notes; // liste des notes de references possibles
-	JSpinner valeurDuree; // duree souhaitee pour l'enregistrement
+	JSpinner valeurTempo; // duree souhaitee pour l'enregistrement
 	
 	JSpinner valeurAlpha1; // valeur du 1er seuil alpha : entre immobiles et confinees
 	JSpinner valeurAlpha2; // valeur du 2eme seuil alpha : entre confinees et directionnelles 
@@ -160,9 +160,8 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		JLabel label_4 = new JLabel("<");	
 		JLabel label_3 = new JLabel("<");
 		
-		JLabel lblDure = new JLabel("Duree souhaitee");
-		valeurDuree = new JSpinner(new SpinnerNumberModel(new Integer(0),new Integer(0),new Integer(600),new Integer(1)));
-		JLabel lblS = new JLabel("s");
+		JLabel lblDure = new JLabel("Tempo souhaitee");
+		valeurTempo = new JSpinner(new SpinnerNumberModel(new Integer(0),new Integer(0),new Integer(600),new Integer(1)));
 		
 		JLabel lblSeuilIntensite = new JLabel("Seuil intensite");
 		valeurI = new JSpinner();
@@ -236,9 +235,8 @@ public class FenetreParametres extends JFrame implements ActionListener{
 							.addGap(48)
 							.addComponent(lblDure)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(valeurDuree, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblS, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+							.addComponent(valeurTempo, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(221)
 							.addComponent(btnValider))
@@ -255,8 +253,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 						.addComponent(lblNoteDeRfrnce)
 						.addComponent(notes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblDure)
-						.addComponent(valeurDuree, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblS))
+						.addComponent(valeurTempo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 							.addComponent(btnValider)
@@ -450,8 +447,8 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		return (Float) valeurAlpha3.getValue();
 	}
 	
-	public int getDuree(){
-		return (Integer) valeurDuree.getValue();
+	public int getTempo(){
+		return (Integer) valeurTempo.getValue();
 	}
 	
 	public int getIntensite(){

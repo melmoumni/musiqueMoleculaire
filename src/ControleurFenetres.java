@@ -9,7 +9,7 @@ public class ControleurFenetres {
 	static JFrame fenetrePrincipale ;
 	static float alpha1,alpha2,alpha3;
 	static String noteRef;
-	static int duree;
+	static int tempo;
 	static int largeur, hauteur;
 	static String fichierTrajectoire, fichierMvts;
 	static String utilisateur;
@@ -55,7 +55,7 @@ public class ControleurFenetres {
 		System.out.println(alpha2);
 		System.out.println(alpha3);
 		System.out.println(noteRef);
-		System.out.println(duree);
+		System.out.println(tempo);
 		System.out.println(largeur);
 		System.out.println(hauteur);
 		System.out.println(fichierTrajectoire);
@@ -76,6 +76,7 @@ public class ControleurFenetres {
 			hauteur = (int) dim.getHeight() +10;			
 		}
 		float alphas[] = {alpha1, alpha2, alpha3};
+		Controleur.dureeNoire = 60000/tempo;
 		Controleur.alphaSeparation = alphas;
 		Controleur.analyseMolecules();
 	}
@@ -89,14 +90,14 @@ public class ControleurFenetres {
 		alpha2 = params.getValeurAlpha2();
 		alpha3 = params.getValeurAlpha3();
 		noteRef = params.getNoteRef();
-		duree = params.getDuree();
+		tempo = params.getTempo();
 		largeur = params.getLargeur();
 		hauteur = params.getHauteur();
 		fichierTrajectoire = params.getFilenameT();
 		fichierMvts = params.getFilenameM();
 		utilisateur = params.getUtilisateur();
 		
-		if((duree>0) && (((largeur>0) && (hauteur>0)) || (params.isAutoSize())) && !(fichierTrajectoire.isEmpty()) && !(fichierMvts.isEmpty())
+		if((tempo>0) && (((largeur>0) && (hauteur>0)) || (params.isAutoSize())) && !(fichierTrajectoire.isEmpty()) && !(fichierMvts.isEmpty())
 				&& !(utilisateur.isEmpty()))
 			return true;
 		else
