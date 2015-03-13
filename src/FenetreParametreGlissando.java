@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSlider;
 
 
 public class FenetreParametreGlissando extends JFrame {
@@ -43,7 +44,7 @@ public class FenetreParametreGlissando extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblParametreDeLa = new JLabel("Parametre de la molecule :");
-		lblParametreDeLa.setBounds(117, 13, 202, 30);
+		lblParametreDeLa.setBounds(150, 13, 202, 30);
 		contentPane.add(lblParametreDeLa);
 		
 		JLabel lblNoteDeReference = new JLabel("Note de reference :");
@@ -69,5 +70,17 @@ public class FenetreParametreGlissando extends JFrame {
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(150, 102, 94, 22);
 		contentPane.add(comboBox_1);
+		
+		JSlider slider = new JSlider();
+		slider.setBounds(150, 148, 200, 26);
+		contentPane.add(slider);
+		
+		JLabel lblMolette = new JLabel("Molette : ");
+		lblMolette.setBounds(12, 148, 56, 16);
+		contentPane.add(lblMolette);
+		
+		JLabel lblilVousFaudra = new JLabel("<html>(il vous faudra recharger la fenetre de parametre de la molecule)</html>");
+		lblilVousFaudra.setBounds(263, 91, 207, 56);
+		contentPane.add(lblilVousFaudra);
 	}
 }
