@@ -68,6 +68,14 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		msd = msdt;
 	}
 
+	public void setDistance(int dist) {
+	    distance = dist;
+	}
+	
+	public float distance(){
+	    return distance;
+	}
+
 	public int numero(){
 		return numero;
 	}

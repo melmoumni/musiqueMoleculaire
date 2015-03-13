@@ -48,7 +48,7 @@ class Boucle implements Effet{
     			if (ti < tf){
 
     				//System.out.printf("%d ", tmpNote);
-    				Midi.noteTenue(tmpNote,  mol.getTimbre().timbreMIDI(), mol.getVolume(), ti, ti + INTER_NOTES);
+			    Midi.noteTenue(tmpNote, mol.getVolume(), mol.getTimbre(), ti, ti + INTER_NOTES);
     				tmpNote += nextIntervalle;
     			}
     			ti+=INTER_NOTES;

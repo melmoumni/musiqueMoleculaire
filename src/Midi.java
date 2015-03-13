@@ -115,59 +115,62 @@ public class Midi{
 	sequenceur.start();
     }
 
-    static public void tremolo(int note, int timbre, int volume, int debut, int fin) throws InvalidMidiDataException{  //pour tester, en théorie on doit ne passer que la molécule
-	int i;
-	//int nbPas=10;  //A FAIRE: à definir suivant la vitesse initiale, eventuellement
-	int nbPas = (fin - debut)/75;
-	int pas=(fin-debut)/nbPas;  
-	int channel=retournerChannel(timbre,debut,fin);
-	if((channel>0)&&(channel<15)){
-	    //System.out.println("timbre: "+ timbre +"  channel " + channel +" pas " +pas);
-	    for(i = 0; i<= nbPas; i++){
-		//System.out.println("debut+i*pas " + debut+ i*pas + "\n");
-		if(i%2 == 0){
-		    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut+i*pas));
-		    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note+4,0,debut+i*pas));    //le +4 donne la tierce
-		}
-		else{
-		    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note+4,volume,debut+i*pas));
-		    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note,0,debut+i*pas));
-		}
-	    }
-	}
-		
+   static public void tremolo(Molecule mol,int timbre, int nbPas, int variation) throws InvalidMidiDataException{  //pour tester, en théorie on doit ne passer que la molécule                    
+        int i;
+        //int nbPas=10;  //A FAIRE: à definir suivant la vitesse initiale, eventuellement                                                                                                          
+        //int nbPas = (fin - debut)/75;                                                                                                                                                            
+        int pas=(mol.instantInitial() - mol.instantFinal())/nbPas;
+        int channel=retournerChannel(timbre,mol.instantInitial(),mol.instantFinal());
+        if((channel>=0)&&(channel<16)){
+            //System.out.println("timbre: "+ timbre +"  channel " + channel +" pas " +pas);                                                                                                        
+            for(i = 0; i<= nbPas; i++){
+                //System.out.println("debut+i*pas " + debut+ i*pas + "\n");                                                                                                                        
+                if(i%2 == 0){
+                    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,mol.note(),mol.getVolume(),mol.instantInitial()+i*pas));
+                        //ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note+4,0,debut+i*pas));//le +4 donne la tierce                                                                  
+                    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,mol.note()+variation,0,mol.instantInitial()+i*pas));
+                }
+                else{
+                    //ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note+4,volume,debut+i*pas));                                                                                         
+                    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,mol.note()+variation,mol.getVolume(),mol.instantInitial()+i*pas));
+                    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,mol.note(),0,mol.instantInitial()+i*pas));
+                }
+            }
+        }
     }
+
     
-    static public void glissando(int note, int timbre,int volume,int debut, int fin, int distanceParcourrue, int vitesseOrd) throws InvalidMidiDataException{
+    static public void glissando(Molecule mol, int molette, Timbre timbre) throws InvalidMidiDataException{
 
 	// nbPas  égal à 64 pour la molécule ayant la distanceParcourrue la plus grande parmi toutes les molécules
 	//ainsi, i (angle de la molette) sera au max pour une molécule parcourrant la plus grande distance
 
-	int nbPas=64*distanceParcourrue / 100; //100 <==>  distanceMaximale provisoire;
+	//int nbPas=64*distanceParcourrue / 100; //100 <==>  distanceMaximale provisoire;
+	int nbPas=(int) (molette*mol.distance() / Glissando.distanceMax); //100 <==>  distanceMaximale provisoire;
 	int i;
-	int pas= (fin-debut)/nbPas;
-	int channel=retournerChannel(timbre,debut,fin);
-	if((channel>0)&&(channel<15)){
-	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut));
-	    if(vitesseOrd >=0){	  //glissando montant (suivant la vitesse ordonnée)
+	int pas= (mol.instantFinal()- mol.instantInitial())/nbPas;
+	int channel=retournerChannel(timbre.timbreMIDI(),mol.instantInitial(),mol.instantFinal());
+	if((channel>=0)&&(channel<16)){
+	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,mol.note(),mol.getVolume(),mol.instantInitial()));
+	    if(mol.vitesseOrd() >=0){	  //glissando montant (suivant la vitesse ordonnée)
 		for(i =0; i< nbPas; i++)  {
-		    ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64+i,debut+i*pas ));
+		    ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,mol.note(),molette+i,mol.instantInitial()+i*pas ));
 		}
 	    }
 	    else{                //glissando descendant
 		for(i = 0; i<=nbPas; i++){   
-		    ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,note,64-i,debut+i*pas ));
+		    ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,mol.note(),molette-i,mol.instantInitial() + i*pas ));
 		}
 	    }
 	}
     }
     
-    static public void noteTenue(int note, int timbre,int volume,int debut, int fin) throws InvalidMidiDataException{
-	int channel=retournerChannel(timbre,debut,fin);
+    static public void noteTenue(int note, int volume, Timbre timbre, int ti, int tf) throws InvalidMidiDataException{
+	int channel=retournerChannel(timbre.timbreMIDI(), ti, tf);
 	System.out.println("channel" + channel);
-	if((channel>0)&&(channel<15)){
-	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note,volume,debut));
-	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note,volume,fin));
+	if((channel>=0)&&(channel<16)){
+	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note, volume,ti));
+	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note, volume,tf));
 	}
     }
     
