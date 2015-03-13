@@ -43,12 +43,17 @@ public class FenetreParametreTenu extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblParametreDeLa = new JLabel("Parametre de la molecule :");
-		lblParametreDeLa.setBounds(117, 13, 202, 30);
+		lblParametreDeLa.setBounds(145, 13, 202, 30);
 		contentPane.add(lblParametreDeLa);
 		
 		JLabel lblNoteDeReference = new JLabel("Note de reference :");
 		lblNoteDeReference.setBounds(12, 61, 126, 30);
 		contentPane.add(lblNoteDeReference);
+		
+		JLabel lblilVousFaudra = new JLabel("<html>(il vous faudra recharger la fenetre de parametre de la molecule)</html>");
+		lblilVousFaudra.setBounds(263, 91, 207, 56);
+		contentPane.add(lblilVousFaudra);
+
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(150, 65, 44, 22);
