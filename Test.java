@@ -13,7 +13,7 @@ public class Test{
 	int i = 0;
 	try{
 	    //Midi m = new Midi();
-	    Midi.initialiser();
+	    Midi.initialiser("../soundbanks/TimGM6mb.sf2");
 	    //Midi.configurerChannel(0, 56);
 	    //tremolo entre la note 60 et 63
 	    /*
