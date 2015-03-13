@@ -119,7 +119,7 @@ public class Midi{
         int i;
         //int nbPas=10;  //A FAIRE: à definir suivant la vitesse initiale, eventuellement                                                                                                          
         //int nbPas = (fin - debut)/75;                                                                                                                                                            
-        int pas=(mol.instantInitial() - mol.instantFinal())/nbPas;
+        int pas=((mol.instantInitial() - mol.instantFinal())*Controleur.dureeNoire)/nbPas;
         int channel=retournerChannel(timbre,mol.instantInitial(),mol.instantFinal());
         if((channel>=0)&&(channel<16)){
             //System.out.println("timbre: "+ timbre +"  channel " + channel +" pas " +pas);                                                                                                        
@@ -148,7 +148,7 @@ public class Midi{
 	//int nbPas=64*distanceParcourrue / 100; //100 <==>  distanceMaximale provisoire;
 	int nbPas=(int) (molette*mol.distance() / Glissando.distanceMax); //100 <==>  distanceMaximale provisoire;
 	int i;
-	int pas= (mol.instantFinal()- mol.instantInitial())/nbPas;
+	int pas= ((mol.instantFinal()- mol.instantInitial())*Controleur.dureeNoire)/nbPas;
 	int channel=retournerChannel(timbre.timbreMIDI(),mol.instantInitial(),mol.instantFinal());
 	if((channel>=0)&&(channel<16)){
 	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,mol.note(),mol.getVolume(),mol.instantInitial()));
@@ -169,8 +169,8 @@ public class Midi{
 	int channel=retournerChannel(timbre.timbreMIDI(), ti, tf);
 	System.out.println("channel" + channel);
 	if((channel>=0)&&(channel<16)){
-	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note, volume,ti));
-	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note, volume,tf));
+	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note, volume,ti*Controleur.dureeNoire));
+	    ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note, volume,tf*Controleur.dureeNoire));
 	}
     }
     
