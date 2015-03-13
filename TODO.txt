@@ -1,4 +1,4 @@
-Trucs à faire :
+﻿Trucs à faire :
 
 
 ---IHM---
@@ -42,6 +42,4 @@ Trucs à faire :
 ...pour ceux qui s'ennuient : https://www.overleaf.com/2331450bvbnfg
 
 
-----Agnes------
-Legende sur FenetreTrajectoires...que mettre?
-Avoir une fenetre de la taille de la video (info dans controleur fenetre)
+

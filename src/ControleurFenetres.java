@@ -42,7 +42,7 @@ public class ControleurFenetres {
 		}
 		else if(utilisateur.compareTo("compositeur")==0){
 			controleur = new Compositeur(params.getIntensite());
-			afficherParam(); 
+			//afficherParam(); 
 			params.dispose(); // fermeture de la fenetre parametre
 			initialiserMolecules();
 			fenetrePrincipale = new TableauCompositeurVue(true, null);
@@ -72,8 +72,8 @@ public class ControleurFenetres {
 		if (params.isAutoSize()){
 			Dimension dim = Controleur.maxDimension();
 			System.out.println(dim);
-			largeur = (int) dim.getWidth();
-			hauteur = (int) dim.getHeight();			
+			largeur = (int) dim.getWidth() +10 ;
+			hauteur = (int) dim.getHeight() +10;			
 		}
 		float alphas[] = {alpha1, alpha2, alpha3};
 		Controleur.alphaSeparation = alphas;
