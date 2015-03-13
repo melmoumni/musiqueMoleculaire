@@ -352,7 +352,7 @@ abstract class Controleur{
 
 	static void remplirSequence(){
 		try{
-			Midi.initialiser();
+			Midi.initialiser("../soundbanks/TimGM6mb.sf2");
 			Midi.configurerChannel(0, 56);
 			for (Molecule mol : molecules){
 				mol.remplirSequenceMolecule();
