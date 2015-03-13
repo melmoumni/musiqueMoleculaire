@@ -152,6 +152,10 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		return (float) Math.sqrt(Math.abs (Math.pow( (abs2-abs1), 2.0) + Math.pow( (ord2-ord1), 2.0))) ; 
 	}
 
+	public Effet getEffet (){
+		return effet;
+	}
+	
 	public void setEffet (Effet effett){
 		effet = effett;
 	}

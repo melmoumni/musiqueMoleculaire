@@ -36,7 +36,9 @@ public class FenetreParametreAleatoire extends JFrame {
 	 * Create the frame.
 	 */
 	public FenetreParametreAleatoire() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("Fenetre parametre effet ALEATOIRE");
+
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 501, 282);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -76,7 +78,7 @@ public class FenetreParametreAleatoire extends JFrame {
 		comboBox_1.setBounds(150, 102, 94, 22);
 		contentPane.add(comboBox_1);
 		
-		JLabel lblNombreDeNotes = new JLabel("Nombre de notes : ");
+		JLabel lblNombreDeNotes = new JLabel("Intervalle entre 2 notes : ");
 		lblNombreDeNotes.setBounds(12, 158, 116, 22);
 		contentPane.add(lblNombreDeNotes);
 		

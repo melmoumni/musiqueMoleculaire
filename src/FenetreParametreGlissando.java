@@ -36,7 +36,9 @@ public class FenetreParametreGlissando extends JFrame {
 	 * Create the frame.
 	 */
 	public FenetreParametreGlissando() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("Fenetre parametre effet GLISSANDO");
+
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 302);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

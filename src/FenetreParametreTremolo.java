@@ -36,7 +36,9 @@ public class FenetreParametreTremolo extends JFrame {
 	 * Create the frame.
 	 */
 	public FenetreParametreTremolo() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("Fenetre parametre effet TREMOLO");
+
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 539, 380);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

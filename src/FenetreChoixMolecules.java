@@ -59,6 +59,7 @@ public class FenetreChoixMolecules extends JFrame{
 		
 		try {
 			Controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
+			Controleur.analyseMolecules();
 		}
 		catch (IOException e) {
 		}
@@ -133,6 +134,32 @@ public class FenetreChoixMolecules extends JFrame{
 		item.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("FenetreProprieteMolecule" + moleculePropriete.numero());
+				System.out.println(moleculePropriete.getEffet().getClass().getName());
+				switch (moleculePropriete.getEffet().getClass().getName()){
+				case "Tenu":
+					FenetreParametreTenu frameTenu = new FenetreParametreTenu();
+					frameTenu.setVisible(true);
+					break;
+				case "Glissando":
+					FenetreParametreGlissando frameGlissando = new FenetreParametreGlissando();
+					frameGlissando.setVisible(true);
+					break;
+				case "Tremolo":
+					FenetreParametreTremolo frameTremolo = new FenetreParametreTremolo();
+					frameTremolo.setVisible(true);
+					break;
+				case "Boucle":
+					FenetreParametreBoucle frameBoucle = new FenetreParametreBoucle();
+					frameBoucle.setVisible(true);
+					break;
+				case "Aleatoire":
+					FenetreParametreAleatoire frameAleatoire= new FenetreParametreAleatoire();
+					frameAleatoire.setVisible(true);
+					break;
+				default:
+					break;
+				
+				}
 			}
 		});
 		menu.add(item);
