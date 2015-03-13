@@ -57,8 +57,6 @@ public class Midi{
 	    else
 		System.out.println("Soundbank not supported by default synthesizer");	    
 	}
-	catch(MidiUnavailableException e){}
-	catch(InvalidMidiDataException e){}
 	catch(IOException e){}
 	/* charge une nouvelle sequence avec 16 tracks
 	 * resolution = 1000PPQ
@@ -73,7 +71,7 @@ public class Midi{
     static public void jouerTempo(int tempo, int duration){
 	try{
 	    int i = 0;
-	    initialiser();
+	    initialiser("../soundbanks/TimGM6mb.sf2");
 	    long NoirToTick = 120000/tempo;
 	    System.out.println("noitotick :"+NoirToTick);
 	    for(i = 0; i<tempo*duration; i++){
