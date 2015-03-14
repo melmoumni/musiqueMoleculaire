@@ -16,9 +16,11 @@ import javax.swing.border.EmptyBorder;
 
 public class FenetreParametreTremolo extends JFrame {
 
-	JSpinner spinner;
-	JComboBox<String> comboBox_1;
-	JSlider sliderVol; 
+	private JSpinner spinner;
+	private JComboBox<String> comboBox_1;
+	private JSlider sliderVol; 
+	private JSlider sliderFreq;
+	private JSlider sliderAmpl; 
 
 	
 	/**
@@ -114,32 +116,36 @@ public class FenetreParametreTremolo extends JFrame {
 		lblFrequenceDuTremolo.setBounds(12, 265, 144, 22);
 		contentPane.add(lblFrequenceDuTremolo);
 		
-		JSlider slider = new JSlider();
-		slider.setSnapToTicks(true);
-		slider.setValue(1);
-		slider.setPaintTicks(true);
-		slider.setPaintLabels(true);
-		slider.setMinorTickSpacing(1);
-		slider.setMajorTickSpacing(2);
-		slider.setMinimum(1);
-		slider.setMaximum(10);
-		slider.setBounds(185, 210, 235, 52);
-		contentPane.add(slider);
+		sliderAmpl = new JSlider();
+		sliderAmpl.setSnapToTicks(true);
+		sliderAmpl.setValue(1);
+		sliderAmpl.setPaintTicks(true);
+		sliderAmpl.setPaintLabels(true);
+		sliderAmpl.setMinorTickSpacing(1);
+		sliderAmpl.setMajorTickSpacing(2);
+		sliderAmpl.setMinimum(1);
+		sliderAmpl.setMaximum(10);
+		sliderAmpl.setBounds(185, 210, 235, 52);
+		sliderAmpl.setValue(((Tremolo) mol.getEffet()).variationNote());
+		contentPane.add(sliderAmpl);
 		
-		JSlider slider_1 = new JSlider();
-		slider_1.setPaintLabels(true);
-		slider_1.setSnapToTicks(true);
-		slider_1.setMinorTickSpacing(1);
-		slider_1.setMinimum(1);
-		slider_1.setMajorTickSpacing(49);
-		slider_1.setBounds(185, 265, 235, 52);
-		contentPane.add(slider_1);
+		sliderFreq = new JSlider();
+		sliderFreq.setPaintLabels(true);
+		sliderFreq.setSnapToTicks(true);
+		sliderFreq.setMinorTickSpacing(1);
+		sliderFreq.setMinimum(1);
+		sliderFreq.setMajorTickSpacing(49);
+		sliderFreq.setBounds(185, 265, 235, 52);
+		sliderFreq.setValue(((Tremolo) mol.getEffet()).nombrePas());
+		contentPane.add(sliderFreq);
 		
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mol.setNote((int) spinner.getValue());
 				mol.setVolume(sliderVol.getValue());
+				((Tremolo) mol.getEffet()).setNombrePas(sliderFreq.getValue());
+				((Tremolo) mol.getEffet()).setVariationNote(sliderAmpl.getValue());
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Tenu":

@@ -14,7 +14,7 @@ class Tremolo implements Effet{
 
     public Tremolo(){
         nombrePas = 10;
-        variationNote = 4;
+        variationNote = 1;
     }
 
 
@@ -28,7 +28,7 @@ class Tremolo implements Effet{
     nombrePas = nbPas;
     }
 
-    public void    setVariationNote(int variation){
+    public void setVariationNote(int variation){
         variationNote =    variation;
     }
 
