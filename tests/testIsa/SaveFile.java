@@ -75,7 +75,7 @@ public class SaveFile extends JFrame implements ActionListener {
 	    	chooser.setFileFilter(filter);
 	    	int returnVal = chooser.showSaveDialog(this);
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
-	            Midi.saveMidi(chooser.getSelectedFile().getPath()); 
+	            //Midi.saveMidi(chooser.getSelectedFile().getPath()); 
 	        }
 		}
 		

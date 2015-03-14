@@ -75,7 +75,7 @@ public class Test{
 
 	    //Test avec des molécules qui se recouvrent pas totalement
 	     for (i=0;i<100;i++){
-	     	Midi.noteTenue(60,i*1,100,300+i*100,300+i*800);
+	     	//Midi.noteTenue(60,i*1,100,300+i*100,300+i*800);
 	     	System.out.println("La c'est le"+ i);
 	     }
 
