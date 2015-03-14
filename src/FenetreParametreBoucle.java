@@ -1,19 +1,25 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.border.EmptyBorder;
 
 
 public class FenetreParametreBoucle extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
@@ -23,7 +29,7 @@ public class FenetreParametreBoucle extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenetreParametreBoucle frame = new FenetreParametreBoucle();
+					FenetreParametreBoucle frame = new FenetreParametreBoucle(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,9 +41,16 @@ public class FenetreParametreBoucle extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FenetreParametreBoucle() {
+	public FenetreParametreBoucle(Molecule mol) {
 		this.setTitle("Fenetre parametre effet BOUCLE");
 
+		ArrayList<String> listeEffets = new ArrayList<String>();
+		listeEffets.add("Tenu");
+		listeEffets.add("Tremolo");
+		listeEffets.add("Glissando");
+		listeEffets.add("Boucle");
+		listeEffets.add("Aleatoire");
+		
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 517, 337);
 		contentPane = new JPanel();
@@ -58,9 +71,11 @@ public class FenetreParametreBoucle extends JFrame {
 		contentPane.add(lblilVousFaudra);
 
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(150, 65, 44, 22);
-		contentPane.add(comboBox);
+		JSpinner spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(0, 0, 128, 1));
+		spinner.setBounds(155, 65, 49, 22);
+		spinner.setValue(mol.note());
+		contentPane.add(spinner);
 		
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
@@ -74,8 +89,10 @@ public class FenetreParametreBoucle extends JFrame {
 		lblEffet.setBounds(12, 105, 56, 16);
 		contentPane.add(lblEffet);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		JComboBox<String> comboBox_1 = new JComboBox(listeEffets.toArray());
 		comboBox_1.setBounds(150, 102, 94, 22);
+		comboBox_1.setSelectedItem(mol.getEffet().getClass().getName());
 		contentPane.add(comboBox_1);
 		
 		JLabel lblAmplitudeDeLa = new JLabel("Amplitude de la boucle :");

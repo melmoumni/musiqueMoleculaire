@@ -411,11 +411,15 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 
 		if(source == btnStart){
 			System.out.println("Ca commence");
-			Controleur.analyseMolecules();
+//			Controleur.analyseMolecules();
 			TabC.allocationTimbres();
-			Controleur.printTrajectoires();
-			Controleur.remplirSequence();
-			Midi.jouerSequence();
+
+			FenetreChoixMolecules frameChoix = new FenetreChoixMolecules();
+			frameChoix.setVisible(true);
+			
+			//			Controleur.printTrajectoires();
+//			Controleur.remplirSequence();
+//			Midi.jouerSequence();
 		}
 		else if(source == btnAjouterUneColonne){
 			System.out.println("Vous avez ajouté une colonne.");

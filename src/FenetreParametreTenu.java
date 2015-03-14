@@ -1,18 +1,24 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.border.EmptyBorder;
 
 
 public class FenetreParametreTenu extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
@@ -22,7 +28,7 @@ public class FenetreParametreTenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenetreParametreTenu frame = new FenetreParametreTenu();
+					FenetreParametreTenu frame = new FenetreParametreTenu(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,8 +40,16 @@ public class FenetreParametreTenu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FenetreParametreTenu() {
+	public FenetreParametreTenu(Molecule mol) {
 		this.setTitle("Fenetre parametre effet TENU");
+		
+		ArrayList<String> listeEffets = new ArrayList<String>();
+		listeEffets.add("Tenu");
+		listeEffets.add("Tremolo");
+		listeEffets.add("Glissando");
+		listeEffets.add("Boucle");
+		listeEffets.add("Aleatoire");
+		
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 488, 271);
 		contentPane = new JPanel();
@@ -51,14 +65,15 @@ public class FenetreParametreTenu extends JFrame {
 		lblNoteDeReference.setBounds(12, 61, 126, 30);
 		contentPane.add(lblNoteDeReference);
 		
+		JSpinner spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(0, 0, 128, 1));
+		spinner.setBounds(155, 65, 49, 22);
+		spinner.setValue(mol.note());
+		contentPane.add(spinner);
+		
 		JLabel lblilVousFaudra = new JLabel("<html>(il vous faudra recharger la fenetre de parametre de la molecule)</html>");
 		lblilVousFaudra.setBounds(263, 91, 207, 56);
 		contentPane.add(lblilVousFaudra);
-
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(150, 65, 44, 22);
-		contentPane.add(comboBox);
 		
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
@@ -72,8 +87,11 @@ public class FenetreParametreTenu extends JFrame {
 		lblEffet.setBounds(12, 105, 56, 16);
 		contentPane.add(lblEffet);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		JComboBox<String> comboBox_1 = new JComboBox(listeEffets.toArray());
 		comboBox_1.setBounds(150, 102, 94, 22);
+		comboBox_1.setSelectedItem(mol.getEffet().getClass().getName());
 		contentPane.add(comboBox_1);
+		
 	}
 }

@@ -137,23 +137,23 @@ public class FenetreChoixMolecules extends JFrame{
 				System.out.println(moleculePropriete.getEffet().getClass().getName());
 				switch (moleculePropriete.getEffet().getClass().getName()){
 				case "Tenu":
-					FenetreParametreTenu frameTenu = new FenetreParametreTenu();
+					FenetreParametreTenu frameTenu = new FenetreParametreTenu(moleculePropriete);
 					frameTenu.setVisible(true);
 					break;
 				case "Glissando":
-					FenetreParametreGlissando frameGlissando = new FenetreParametreGlissando();
+					FenetreParametreGlissando frameGlissando = new FenetreParametreGlissando(moleculePropriete);
 					frameGlissando.setVisible(true);
 					break;
 				case "Tremolo":
-					FenetreParametreTremolo frameTremolo = new FenetreParametreTremolo();
+					FenetreParametreTremolo frameTremolo = new FenetreParametreTremolo(moleculePropriete);
 					frameTremolo.setVisible(true);
 					break;
 				case "Boucle":
-					FenetreParametreBoucle frameBoucle = new FenetreParametreBoucle();
+					FenetreParametreBoucle frameBoucle = new FenetreParametreBoucle(moleculePropriete);
 					frameBoucle.setVisible(true);
 					break;
 				case "Aleatoire":
-					FenetreParametreAleatoire frameAleatoire= new FenetreParametreAleatoire();
+					FenetreParametreAleatoire frameAleatoire= new FenetreParametreAleatoire(moleculePropriete);
 					frameAleatoire.setVisible(true);
 					break;
 				default:
@@ -464,6 +464,9 @@ public class FenetreChoixMolecules extends JFrame{
 	    JButton btnValider = new JButton("Valider le choix des proteines");
 	    btnValider.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent arg0) {
+				Controleur.printTrajectoires();
+				Controleur.remplirSequence();
+				Midi.jouerSequence();
 	    	}
 	    });
 	    btnValider.setBounds(159, 912, 317, 67);

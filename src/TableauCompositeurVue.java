@@ -444,10 +444,15 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 			}
 			System.out.println("Ca commence");
 			TabC.allocationTimbres();
-			Controleur.analyseMolecules();
-			Controleur.printTrajectoires();
-			Controleur.remplirSequence();
-			Midi.jouerSequence();
+			//Controleur.analyseMolecules();
+			
+			FenetreChoixMolecules frameChoix = new FenetreChoixMolecules();
+			frameChoix.setVisible(true);
+
+			
+			//Controleur.printTrajectoires();
+			//Controleur.remplirSequence();
+			//Midi.jouerSequence();
 		}
 	}
 }

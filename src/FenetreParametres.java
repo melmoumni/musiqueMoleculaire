@@ -161,7 +161,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		JLabel label_3 = new JLabel("<");
 		
 		JLabel lblDure = new JLabel("Tempo souhaitee");
-		valeurTempo = new JSpinner(new SpinnerNumberModel(new Integer(0),new Integer(0),new Integer(600),new Integer(1)));
+		valeurTempo = new JSpinner(new SpinnerNumberModel(new Integer(60),new Integer(10),new Integer(300),new Integer(1)));
 		
 		JLabel lblSeuilIntensite = new JLabel("Seuil intensite");
 		valeurI = new JSpinner();

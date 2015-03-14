@@ -13,7 +13,7 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	private float vitesseOrd;
 	private Timbre timbre; // changer ensuite
 	private Timbre timbre2;  //deuxieme timbre pour la partie compositeur
-	private int volume = 100;           //mettre dans constructeur plus tard et faire varier
+	private int volume;          //mettre dans constructeur plus tard et faire varier
 	private int instantInitial;
 	private int instantFinal;
 	private float distance;
@@ -23,7 +23,7 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	private Effet effet;
 	private int note;
 	private float moyenneIntensite;
-	private int tempo; // ou pas !!!
+	//private int tempo; // ou pas !!!
 	private float pasMax; // juste pour les aleatoires
 	Molecule(){
 		positions = new ArrayList<CaracteristiqueTemporelle>();
@@ -55,12 +55,14 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	public Molecule(int numerot, ArrayList<CaracteristiqueTemporelle> positionst){
 		numero = numerot;
 		positions = positionst;
+		volume = 100;
 	}
 
 	public Molecule(int numerot, float alphat, float msdt) {
 		numero = numerot;
 		alpha = alphat;
 		msd = msdt;
+		volume = 100;
 	}
 
 	public void setMolecule(float alphat, float msdt){
@@ -160,9 +162,9 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		effet = effett;
 	}
 
-	public void setTempo (int tempot){
-		tempo = tempot;
-	}
+//	public void setTempo (int tempot){
+//		tempo = tempot;
+//	}
 
 	public void setTimbre(Timbre timbret){
 		timbre = timbret;
@@ -239,9 +241,6 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	}
 
 	public void analyseDistance(){
-		//ArrayList<Float> vitesseAbsisses = new ArrayList<Float>(); 
-		//ArrayList<Float> vitesseOrdonnees = new ArrayList<Float>();
-		//CaracteristiqueTemporelle tmp = new CaracteristiqueTemporelle();
 		int index = 0;
 		distance = 0;
 		float absTmp = positions.get(0).x;
@@ -253,7 +252,6 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 			if (pasMax < pas) {
 				pasMax = pas;
 			}
-			//System.out.println(distance);
 			absTmp = positions.get(index).x;
 			ordTmp = positions.get(index).y;
 			index++;

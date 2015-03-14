@@ -109,8 +109,7 @@ public class ControleurFenetres {
 		JOptionPane.showMessageDialog(params,
     		    "Les parametres suivants doivent etre renseignees :\n"
     		    + " - Chemins des fichiers de trajectoires et d'analyse\n"
-    		    + " - Taille de l'image (Largeur et Hauteur) \n"
-    		    + " - Duree souhaitee  \n"
+    		    + " - Taille de l'image (Largeur et Hauteur) ou ajustement automatique\n"
     		    + " - Type d'utilisateur : Chercheur ou Compositeur  \n");
 	}
 

@@ -20,6 +20,14 @@ class Boucle implements Effet{
     public Boucle (int nbNotes){
     	nbnotes = nbNotes;
     }
+    
+    public void setNbNotes(int nb){
+    	nbnotes = nb;
+    }
+    
+    public int getNbNotes(){
+    	return nbnotes;
+    }
 
     public Boucle (){
 
