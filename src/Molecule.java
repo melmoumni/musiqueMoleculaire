@@ -199,7 +199,7 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		if (alpha < alphaSeparation[0]){
 			effet = new Tenu();
 		}else if (alpha > alphaSeparation[0] && alpha < alphaSeparation[1] && isChercheur){
-			effet = new Boucle();
+			effet = new Boucle(msd);
 		}
 		else if (alpha > alphaSeparation[0] && alpha < alphaSeparation[1] && !isChercheur){
 			effet = new Tremolo();

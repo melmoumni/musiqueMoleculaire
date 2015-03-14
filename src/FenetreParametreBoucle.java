@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,9 +17,11 @@ import javax.swing.border.EmptyBorder;
 
 public class FenetreParametreBoucle extends JFrame {
 
-	JSpinner spinner;
-	JComboBox<String> comboBox_1;
-	JSlider sliderVol; 
+	private JSpinner spinner;
+	private JComboBox<String> comboBox_1;
+	private JSlider sliderVol; 
+	private JSlider sliderInt;
+	private JSlider sliderAmp;
 
 	
 	/**
@@ -58,7 +61,7 @@ public class FenetreParametreBoucle extends JFrame {
 		listeEffets.add("Aleatoire");
 		
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 519, 363);
+		setBounds(100, 100, 519, 432);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -107,26 +110,73 @@ public class FenetreParametreBoucle extends JFrame {
 		sliderVol.setValue(mol.getVolume());
 		contentPane.add(sliderVol);
 		
+		JLabel lblIntervalleEntre = new JLabel("<html>Intervalle entre 2 notes :<br> (1 => 1 noire)</html>");
+		lblIntervalleEntre.setBounds(12, 209, 107, 66);
+		contentPane.add(lblIntervalleEntre);
+
+		class JFloatSlider extends JSlider
+		{
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			private final int SCALE = 12;
+			public JFloatSlider(int position,float min, float max, float init, float tick)
+			{
+				this.setPaintLabels(true);
+				setSnapToTicks(true);
+				//this.setPaintTicks(true);
+
+				setMinimum((int)(min*SCALE));
+				setMaximum((int)(max*SCALE));
+				this.setValue((int)(init*SCALE));
+				this.setOrientation(position);
+				Hashtable ht = new Hashtable();
+				for (float i = min; i <= max; i+=tick)
+				{
+					if (i != (float) 3 && i != (float) 0){
+						JLabel l = new JLabel(""+(int) i);
+						ht.put(new Integer((int)Math.rint(i*SCALE)), l);
+					}
+				}
+				this.setLabelTable(ht);
+				this.setMinorTickSpacing((int)(tick * SCALE / 2));
+				this.setMajorTickSpacing((int) (tick * SCALE / 2));
+				this.setPaintTicks(true);
+			}
+			public float getFloatValue() { return (float)getValue()/(float)SCALE; }
+		}
+
+		
+		sliderInt = new JFloatSlider(0,(float) 0, (float) 4, (float) ((Boucle) mol.getEffet()).interNote()/Controleur.dureeNoire, (float) 1);
+		sliderInt.setBounds(151, 213, 200, 50);
+		contentPane.add(sliderInt);
+		
 		JLabel lblAmplitudeDeLa = new JLabel("Amplitude de la boucle :");
-		lblAmplitudeDeLa.setBounds(12, 225, 146, 30);
+		lblAmplitudeDeLa.setBounds(12, 288, 146, 30);
 		contentPane.add(lblAmplitudeDeLa);
 		
-		JSlider slider = new JSlider();
-		slider.setValue(3);
-		slider.setPaintTicks(true);
-		slider.setPaintLabels(true);
-		slider.setMinorTickSpacing(1);
-		slider.setMinimum(2);
-		slider.setMaximum(9);
-		slider.setMajorTickSpacing(1);
-		slider.setBounds(177, 213, 229, 52);
-		contentPane.add(slider);
+		sliderAmp = new JSlider();
+		sliderAmp.setValue(3);
+		sliderAmp.setPaintTicks(true);
+		sliderAmp.setPaintLabels(true);
+		sliderAmp.setMinorTickSpacing(1);
+		sliderAmp.setMinimum(2);
+		sliderAmp.setMaximum(9);
+		sliderAmp.setMajorTickSpacing(1);
+		sliderAmp.setBounds(177, 283, 229, 52);
+		sliderAmp.setValue(((Boucle) mol.getEffet()).nbNotes());
+		System.out.println("nbNotes value : " + sliderAmp.getValue());
+		contentPane.add(sliderAmp);
 		
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mol.setNote((int) spinner.getValue());
 				mol.setVolume(sliderVol.getValue());
+				((Boucle) mol.getEffet()).setNbNotes(sliderAmp.getValue());
+				((Boucle) mol.getEffet()).setInterNote((int) (((JFloatSlider) sliderInt).getFloatValue()*Controleur.dureeNoire));
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Tenu":
@@ -149,7 +199,7 @@ public class FenetreParametreBoucle extends JFrame {
 
 			}
 		});
-		btnValider.setBounds(201, 278, 87, 25);
+		btnValider.setBounds(200, 348, 87, 25);
 		contentPane.add(btnValider);
 
 		

@@ -9,7 +9,7 @@ import javax.sound.midi.*;
 
 class Aleatoire implements Effet{
 
-    public int interNote;
+    private int interNote;
     
     public Aleatoire(){
     	interNote = Controleur.dureeNoire;
