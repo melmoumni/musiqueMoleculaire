@@ -16,9 +16,10 @@ import javax.swing.border.EmptyBorder;
 
 public class FenetreParametreGlissando extends JFrame {
 
-	JSpinner spinner;
-	JComboBox<String> comboBox_1;
-	JSlider sliderVol; 
+	private JSpinner spinner;
+	private JComboBox<String> comboBox_1;
+	private JSlider sliderVol; 
+	private JSlider sliderMol; 
 
 	
 	/**
@@ -58,7 +59,7 @@ public class FenetreParametreGlissando extends JFrame {
 		listeEffets.add("Aleatoire");
 		
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 502, 344);
+		setBounds(100, 100, 502, 368);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -101,12 +102,18 @@ public class FenetreParametreGlissando extends JFrame {
 		sliderVol.setValue(mol.getVolume());
 		contentPane.add(sliderVol);
 		
-		JSlider slider = new JSlider();
-		slider.setBounds(152, 214, 200, 26);
-		contentPane.add(slider);
+		sliderMol = new JSlider();
+		sliderMol.setPaintLabels(true);
+		sliderMol.setPaintTicks(true);
+		sliderMol.setSnapToTicks(true);
+		sliderMol.setMajorTickSpacing(10);
+		sliderMol.setMaximum(64);
+		sliderMol.setBounds(140, 214, 212, 56);
+		sliderMol.setValue(((Glissando) mol.getEffet()).molette());
+		contentPane.add(sliderMol);
 		
 		JLabel lblMolette = new JLabel("Molette : ");
-		lblMolette.setBounds(12, 214, 56, 16);
+		lblMolette.setBounds(12, 220, 56, 16);
 		contentPane.add(lblMolette);
 		
 		JLabel lblilVousFaudra = new JLabel("<html>(il vous faudra recharger la fenetre de parametre de la molecule)</html>");
@@ -118,6 +125,7 @@ public class FenetreParametreGlissando extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				mol.setNote((int) spinner.getValue());
 				mol.setVolume(sliderVol.getValue());
+				((Glissando) mol.getEffet()).setMolette(sliderMol.getValue());
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Tenu":
@@ -139,7 +147,7 @@ public class FenetreParametreGlissando extends JFrame {
 				dispose();
 			}
 		});
-		btnValider.setBounds(196, 253, 87, 25);
+		btnValider.setBounds(196, 283, 87, 25);
 		contentPane.add(btnValider);
 
 		

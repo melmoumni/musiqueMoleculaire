@@ -24,8 +24,12 @@ class Glissando implements Effet{
 	return molette;
     }
     
-    static public void setMolette(int distance){
-	distanceMax = distance;
+    static public void setDistance(int distance){
+    	distanceMax = distance;
+    }
+    
+    public void setMolette(int mol){
+    	molette = mol;
     }
     
     
