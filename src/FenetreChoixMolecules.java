@@ -245,48 +245,36 @@ public class FenetreChoixMolecules extends JFrame{
 	    
 	    	    
 	    JPanel panelDroit = new JPanel();
-	    panelDroit.setBounds((int) (2*dim.getWidth()/3), 0,(int) (1*dim.getWidth()/3), (int) dim.getHeight());
+	    panelDroit.setBounds((int) (2*dim.getWidth()/3), 10,(int) (1*dim.getWidth()/3), (int) dim.getHeight());
 	    getContentPane().add(panelDroit);
 	    panelDroit.setLayout(null);
-	    
-		JLabel labelHautGauche = new JLabel("Immobile");
 		Box boxHautGauche = Box.createVerticalBox();
-		boxHautGauche.add(labelHautGauche);
 		for (Molecule mol : ListeImmobile){
-			JCheckBox j = new MyJCheckBox("Immobile "+mol.numero(), mol);
+			JCheckBox j = new MyJCheckBox("Immobile "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")", mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxHautGauche.add(j);
 			ListCheckBoxImmobile.add(j);
 		}
-
-		JLabel labelHautDroit = new JLabel("Confine");
 		Box boxHautDroit = Box.createVerticalBox();
-		boxHautDroit.add(labelHautDroit);
 		for (Molecule mol : ListeConfine){
-			JCheckBox j = new MyJCheckBox("Confine "+mol.numero(), mol);
+			JCheckBox j = new MyJCheckBox("Confine "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")", mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxHautDroit.add(j);
 			ListCheckBoxConfine.add(j);
 		}
-
-		JLabel labelBasGauche = new JLabel("Directionnelle");
 		Box boxBasGauche = Box.createVerticalBox();
-		boxBasGauche.add(labelBasGauche);
 		for (Molecule mol : ListeDirectionnelle){
-			JCheckBox j = new MyJCheckBox("Directionnelle "+mol.numero(), mol);
+			JCheckBox j = new MyJCheckBox("Directionnelle "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")", mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxBasGauche.add(j);
 			ListCheckBoxDirectionnelle.add(j);
 		}
-		
-		JLabel labelBasDroit = new JLabel("Aleatoire");
 		Box boxBasDroit = Box.createVerticalBox();
-		boxBasDroit.add(labelBasDroit);
 		for (Molecule mol : ListeAleatoire){
-			JCheckBox j = new MyJCheckBox("Aleatoire "+mol.numero(), mol);
+			JCheckBox j = new MyJCheckBox("Aleatoire "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")", mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxBasDroit.add(j);
@@ -530,6 +518,22 @@ public class FenetreChoixMolecules extends JFrame{
 	    });
 	    btnEnregistrerLesContraintes.setBounds(255, 796, 211, 60);
 	    panelDroit.add(btnEnregistrerLesContraintes);
+	    
+		JLabel labelHautGauche = new JLabel("Immobile");
+		labelHautGauche.setBounds(97, 0, 53, 16);
+		panelDroit.add(labelHautGauche);
+		
+				JLabel labelHautDroit = new JLabel("Confine");
+				labelHautDroit.setBounds(423, 0, 43, 16);
+				panelDroit.add(labelHautDroit);
+				
+						JLabel labelBasGauche = new JLabel("Directionnelle");
+						labelBasGauche.setBounds(93, 342, 99, 16);
+						panelDroit.add(labelBasGauche);
+						
+						JLabel labelBasDroit = new JLabel("Aleatoire");
+						labelBasDroit.setBounds(425, 342, 51, 16);
+						panelDroit.add(labelBasDroit);
 	    
 	}
 

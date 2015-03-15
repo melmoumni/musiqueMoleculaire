@@ -67,8 +67,12 @@ public class FenetreParametreAleatoire extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblParametreDeLa = new JLabel("Parametre de la molecule :");
-		lblParametreDeLa.setBounds(151, 13, 202, 30);
+		lblParametreDeLa.setBounds(12, 13, 202, 30);
 		contentPane.add(lblParametreDeLa);
+		
+		JLabel lblapparitionTi = new JLabel("(Apparition : ti=" + mol.instantInitial() + " et tf="+ mol.instantFinal() + ")");
+		lblapparitionTi.setBounds(263, 5, 177, 46);
+		contentPane.add(lblapparitionTi);
 
 		JLabel lblNoteDeReference = new JLabel("Note de reference :");
 		lblNoteDeReference.setBounds(12, 61, 126, 30);
