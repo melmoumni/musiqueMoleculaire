@@ -12,84 +12,90 @@ Par exemple si la note principale est le Do, alors la protéine ayant la surface
 
 class Boucle implements Effet{
 
-    private int nbNotes;
-    //TODO //a analyser des le debut
-    private static float minMSD;   
-    private static float maxMSD;
-    private int interNote = Controleur.dureeNoire;
-    
-    public Boucle (float msd){
-    	//TODO Temporairement : msdMIN et msdMAX
-    	minMSD = 0;
-    	maxMSD = (float) 0.05;
-    	// nbNotes entre 4 et 7.
-    	nbNotes =  (int) (3* ((msd - minMSD) / (maxMSD - minMSD)) + 4);
-    	System.out.println("nbNotes Constructeur : " + nbNotes + "msd : " + msd);
+	private int nbNotes;
+	private static float minMSD;   
+	private static float maxMSD;
+	private int interNote = Controleur.dureeNoire;
 
-    }
-    
-    public void setNbNotes(int nb){
-    	nbNotes = nb;
-    }
-    
-    public int nbNotes(){
-    	return nbNotes;
-    }
-    
-    public int interNote(){
-    	return interNote;
-    }
-    
-    public void setInterNote(int newInterNote){
-    	interNote = newInterNote;
-    }
+	static{
+		minMSD = 0;
+		maxMSD = (float) 0.05;		
+	}
+	
+	public Boucle (float msd){
+		// nbNotes entre 4 et 7.
+		nbNotes =  (int) (3* ((msd - minMSD) / (maxMSD - minMSD)) + 4);
+		System.out.println("nbNotes Constructeur : " + nbNotes + "msd : " + msd);
+
+	}
+
+	protected static void setMinMSD(float msd){
+		minMSD = msd;
+	}
+	
+	protected static void setMaxMSD(float msd){
+		maxMSD = msd;
+	}
+	
+	public void setNbNotes(int nb){
+		nbNotes = nb;
+	}
+
+	public int nbNotes(){
+		return nbNotes;
+	}
+
+	public int interNote(){
+		return interNote;
+	}
+
+	public void setInterNote(int newInterNote){
+		interNote = newInterNote;
+	}
 
 
-    public Boucle (){
-    	//TODO Temporairement : msdMIN et msdMAX
-    	minMSD = 0;
-    	maxMSD = (float) 0.05;
-    	nbNotes = 6;
-    }
-    
-    public void remplirSequenceur( Molecule mol) throws InvalidMidiDataException {
-    	int ti = mol.positions.get(0).temps;
-    	int tf = mol.positions.get(mol.positions.size() - 1).temps;
-    	int tmpNote = mol.note();
-    	int nextIntervalle;
-    	    	
+	public Boucle (){
+		nbNotes = 6;
+	}
+
+	public void remplirSequenceur( Molecule mol) throws InvalidMidiDataException {
+		int ti = mol.positions.get(0).temps;
+		int tf = mol.positions.get(mol.positions.size() - 1).temps;
+		int tmpNote = mol.note();
+		int nextIntervalle;
+
 
 		//System.out.printf("NbNote : %d \n", nbNotes);
-    	while (ti < tf){
-    		nextIntervalle = 4;
-    		//tmpNote = Controleur.noteRef;
-    		tmpNote = mol.note();
-    		for (int i = 0 ; i < nbNotes ; i++){
-    			if (ti < tf){
+		while (ti < tf){
+			nextIntervalle = 4;
+			//tmpNote = Controleur.noteRef;
+			tmpNote = mol.note();
+			for (int i = 0 ; i < nbNotes ; i++){
+				if (ti < tf){
 
-    				//System.out.printf("%d ", tmpNote);
-			    Midi.noteTenue(tmpNote, mol.getVolume(), mol.getTimbre(), ti, ti + interNote);
-    				tmpNote += nextIntervalle;
-    			}
-    			ti+=interNote;
-    			switch (nextIntervalle){
-    			case 0:
-    				nextIntervalle = 4;
-    				break;
-    			case 4:
-    				nextIntervalle = 3;
-    				break;
-    			case 3:
-    				nextIntervalle = 5;
-    				break;
-    			case 5:
-    				nextIntervalle = 4;    				
-    				break;
-    			default:
-    				System.err.println("Bug du prochain intervalle");
-    				break;
-    			}
-    		}
-    	}
-    }
+					//System.out.printf("%d ", tmpNote);
+					Midi.noteTenue(tmpNote, mol.getVolume(), mol.getTimbre(), ti, ti + interNote);
+					tmpNote += nextIntervalle;
+				}
+				ti+=interNote;
+				switch (nextIntervalle){
+				case 0:
+					nextIntervalle = 4;
+					break;
+				case 4:
+					nextIntervalle = 3;
+					break;
+				case 3:
+					nextIntervalle = 5;
+					break;
+				case 5:
+					nextIntervalle = 4;    				
+					break;
+				default:
+					System.err.println("Bug du prochain intervalle");
+					break;
+				}
+			}
+		}
+	}
 }

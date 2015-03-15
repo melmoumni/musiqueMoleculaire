@@ -347,8 +347,53 @@ abstract class Controleur{
 			mol.analyseDistance();
 			mol.analyseIntensite();
 		}
+		analyseDistanceMaxDirectionnelle();
+		analyseMSD();
 		Collections.sort(molecules);
 	}
+
+	//remplit les champs minMSD et maxMSD de la classe Boucle
+	private static void analyseMSD() {
+		float minMSD = Float.MAX_VALUE;
+		float maxMSD = 0;
+		for (Molecule mol : molecules){
+			if (mol.getEffet().getClass().getName().equals("Confine")){
+				if (minMSD > mol.msd()){
+					minMSD = mol.msd();
+				}
+				if (maxMSD < mol.msd()){
+					maxMSD = mol.msd();
+				}
+			}
+		}
+		Boucle.setMinMSD(minMSD);
+		Boucle.setMaxMSD(maxMSD);
+	}
+
+
+	//Remplit le champs distanceMax de l'effet Glissando
+	private static void analyseDistanceMaxDirectionnelle() {
+		float maxDistance = 0;
+		if (isChercheur){
+			for (Molecule mol : molecules){
+				if (mol.getEffet().getClass().getName().equals("Directionnelle")){
+					if (mol.distance() > maxDistance){
+						maxDistance = mol.distance();
+					}
+				}
+			}
+		}else{
+			for (Molecule mol : molecules){
+				if (mol.getEffet().getClass().getName().equals("Directionnelle") || mol.getEffet().getClass().getName().equals("Diffusif")){
+					if (mol.distance() > maxDistance){
+						maxDistance = mol.distance();
+					}
+				}
+			}
+		}
+		Glissando.setDistanceMax(maxDistance);
+	}
+
 
 	static void remplirSequence(){
 		try{
