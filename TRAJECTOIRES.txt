@@ -1,0 +1,20 @@
+AffichageTrajectoires : 
+   AffichageTrajectoires (float largeur, float hauteur, int delaiRafraichissement, List<Molecule> molecules)
+      -> largeur : largeur de la VIDEO (pas de la fenetre d'affichage)
+      -> hauteur : hauteur de la VIDEO (pas de la fenetre d'affichage)
+      -> delaiRafraichissement : delai entre 2 mise à jour de l'écran
+      -> molecules : liste des Molecules qui seront à afficher
+
+   aFini() : retourne un boolean indiquant si toutes les trajectoires ont été entièrement dessinées ou non
+
+   dessinerTrajectoiresCompletes () : Affichage complet des trajectoires qui ont été fournies au constructeur
+
+   miseAJour() : met à jour l'écran en passant à l'image suivante
+
+   majTrajectoires(int temps) : met à jour l'écran en affichant l'image correspondant à temps * delaiRafraichissement (/!\ Ne permet pas de retourner en arrière dans l'affichage. majTrajectoires(50) suivi de majTrajectoires(25) = juste majTrajectoires(50))
+
+AffichagesTrajectoiresThread : 
+   Tentative de faire l'affichage de la vidéo en parallèle de la lecture de la musique
+
+FenetreTestPlayer : 
+   Fenetre servant à contenir le JPanel AffichageTrajectoires

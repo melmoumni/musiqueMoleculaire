@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,12 +71,34 @@ abstract class Controleur{
 	}
 
 	public static void printTrajectoires(){
-		//FenetreTrajectoires f= new FenetreTrajectoires(this.molecules());
-		JFrame jf = new JFrame("test");
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.setSize(ControleurFenetres.getLargeurVideo(), ControleurFenetres.getHauteurVideo());
-		jf.add(new JScrollPane(new FenetreTrajectoires(molecules())));
-		jf.setVisible(true);
+	    //FenetreTrajectoires f= new FenetreTrajectoires(this.molecules());
+	    JFrame jf = new JFrame("test");
+	    //AffichageTrajectoiresThread att = new AffichageTrajectoiresThread(ControleurFenetres.getLargeurVideo(), ControleurFenetres.getHauteurVideo(), 20, molecules);
+	    AffichageTrajectoires att = new AffichageTrajectoires(ControleurFenetres.getLargeurVideo(), ControleurFenetres.getHauteurVideo(), 20, molecules);
+	    jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    jf.add(new JScrollPane(att));
+	    //jf.add(new JScrollPane(att.getAffichage()));
+	    //jf.add(new JScrollPane(new FenetreTrajectoires(molecules)));
+	    jf.setBackground(Color.BLACK);
+	    jf.setVisible(true);
+	    //jf.revalidate();
+
+
+	    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+	    att.setSize((int)d.getWidth(), (int)d.getHeight());
+	    
+	    jf.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+	    jf.setResizable(false);
+	
+
+	    try{		
+		//att.run();
+		while(!att.aFini()){
+		    att.miseAJour();
+		}
+	    } catch(InterruptedException e){
+		e.printStackTrace();
+	    }
 	}
 
 	public static void initMolecules(String cheminTraj, String cheminAnalyse, String cheminTimbre) throws IOException{
