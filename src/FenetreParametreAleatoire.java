@@ -21,7 +21,9 @@ public class FenetreParametreAleatoire extends JFrame {
 	private JSpinner spinner;
 	private JComboBox<String> comboBox_1;
 	private JSlider sliderVol; 
-	private JSlider sliderInt; 
+	private JSlider sliderInt;
+	private JComboBox<String> comboTimbre;
+
 
 	/**
 	 * 
@@ -60,7 +62,7 @@ public class FenetreParametreAleatoire extends JFrame {
 		listeEffets.add("Aleatoire");
 
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 498, 357);
+		setBounds(100, 100, 498, 422);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -111,9 +113,24 @@ public class FenetreParametreAleatoire extends JFrame {
 		sliderVol.setBounds(140, 155, 207, 46);
 		sliderVol.setValue(mol.getVolume());
 		contentPane.add(sliderVol);
+		
+		JLabel lblTimbre = new JLabel("Timbre :");
+		lblTimbre.setBounds(12, 237, 56, 16);
+		contentPane.add(lblTimbre);
+		
+		ArrayList<String> listeTimbres = new ArrayList<String>();		
+		for (int i = 0 ; i < 128 ; i++){
+			listeTimbres.add(Integer.toString(Controleur.tableauTimbre[i].timbreMIDI()) + " - " + Controleur.tableauTimbre[i].nom());
+		}
+
+		
+		comboTimbre = new JComboBox(listeTimbres.toArray());
+		comboTimbre.setBounds(151, 234, 158, 22);
+		comboTimbre.setSelectedIndex(mol.getTimbre().timbreMIDI() - 1);
+		contentPane.add(comboTimbre);
 
 		JLabel lblIntervalleEntre = new JLabel("<html>Intervalle entre 2 notes :<br> (1 => 1 noire)</html>");
-		lblIntervalleEntre.setBounds(12, 209, 107, 66);
+		lblIntervalleEntre.setBounds(12, 269, 107, 66);
 		contentPane.add(lblIntervalleEntre);
 
 		class JFloatSlider extends JSlider
@@ -151,7 +168,7 @@ public class FenetreParametreAleatoire extends JFrame {
 		}
 
 		sliderInt = new JFloatSlider(0,(float) 0, (float) 4, (float) ((Aleatoire) mol.getEffet()).interNote()/Controleur.dureeNoire, (float) 1);
-		sliderInt.setBounds(151, 213, 200, 50);
+		sliderInt.setBounds(151, 273, 200, 50);
 		contentPane.add(sliderInt);
 
 		JButton btnValider = new JButton("Valider");
@@ -160,6 +177,7 @@ public class FenetreParametreAleatoire extends JFrame {
 				System.out.println(((JFloatSlider) sliderInt).getFloatValue());
 				mol.setNote((int) spinner.getValue());
 				mol.setVolume(sliderVol.getValue());
+				mol.setTimbre(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
 				((Aleatoire) mol.getEffet()).setInterNote((int) (((JFloatSlider) sliderInt).getFloatValue()*Controleur.dureeNoire));
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
@@ -183,7 +201,7 @@ public class FenetreParametreAleatoire extends JFrame {
 
 			}
 		});
-		btnValider.setBounds(194, 272, 87, 25);
+		btnValider.setBounds(191, 337, 87, 25);
 		contentPane.add(btnValider);
 
 

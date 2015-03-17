@@ -22,6 +22,7 @@ public class FenetreParametreBoucle extends JFrame {
 	private JSlider sliderVol; 
 	private JSlider sliderInt;
 	private JSlider sliderAmp;
+	private JComboBox<String> comboTimbre;
 
 	
 	/**
@@ -61,7 +62,7 @@ public class FenetreParametreBoucle extends JFrame {
 		listeEffets.add("Aleatoire");
 		
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 519, 432);
+		setBounds(100, 100, 520, 499);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -113,9 +114,24 @@ public class FenetreParametreBoucle extends JFrame {
 		sliderVol.setBounds(140, 155, 207, 46);
 		sliderVol.setValue(mol.getVolume());
 		contentPane.add(sliderVol);
+
+		JLabel lblTimbre = new JLabel("Timbre :");
+		lblTimbre.setBounds(12, 237, 56, 16);
+		contentPane.add(lblTimbre);
+		
+		ArrayList<String> listeTimbres = new ArrayList<String>();		
+		for (int i = 0 ; i < 128 ; i++){
+			listeTimbres.add(Integer.toString(Controleur.tableauTimbre[i].timbreMIDI()) + " - " + Controleur.tableauTimbre[i].nom());
+		}
+
+		
+		comboTimbre = new JComboBox(listeTimbres.toArray());
+		comboTimbre.setBounds(151, 234, 158, 22);
+		comboTimbre.setSelectedIndex(mol.getTimbre().timbreMIDI() - 1);
+		contentPane.add(comboTimbre);
 		
 		JLabel lblIntervalleEntre = new JLabel("<html>Intervalle entre 2 notes :<br> (1 => 1 noire)</html>");
-		lblIntervalleEntre.setBounds(12, 209, 107, 66);
+		lblIntervalleEntre.setBounds(12, 269, 107, 66);
 		contentPane.add(lblIntervalleEntre);
 
 		class JFloatSlider extends JSlider
@@ -154,11 +170,11 @@ public class FenetreParametreBoucle extends JFrame {
 
 		
 		sliderInt = new JFloatSlider(0,(float) 0, (float) 4, (float) ((Boucle) mol.getEffet()).interNote()/Controleur.dureeNoire, (float) 1);
-		sliderInt.setBounds(151, 213, 200, 50);
+		sliderInt.setBounds(151, 273, 200, 50);
 		contentPane.add(sliderInt);
 		
 		JLabel lblAmplitudeDeLa = new JLabel("Amplitude de la boucle :");
-		lblAmplitudeDeLa.setBounds(12, 288, 146, 30);
+		lblAmplitudeDeLa.setBounds(12, 361, 146, 30);
 		contentPane.add(lblAmplitudeDeLa);
 		
 		sliderAmp = new JSlider();
@@ -169,7 +185,7 @@ public class FenetreParametreBoucle extends JFrame {
 		sliderAmp.setMinimum(2);
 		sliderAmp.setMaximum(9);
 		sliderAmp.setMajorTickSpacing(1);
-		sliderAmp.setBounds(177, 283, 229, 52);
+		sliderAmp.setBounds(176, 349, 229, 52);
 		sliderAmp.setValue(((Boucle) mol.getEffet()).nbNotes());
 		System.out.println("nbNotes value : " + sliderAmp.getValue());
 		contentPane.add(sliderAmp);
@@ -179,6 +195,7 @@ public class FenetreParametreBoucle extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				mol.setNote((int) spinner.getValue());
 				mol.setVolume(sliderVol.getValue());
+				mol.setTimbre(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
 				((Boucle) mol.getEffet()).setNbNotes(sliderAmp.getValue());
 				((Boucle) mol.getEffet()).setInterNote((int) (((JFloatSlider) sliderInt).getFloatValue()*Controleur.dureeNoire));
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
@@ -203,7 +220,7 @@ public class FenetreParametreBoucle extends JFrame {
 
 			}
 		});
-		btnValider.setBounds(200, 348, 87, 25);
+		btnValider.setBounds(200, 414, 87, 25);
 		contentPane.add(btnValider);
 
 		

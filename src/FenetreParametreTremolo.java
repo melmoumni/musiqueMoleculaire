@@ -21,6 +21,7 @@ public class FenetreParametreTremolo extends JFrame {
 	private JSlider sliderVol; 
 	private JSlider sliderFreq;
 	private JSlider sliderAmpl; 
+	private JComboBox<String> comboTimbre;
 
 	
 	/**
@@ -60,7 +61,7 @@ public class FenetreParametreTremolo extends JFrame {
 		listeEffets.add("Aleatoire");
 		
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 541, 427);
+		setBounds(100, 100, 540, 482);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -112,12 +113,27 @@ public class FenetreParametreTremolo extends JFrame {
 		sliderVol.setValue(mol.getVolume());
 		contentPane.add(sliderVol);
 		
+		JLabel lblTimbre = new JLabel("Timbre :");
+		lblTimbre.setBounds(12, 237, 56, 16);
+		contentPane.add(lblTimbre);
+		
+		ArrayList<String> listeTimbres = new ArrayList<String>();		
+		for (int i = 0 ; i < 128 ; i++){
+			listeTimbres.add(Integer.toString(Controleur.tableauTimbre[i].timbreMIDI()) + " - " + Controleur.tableauTimbre[i].nom());
+		}
+
+		
+		comboTimbre = new JComboBox(listeTimbres.toArray());
+		comboTimbre.setBounds(151, 234, 158, 22);
+		comboTimbre.setSelectedIndex(mol.getTimbre().timbreMIDI() - 1);
+		contentPane.add(comboTimbre);
+		
 		JLabel lblAmplitudeDuTremolo = new JLabel("Amplitude du tremolo :");
-		lblAmplitudeDuTremolo.setBounds(12, 214, 144, 22);
+		lblAmplitudeDuTremolo.setBounds(12, 290, 144, 22);
 		contentPane.add(lblAmplitudeDuTremolo);
 		
 		JLabel lblFrequenceDuTremolo = new JLabel("Frequence du tremolo :");
-		lblFrequenceDuTremolo.setBounds(12, 265, 144, 22);
+		lblFrequenceDuTremolo.setBounds(12, 348, 144, 22);
 		contentPane.add(lblFrequenceDuTremolo);
 		
 		sliderAmpl = new JSlider();
@@ -129,7 +145,7 @@ public class FenetreParametreTremolo extends JFrame {
 		sliderAmpl.setMajorTickSpacing(2);
 		sliderAmpl.setMinimum(1);
 		sliderAmpl.setMaximum(10);
-		sliderAmpl.setBounds(185, 210, 235, 52);
+		sliderAmpl.setBounds(185, 277, 235, 52);
 		sliderAmpl.setValue(((Tremolo) mol.getEffet()).variationNote());
 		contentPane.add(sliderAmpl);
 		
@@ -139,7 +155,7 @@ public class FenetreParametreTremolo extends JFrame {
 		sliderFreq.setMinorTickSpacing(1);
 		sliderFreq.setMinimum(1);
 		sliderFreq.setMajorTickSpacing(49);
-		sliderFreq.setBounds(185, 265, 235, 52);
+		sliderFreq.setBounds(185, 342, 235, 52);
 		sliderFreq.setValue(((Tremolo) mol.getEffet()).nombrePas());
 		contentPane.add(sliderFreq);
 		
@@ -148,6 +164,7 @@ public class FenetreParametreTremolo extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				mol.setNote((int) spinner.getValue());
 				mol.setVolume(sliderVol.getValue());
+				mol.setTimbre(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
 				((Tremolo) mol.getEffet()).setNombrePas(sliderFreq.getValue());
 				((Tremolo) mol.getEffet()).setVariationNote(sliderAmpl.getValue());
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
@@ -172,7 +189,7 @@ public class FenetreParametreTremolo extends JFrame {
 
 			}
 		});
-		btnValider.setBounds(227, 342, 87, 25);
+		btnValider.setBounds(227, 397, 87, 25);
 		contentPane.add(btnValider);
 
 		

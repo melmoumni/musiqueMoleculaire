@@ -20,6 +20,7 @@ public class FenetreParametreGlissando extends JFrame {
 	private JComboBox<String> comboBox_1;
 	private JSlider sliderVol; 
 	private JSlider sliderMol; 
+	private JComboBox<String> comboTimbre;
 
 	
 	/**
@@ -59,7 +60,7 @@ public class FenetreParametreGlissando extends JFrame {
 		listeEffets.add("Aleatoire");
 		
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 502, 368);
+		setBounds(100, 100, 503, 452);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -112,23 +113,39 @@ public class FenetreParametreGlissando extends JFrame {
 		sliderMol.setSnapToTicks(true);
 		sliderMol.setMajorTickSpacing(10);
 		sliderMol.setMaximum(64);
-		sliderMol.setBounds(140, 214, 212, 56);
+		sliderMol.setBounds(150, 285, 212, 56);
 		sliderMol.setValue(((Glissando) mol.getEffet()).molette());
 		contentPane.add(sliderMol);
 		
 		JLabel lblMolette = new JLabel("Molette : ");
-		lblMolette.setBounds(12, 220, 56, 16);
+		lblMolette.setBounds(12, 297, 56, 16);
 		contentPane.add(lblMolette);
 		
 		JLabel lblilVousFaudra = new JLabel("<html>(il vous faudra recharger la fenetre de parametre de la molecule)</html>");
 		lblilVousFaudra.setBounds(263, 91, 207, 56);
 		contentPane.add(lblilVousFaudra);
 		
+		JLabel lblTimbre = new JLabel("Timbre :");
+		lblTimbre.setBounds(12, 237, 56, 16);
+		contentPane.add(lblTimbre);
+		
+		ArrayList<String> listeTimbres = new ArrayList<String>();		
+		for (int i = 0 ; i < 128 ; i++){
+			listeTimbres.add(Integer.toString(Controleur.tableauTimbre[i].timbreMIDI()) + " - " + Controleur.tableauTimbre[i].nom());
+		}
+
+		
+		comboTimbre = new JComboBox(listeTimbres.toArray());
+		comboTimbre.setBounds(151, 234, 158, 22);
+		comboTimbre.setSelectedIndex(mol.getTimbre().timbreMIDI() - 1);
+		contentPane.add(comboTimbre);
+		
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mol.setNote((int) spinner.getValue());
 				mol.setVolume(sliderVol.getValue());
+				mol.setTimbre(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
 				((Glissando) mol.getEffet()).setMolette(sliderMol.getValue());
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
@@ -151,7 +168,7 @@ public class FenetreParametreGlissando extends JFrame {
 				dispose();
 			}
 		});
-		btnValider.setBounds(196, 283, 87, 25);
+		btnValider.setBounds(189, 367, 87, 25);
 		contentPane.add(btnValider);
 
 		

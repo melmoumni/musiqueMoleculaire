@@ -15,9 +15,10 @@ import javax.swing.JSlider;
 
 public class FenetreParametreTenu extends JFrame {
 
-	JSpinner spinner;
-	JComboBox<String> comboBox_1;
-	JSlider sliderVol; 
+	private JSpinner spinner;
+	private JComboBox<String> comboBox_1;
+	private JSlider sliderVol; 
+	private JComboBox<String> comboTimbre;
 	
 	/**
 	 * 
@@ -57,7 +58,7 @@ public class FenetreParametreTenu extends JFrame {
 		listeEffets.add("Aleatoire");
 		
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 488, 299);
+		setBounds(100, 100, 489, 373);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -109,13 +110,29 @@ public class FenetreParametreTenu extends JFrame {
 		sliderVol.setValue(mol.getVolume());
 		contentPane.add(sliderVol);
 		
+		
+		JLabel lblTimbre = new JLabel("Timbre :");
+		lblTimbre.setBounds(12, 237, 56, 16);
+		contentPane.add(lblTimbre);
+		
+		ArrayList<String> listeTimbres = new ArrayList<String>();		
+		for (int i = 0 ; i < 128 ; i++){
+			listeTimbres.add(Integer.toString(Controleur.tableauTimbre[i].timbreMIDI()) + " - " + Controleur.tableauTimbre[i].nom());
+		}
 
+		
+		comboTimbre = new JComboBox(listeTimbres.toArray());
+		comboTimbre.setBounds(151, 234, 158, 22);
+		comboTimbre.setSelectedIndex(mol.getTimbre().timbreMIDI() - 1);
+		contentPane.add(comboTimbre);
+						
 		
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mol.setNote((int) spinner.getValue());
 				mol.setVolume(sliderVol.getValue());
+				mol.setTimbre(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Glissando":
@@ -137,9 +154,7 @@ public class FenetreParametreTenu extends JFrame {
 				dispose();
 			}
 		});
-		btnValider.setBounds(185, 214, 87, 25);
-		contentPane.add(btnValider);
-				
-		
+		btnValider.setBounds(184, 283, 87, 25);
+		contentPane.add(btnValider);		
 	}
 }
