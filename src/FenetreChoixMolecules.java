@@ -24,13 +24,17 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.BoxLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 
 
 public class FenetreChoixMolecules extends JFrame{
 
 	private Molecule moleculePropriete;
-	
+
 	private ArrayList<Molecule> ListeImmobile;
 	private ArrayList<Molecule> ListeConfine;
 	private ArrayList<Molecule> ListeDirectionnelle;
@@ -39,13 +43,13 @@ public class FenetreChoixMolecules extends JFrame{
 	private ArrayList<JCheckBox> ListCheckBoxConfine;
 	private ArrayList<JCheckBox> ListCheckBoxDirectionnelle;
 	private ArrayList<JCheckBox> ListCheckBoxAleatoire;
-	
+
 	private JPanel panelBasGauche;
-	
+
 	private JSpinner spinnerNbMol;
 	private JSpinner spinnerIntensite;
 	private JSpinner spinnerPoints;
-	
+
 	ArrayList<Molecule> ListeDynamique;
 	/**
 	 * 
@@ -56,14 +60,14 @@ public class FenetreChoixMolecules extends JFrame{
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
+
 		try {
 			Controleur.initMolecules("./data/trajectoires.trc","./data/analyse.txt", "./data/listeInstruments.txt");
 			Controleur.analyseMolecules();
 		}
 		catch (IOException e) {
 		}
-		
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -93,7 +97,7 @@ public class FenetreChoixMolecules extends JFrame{
 				addMouseListener(new PopupTriggerListener());
 				moleculePropriete = mol;
 			}
-			
+
 			class PopupTriggerListener extends MouseAdapter {
 				public void mousePressed(MouseEvent ev) {
 					if (ev.isPopupTrigger()) {
@@ -158,12 +162,12 @@ public class FenetreChoixMolecules extends JFrame{
 					break;
 				default:
 					break;
-				
+
 				}
 			}
 		});
 		menu.add(item);
-		
+
 		ListeImmobile = new ArrayList<Molecule>();
 		ListeConfine = new ArrayList<Molecule>();
 		ListeDirectionnelle = new ArrayList<Molecule>();
@@ -172,82 +176,82 @@ public class FenetreChoixMolecules extends JFrame{
 		ListCheckBoxConfine = new ArrayList<JCheckBox>();
 		ListCheckBoxDirectionnelle = new ArrayList<JCheckBox>();
 		ListCheckBoxAleatoire = new ArrayList<JCheckBox>();
-		
+
 		Controleur.trierMolecules(ListeImmobile, ListeConfine, ListeDirectionnelle, ListeAleatoire);
 
 		this.setResizable(false);
-	    setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    getContentPane().setLayout(null);
-	    
-	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-	    dim.width -= 50;
-		setBounds(0, 0, (int) dim.getWidth(), (int) dim.getHeight());
-	    
-	    JPanel panelHautGauche = new JPanel();
-	    panelHautGauche.setBounds(0, 0, (int) (2*dim.getWidth()/3), (int) dim.getHeight() / 2);
-	    FenetreTrajectoires TrajectoiresHaut = new FenetreTrajectoires(Controleur.molecules(), (int) (2*dim.getWidth()/3), (int) dim.getHeight()/2); 
-	    panelHautGauche.add(new JScrollPane(TrajectoiresHaut));
-	    panelHautGauche.setVisible(true);
-	    getContentPane().add(panelHautGauche);
-	    
-	    panelBasGauche = new JPanel();
-	    panelBasGauche.setBounds(0, (int) dim.getHeight() / 2, (int) (2*dim.getWidth()/3), (int) dim.getHeight() / 2);
-	    ListeDynamique = new ArrayList<Molecule>(Controleur.molecules());
-	    FenetreTrajectoires TrajectoiresBas = new FenetreTrajectoires(ListeDynamique, (int) (2*dim.getWidth()/3), (int) dim.getHeight()/2); 
-	    panelBasGauche.add(new JScrollPane(TrajectoiresBas));
-	    panelBasGauche.setVisible(true);
-	    getContentPane().add(panelBasGauche);
+		getContentPane().setLayout(null);
 
-	    
-	    ActionListener actionListener = new ActionListener() {
-	        public void actionPerformed(ActionEvent actionEvent) {
-	          AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
-	          boolean selected = abstractButton.getModel().isSelected();
-	          ArrayList<Molecule> typeMolecule = ListeImmobile;
-	          int indice = 0;
-	          for (JCheckBox jc : ListCheckBoxImmobile){
-	        	  if (jc.equals(abstractButton)){
-	        		  typeMolecule = ListeImmobile;
-	        		  indice = ListCheckBoxImmobile.indexOf(jc);
-	        	  }
-	          }
-	          for (JCheckBox jc : ListCheckBoxConfine){
-	        	  if (jc.equals(abstractButton)){
-	        		  typeMolecule = ListeConfine;
-	        		  indice = ListCheckBoxConfine.indexOf(jc);
-	        	  }
-	          }
-	          for (JCheckBox jc : ListCheckBoxDirectionnelle){
-	        	  if (jc.equals(abstractButton)){
-	        		  typeMolecule = ListeDirectionnelle;
-	        		  indice = ListCheckBoxDirectionnelle.indexOf(jc);
-	        	  }
-	          }
-	          for (JCheckBox jc : ListCheckBoxAleatoire){
-	        	  if (jc.equals(abstractButton)){
-	        		  typeMolecule = ListeAleatoire;
-	        		  indice = ListCheckBoxAleatoire.indexOf(jc);
-	        	  }
-	          }
-	          if (selected){
-	        	  abstractButton.setFont(new Font("default", Font.BOLD, 12));
-	        	  ListeDynamique.add(typeMolecule.get(indice));
-	          }
-	          else {
-	        	  abstractButton.setFont(new Font("default", Font.PLAIN, 12));
-	        	  ListeDynamique.remove(typeMolecule.get(indice));
-	          }
-	          panelBasGauche.revalidate();
-	          panelBasGauche.repaint();
-	        }
-	      };
-	    
-	    	    
-	    JPanel panelDroit = new JPanel();
-	    panelDroit.setBounds((int) (2*dim.getWidth()/3), 10,(int) (1*dim.getWidth()/3), (int) dim.getHeight());
-	    getContentPane().add(panelDroit);
-	    panelDroit.setLayout(null);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		dim.width -= 50;
+		setBounds(0, 0, (int) dim.getWidth(), (int) dim.getHeight());
+
+		JPanel panelHautGauche = new JPanel();
+		panelHautGauche.setBounds(0, 0, (int) (2*dim.getWidth()/3), (int) dim.getHeight() / 2);
+		FenetreTrajectoires TrajectoiresHaut = new FenetreTrajectoires(Controleur.molecules(), (int) (2*dim.getWidth()/3), (int) dim.getHeight()/2); 
+		panelHautGauche.add(new JScrollPane(TrajectoiresHaut));
+		panelHautGauche.setVisible(true);
+		getContentPane().add(panelHautGauche);
+
+		panelBasGauche = new JPanel();
+		panelBasGauche.setBounds(0, (int) dim.getHeight() / 2, (int) (2*dim.getWidth()/3), (int) dim.getHeight() / 2);
+		ListeDynamique = new ArrayList<Molecule>(Controleur.molecules());
+		FenetreTrajectoires TrajectoiresBas = new FenetreTrajectoires(ListeDynamique, (int) (2*dim.getWidth()/3), (int) dim.getHeight()/2); 
+		panelBasGauche.add(new JScrollPane(TrajectoiresBas));
+		panelBasGauche.setVisible(true);
+		getContentPane().add(panelBasGauche);
+
+
+		ActionListener actionListener = new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
+				boolean selected = abstractButton.getModel().isSelected();
+				ArrayList<Molecule> typeMolecule = ListeImmobile;
+				int indice = 0;
+				for (JCheckBox jc : ListCheckBoxImmobile){
+					if (jc.equals(abstractButton)){
+						typeMolecule = ListeImmobile;
+						indice = ListCheckBoxImmobile.indexOf(jc);
+					}
+				}
+				for (JCheckBox jc : ListCheckBoxConfine){
+					if (jc.equals(abstractButton)){
+						typeMolecule = ListeConfine;
+						indice = ListCheckBoxConfine.indexOf(jc);
+					}
+				}
+				for (JCheckBox jc : ListCheckBoxDirectionnelle){
+					if (jc.equals(abstractButton)){
+						typeMolecule = ListeDirectionnelle;
+						indice = ListCheckBoxDirectionnelle.indexOf(jc);
+					}
+				}
+				for (JCheckBox jc : ListCheckBoxAleatoire){
+					if (jc.equals(abstractButton)){
+						typeMolecule = ListeAleatoire;
+						indice = ListCheckBoxAleatoire.indexOf(jc);
+					}
+				}
+				if (selected){
+					abstractButton.setFont(new Font("default", Font.BOLD, 12));
+					ListeDynamique.add(typeMolecule.get(indice));
+				}
+				else {
+					abstractButton.setFont(new Font("default", Font.PLAIN, 12));
+					ListeDynamique.remove(typeMolecule.get(indice));
+				}
+				panelBasGauche.revalidate();
+				panelBasGauche.repaint();
+			}
+		};
+
+
+		JPanel panelDroit = new JPanel();
+		panelDroit.setBounds((int) (2*dim.getWidth()/3), 10,(int) (1*dim.getWidth()/3), (int) dim.getHeight());
+		getContentPane().add(panelDroit);
+		panelDroit.setLayout(null);
 		Box boxHautGauche = Box.createVerticalBox();
 		for (Molecule mol : ListeImmobile){
 			JCheckBox j = new MyJCheckBox("Immobile "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")", mol);
@@ -280,261 +284,305 @@ public class FenetreChoixMolecules extends JFrame{
 			boxBasDroit.add(j);
 			ListCheckBoxAleatoire.add(j);
 		}	    
-	    
-	    JScrollPane scrollPaneHautGauche = new JScrollPane(boxHautGauche);
-	    scrollPaneHautGauche.setBounds(0, 15, panelDroit.getWidth()/2 -50 , panelDroit.getHeight()/4);
-	    panelDroit.add(scrollPaneHautGauche);
-	    
-	    JScrollPane scrollPaneHautDroit = new JScrollPane(boxHautDroit);
-	    scrollPaneHautDroit.setBounds(panelDroit.getWidth()/2, 15, panelDroit.getWidth()/2 -50 , panelDroit.getHeight()/4);
-	    panelDroit.add(scrollPaneHautDroit);
-	    
-	    JScrollPane scrollPaneBasGauche = new JScrollPane(boxBasGauche);
-	    scrollPaneBasGauche.setBounds(0, panelDroit.getHeight()/3, panelDroit.getWidth()/2 - 50, panelDroit.getHeight()/4);
-	    panelDroit.add(scrollPaneBasGauche);
-	    
-	    JScrollPane scrollPaneBasDroit = new JScrollPane(boxBasDroit);
-	    scrollPaneBasDroit.setBounds(panelDroit.getWidth()/2, panelDroit.getHeight()/3, panelDroit.getWidth()/2 -50 , panelDroit.getHeight()/4);
-	    panelDroit.add(scrollPaneBasDroit);
-	    
-	    JButton buttonCocherImmobile = new JButton("Tout cocher");
-	    buttonCocherImmobile.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
-	    		for (JCheckBox jc : ListCheckBoxImmobile){
-	    			jc.setSelected(true);
-	    			jc.setFont(new Font("default", Font.BOLD, 12));
-	    		}
-	    		for (Molecule mol : ListeImmobile){
-	    			if (!(ListeDynamique.contains(mol))){
-	    				ListeDynamique.add(mol);
-	    			}
-	    		}
-	    		panelBasGauche.revalidate();
-	    		panelBasGauche.repaint();
-	    	}
-	    });
-	    buttonCocherImmobile.setBounds(0, 291, 110, 25);
-	    panelDroit.add(buttonCocherImmobile);
-	    
-	    JButton buttonDecocherImmobile = new JButton("Tout decocher");
-	    buttonDecocherImmobile.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
-	    		for (JCheckBox jc : ListCheckBoxImmobile){
-	    			jc.setSelected(false);
-	    			jc.setFont(new Font("default", Font.PLAIN, 12));
-	    		}
-	    		for (Molecule mol : ListeImmobile){
-	    			if (ListeDynamique.contains(mol)){
-	    				ListeDynamique.remove(mol);
-	    			}
-	    		}
-	    		panelBasGauche.revalidate();
-	    		panelBasGauche.repaint();
-	    	}
-	    });
-	    buttonDecocherImmobile.setBounds(146, 291, 124, 25);
-	    panelDroit.add(buttonDecocherImmobile);
-	    
-	    JButton buttonCocherConfine = new JButton("Tout cocher");
-	    buttonCocherConfine.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
-	    		for (JCheckBox jc : ListCheckBoxConfine){
-	    			jc.setSelected(true);
-	    			jc.setFont(new Font("default", Font.BOLD, 12));
-	    		}
-	    		for (Molecule mol : ListeConfine){
-	    			if (!(ListeDynamique.contains(mol))){
-	    				ListeDynamique.add(mol);
-	    			}
-	    		}
-	    		panelBasGauche.revalidate();
-	    		panelBasGauche.repaint();
-	    	}
-	    });
-	    buttonCocherConfine.setBounds(320, 291, 110, 25);
-	    panelDroit.add(buttonCocherConfine);
-	    
-	    JButton buttonDecocherConfine = new JButton("Tout decocher");
-	    buttonDecocherConfine.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
-	    		for (JCheckBox jc : ListCheckBoxConfine){
-	    			jc.setSelected(false);
-	    			jc.setFont(new Font("default", Font.PLAIN, 12));
-	    		}
-	    		for (Molecule mol : ListeConfine){
-	    			if (ListeDynamique.contains(mol)){
-	    				ListeDynamique.remove(mol);
-	    			}
-	    		}
-	    		panelBasGauche.revalidate();
-	    		panelBasGauche.repaint();
-	    	}
-	    });
-	    buttonDecocherConfine.setBounds(466, 291, 124, 25);
-	    panelDroit.add(buttonDecocherConfine);
-	    
-	    JButton buttonCocherDirectionnelle = new JButton("Tout cocher");
-	    buttonCocherDirectionnelle.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
-	    		for (JCheckBox jc : ListCheckBoxDirectionnelle){
-	    			jc.setSelected(true);
-	    			jc.setFont(new Font("default", Font.BOLD, 12));
-	    		}
-	    		for (Molecule mol : ListeDirectionnelle){
-	    			if (!(ListeDynamique.contains(mol))){
-	    				ListeDynamique.add(mol);
-	    			}
-	    		}
-	    		panelBasGauche.revalidate();
-	    		panelBasGauche.repaint();
-	    	}
-	    });
-	    buttonCocherDirectionnelle.setBounds(0, 643, 110, 25);
-	    panelDroit.add(buttonCocherDirectionnelle);
-	    
-	    JButton buttonDecocherDirectionnelle = new JButton("Tout decocher");
-	    buttonDecocherDirectionnelle.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
-	    		for (JCheckBox jc : ListCheckBoxDirectionnelle){
-	    			jc.setSelected(false);
-	    			jc.setFont(new Font("default", Font.PLAIN, 12));
-	    		}
-	    		for (Molecule mol : ListeDirectionnelle){
-	    			if (ListeDynamique.contains(mol)){
-	    				ListeDynamique.remove(mol);
-	    			}
-	    		}
-	    		panelBasGauche.revalidate();
-	    		panelBasGauche.repaint();
-	    	}
-	    });
-	    buttonDecocherDirectionnelle.setBounds(146, 643, 124, 25);
-	    panelDroit.add(buttonDecocherDirectionnelle);
 
-	    JButton buttonCocherAleatoire = new JButton("Tout cocher");
-	    buttonCocherAleatoire.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
-	    		for (JCheckBox jc : ListCheckBoxAleatoire){
-	    			jc.setSelected(true);
-	    			jc.setFont(new Font("default", Font.BOLD, 12));
-	    		}
-	    		for (Molecule mol : ListeAleatoire){
-	    			if (!(ListeDynamique.contains(mol))){
-	    				ListeDynamique.add(mol);
-	    			}
-	    		}
-	    		panelBasGauche.revalidate();
-	    		panelBasGauche.repaint();
-	    	}
-	    });
-	    buttonCocherAleatoire.setBounds(320, 643, 110, 25);
-	    panelDroit.add(buttonCocherAleatoire);
-	    
-	    JButton buttonDecocherAleatoire = new JButton("Tout decocher");
-	    buttonDecocherAleatoire.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
-	    		for (JCheckBox jc : ListCheckBoxAleatoire){
-	    			jc.setSelected(false);
-	    			jc.setFont(new Font("default", Font.PLAIN, 12));
-	    		}
-	    		for (Molecule mol : ListeAleatoire){
-	    			if (ListeDynamique.contains(mol)){
-	    				ListeDynamique.remove(mol);
-	    			}
-	    		}
-	    		panelBasGauche.revalidate();
-	    		panelBasGauche.repaint();
-	    	}
-	    });
-	    buttonDecocherAleatoire.setBounds(466, 643, 124, 25);
-	    panelDroit.add(buttonDecocherAleatoire);
-	    
-	    JButton btnValider = new JButton("Valider le choix des proteines");
-	    btnValider.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
+		JLabel labelHautGauche = new JLabel("Immobile");
+		labelHautGauche.setBounds(panelDroit.getWidth()/4-50, 0, 53, 16);
+		panelDroit.add(labelHautGauche);
+
+		JLabel labelHautDroit = new JLabel("Confine");
+		labelHautDroit.setBounds(3*panelDroit.getWidth()/4 - 50 , 0, 43, 16);
+		panelDroit.add(labelHautDroit);
+
+		JLabel labelBasGauche = new JLabel("Directionnelle");
+		labelBasGauche.setBounds(panelDroit.getWidth()/4-53, panelDroit.getHeight()/3-15, 99, 16);
+		panelDroit.add(labelBasGauche);
+
+		JLabel labelBasDroit = new JLabel("Aleatoire");
+		labelBasDroit.setBounds(3*panelDroit.getWidth()/4 - 50, panelDroit.getHeight()/3-15, 51, 16);
+		panelDroit.add(labelBasDroit);
+
+
+		JScrollPane scrollPaneHautGauche = new JScrollPane(boxHautGauche);
+		scrollPaneHautGauche.setBounds(0, 15, panelDroit.getWidth()/2 -50 , panelDroit.getHeight()/4);
+		panelDroit.add(scrollPaneHautGauche);
+
+		JScrollPane scrollPaneHautDroit = new JScrollPane(boxHautDroit);
+		scrollPaneHautDroit.setBounds(panelDroit.getWidth()/2, 15, panelDroit.getWidth()/2 -50 , panelDroit.getHeight()/4);
+		panelDroit.add(scrollPaneHautDroit);
+
+		JScrollPane scrollPaneBasGauche = new JScrollPane(boxBasGauche);
+		scrollPaneBasGauche.setBounds(0, panelDroit.getHeight()/3, panelDroit.getWidth()/2 - 50, panelDroit.getHeight()/4);
+		panelDroit.add(scrollPaneBasGauche);
+
+		JScrollPane scrollPaneBasDroit = new JScrollPane(boxBasDroit);
+		scrollPaneBasDroit.setBounds(panelDroit.getWidth()/2, panelDroit.getHeight()/3, panelDroit.getWidth()/2 -50 , panelDroit.getHeight()/4);
+		panelDroit.add(scrollPaneBasDroit);
+
+		JButton buttonCocherImmobile = new JButton("Tout cocher");
+		buttonCocherImmobile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (JCheckBox jc : ListCheckBoxImmobile){
+					jc.setSelected(true);
+					jc.setFont(new Font("default", Font.BOLD, 12));
+				}
+				for (Molecule mol : ListeImmobile){
+					if (!(ListeDynamique.contains(mol))){
+						ListeDynamique.add(mol);
+					}
+				}
+				panelBasGauche.revalidate();
+				panelBasGauche.repaint();
+			}
+		});
+		buttonCocherImmobile.setBounds(0, panelDroit.getHeight()/4 + 25, 110, 25);
+		panelDroit.add(buttonCocherImmobile);
+
+		JButton buttonDecocherImmobile = new JButton("Tout decocher");
+		buttonDecocherImmobile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (JCheckBox jc : ListCheckBoxImmobile){
+					jc.setSelected(false);
+					jc.setFont(new Font("default", Font.PLAIN, 12));
+				}
+				for (Molecule mol : ListeImmobile){
+					if (ListeDynamique.contains(mol)){
+						ListeDynamique.remove(mol);
+					}
+				}
+				panelBasGauche.revalidate();
+				panelBasGauche.repaint();
+			}
+		});
+		buttonDecocherImmobile.setBounds(panelDroit.getWidth()/2 -50 - 124, panelDroit.getHeight()/4 + 25, 124, 25);
+		panelDroit.add(buttonDecocherImmobile);
+
+		JButton buttonCocherConfine = new JButton("Tout cocher");
+		buttonCocherConfine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (JCheckBox jc : ListCheckBoxConfine){
+					jc.setSelected(true);
+					jc.setFont(new Font("default", Font.BOLD, 12));
+				}
+				for (Molecule mol : ListeConfine){
+					if (!(ListeDynamique.contains(mol))){
+						ListeDynamique.add(mol);
+					}
+				}
+				panelBasGauche.revalidate();
+				panelBasGauche.repaint();
+			}
+		});
+		buttonCocherConfine.setBounds(panelDroit.getWidth()/2, panelDroit.getHeight()/4 + 25, 110, 25);
+		panelDroit.add(buttonCocherConfine);
+
+		JButton buttonDecocherConfine = new JButton("Tout decocher");
+		buttonDecocherConfine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (JCheckBox jc : ListCheckBoxConfine){
+					jc.setSelected(false);
+					jc.setFont(new Font("default", Font.PLAIN, 12));
+				}
+				for (Molecule mol : ListeConfine){
+					if (ListeDynamique.contains(mol)){
+						ListeDynamique.remove(mol);
+					}
+				}
+				panelBasGauche.revalidate();
+				panelBasGauche.repaint();
+			}
+		});
+		buttonDecocherConfine.setBounds(panelDroit.getWidth() - 50 -124, panelDroit.getHeight()/4 + 25, 124, 25);
+		panelDroit.add(buttonDecocherConfine);
+
+		JButton buttonCocherDirectionnelle = new JButton("Tout cocher");
+		buttonCocherDirectionnelle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (JCheckBox jc : ListCheckBoxDirectionnelle){
+					jc.setSelected(true);
+					jc.setFont(new Font("default", Font.BOLD, 12));
+				}
+				for (Molecule mol : ListeDirectionnelle){
+					if (!(ListeDynamique.contains(mol))){
+						ListeDynamique.add(mol);
+					}
+				}
+				panelBasGauche.revalidate();
+				panelBasGauche.repaint();
+			}
+		});
+		buttonCocherDirectionnelle.setBounds(0, panelDroit.getHeight()/3 + panelDroit.getHeight()/4 + 10, 110, 25);
+		panelDroit.add(buttonCocherDirectionnelle);
+
+		JButton buttonDecocherDirectionnelle = new JButton("Tout decocher");
+		buttonDecocherDirectionnelle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (JCheckBox jc : ListCheckBoxDirectionnelle){
+					jc.setSelected(false);
+					jc.setFont(new Font("default", Font.PLAIN, 12));
+				}
+				for (Molecule mol : ListeDirectionnelle){
+					if (ListeDynamique.contains(mol)){
+						ListeDynamique.remove(mol);
+					}
+				}
+				panelBasGauche.revalidate();
+				panelBasGauche.repaint();
+			}
+		});
+		buttonDecocherDirectionnelle.setBounds(panelDroit.getWidth()/2 -50 - 124, panelDroit.getHeight()/3 + panelDroit.getHeight()/4 + 10, 124, 25);
+		panelDroit.add(buttonDecocherDirectionnelle);
+
+		JButton buttonCocherAleatoire = new JButton("Tout cocher");
+		buttonCocherAleatoire.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (JCheckBox jc : ListCheckBoxAleatoire){
+					jc.setSelected(true);
+					jc.setFont(new Font("default", Font.BOLD, 12));
+				}
+				for (Molecule mol : ListeAleatoire){
+					if (!(ListeDynamique.contains(mol))){
+						ListeDynamique.add(mol);
+					}
+				}
+				panelBasGauche.revalidate();
+				panelBasGauche.repaint();
+			}
+		});
+		buttonCocherAleatoire.setBounds(panelDroit.getWidth()/2, panelDroit.getHeight()/3 + panelDroit.getHeight()/4 + 10, 110, 25);
+		panelDroit.add(buttonCocherAleatoire);
+
+		JButton buttonDecocherAleatoire = new JButton("Tout decocher");
+		buttonDecocherAleatoire.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for (JCheckBox jc : ListCheckBoxAleatoire){
+					jc.setSelected(false);
+					jc.setFont(new Font("default", Font.PLAIN, 12));
+				}
+				for (Molecule mol : ListeAleatoire){
+					if (ListeDynamique.contains(mol)){
+						ListeDynamique.remove(mol);
+					}
+				}
+				panelBasGauche.revalidate();
+				panelBasGauche.repaint();
+			}
+		});
+		buttonDecocherAleatoire.setBounds(panelDroit.getWidth() - 50 -124, panelDroit.getHeight()/3 + panelDroit.getHeight()/4 + 10, 124, 25);
+		panelDroit.add(buttonDecocherAleatoire);
+
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 678, 628, 337);
+		panelDroit.add(panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{75, 0, 0, 25, 0};
+		gbl_panel.rowHeights = new int[]{25, 0, 25, 0, 25, 0, 0, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
+
+		JLabel lblNombreDeMolcules = new JLabel("<html>Nombre de Molécules par catégorie :</html>");
+		GridBagConstraints gbc_lblNombreDeMolcules = new GridBagConstraints();
+		gbc_lblNombreDeMolcules.anchor = GridBagConstraints.WEST;
+		gbc_lblNombreDeMolcules.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNombreDeMolcules.gridx = 1;
+		gbc_lblNombreDeMolcules.gridy = 1;
+		panel.add(lblNombreDeMolcules, gbc_lblNombreDeMolcules);
+
+		spinnerNbMol = new JSpinner();
+		GridBagConstraints gbc_spinnerNbMol = new GridBagConstraints();
+		gbc_spinnerNbMol.insets = new Insets(0, 0, 5, 5);
+		gbc_spinnerNbMol.gridx = 2;
+		gbc_spinnerNbMol.gridy = 1;
+		panel.add(spinnerNbMol, gbc_spinnerNbMol);
+		spinnerNbMol.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), new Integer(0), new Integer(1)));
+		int maxNbMol = max(ListeAleatoire.size(),ListeConfine.size(),ListeDirectionnelle.size(),ListeImmobile.size());
+		if (maxNbMol >1){
+			spinnerNbMol.setValue(new Integer(2));
+		}
+
+
+		JButton btnSelectionAutomatique = new JButton("Selection automatique");
+		GridBagConstraints gbc_btnSelectionAutomatique = new GridBagConstraints();
+		gbc_btnSelectionAutomatique.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSelectionAutomatique.gridx = 4;
+		gbc_btnSelectionAutomatique.gridy = 1;
+		panel.add(btnSelectionAutomatique, gbc_btnSelectionAutomatique);
+		btnSelectionAutomatique.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				selectRandomMolecule((int) spinnerNbMol.getValue());
+			}
+		});
+
+		JLabel lblContraintes = new JLabel("Contraintes :");
+		GridBagConstraints gbc_lblContraintes = new GridBagConstraints();
+		gbc_lblContraintes.insets = new Insets(0, 0, 5, 5);
+		gbc_lblContraintes.gridx = 1;
+		gbc_lblContraintes.gridy = 3;
+		panel.add(lblContraintes, gbc_lblContraintes);
+		lblContraintes.setFont(new Font("Tahoma", Font.BOLD, 14));
+
+		JLabel lblNombreDePoints = new JLabel("Nombre de points minimum :");
+		GridBagConstraints gbc_lblNombreDePoints = new GridBagConstraints();
+		gbc_lblNombreDePoints.anchor = GridBagConstraints.WEST;
+		gbc_lblNombreDePoints.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNombreDePoints.gridx = 1;
+		gbc_lblNombreDePoints.gridy = 5;
+		panel.add(lblNombreDePoints, gbc_lblNombreDePoints);
+
+		spinnerPoints = new JSpinner();
+		GridBagConstraints gbc_spinnerPoints = new GridBagConstraints();
+		gbc_spinnerPoints.insets = new Insets(0, 0, 5, 5);
+		gbc_spinnerPoints.gridx = 2;
+		gbc_spinnerPoints.gridy = 5;
+		panel.add(spinnerPoints, gbc_spinnerPoints);
+		spinnerPoints.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+
+		JButton btnEnregistrerLesContraintes = new JButton("Enregistrer les contraintes");
+		GridBagConstraints gbc_btnEnregistrerLesContraintes = new GridBagConstraints();
+		gbc_btnEnregistrerLesContraintes.gridheight = 2;
+		gbc_btnEnregistrerLesContraintes.insets = new Insets(0, 0, 5, 5);
+		gbc_btnEnregistrerLesContraintes.gridx = 4;
+		gbc_btnEnregistrerLesContraintes.gridy = 5;
+		panel.add(btnEnregistrerLesContraintes, gbc_btnEnregistrerLesContraintes);
+		btnEnregistrerLesContraintes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				selectMoleculesContraintes((int) spinnerPoints.getValue(), (int) spinnerIntensite.getValue());
+			}
+		});
+
+		JLabel lblIntensite = new JLabel("Intensite minimum :");
+		GridBagConstraints gbc_lblIntensite = new GridBagConstraints();
+		gbc_lblIntensite.anchor = GridBagConstraints.WEST;
+		gbc_lblIntensite.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIntensite.gridx = 1;
+		gbc_lblIntensite.gridy = 6;
+		panel.add(lblIntensite, gbc_lblIntensite);
+
+		spinnerIntensite = new JSpinner();
+		GridBagConstraints gbc_spinnerIntensite = new GridBagConstraints();
+		gbc_spinnerIntensite.insets = new Insets(0, 0, 5, 5);
+		gbc_spinnerIntensite.gridx = 2;
+		gbc_spinnerIntensite.gridy = 6;
+		panel.add(spinnerIntensite, gbc_spinnerIntensite);
+		spinnerIntensite.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+
+		JButton btnValider = new JButton("Valider le choix des proteines");
+		GridBagConstraints gbc_btnValider = new GridBagConstraints();
+		gbc_btnValider.gridheight = 3;
+		gbc_btnValider.gridwidth = 5;
+		gbc_btnValider.insets = new Insets(0, 0, 0, 5);
+		gbc_btnValider.gridx = 1;
+		gbc_btnValider.gridy = 7;
+		panel.add(btnValider, gbc_btnValider);
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				Controleur.printTrajectoires();
 				Controleur.remplirSequence();
 				Midi.jouerSequence();
-	    	}
-	    });
-	    btnValider.setBounds(159, 912, 317, 67);
-	    panelDroit.add(btnValider);
-	    
-	    JButton btnSelectionAutomatique = new JButton("Selection automatique");
-	    btnSelectionAutomatique.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
-	    		selectRandomMolecule((int) spinnerNbMol.getValue());
-	    	}
-	    });
-	    btnSelectionAutomatique.setBounds(255, 711, 211, 25);
-	    panelDroit.add(btnSelectionAutomatique);
-	    
-	    spinnerNbMol = new JSpinner();
-	    int maxNbMol = max(ListeAleatoire.size(),ListeConfine.size(),ListeDirectionnelle.size(),ListeImmobile.size());
-	    System.out.println(maxNbMol);
-	    spinnerNbMol.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), new Integer(maxNbMol), new Integer(1)));
-	    if (maxNbMol >1){
-	    	spinnerNbMol.setValue(new Integer(2));
-	    }
-	    spinnerNbMol.setBounds(192, 711, 51, 25);
-	    panelDroit.add(spinnerNbMol);
-	    
-	    JLabel lblNombreDeMolcules = new JLabel("Nombre de Molécules");
-	    lblNombreDeMolcules.setBounds(53, 693, 139, 37);
-	    panelDroit.add(lblNombreDeMolcules);
-	    
-	    JLabel lblParCatgorie = new JLabel("par catégorie :");
-	    lblParCatgorie.setBounds(81, 714, 124, 27);
-	    panelDroit.add(lblParCatgorie);
-	    
-	    JLabel lblNombreDePoints = new JLabel("Nombre de points minimum :");
-	    lblNombreDePoints.setBounds(12, 789, 175, 37);
-	    panelDroit.add(lblNombreDePoints);
-	    
-	    JLabel lblContraintes = new JLabel("Contraintes :");
-	    lblContraintes.setFont(new Font("Tahoma", Font.BOLD, 14));
-	    lblContraintes.setBounds(12, 754, 124, 25);
-	    panelDroit.add(lblContraintes);
-	    
-	    JLabel lblIntensite = new JLabel("Intensite minimum :");
-	    lblIntensite.setBounds(12, 819, 124, 37);
-	    panelDroit.add(lblIntensite);
-	    
-	    spinnerPoints = new JSpinner();
-	    spinnerPoints.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-	    spinnerPoints.setBounds(186, 796, 51, 25);
-	    panelDroit.add(spinnerPoints);
-	    
-	    spinnerIntensite = new JSpinner();
-	    spinnerIntensite.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-	    spinnerIntensite.setBounds(186, 826, 51, 25);
-	    panelDroit.add(spinnerIntensite);
+			}
+		});
 
-	    JButton btnEnregistrerLesContraintes = new JButton("Enregistrer les contraintes");
-	    btnEnregistrerLesContraintes.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent arg0) {
-	    		selectMoleculesContraintes((int) spinnerPoints.getValue(), (int) spinnerIntensite.getValue());
-	    	}
-	    });
-	    btnEnregistrerLesContraintes.setBounds(255, 796, 211, 60);
-	    panelDroit.add(btnEnregistrerLesContraintes);
-	    
-		JLabel labelHautGauche = new JLabel("Immobile");
-		labelHautGauche.setBounds(97, 0, 53, 16);
-		panelDroit.add(labelHautGauche);
-		
-				JLabel labelHautDroit = new JLabel("Confine");
-				labelHautDroit.setBounds(423, 0, 43, 16);
-				panelDroit.add(labelHautDroit);
-				
-						JLabel labelBasGauche = new JLabel("Directionnelle");
-						labelBasGauche.setBounds(93, 342, 99, 16);
-						panelDroit.add(labelBasGauche);
-						
-						JLabel labelBasDroit = new JLabel("Aleatoire");
-						labelBasDroit.setBounds(425, 342, 51, 16);
-						panelDroit.add(labelBasDroit);
-	    
+
 	}
 
 	protected void selectMoleculesContraintes(int nbPoints, int minIntensite) {
