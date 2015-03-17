@@ -1,7 +1,11 @@
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,25 +17,20 @@ import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-
-import java.awt.event.ActionEvent;
-
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.BoxLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
-public class FenetreChoixMolecules extends JFrame{
+public class FenetreChoixMolecules extends JFrame implements ActionListener{
 
 	private Molecule moleculePropriete;
 
@@ -50,6 +49,8 @@ public class FenetreChoixMolecules extends JFrame{
 	private JSpinner spinnerIntensite;
 	private JSpinner spinnerPoints;
 
+	private JButton btnSave;
+	
 	ArrayList<Molecule> ListeDynamique;
 	/**
 	 * 
@@ -474,10 +475,10 @@ public class FenetreChoixMolecules extends JFrame{
 		panel.setBounds(0, 678, 628, 337);
 		panelDroit.add(panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{75, 0, 0, 25, 0};
-		gbl_panel.rowHeights = new int[]{25, 0, 25, 0, 25, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[]{25, 0, 0, 25, 0};
+		gbl_panel.rowHeights = new int[]{25, 0, 25, 0, 25, 0, 0, 50, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 
 		JLabel lblNombreDeMolcules = new JLabel("<html>Nombre de Molécules par catégorie :</html>");
@@ -503,7 +504,7 @@ public class FenetreChoixMolecules extends JFrame{
 
 		JButton btnSelectionAutomatique = new JButton("Selection automatique");
 		GridBagConstraints gbc_btnSelectionAutomatique = new GridBagConstraints();
-		gbc_btnSelectionAutomatique.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSelectionAutomatique.insets = new Insets(0, 0, 5, 0);
 		gbc_btnSelectionAutomatique.gridx = 4;
 		gbc_btnSelectionAutomatique.gridy = 1;
 		panel.add(btnSelectionAutomatique, gbc_btnSelectionAutomatique);
@@ -540,7 +541,7 @@ public class FenetreChoixMolecules extends JFrame{
 		JButton btnEnregistrerLesContraintes = new JButton("Enregistrer les contraintes");
 		GridBagConstraints gbc_btnEnregistrerLesContraintes = new GridBagConstraints();
 		gbc_btnEnregistrerLesContraintes.gridheight = 2;
-		gbc_btnEnregistrerLesContraintes.insets = new Insets(0, 0, 5, 5);
+		gbc_btnEnregistrerLesContraintes.insets = new Insets(0, 0, 5, 0);
 		gbc_btnEnregistrerLesContraintes.gridx = 4;
 		gbc_btnEnregistrerLesContraintes.gridy = 5;
 		panel.add(btnEnregistrerLesContraintes, gbc_btnEnregistrerLesContraintes);
@@ -568,11 +569,10 @@ public class FenetreChoixMolecules extends JFrame{
 
 		JButton btnValider = new JButton("Valider le choix des proteines");
 		GridBagConstraints gbc_btnValider = new GridBagConstraints();
-		gbc_btnValider.gridheight = 3;
-		gbc_btnValider.gridwidth = 5;
-		gbc_btnValider.insets = new Insets(0, 0, 0, 5);
+		gbc_btnValider.gridwidth = 3;
+		gbc_btnValider.insets = new Insets(0, 0, 5, 5);
 		gbc_btnValider.gridx = 1;
-		gbc_btnValider.gridy = 7;
+		gbc_btnValider.gridy = 8;
 		panel.add(btnValider, gbc_btnValider);
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -581,8 +581,32 @@ public class FenetreChoixMolecules extends JFrame{
 				Midi.jouerSequence();
 			}
 		});
-
-
+		
+		btnSave = new JButton("Enregistrer le son");
+		GridBagConstraints gbc_btnSave = new GridBagConstraints();
+		gbc_btnSave.gridwidth = 3;
+		gbc_btnSave.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSave.gridx = 1;
+		gbc_btnSave.gridy = 9;
+		panel.add(btnSave, gbc_btnSave);
+		btnSave.addActionListener(this);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSave){
+			JFileChooser chooser = new JFileChooser();
+	    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt", "trc");
+	    	chooser.setFileFilter(filter);
+	    	int returnVal = chooser.showSaveDialog(this);
+	    	if (returnVal == JFileChooser.APPROVE_OPTION) {
+	    		try {
+					Midi.saveMidi(chooser.getSelectedFile().getPath());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+	    	}
+		}
 	}
 
 	protected void selectMoleculesContraintes(int nbPoints, int minIntensite) {

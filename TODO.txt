@@ -3,7 +3,6 @@
 
 ---IHM---
 1-2 - Créer la reconstitution du mouvement des protéines (à chaque instant, afficher la position des protéines et si besoin faire des liaisons avec les précédentes positions) : EN COURS
-1-3 - Ajouter la modification du timbre dans la fenetre de paramètre des effets
 
 ---Lien entre IHM et classes---
 2-3 - Faire le lien entre le TableauChercheur façonné par l'utilisateur et l'assignation des timbres pour chaque Molécule. : DONE mais il reste à tester
