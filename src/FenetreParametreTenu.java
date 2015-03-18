@@ -15,11 +15,12 @@ import javax.swing.JSlider;
 
 public class FenetreParametreTenu extends JFrame {
 
-	private JSpinner spinner;
+	private JSpinner spinnerNoteAbs;
+	private JSpinner spinnerNoteOrd;
 	private JComboBox<String> comboBox_1;
 	private JSlider sliderVol; 
-	private JComboBox<String> comboTimbre;
-	
+	private JComboBox<String> comboTimbreAbs;
+		
 	/**
 	 * 
 	 */
@@ -57,6 +58,11 @@ public class FenetreParametreTenu extends JFrame {
 		listeEffets.add("Boucle");
 		listeEffets.add("Aleatoire");
 		
+		ArrayList<String> listeTimbres = new ArrayList<String>();		
+		for (int i = 0 ; i < 128 ; i++){
+			listeTimbres.add(Integer.toString(Controleur.tableauTimbre[i].timbreMIDI()) + " - " + Controleur.tableauTimbre[i].nom());
+		}
+		
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 489, 373);
 		contentPane = new JPanel();
@@ -73,26 +79,47 @@ public class FenetreParametreTenu extends JFrame {
 		contentPane.add(lblapparitionTi);
 
 		
-		JLabel lblNoteDeReference = new JLabel("Note de reference :");
-		lblNoteDeReference.setBounds(12, 61, 126, 30);
+		JLabel lblNoteDeReference = new JLabel("Note :");
+		lblNoteDeReference.setBounds(12, 61, 49, 30);
 		contentPane.add(lblNoteDeReference);
 		
-		spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(0, 0, 128, 1));
-		spinner.setBounds(155, 65, 49, 22);
-		spinner.setValue(mol.noteAbs());
-		contentPane.add(spinner);
+		spinnerNoteAbs = new JSpinner();
+		spinnerNoteAbs.setModel(new SpinnerNumberModel(0, 0, 128, 1));
+		spinnerNoteAbs.setBounds(90, 65, 49, 22);
+		spinnerNoteAbs.setValue(mol.noteAbs());
+		contentPane.add(spinnerNoteAbs);
+		
+		if (!Controleur.isChercheur){
+			spinnerNoteOrd = new JSpinner();
+			spinnerNoteOrd.setModel(new SpinnerNumberModel(0, 0, 128, 1));
+			spinnerNoteOrd.setBounds(222, 64, 49, 22);
+			spinnerNoteOrd.setValue(mol.noteOrd());
+			contentPane.add(spinnerNoteOrd);
+
+			JLabel lblabs = new JLabel("(Abscisse)");
+			lblabs.setBounds(145, 68, 56, 16);
+			contentPane.add(lblabs);
+
+			JLabel labelOrd = new JLabel("(Ordonnee)");
+			labelOrd.setBounds(277, 68, 56, 16);
+			contentPane.add(labelOrd);
+
+			JComboBox comboTimbreOrd = new JComboBox(listeTimbres.toArray());
+			comboTimbreOrd.setSelectedIndex(mol.getTimbreOrd().timbreMIDI() - 1);
+			comboTimbreOrd.setBounds(282, 234, 158, 22);
+			contentPane.add(comboTimbreOrd);
+		}
 		
 		JLabel lblilVousFaudra = new JLabel("<html>(il vous faudra recharger la fenetre de parametre de la molecule)</html>");
-		lblilVousFaudra.setBounds(263, 91, 207, 56);
+		lblilVousFaudra.setBounds(230, 91, 207, 56);
 		contentPane.add(lblilVousFaudra);
 				
 		JLabel lblEffet = new JLabel("Effet :");
-		lblEffet.setBounds(12, 105, 56, 16);
+		lblEffet.setBounds(12, 110, 56, 16);
 		contentPane.add(lblEffet);
 		
 		comboBox_1 = new JComboBox(listeEffets.toArray());
-		comboBox_1.setBounds(150, 102, 94, 22);
+		comboBox_1.setBounds(90, 110, 94, 22);
 		comboBox_1.setSelectedItem(mol.getEffet().getClass().getName());
 		contentPane.add(comboBox_1);
 
@@ -106,7 +133,7 @@ public class FenetreParametreTenu extends JFrame {
 		sliderVol.setSnapToTicks(true);
 		sliderVol.setMinorTickSpacing(1);
 		sliderVol.setMaximum(128);
-		sliderVol.setBounds(140, 155, 207, 46);
+		sliderVol.setBounds(90, 155, 207, 46);
 		sliderVol.setValue(mol.getVolume());
 		contentPane.add(sliderVol);
 		
@@ -114,25 +141,20 @@ public class FenetreParametreTenu extends JFrame {
 		JLabel lblTimbre = new JLabel("Timbre :");
 		lblTimbre.setBounds(12, 237, 56, 16);
 		contentPane.add(lblTimbre);
-		
-		ArrayList<String> listeTimbres = new ArrayList<String>();		
-		for (int i = 0 ; i < 128 ; i++){
-			listeTimbres.add(Integer.toString(Controleur.tableauTimbre[i].timbreMIDI()) + " - " + Controleur.tableauTimbre[i].nom());
-		}
 
 		
-		comboTimbre = new JComboBox(listeTimbres.toArray());
-		comboTimbre.setBounds(151, 234, 158, 22);
-		comboTimbre.setSelectedIndex(mol.getTimbreAbs().timbreMIDI() - 1);
-		contentPane.add(comboTimbre);
+		comboTimbreAbs = new JComboBox(listeTimbres.toArray());
+		comboTimbreAbs.setBounds(90, 234, 158, 22);
+		comboTimbreAbs.setSelectedIndex(mol.getTimbreAbs().timbreMIDI() - 1);
+		contentPane.add(comboTimbreAbs);
 						
 		
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				mol.setNoteAbs((int) spinner.getValue());
+				mol.setNoteAbs((int) spinnerNoteAbs.getValue());
 				mol.setVolume(sliderVol.getValue());
-				mol.setTimbreAbs(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
+				mol.setTimbreAbs(Controleur.tableauTimbre[comboTimbreAbs.getSelectedIndex()]);
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Glissando":
@@ -156,5 +178,8 @@ public class FenetreParametreTenu extends JFrame {
 		});
 		btnValider.setBounds(184, 283, 87, 25);
 		contentPane.add(btnValider);		
+		
+		
+		
 	}
 }

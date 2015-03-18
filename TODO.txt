@@ -7,7 +7,6 @@
 ---Lien entre IHM et classes---
 2-3 - Faire le lien entre le TableauChercheur façonné par l'utilisateur et l'assignation des timbres pour chaque Molécule. : DONE mais il reste à tester
 2-4 - Chercher comment ça marche pour créer un exécutable à partir des source de notre projet
-2-5 - Allocation des notes en fonction du tableau compositeur (gamme diatonique il me semble)
 
 ---MIDI---
 3-3 - Vérifier que plus de 16 timbres en même temps ignorent ceux en trop (et que ça provoque pa un gros bug plutôt).
