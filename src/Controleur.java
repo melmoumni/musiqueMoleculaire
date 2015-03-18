@@ -142,9 +142,9 @@ abstract class Controleur{
 		}
 		else{
 			Dimension dim = Controleur.maxDimension();
+			float intervalleAbs = (float) dim.width/(float) 128; 
+			float intervalleOrd = (float) dim.height/(float) 128;
 			for (Molecule mol : molecules){
-				int intervalleAbs = dim.width/128; 
-				int intervalleOrd = dim.height/128;
 				mol.setNoteAbs((int) (mol.positions.get(0).x/intervalleAbs));
 				mol.setNoteOrd((int) (mol.positions.get(0).y/intervalleOrd));
 			}
