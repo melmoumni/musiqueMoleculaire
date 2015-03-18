@@ -13,6 +13,7 @@ public class ControleurFenetres {
 	static int largeur, hauteur;
 	static String fichierTrajectoire, fichierMvts;
 	static String utilisateur;
+	static int seuilIntensite;
 	
 	static Controleur controleur;
 	
@@ -41,7 +42,7 @@ public class ControleurFenetres {
 			fenetrePrincipale.setVisible(true);
 		}
 		else if(utilisateur.compareTo("compositeur")==0){
-			controleur = new Compositeur(params.getIntensite());
+			controleur = new Compositeur(seuilIntensite);
 			//afficherParam(); 
 			params.dispose(); // fermeture de la fenetre parametre
 			initialiserMolecules();
@@ -96,6 +97,7 @@ public class ControleurFenetres {
 		fichierTrajectoire = params.getFilenameT();
 		fichierMvts = params.getFilenameM();
 		utilisateur = params.getUtilisateur();
+		seuilIntensite = params.getIntensite();
 		
 		if((tempo>0) && (((largeur>0) && (hauteur>0)) || (params.isAutoSize())) && !(fichierTrajectoire.isEmpty()) && !(fichierMvts.isEmpty())
 				&& !(utilisateur.isEmpty()))

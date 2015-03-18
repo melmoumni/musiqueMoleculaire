@@ -23,6 +23,7 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	private Effet effet;
 	private int note;
 	private float moyenneIntensite;
+	private float maxIntensite;
 	//private int tempo; // ou pas !!!
 	private float pasMax; // juste pour les aleatoires
 	Molecule(){
@@ -261,11 +262,15 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	public void analyseIntensite(){
 	    float res = (float) 0.0;
 	    int index = 0;
+	    float max= (float) 0.0;
 	    for (CaracteristiqueTemporelle tmp : positions) {
 		res += tmp.intensite();
 		index++;
+		if(tmp.intensite() > max)
+			max = tmp.intensite();
 	    }
 	    moyenneIntensite = res/(index*((float)1.0));
+	    maxIntensite = max;
 	}
 
 	public void remplirSequenceMolecule(){
