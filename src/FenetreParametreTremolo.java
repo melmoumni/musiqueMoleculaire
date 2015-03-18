@@ -87,7 +87,7 @@ public class FenetreParametreTremolo extends JFrame {
 		spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(0, 0, 128, 1));
 		spinner.setBounds(155, 65, 49, 22);
-		spinner.setValue(mol.note());
+		spinner.setValue(mol.noteAbs());
 		contentPane.add(spinner);
 				
 		JLabel lblEffet = new JLabel("Effet :");
@@ -125,7 +125,7 @@ public class FenetreParametreTremolo extends JFrame {
 		
 		comboTimbre = new JComboBox(listeTimbres.toArray());
 		comboTimbre.setBounds(151, 234, 158, 22);
-		comboTimbre.setSelectedIndex(mol.getTimbre().timbreMIDI() - 1);
+		comboTimbre.setSelectedIndex(mol.getTimbreAbs().timbreMIDI() - 1);
 		contentPane.add(comboTimbre);
 		
 		JLabel lblAmplitudeDuTremolo = new JLabel("Amplitude du tremolo :");
@@ -162,9 +162,9 @@ public class FenetreParametreTremolo extends JFrame {
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				mol.setNote((int) spinner.getValue());
+				mol.setNoteAbs((int) spinner.getValue());
 				mol.setVolume(sliderVol.getValue());
-				mol.setTimbre(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
+				mol.setTimbreAbs(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
 				((Tremolo) mol.getEffet()).setNombrePas(sliderFreq.getValue());
 				((Tremolo) mol.getEffet()).setVariationNote(sliderAmpl.getValue());
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){

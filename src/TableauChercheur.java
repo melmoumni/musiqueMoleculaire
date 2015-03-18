@@ -226,7 +226,7 @@ public class TableauChercheur{
 	       
 	        System.out.println("mat size x: " + mat.size()+" mat size y: " + mat.get(0).size());
 			System.out.println("x "+ x + " y "+y+" timbre " + mat.get(x).get(y).timbreMIDI());
-			mol.setTimbre(mat.get(x).get(y));
+			mol.setTimbreAbs(mat.get(x).get(y));
 			
 			
 		}

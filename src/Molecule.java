@@ -11,8 +11,8 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	protected ArrayList<CaracteristiqueTemporelle> positions;
 	private float vitesseAbs;
 	private float vitesseOrd;
-	private Timbre timbre; // changer ensuite
-	private Timbre timbre2;  //deuxieme timbre pour la partie compositeur
+	private Timbre timbreAbs; // changer ensuite
+	private Timbre timbreOrd;  //deuxieme timbre pour la partie compositeur
 	private int volume;          //mettre dans constructeur plus tard et faire varier
 	private int instantInitial;
 	private int instantFinal;
@@ -21,7 +21,8 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	private float msd;
 	private Color couleur;
 	private Effet effet;
-	private int note;
+	private int noteAbs;
+	private int noteOrd;
 	private float moyenneIntensite;
 	private float maxIntensite;
 	//private int tempo; // ou pas !!!
@@ -46,8 +47,8 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		System.out.println("Intensité moyenne : " + moyenneIntensite);
 		System.out.println("Instant initial : " + instantInitial);
 		System.out.println("Instant final : " + instantFinal);
-		timbre.printTimbre();
-		System.out.println("Note : " + note);
+		timbreAbs.printTimbre();
+		System.out.println("Note : " + noteAbs);
 		System.out.println("Distance parcourue : " + distance);
 		System.out.println("==================================");
 
@@ -83,12 +84,20 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		return numero;
 	}
 
-	public int note(){
-		return note;
+	public int noteAbs(){
+		return noteAbs;
 	}
 	
-	public void setNote(int newNote){
-		note = newNote;
+	public void setNoteAbs(int newNote){
+		noteAbs = newNote;
+	}
+	
+	public int noteOrd(){
+		return noteOrd;
+	}
+	
+	public void setNoteOrd(int newNote){
+		noteOrd = newNote;
 	}
 	
 	public float msd(){
@@ -167,20 +176,20 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 //		tempo = tempot;
 //	}
 
-	public void setTimbre(Timbre timbret){
-		timbre = timbret;
+	public void setTimbreAbs(Timbre timbret){
+		timbreAbs = timbret;
 	}
 
-	public Timbre getTimbre(){
-		return timbre;
+	public Timbre getTimbreAbs(){
+		return timbreAbs;
 	}
 	
-	public void setTimbre2(Timbre timbret){
-		timbre2=timbret;
+	public void setTimbreOrd(Timbre timbret){
+		timbreOrd=timbret;
 	}
 
-	public Timbre getTimbre2(){
-		return timbre2;
+	public Timbre getTimbreOrd(){
+		return timbreOrd;
 	}
 
 	public void setVolume(int volumet){

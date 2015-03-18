@@ -80,7 +80,7 @@ public class FenetreParametreTenu extends JFrame {
 		spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(0, 0, 128, 1));
 		spinner.setBounds(155, 65, 49, 22);
-		spinner.setValue(mol.note());
+		spinner.setValue(mol.noteAbs());
 		contentPane.add(spinner);
 		
 		JLabel lblilVousFaudra = new JLabel("<html>(il vous faudra recharger la fenetre de parametre de la molecule)</html>");
@@ -123,16 +123,16 @@ public class FenetreParametreTenu extends JFrame {
 		
 		comboTimbre = new JComboBox(listeTimbres.toArray());
 		comboTimbre.setBounds(151, 234, 158, 22);
-		comboTimbre.setSelectedIndex(mol.getTimbre().timbreMIDI() - 1);
+		comboTimbre.setSelectedIndex(mol.getTimbreAbs().timbreMIDI() - 1);
 		contentPane.add(comboTimbre);
 						
 		
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				mol.setNote((int) spinner.getValue());
+				mol.setNoteAbs((int) spinner.getValue());
 				mol.setVolume(sliderVol.getValue());
-				mol.setTimbre(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
+				mol.setTimbreAbs(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Glissando":

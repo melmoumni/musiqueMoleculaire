@@ -20,7 +20,7 @@ class Tremolo implements Effet{
 
 	public void remplirSequenceur( Molecule mol) throws InvalidMidiDataException{
 
-		Midi.tremolo(mol,mol.getTimbre().timbreMIDI(), nombrePas, variationNote);
+		Midi.tremolo(mol,mol.getTimbreAbs().timbreMIDI(), nombrePas, variationNote);
 
 	}
 

@@ -135,10 +135,18 @@ abstract class Controleur{
 
 
 	public static void allocationNotes() {
-		for (Molecule mol : molecules) {
-			mol.setNote(mol.getTimbre().octaveRef() * 12 + noteRef);
-			if (!(Controleur.isChercheur)){
-				mol.setNote(mol.getTimbre2().octaveRef() * 12 + noteRef);
+		if (isChercheur){
+			for (Molecule mol : molecules) {
+				mol.setNoteAbs(mol.getTimbreAbs().octaveRef() * 12 + noteRef);
+			}
+		}
+		else{
+			Dimension dim = Controleur.maxDimension();
+			for (Molecule mol : molecules){
+				int intervalleAbs = dim.width/128; 
+				int intervalleOrd = dim.height/128;
+				mol.setNoteAbs((int) (mol.positions.get(0).x/intervalleAbs));
+				mol.setNoteOrd((int) (mol.positions.get(0).y/intervalleOrd));
 			}
 		}
 	}

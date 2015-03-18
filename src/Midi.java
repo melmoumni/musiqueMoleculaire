@@ -128,14 +128,14 @@ public class Midi{
 			for(i = 0; i<= nbPas; i++){
 				//System.out.println("debut+i*pas " + debut+ i*pas + "\n");                                                                                                                        
 				if(i%2 == 0){
-					ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,mol.note(),mol.getVolume(), tInitial + i*pas));
+					ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,mol.noteAbs(),mol.getVolume(), tInitial + i*pas));
 					//ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note+4,0,debut+i*pas));//le +4 donne la tierce                                                                  
-					ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,mol.note()+variation,0, tInitial +i*pas));
+					ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,mol.noteAbs()+variation,0, tInitial +i*pas));
 				}
 				else{
 					//ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note+4,volume,debut+i*pas));                                                                                         
-					ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,mol.note()+variation,mol.getVolume(), tInitial + i*pas));
-					ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,mol.note(),0, tInitial + i*pas));
+					ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,mol.noteAbs()+variation,mol.getVolume(), tInitial + i*pas));
+					ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,mol.noteAbs(),0, tInitial + i*pas));
 				}
 			}
 		}
@@ -155,15 +155,15 @@ public class Midi{
 		int pas= (tInitial - tFinal)/nbPas;
 		int channel=retournerChannel(timbre.timbreMIDI(),mol.instantInitial(),mol.instantFinal());
 		if((channel>=0)&&(channel<16)){
-			ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,mol.note(),mol.getVolume(),tInitial));
+			ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,mol.noteAbs(),mol.getVolume(),tInitial));
 			if(mol.vitesseOrd() >=0){	  //glissando montant (suivant la vitesse ordonnée)
 				for(i =0; i< nbPas; i++)  {
-					ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,mol.note(),molette+i,tInitial + i*pas ));
+					ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,mol.noteAbs(),molette+i,tInitial + i*pas ));
 				}
 			}
 			else{                //glissando descendant
 				for(i = 0; i<=nbPas; i++){   
-					ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,mol.note(),molette-i, tInitial + i*pas ));
+					ajouterEvent(0, creerEvent(ShortMessage.PITCH_BEND,channel,mol.noteAbs(),molette-i, tInitial + i*pas ));
 				}
 			}
 		}
@@ -186,7 +186,7 @@ public class Midi{
 			if ((Controleur.intervalles().get(i).instantInitial()==debut)&&(Controleur.intervalles().get(i).instantFinal()==fin)){
 				int size2 = Controleur.intervalles.get(i).nombreMolecule();
 				for (int j = 0; j < size2; size++) {
-					if(m[channel].getProgram()==Controleur.intervalles().get(i).molecules().get(j).getTimbre().timbreMIDI()){
+					if(m[channel].getProgram()==Controleur.intervalles().get(i).molecules().get(j).getTimbreAbs().timbreMIDI()){
 						return true;
 					}
 

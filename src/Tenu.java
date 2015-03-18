@@ -25,9 +25,9 @@ class Tenu implements Effet{
 
 		//System.out.println(Controleur.noteRef + " " +  mol.getTimbre() + mol.getVolume() +  mol.positions.get(0).temps + " " + mol.positions.get(mol.positions.size() - 1).temps);
 		//Midi.noteTenue(60,  mol.getTimbre().timbreMIDI(), mol.getVolume(), mol.positions.get(0).temps, mol.positions.get(mol.positions.size() - 1).temps);
-		Midi.noteTenue(mol.note(), mol.getVolume(), mol.getTimbre(), mol.positions.get(0).temps, mol.positions.get(mol.positions.size() - 1).temps);
+		Midi.noteTenue(mol.noteAbs(), mol.getVolume(), mol.getTimbreAbs(), mol.positions.get(0).temps, mol.positions.get(mol.positions.size() - 1).temps);
 		if (!Controleur.isChercheur) {
-			Midi.noteTenue(mol.note(), mol.getVolume(), mol.getTimbre2(), mol.positions.get(0).temps, mol.positions.get(mol.positions.size() - 1).temps);
+			Midi.noteTenue(mol.noteOrd(), mol.getVolume(), mol.getTimbreOrd(), mol.positions.get(0).temps, mol.positions.get(mol.positions.size() - 1).temps);
 		}
 		//System.out.println(Controleur.noteRef + " " + " 56 " + " 64 " +  mol.positions.get(0).temps + " " + mol.positions.get(mol.positions.size() - 1).temps);
 		//Midi.noteTenue(60, 56, 100, mol.positions.get(0).temps, mol.positions.get(mol.positions.size() - 1).temps);

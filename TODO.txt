@@ -12,13 +12,12 @@
 ---MIDI---
 3-3 - Vérifier que plus de 16 timbres en même temps ignorent ceux en trop (et que ça provoque pa un gros bug plutôt).
 3-5 - Mettre de nouveaux attributs permettant de faire de la stéréo ! Et voir à quel moment l'utilisateur peuit modifier ces attributs.
-3-6 - ... rendre le glissando moins dégueulasse ...   
+3-6 - (... rendre le glissando moins dégueulasse ... )  
 3-7 - Prendre en compte le seuil d'intensité pour le compositeur -> jouer une percussion quand il est dépassé : peut être donner l'option d'activer ou de désactiver cette fonctionnalité (s'il laisse le seuil à 0 on ne le fait pas par exemple
- + transformer la ffenetre paramtre pour faire un slider (en mode %)
 3-8 - Chancher le nom des timbre si banque chargée
 
 ---Lien entre MIDI et classes---
-4-4 - Définir le volume en globale et créer une fonction permettant de la rendre automatique en fonction de l'intensité (au cas ouù ...)
+4-4 - (Rendre automatique le volume en fonction de l'intensité (au cas ouù ...))
 
 
 5 ----- RAPPORT ------

@@ -88,7 +88,7 @@ public class FenetreParametreAleatoire extends JFrame {
 		spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(0, 0, 128, 1));
 		spinner.setBounds(155, 65, 49, 22);
-		spinner.setValue(mol.note());
+		spinner.setValue(mol.noteAbs());
 		contentPane.add(spinner);
 
 		JLabel lblEffet = new JLabel("Effet :");
@@ -126,7 +126,7 @@ public class FenetreParametreAleatoire extends JFrame {
 		
 		comboTimbre = new JComboBox(listeTimbres.toArray());
 		comboTimbre.setBounds(151, 234, 158, 22);
-		comboTimbre.setSelectedIndex(mol.getTimbre().timbreMIDI() - 1);
+		comboTimbre.setSelectedIndex(mol.getTimbreAbs().timbreMIDI() - 1);
 		contentPane.add(comboTimbre);
 
 		JLabel lblIntervalleEntre = new JLabel("<html>Intervalle entre 2 notes :<br> (1 => 1 noire)</html>");
@@ -175,9 +175,9 @@ public class FenetreParametreAleatoire extends JFrame {
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(((JFloatSlider) sliderInt).getFloatValue());
-				mol.setNote((int) spinner.getValue());
+				mol.setNoteAbs((int) spinner.getValue());
 				mol.setVolume(sliderVol.getValue());
-				mol.setTimbre(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
+				mol.setTimbreAbs(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
 				((Aleatoire) mol.getEffet()).setInterNote((int) (((JFloatSlider) sliderInt).getFloatValue()*Controleur.dureeNoire));
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){

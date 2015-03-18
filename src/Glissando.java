@@ -41,9 +41,9 @@ class Glissando implements Effet{
 
 		//System.out.println("60  "+ mol.getTimbre()+ mol.getVolume() + mol.positions.get(0).temps + " " + mol.positions.get(mol.positions.size() - 1).temps*1000 + " 70 " + (int) mol.vitesseOrd());
 		//Midi.glissando(mol.note,  mol.getTimbre().timbreMIDI(), mol.getVolume(), mol.positions.get(0).temps, mol.positions.get(mol.positions.size() - 1).temps *1000, 20, (int) mol.vitesseOrd());
-		Midi.glissando(mol, molette, mol.getTimbre());
+		Midi.glissando(mol, molette, mol.getTimbreAbs());
 		if (!Controleur.isChercheur) {
-			Midi.glissando(mol, molette, mol.getTimbre2());
+			Midi.glissando(mol, molette, mol.getTimbreOrd());
 		}
 		// 	System.out.println("60  56  100 " + mol.positions.get(0).temps + " " + mol.positions.get(mol.positions.size() - 1).temps*1000 + " 70 " + (int) mol.vitesseOrd());
 		///    	Midi.glissando(60, 56, 100, mol.positions.get(0).temps, mol.positions.get(mol.positions.size() - 1).temps *1000,100, (int) mol.vitesseOrd());

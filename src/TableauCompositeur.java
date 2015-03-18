@@ -114,8 +114,8 @@ public class TableauCompositeur {
 	            }
 	         
 	        System.out.println("timbre x "+timbreAbs[x].timbreMIDI() + " timbre y "+timbreOrd[y].timbreMIDI());
-			mol.setTimbre(timbreAbs[x]);   //pour le moment on affecte qu'un seul timbre
-			mol.setTimbre2(timbreOrd[y]);
+			mol.setTimbreAbs(timbreAbs[x]);   //pour le moment on affecte qu'un seul timbre
+			mol.setTimbreOrd(timbreOrd[y]);
 			
 		}
 		Controleur.allocationNotes();
