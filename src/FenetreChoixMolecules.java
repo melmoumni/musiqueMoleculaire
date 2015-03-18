@@ -190,16 +190,16 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		setBounds(0, 0, (int) dim.getWidth(), (int) dim.getHeight());
 
 		JPanel panelHautGauche = new JPanel();
-		panelHautGauche.setBounds(0, 0, (int) (2*dim.getWidth()/3), (int) dim.getHeight() / 2);
-		FenetreTrajectoires TrajectoiresHaut = new FenetreTrajectoires(Controleur.molecules(), (int) (2*dim.getWidth()/3), (int) dim.getHeight()/2); 
+		panelHautGauche.setBounds(0, 0, (int) (dim.getWidth()/2), (int) dim.getHeight() / 2);
+		FenetreTrajectoires TrajectoiresHaut = new FenetreTrajectoires(Controleur.molecules(), (int) (dim.getWidth()/2), (int) dim.getHeight()/2); 
 		panelHautGauche.add(new JScrollPane(TrajectoiresHaut));
 		panelHautGauche.setVisible(true);
 		getContentPane().add(panelHautGauche);
 
 		panelBasGauche = new JPanel();
-		panelBasGauche.setBounds(0, (int) dim.getHeight() / 2, (int) (2*dim.getWidth()/3), (int) dim.getHeight() / 2);
+		panelBasGauche.setBounds(0, (int) dim.getHeight() / 2, (int) (dim.getWidth()/2), (int) dim.getHeight() / 2);
 		ListeDynamique = new ArrayList<Molecule>(Controleur.molecules());
-		FenetreTrajectoires TrajectoiresBas = new FenetreTrajectoires(ListeDynamique, (int) (2*dim.getWidth()/3), (int) dim.getHeight()/2); 
+		FenetreTrajectoires TrajectoiresBas = new FenetreTrajectoires(ListeDynamique, (int) (dim.getWidth()/2), (int) dim.getHeight()/2); 
 		panelBasGauche.add(new JScrollPane(TrajectoiresBas));
 		panelBasGauche.setVisible(true);
 		getContentPane().add(panelBasGauche);
@@ -250,7 +250,7 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 
 
 		JPanel panelDroit = new JPanel();
-		panelDroit.setBounds((int) (2*dim.getWidth()/3), 10,(int) (1*dim.getWidth()/3), (int) dim.getHeight());
+		panelDroit.setBounds((int) (dim.getWidth()/2), 10,(int) (dim.getWidth()/2), (int) dim.getHeight());
 		getContentPane().add(panelDroit);
 		panelDroit.setLayout(null);
 		Box boxHautGauche = Box.createVerticalBox();
@@ -472,11 +472,11 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		panelDroit.add(buttonDecocherAleatoire);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 678, 628, 337);
+		panel.setBounds(0, panelDroit.getHeight()/3 + panelDroit.getHeight()/4 + 20, 628, 337);
 		panelDroit.add(panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{25, 0, 0, 25, 0};
-		gbl_panel.rowHeights = new int[]{25, 0, 25, 0, 25, 0, 0, 50, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{25, 0, 10, 0, 10, 0, 0, 25, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
