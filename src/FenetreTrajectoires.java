@@ -38,11 +38,12 @@ public class FenetreTrajectoires extends javax.swing.JPanel {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Dimension d = Controleur.maxDimension();
 					JFrame jf = new JFrame("test");
 					jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					jf.setSize(400, 400);
-					jf.add(new JScrollPane(new FenetreTrajectoires(Controleur.molecules(), 400,400)));
-					jf.setVisible(true);			
+					jf.setSize(300, 300);
+					jf.add(new JScrollPane(new FenetreTrajectoires(Controleur.molecules(), d.width + d.width/10 ,d.height + d.height/10)));
+					jf.setVisible(true);	
 
 				} catch (Exception e) {
 					e.printStackTrace();

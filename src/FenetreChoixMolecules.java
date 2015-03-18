@@ -27,6 +27,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
 
 
 
@@ -188,18 +190,22 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		dim.width -= 50;
 		setBounds(0, 0, (int) dim.getWidth(), (int) dim.getHeight());
-
+		
+		Dimension maxDim = Controleur.maxDimension();
+		
 		JPanel panelHautGauche = new JPanel();
 		panelHautGauche.setBounds(0, 0, (int) (dim.getWidth()/2), (int) dim.getHeight() / 2);
-		FenetreTrajectoires TrajectoiresHaut = new FenetreTrajectoires(Controleur.molecules(), (int) (dim.getWidth()/2), (int) dim.getHeight()/2); 
+		panelHautGauche.setLayout(new BoxLayout(panelHautGauche, BoxLayout.X_AXIS));
+		FenetreTrajectoires TrajectoiresHaut = new FenetreTrajectoires(Controleur.molecules(),(int) (maxDim.getWidth() + maxDim.getWidth()/10), (int) (maxDim.getHeight() + maxDim.getHeight()/10)); 
 		panelHautGauche.add(new JScrollPane(TrajectoiresHaut));
 		panelHautGauche.setVisible(true);
 		getContentPane().add(panelHautGauche);
 
 		panelBasGauche = new JPanel();
-		panelBasGauche.setBounds(0, (int) dim.getHeight() / 2, (int) (dim.getWidth()/2), (int) dim.getHeight() / 2);
+		panelBasGauche.setBounds(0, (int) dim.getHeight() / 2, (int) (dim.getWidth()/2), (int) dim.getHeight() / 2 - 30);
 		ListeDynamique = new ArrayList<Molecule>(Controleur.molecules());
-		FenetreTrajectoires TrajectoiresBas = new FenetreTrajectoires(ListeDynamique, (int) (dim.getWidth()/2), (int) dim.getHeight()/2); 
+		panelBasGauche.setLayout(new BorderLayout(0, 0));
+		FenetreTrajectoires TrajectoiresBas = new FenetreTrajectoires(ListeDynamique, (int) (maxDim.getWidth() + maxDim.getWidth()/10), (int) (maxDim.getHeight() + maxDim.getHeight()/10)); 
 		panelBasGauche.add(new JScrollPane(TrajectoiresBas));
 		panelBasGauche.setVisible(true);
 		getContentPane().add(panelBasGauche);
