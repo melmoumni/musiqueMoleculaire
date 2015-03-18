@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JSlider;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
@@ -22,6 +23,7 @@ import javax.swing.border.TitledBorder;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 
@@ -53,7 +55,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	JSpinner valeurAlpha2; // valeur du 2eme seuil alpha : entre confinees et directionnelles 
 	JSpinner valeurAlpha3; // valeur du 3eme seuil alpha : entre directionnelles et diffusives
 	
-	JSpinner valeurI; // valeur du seuil intensité, uniquement pour le compositeur
+	JSlider valeurI; // valeur du seuil intensité, uniquement pour le compositeur
 	
 	ButtonGroup groupe;
 	
@@ -69,7 +71,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	 */
 	public FenetreParametres() {
 		this.setTitle("Parametres de l'application");
-		this.setBounds(100, 100, 525, 521);
+		this.setBounds(100, 100, 555, 601);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,7 +113,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		notes = new JComboBox<String>(listeNotes);
 		
 		JLabel lblSeuils = new JLabel("Seuils alpha");
-		lblSeuils.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblSeuils.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
 		JLabel lblImmobiles = new JLabel("Immobiles");
 		JLabel lblConfines = new JLabel("Confinees");
@@ -165,7 +167,10 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		valeurTempo = new JSpinner(new SpinnerNumberModel(new Integer(60),new Integer(10),new Integer(300),new Integer(1)));
 		
 		JLabel lblSeuilIntensite = new JLabel("Seuil intensite");
-		valeurI = new JSpinner();
+		valeurI = new JSlider(JSlider.HORIZONTAL,0,100,50);
+		valeurI.setMajorTickSpacing(10);
+		valeurI.setPaintTicks(true);
+		valeurI.setPaintLabels(true);
 		
 		groupe = new ButtonGroup();
 		JRadioButton rdbtnChercheur = new JRadioButton("Chercheur");
@@ -192,42 +197,36 @@ public class FenetreParametres extends JFrame implements ActionListener{
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(10)
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(lblSeuils))
-										.addGroup(gl_panel.createSequentialGroup()
-											.addGap(34)
-											.addComponent(lblImmobiles)
-											.addGap(18)
-											.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(lblConfines)))
-									.addGap(29))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(rdbtnChercheur)
-										.addComponent(valeurAlpha1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-										.addComponent(valeurI, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
-									.addGap(49)))
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-								.addComponent(valeurAlpha2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblDirectionnelles)
-									.addGap(8)
-									.addComponent(label_3)
+									.addComponent(lblSeuils))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGap(34)
+									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(valeurAlpha1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblImmobiles)
+											.addGap(18)
+											.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblConfines)))
+							.addGap(29)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(valeurAlpha2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblDirectionnelles)))
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
 									.addGap(18)
+									.addComponent(label_3)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addComponent(lblDiffusives))
 								.addGroup(gl_panel.createSequentialGroup()
-									.addGap(12)
-									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-										.addComponent(rdbtnCompositeur)
-										.addComponent(valeurAlpha3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))))
+									.addGap(1)
+									.addComponent(valeurAlpha3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblNoteDeRfrnce)
@@ -236,15 +235,21 @@ public class FenetreParametres extends JFrame implements ActionListener{
 							.addGap(48)
 							.addComponent(lblDure)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(valeurTempo, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(221)
-							.addComponent(btnValider))
+							.addComponent(valeurTempo, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(lblSeuilIntensite)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addComponent(lblSeuilIntensite)
+							.addGap(18)
+							.addComponent(valeurI, GroupLayout.PREFERRED_SIZE, 313, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(124)
+							.addComponent(rdbtnChercheur)
+							.addGap(72)
+							.addComponent(rdbtnCompositeur))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(221)
+							.addComponent(btnValider)))
+					.addContainerGap(23, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -255,36 +260,33 @@ public class FenetreParametres extends JFrame implements ActionListener{
 						.addComponent(notes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblDure)
 						.addComponent(valeurTempo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(16)
+					.addComponent(lblSeuils)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblImmobiles)
+						.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblConfines)
+						.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDirectionnelles)
+						.addComponent(label_3)
+						.addComponent(lblDiffusives))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(valeurAlpha2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(valeurAlpha1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(valeurAlpha3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(25)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(btnValider)
-							.addContainerGap())
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(16)
-							.addComponent(lblSeuils)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblImmobiles)
-								.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblConfines)
-								.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDirectionnelles)
-								.addComponent(label_3)
-								.addComponent(lblDiffusives))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(valeurAlpha2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(valeurAlpha3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(valeurAlpha1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(25)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblSeuilIntensite)
-								.addComponent(valeurI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(rdbtnChercheur)
-								.addComponent(rdbtnCompositeur))
-							.addGap(57))))
+						.addComponent(valeurI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSeuilIntensite))
+					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(rdbtnChercheur)
+						.addComponent(rdbtnCompositeur))
+					.addGap(30)
+					.addComponent(btnValider)
+					.addGap(30))
 		);
 		panel.setLayout(gl_panel);
 		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
@@ -295,7 +297,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(10)
 							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 465, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 511, Short.MAX_VALUE))
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 541, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -303,7 +305,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(4)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
@@ -453,7 +455,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	}
 	
 	public int getIntensite(){
-		return (Integer) valeurI.getValue();
+		return valeurI.getValue();
 	}
 	
 	public String getNoteRef(){
