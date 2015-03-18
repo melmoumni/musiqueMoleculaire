@@ -43,7 +43,7 @@ public class Main {
 			//8 - Offrir la possibilite a l'utilisateur de jouer le son.
 
 			//9 - Jouer le son de toutes les molecules et Reconstituer la video des positions de chaque molecules
-			Controleur.remplirSequence();
+			Controleur.remplirSequence(Controleur.molecules());
 			Midi.jouerSequence();
 			//System.out.println("Liberation");
 			//Midi.liberer();

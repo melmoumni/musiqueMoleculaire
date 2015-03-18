@@ -169,21 +169,21 @@ public class Midi{
 		}
 	}
 
-	static public void noteTenue(int note, int volume, Timbre timbre, int ti, int tf) throws InvalidMidiDataException{
-		int channel=retournerChannel(timbre.timbreMIDI(), ti, tf);
-		System.out.println("channel" + channel);
+	static public void noteTenue(int note, int volume, Timbre timbre, float ti, float f) throws InvalidMidiDataException{
+		int channel=retournerChannel(timbre.timbreMIDI(), ti, f);
+		//System.out.println("channel" + channel);
 		if((channel>=0)&&(channel<16)){
-			ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note, volume,ti*Controleur.dureeNoire));
-			ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note, volume,tf*Controleur.dureeNoire));
+			ajouterEvent(0, creerEvent(ShortMessage.NOTE_ON,channel,note, volume,(long) (ti*Controleur.dureeNoire)));
+			ajouterEvent(0, creerEvent(ShortMessage.NOTE_OFF,channel,note, volume,(long) (f*Controleur.dureeNoire)));
 		}
 	}
 
 
-	static private boolean isChannelLibre(int channel,int debut, int fin){
+	static private boolean isChannelLibre(int channel,float ti, float f){
 		MidiChannel[] m = synthetiseur.getChannels();
 		int size = Controleur.intervalles().size();
 		for (int i=0; i<size; i++){
-			if ((Controleur.intervalles().get(i).instantInitial()==debut)&&(Controleur.intervalles().get(i).instantFinal()==fin)){
+			if ((Controleur.intervalles().get(i).instantInitial()==ti)&&(Controleur.intervalles().get(i).instantFinal()==f)){
 				int size2 = Controleur.intervalles.get(i).nombreMolecule();
 				for (int j = 0; j < size2; size++) {
 					if(m[channel].getProgram()==Controleur.intervalles().get(i).molecules().get(j).getTimbreAbs().timbreMIDI()){
@@ -198,7 +198,7 @@ public class Midi{
 
 
 
-	static private int retournerChannel(int timbre, int debut, int fin)throws InvalidMidiDataException{
+	static private int retournerChannel(int timbre, float ti, float f)throws InvalidMidiDataException{
 
 		MidiChannel[] m = synthetiseur.getChannels();
 		for(int i=0; i<16; i++){
@@ -211,8 +211,8 @@ public class Midi{
 			}
 		}
 		for(int i=1; i<16; i++){
-			if(isChannelLibre(i, debut, fin)){
-				ajouterEvent(0, creerEvent(ShortMessage.PROGRAM_CHANGE,i,timbre,0, debut));
+			if(isChannelLibre(i, ti, f)){
+				ajouterEvent(0, creerEvent(ShortMessage.PROGRAM_CHANGE,i,timbre,0, (long) ti));
 				return i;
 			}
 		}

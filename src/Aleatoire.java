@@ -28,7 +28,7 @@ class Aleatoire implements Effet{
 		ArrayList<CaracteristiqueTemporelle> listPos = mol.positions();
 		int ti = mol.positions.get(0).temps;
 		int tf = mol.positions.get(mol.positions.size() - 1).temps;
-		int note = Controleur.noteRef;
+		int note = mol.noteAbs();
 
 
 		int cpt = 1;
@@ -43,8 +43,8 @@ class Aleatoire implements Effet{
 			}
 			//System.out.printf("%d + %f \n",maxAlea, pas/mol.pasMax());
 			//Midi.noteTenue(note + maxAlea, mol.getTimbre(), mol.getVolume(), ti, ti+INTER_NOTES);
-			Midi.noteTenue(note + maxAlea, mol.getVolume(), mol.getTimbreAbs(), ti, ti+interNote);
-			ti +=interNote;
+			ti +=interNote/Controleur.dureeNoire;
+			Midi.noteTenue(note + maxAlea, mol.getVolume(), mol.getTimbreAbs(), ti, ti+interNote/Controleur.dureeNoire);
 			cpt++;
 			if (listPos.size() <= cpt){
 				cpt = 1;

@@ -582,8 +582,9 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		panel.add(btnValider, gbc_btnValider);
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Controleur.printTrajectoires();
-				Controleur.remplirSequence();
+				Midi.liberer();
+				//Controleur.printTrajectoires();
+				Controleur.remplirSequence(ListeDynamique);
 				Midi.jouerSequence();
 			}
 		});
@@ -608,7 +609,6 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 	    		try {
 					Midi.saveMidi(chooser.getSelectedFile().getPath());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} 
 	    	}

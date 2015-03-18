@@ -491,11 +491,11 @@ abstract class Controleur{
 	}
 
 
-	static void remplirSequence(){
+	static void remplirSequence(ArrayList<Molecule> list){
 		try{
 			Midi.initialiser("../soundbanks/TimGM6mb.sf2");
 			Midi.configurerChannel(0, 56);
-			for (Molecule mol : molecules){
+			for (Molecule mol : list){
 				mol.remplirSequenceMolecule();
 			}
 		}catch(MidiUnavailableException e){}

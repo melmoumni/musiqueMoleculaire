@@ -59,7 +59,7 @@ class Boucle implements Effet{
 	}
 
 	public void remplirSequenceur( Molecule mol) throws InvalidMidiDataException {
-		int ti = mol.positions.get(0).temps;
+		float ti = mol.positions.get(0).temps;
 		int tf = mol.positions.get(mol.positions.size() - 1).temps;
 		int tmpNote = mol.noteAbs();
 		int nextIntervalle;
@@ -73,14 +73,10 @@ class Boucle implements Effet{
 			for (int i = 0 ; i < nbNotes ; i++){
 				if (ti < tf){
 
-					System.out.printf("%d ", tmpNote);
 					Midi.noteTenue(tmpNote, mol.getVolume(), mol.getTimbreAbs(), ti, ti + interNote);
 					tmpNote += nextIntervalle;
-					System.out.println(nextIntervalle);
 				}
-				System.out.printf("%d ", tmpNote);
-				System.out.println(nextIntervalle);
-				ti+=interNote/Controleur.dureeNoire;
+				ti+=interNote/(float)Controleur.dureeNoire;
 				switch (nextIntervalle){
 				case 0:
 					nextIntervalle = 4;

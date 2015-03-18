@@ -197,7 +197,9 @@ public class FenetreParametreBoucle extends JFrame {
 				mol.setVolume(sliderVol.getValue());
 				mol.setTimbreAbs(Controleur.tableauTimbre[comboTimbre.getSelectedIndex()]);
 				((Boucle) mol.getEffet()).setNbNotes(sliderAmp.getValue());
-				((Boucle) mol.getEffet()).setInterNote((int) (((JFloatSlider) sliderInt).getFloatValue()*Controleur.dureeNoire));
+				if ((int) (((JFloatSlider) sliderInt).getFloatValue()) != 0){
+					((Boucle) mol.getEffet()).setInterNote((int) (((JFloatSlider) sliderInt).getFloatValue()*Controleur.dureeNoire));
+				}
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Tenu":
