@@ -69,6 +69,46 @@ abstract class Controleur{
 			intervalle.printIntervalle();
 		}
 	}
+	
+	/**
+	 * selectionne les intervalles utilisés pour jouer entre deux instants donnés
+	 * @param debut instant initial pour jouer la musique
+	 * @param fin instant final pour jouer la musique
+	 * @return liste des intervalles où des molécules jouent entre debut et fin
+	 */
+	public ArrayList<Intervalle> selectionIntervalle(int debut, int fin) {
+		ArrayList<Intervalle> tmpList = new ArrayList<Intervalle>(intervalles);
+		int index = 0;
+		for (Intervalle intervalle : tmpList){
+		if (intervalle.instantInitial() < debut) {
+			tmpList.remove(index);
+		}
+		else if (intervalle.instantFinal() > fin) {
+			tmpList.remove(index);
+			}
+		index++;
+		}
+		return tmpList;
+	}
+	
+	/**
+	 * Selectionne les molécules présentes dans un intervalle de temps donné
+	 * @param debut instant initial pour jouer la musique
+	 * @param fin instant final pour jouer la musique
+	 * @return la liste des molécules qui peuvent jouer entre debut et fin
+	 */
+	public ArrayList<Molecule> selectionMoleculeIntervalle(int debut, int fin) {
+		ArrayList<Molecule> tmpList = new ArrayList<Molecule>(molecules);
+		for (Molecule mol : tmpList) {
+			if ((mol.instantInitial() < debut) || (mol.instantFinal() < debut) ) {
+				tmpList.remove(mol);
+			}
+			else if (mol.instantInitial() > fin) {
+				tmpList.remove(mol);
+			}
+		}
+		return tmpList;
+	}
 
 	public static void printTrajectoires(){
 	    //FenetreTrajectoires f= new FenetreTrajectoires(this.molecules());
@@ -101,6 +141,13 @@ abstract class Controleur{
 	    }
 	}
 
+	/**
+	 * méthode qui initialise les attributs des molécules qui sont renseignés dans des fichiers
+	 * @param cheminTraj chemin vers le fichier de trajectoire
+	 * @param cheminAnalyse chemin vers le fichier contenant les alphas et les intensités
+	 * @param cheminTimbre chemin vers le fichier contenant la liste des instruments et leurs carac
+	 * @throws IOException si un des fichiers n'est pas trouvé ou correctement rempli
+	 */
 	public static void initMolecules(String cheminTraj, String cheminAnalyse, String cheminTimbre) throws IOException{
 		Parseur.lireFichierAnalyse(cheminAnalyse, molecules);
 		Parseur.lireFichierTrajectoire(cheminTraj, molecules());
@@ -132,8 +179,13 @@ abstract class Controleur{
 	protected void setTempo (){
 
 	}
-
-
+/**
+ * méthode qui alloue les notes aux molécules
+ *  @compositeur 2 notes par molécule pour le compositeur
+ *  en fonction du découpage renseigné dans le cahier des charges
+ *  @chercheur une note par molécule pour le chercheur
+ *  en fonction de la position initiale de la molécule
+ */
 	public static void allocationNotes() {
 		if (isChercheur){
 			for (Molecule mol : molecules) {
@@ -150,7 +202,12 @@ abstract class Controleur{
 			}
 		}
 	}
-
+/**
+ * méthode qui remplit la liste des intervalles de temps où les molécules jouent
+ * Pour chaque intervalle de la liste InstantInitial < InstantFinal
+ * et InstantFinal_i < InstantInitial_(i+1)
+ * Chaque intervalle contient le nombre de molécules présentes et la liste de ces molécules
+ */
 	static void remplirIntervalles(){
 		int index = 0;
 		int i = 0;
@@ -373,6 +430,9 @@ abstract class Controleur{
 		}
 	}
 
+	/**
+	 * méthode qui remplit les attributs des molécules qui doivent être calculés
+	 */
 	protected static void analyseMolecules(){
 		for (Molecule mol : molecules()){
 			mol.analyseMolecule(alphaSeparation, isChercheur);
@@ -384,7 +444,9 @@ abstract class Controleur{
 		Collections.sort(molecules);
 	}
 
-	//remplit les champs minMSD et maxMSD de la classe Boucle
+	/**
+	 * remplit les champs minMSD et maxMSD de la classe Boucle
+	 */
 	private static void analyseMSD() {
 		float minMSD = Float.MAX_VALUE;
 		float maxMSD = 0;
@@ -403,7 +465,9 @@ abstract class Controleur{
 	}
 
 
-	//Remplit le champs distanceMax de l'effet Glissando
+	/**
+	 * Remplit le champs distanceMax de l'effet Glissando
+	 */
 	private static void analyseDistanceMaxDirectionnelle() {
 		float maxDistance = 0;
 		if (isChercheur){
@@ -438,7 +502,14 @@ abstract class Controleur{
 		catch(InvalidMidiDataException e){}
 	}
 
-
+/**
+ * méthode qui trie les molécules selon leur paramètre alpha
+ * et remplit une liste pour chaque caractère
+ * @param ListeImmobile
+ * @param ListeConfine
+ * @param ListeDirectionnelle
+ * @param ListeAleatoire
+ */
 	public static void trierMolecules(	ArrayList<Molecule> ListeImmobile,
 			ArrayList<Molecule> ListeConfine,
 			ArrayList<Molecule> ListeDirectionnelle,
