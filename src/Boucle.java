@@ -73,11 +73,14 @@ class Boucle implements Effet{
 			for (int i = 0 ; i < nbNotes ; i++){
 				if (ti < tf){
 
-					//System.out.printf("%d ", tmpNote);
+					System.out.printf("%d ", tmpNote);
 					Midi.noteTenue(tmpNote, mol.getVolume(), mol.getTimbre(), ti, ti + interNote);
 					tmpNote += nextIntervalle;
+					System.out.println(nextIntervalle);
 				}
-				ti+=interNote;
+				System.out.printf("%d ", tmpNote);
+				System.out.println(nextIntervalle);
+				ti+=interNote/Controleur.dureeNoire;
 				switch (nextIntervalle){
 				case 0:
 					nextIntervalle = 4;
