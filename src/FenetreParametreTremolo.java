@@ -23,6 +23,7 @@ public class FenetreParametreTremolo extends JFrame {
 	private JSlider sliderFreq;
 	private JSlider sliderAmpl; 
 	private JComboBox<String> comboTimbreAbs;
+	private JComboBox<String> comboTimbreOrd;
 
 	
 	/**
@@ -96,19 +97,19 @@ public class FenetreParametreTremolo extends JFrame {
 		if (!Controleur.isChercheur){
 			spinnerNoteOrd = new JSpinner();
 			spinnerNoteOrd.setModel(new SpinnerNumberModel(0, 0, 128, 1));
-			spinnerNoteOrd.setBounds(222, 64, 49, 22);
+			spinnerNoteOrd.setBounds(242, 64, 49, 22);
 			spinnerNoteOrd.setValue(mol.noteOrd());
 			contentPane.add(spinnerNoteOrd);
 
 			JLabel lblabs = new JLabel("(Abscisse)");
-			lblabs.setBounds(145, 68, 56, 16);
+			lblabs.setBounds(145, 68, 90, 16);
 			contentPane.add(lblabs);
 
 			JLabel labelOrd = new JLabel("(Ordonnee)");
-			labelOrd.setBounds(277, 68, 56, 16);
+			labelOrd.setBounds(297, 68, 90, 16);
 			contentPane.add(labelOrd);
 
-			JComboBox comboTimbreOrd = new JComboBox(listeTimbres.toArray());
+			comboTimbreOrd = new JComboBox(listeTimbres.toArray());
 			comboTimbreOrd.setSelectedIndex(mol.getTimbreOrd().timbreMIDI() - 1);
 			comboTimbreOrd.setBounds(282, 234, 158, 22);
 			contentPane.add(comboTimbreOrd);
@@ -191,6 +192,10 @@ public class FenetreParametreTremolo extends JFrame {
 				mol.setTimbreAbs(Controleur.tableauTimbre[comboTimbreAbs.getSelectedIndex()]);
 				((Tremolo) mol.getEffet()).setNombrePas(sliderFreq.getValue());
 				((Tremolo) mol.getEffet()).setVariationNote(sliderAmpl.getValue());
+				if (!Controleur.isChercheur){
+					mol.setNoteOrd((int) spinnerNoteOrd.getValue());
+					mol.setTimbreOrd(Controleur.tableauTimbre[comboTimbreOrd.getSelectedIndex()]);					
+				}
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Tenu":

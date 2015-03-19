@@ -196,7 +196,7 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		JPanel panelHautGauche = new JPanel();
 		panelHautGauche.setBounds(0, 0, (int) (dim.getWidth()/2), (int) dim.getHeight() / 2);
 		panelHautGauche.setLayout(new BoxLayout(panelHautGauche, BoxLayout.X_AXIS));
-		FenetreTrajectoires TrajectoiresHaut = new FenetreTrajectoires(Controleur.molecules(),(int) (maxDim.getWidth() + maxDim.getWidth()/10), (int) (maxDim.getHeight() + maxDim.getHeight()/10)); 
+		FenetreTrajectoires TrajectoiresHaut = new FenetreTrajectoires(Controleur.molecules(),(int) (maxDim.getWidth() + maxDim.getWidth()/10), (int) (maxDim.getHeight() + maxDim.getHeight()/10), true); 
 		panelHautGauche.add(new JScrollPane(TrajectoiresHaut));
 		panelHautGauche.setVisible(true);
 		getContentPane().add(panelHautGauche);
@@ -205,7 +205,7 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		panelBasGauche.setBounds(0, (int) dim.getHeight() / 2, (int) (dim.getWidth()/2), (int) dim.getHeight() / 2 - 30);
 		ListeDynamique = new ArrayList<Molecule>(Controleur.molecules());
 		panelBasGauche.setLayout(new BorderLayout(0, 0));
-		FenetreTrajectoires TrajectoiresBas = new FenetreTrajectoires(ListeDynamique, (int) (maxDim.getWidth() + maxDim.getWidth()/10), (int) (maxDim.getHeight() + maxDim.getHeight()/10)); 
+		FenetreTrajectoires TrajectoiresBas = new FenetreTrajectoires(ListeDynamique, (int) (maxDim.getWidth() + maxDim.getWidth()/10), (int) (maxDim.getHeight() + maxDim.getHeight()/10), true); 
 		panelBasGauche.add(new JScrollPane(TrajectoiresBas));
 		panelBasGauche.setVisible(true);
 		getContentPane().add(panelBasGauche);

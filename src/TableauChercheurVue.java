@@ -1,3 +1,5 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,14 +30,18 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JButton btnStart;
-	JButton btnAjouterUneLigne;
-	JButton btnAjouterUneColonne;
-	JButton btnSupprimerUneLigne;
-	JButton btnSupprimerUneColonne;
-	TableauChercheur TabC;
-	final ArrayList<ArrayList<JSplitPane>> mat;
-	final ArrayList<ArrayList<JComboBox<String>>> matCombo;
+	private JSplitPane splitPane;
+	private JPanel backPanel;
+	
+	private JButton btnStart;
+	private JButton btnAjouterUneLigne;
+	private JButton btnAjouterUneColonne;
+	private JButton btnSupprimerUneLigne;
+	private JButton btnSupprimerUneColonne;
+	private TableauChercheur TabC;
+	final private ArrayList<ArrayList<JSplitPane>> mat;
+	final private ArrayList<ArrayList<JComboBox<String>>> matCombo;
+	private JCheckBox chckbxAfficherLesMolecules;
 
 	/**
 	 * Launch the application.
@@ -64,6 +71,14 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public TableauChercheurVue(boolean init, TableauChercheur tab) {
+		
+	    if (init){
+	    	TabC = new TableauChercheur(5,3);
+	    }
+	    else {
+	    	TabC = tab;
+		}
+	    
 		this.setResizable(false);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,11 +89,29 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(0, 0, (int) dim.getWidth(), (int) dim.getHeight());
 	    setLocationRelativeTo(null);
+
+	    backPanel = new JPanel();
+	    backPanel.setBounds(Math.round(TabC.abscisses.get(0)+35), 
+	    		Math.round(TabC.ordonnees.get(0).get(0) + 5), 
+	    		Math.round(TabC.abscisses.get(TabC.abscisses.size()-1) - TabC.abscisses.get(0)), 
+	    		Math.round(TabC.ordonnees.get(0).get(TabC.ordonnees.get(0).size()-1) - TabC.ordonnees.get(0).get(0)));
+	    backPanel.setBackground(new Color(0, 0, 0,0));
+		Dimension maxDim = Controleur.maxDimension();
+	    backPanel.setLayout(new BorderLayout(0, 0));
+	    FenetreTrajectoires ft = new FenetreTrajectoires (Controleur.molecules(),(int) (maxDim.getWidth() + maxDim.getWidth()/10), (int) (maxDim.getHeight() + maxDim.getHeight()/10), false);
+
+	    backPanel.add(ft);
+	    getContentPane().add(backPanel);
+	    backPanel.setVisible(false);
+
+	    
 	    
 	    JPanel panel = new JPanel();
 	    panel.setBounds(0, 0,(int) (4*dim.getWidth()/5), (int) dim.getHeight());
 	    this.getContentPane().add(panel);
 	 
+	    
+
 	    
 	    JPanel panel_1 = new JPanel();
 	    panel_1.setBounds((int) (4*dim.getWidth()/5), 0, (int) dim.getWidth()/5, (int) dim.getWidth());
@@ -143,6 +176,16 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 	    		FormFactory.RELATED_GAP_ROWSPEC,
 	    		FormFactory.DEFAULT_ROWSPEC,
 	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
 	    		FormFactory.DEFAULT_ROWSPEC,}));
 	    
 	    btnAjouterUneLigne = new JButton("Ajouter Une Ligne");
@@ -169,11 +212,24 @@ public class TableauChercheurVue extends JFrame implements ActionListener{
 	    btnStart.setName("btnStart");
 	    btnStart.addActionListener(this);
 	    panel_1.add(btnStart, "2, 26");
+	    
+	    chckbxAfficherLesMolecules = new JCheckBox("Afficher les molecules");
+	    chckbxAfficherLesMolecules.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	if (chckbxAfficherLesMolecules.isSelected()){
+	        		backPanel.setVisible(true);
+	        	}
+	        	else{
+	        		backPanel.setVisible(false);
+	        	}
+	        }
+	    });
+	    panel_1.add(chckbxAfficherLesMolecules, "2, 36");
 		
 		
 		
 		
-		JSplitPane splitPane = new JSplitPane();
+		splitPane = new JSplitPane();
 		panel.add(splitPane);
 		splitPane.setDividerSize(2);
 	    splitPane.setBorder(BorderFactory.createEmptyBorder());		

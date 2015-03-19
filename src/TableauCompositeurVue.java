@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -32,6 +34,8 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	TableauCompositeur TabC;
 	JSplitPane splitPane00, splitPane01, splitPane02,splitPane10 ,splitPane11, splitPane12, splitPane20, splitPane21, splitPane22;
 	InstrumentsBox comboOrdonnees1, comboOrdonnees2, comboOrdonnees3, comboAbscisses1, comboAbscisses2, comboAbscisses3 ;
+	private JPanel backPanel;
+	private JCheckBox chckbxAfficherLesMolecules;
 	
 	
 	/**
@@ -63,6 +67,15 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public TableauCompositeurVue(boolean init, TableauCompositeur tab) {
+
+	    if (init){
+	    	TabC = new TableauCompositeur();
+	    }
+	    else {
+	    	TabC = tab;
+		}
+	    
+		
 		this.setResizable(false);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,6 +87,18 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 		setBounds(0, 0, (int) dim.getWidth(), (int) dim.getHeight());
 	    setLocationRelativeTo(null);
 	    
+	    backPanel = new JPanel();
+	    backPanel.setBounds((int) TabC.abscisses[0], (int) TabC.ordonnees[0], (int) TabC.abscisses[3] - (int) TabC.abscisses[0], (int) TabC.ordonnees[3] - (int) TabC.ordonnees[0]);
+	    backPanel.setBackground(new Color(0, 0, 0,0));
+		Dimension maxDim = Controleur.maxDimension();
+	    backPanel.setLayout(new BorderLayout(0, 0));
+	    FenetreTrajectoires ft = new FenetreTrajectoires (Controleur.molecules(),(int) (maxDim.getWidth() + maxDim.getWidth()/10), (int) (maxDim.getHeight() + maxDim.getHeight()/10), false);
+
+	    backPanel.add(ft);
+	    getContentPane().add(backPanel);
+	    backPanel.setVisible(false);
+
+	    
 	    JPanel panel = new JPanel();
 	    panel.setBounds(0, 0,(int) (4*dim.getWidth()/5), (int) dim.getHeight());
 	    this.getContentPane().add(panel);
@@ -82,14 +107,6 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	    JPanel panel_1 = new JPanel();
 	    panel_1.setBounds((int) (4*dim.getWidth()/5), 0, (int) dim.getWidth()/5, (int) dim.getWidth());
 	    this.getContentPane().add(panel_1);
-	    
-	    
-	    if (init){
-	    	TabC = new TableauCompositeur();
-	    }
-	    else {
-	    	TabC = tab;
-		}
 	    
 
 		for (Float f : TabC.abscisses){
@@ -130,6 +147,18 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	    		FormFactory.RELATED_GAP_ROWSPEC,
 	    		FormFactory.DEFAULT_ROWSPEC,
 	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
+	    		FormFactory.DEFAULT_ROWSPEC,
+	    		FormFactory.RELATED_GAP_ROWSPEC,
 	    		FormFactory.DEFAULT_ROWSPEC,}));
 	    
 	    
@@ -137,6 +166,19 @@ public class TableauCompositeurVue extends JFrame implements ActionListener{
 	    btnStart.setName("btnStart");
 	    btnStart.addActionListener(this);
 	    panel_1.add(btnStart, "2, 26");
+	    
+	    chckbxAfficherLesMolecules = new JCheckBox("Afficher les molecules");
+	    chckbxAfficherLesMolecules.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	if (chckbxAfficherLesMolecules.isSelected()){
+	        		backPanel.setVisible(true);
+	        	}
+	        	else{
+	        		backPanel.setVisible(false);
+	        	}
+	        }
+	    });
+	    panel_1.add(chckbxAfficherLesMolecules, "2, 36");
 	
 
 		/* Programme permettant la détection de changement du divider de chaque splitPane */
