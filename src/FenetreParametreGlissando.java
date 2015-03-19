@@ -38,7 +38,7 @@ public class FenetreParametreGlissando extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenetreParametreGlissando frame = new FenetreParametreGlissando(null);
+					FenetreParametreGlissando frame = new FenetreParametreGlissando(null,1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +51,7 @@ public class FenetreParametreGlissando extends JFrame {
 	 * Create the frame.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public FenetreParametreGlissando(final Molecule mol) {
+	public FenetreParametreGlissando(final Molecule mol, final int numero) {
 		this.setTitle("Fenetre parametre effet GLISSANDO");
 
 		
@@ -87,32 +87,21 @@ public class FenetreParametreGlissando extends JFrame {
 		lblNoteDeReference.setBounds(12, 61, 49, 30);
 		contentPane.add(lblNoteDeReference);
 		
-		spinnerNoteAbs = new JSpinner();
-		spinnerNoteAbs.setModel(new SpinnerNumberModel(0, 0, 128, 1));
-		spinnerNoteAbs.setBounds(90, 65, 49, 22);
-		spinnerNoteAbs.setValue(mol.noteAbs());
-		contentPane.add(spinnerNoteAbs);
-		
-		if (!Controleur.isChercheur){
+		if (numero ==1){
+			spinnerNoteAbs = new JSpinner();
+			spinnerNoteAbs.setModel(new SpinnerNumberModel(0, 0, 128, 1));
+			spinnerNoteAbs.setBounds(90, 65, 49, 22);
+			spinnerNoteAbs.setValue(mol.noteAbs());
+			contentPane.add(spinnerNoteAbs);
+		}else{
 			spinnerNoteOrd = new JSpinner();
 			spinnerNoteOrd.setModel(new SpinnerNumberModel(0, 0, 128, 1));
-			spinnerNoteOrd.setBounds(242, 64, 49, 22);
+			spinnerNoteOrd.setBounds(90, 64, 49, 22);
 			spinnerNoteOrd.setValue(mol.noteOrd());
 			contentPane.add(spinnerNoteOrd);
-
-			JLabel lblabs = new JLabel("(Abscisse)");
-			lblabs.setBounds(145, 68, 90, 16);
-			contentPane.add(lblabs);
-
-			JLabel labelOrd = new JLabel("(Ordonnee)");
-			labelOrd.setBounds(297, 68, 90, 16);
-			contentPane.add(labelOrd);
-
-			comboTimbreOrd = new JComboBox(listeTimbres.toArray());
-			comboTimbreOrd.setSelectedIndex(mol.getTimbreOrd().timbreMIDI() - 1);
-			comboTimbreOrd.setBounds(282, 234, 158, 22);
-			contentPane.add(comboTimbreOrd);
 		}
+		
+
 		
 		JLabel lblilVousFaudra = new JLabel("<html>(il vous faudra recharger la fenetre de parametre de la molecule)</html>");
 		lblilVousFaudra.setBounds(230, 91, 207, 56);
@@ -147,10 +136,18 @@ public class FenetreParametreGlissando extends JFrame {
 		contentPane.add(lblTimbre);
 
 		
-		comboTimbreAbs = new JComboBox(listeTimbres.toArray());
-		comboTimbreAbs.setBounds(90, 234, 158, 22);
-		comboTimbreAbs.setSelectedIndex(mol.getTimbreAbs().timbreMIDI() - 1);
-		contentPane.add(comboTimbreAbs);
+		if (numero == 1){
+			comboTimbreAbs = new JComboBox(listeTimbres.toArray());
+			comboTimbreAbs.setBounds(90, 234, 158, 22);
+			comboTimbreAbs.setSelectedIndex(mol.getTimbreAbs().timbreMIDI() - 1);
+			contentPane.add(comboTimbreAbs);
+		}
+		else{
+			comboTimbreOrd = new JComboBox(listeTimbres.toArray());
+			comboTimbreOrd.setSelectedIndex(mol.getTimbreOrd().timbreMIDI() - 1);
+			comboTimbreOrd.setBounds(90, 234, 158, 22);
+			contentPane.add(comboTimbreOrd);
+		}
 		
 		sliderMol = new JSlider();
 		sliderMol.setPaintLabels(true);
@@ -169,14 +166,15 @@ public class FenetreParametreGlissando extends JFrame {
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				mol.setNoteAbs((int) spinnerNoteAbs.getValue());
 				mol.setVolume(sliderVol.getValue());
-				mol.setTimbreAbs(Controleur.tableauTimbre[comboTimbreAbs.getSelectedIndex()]);
-				((Glissando) mol.getEffet()).setMolette(sliderMol.getValue());
-				if (!Controleur.isChercheur){
+				if (numero==1){
+					mol.setNoteAbs((int) spinnerNoteAbs.getValue());
+					mol.setTimbreAbs(Controleur.tableauTimbre[comboTimbreAbs.getSelectedIndex()]);
+				}else{
 					mol.setNoteOrd((int) spinnerNoteOrd.getValue());
 					mol.setTimbreOrd(Controleur.tableauTimbre[comboTimbreOrd.getSelectedIndex()]);					
 				}
+				((Glissando) mol.getEffet()).setMolette(sliderMol.getValue());
 				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Tenu":

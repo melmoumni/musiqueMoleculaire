@@ -52,8 +52,12 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 	private JSpinner spinnerPoints;
 
 	private JButton btnSave;
+
+	private ArrayList<Molecule> ListeDynamique;
+
+	private JMenuItem itemAbscisse;
+	private JMenuItem itemOrdonnee;
 	
-	ArrayList<Molecule> ListeDynamique;
 	/**
 	 * 
 	 */
@@ -137,30 +141,35 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 			}
 		}
 
-		JMenuItem item = new JMenuItem("Propriete");
-		item.addActionListener(new ActionListener() {
+		if (Controleur.isChercheur){
+			itemAbscisse = new JMenuItem("Propriete");
+		}
+		else{
+			itemAbscisse = new JMenuItem("Propriete Abscisse");
+		}
+		itemAbscisse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("FenetreProprieteMolecule" + moleculePropriete.numero());
 				System.out.println(moleculePropriete.getEffet().getClass().getName());
 				switch (moleculePropriete.getEffet().getClass().getName()){
 				case "Tenu":
-					FenetreParametreTenu frameTenu = new FenetreParametreTenu(moleculePropriete);
+					FenetreParametreTenu frameTenu = new FenetreParametreTenu(moleculePropriete,1);
 					frameTenu.setVisible(true);
 					break;
 				case "Glissando":
-					FenetreParametreGlissando frameGlissando = new FenetreParametreGlissando(moleculePropriete);
+					FenetreParametreGlissando frameGlissando = new FenetreParametreGlissando(moleculePropriete,1);
 					frameGlissando.setVisible(true);
 					break;
 				case "Tremolo":
-					FenetreParametreTremolo frameTremolo = new FenetreParametreTremolo(moleculePropriete);
+					FenetreParametreTremolo frameTremolo = new FenetreParametreTremolo(moleculePropriete,1);
 					frameTremolo.setVisible(true);
 					break;
 				case "Boucle":
-					FenetreParametreBoucle frameBoucle = new FenetreParametreBoucle(moleculePropriete);
+					FenetreParametreBoucle frameBoucle = new FenetreParametreBoucle(moleculePropriete,1);
 					frameBoucle.setVisible(true);
 					break;
 				case "Aleatoire":
-					FenetreParametreAleatoire frameAleatoire= new FenetreParametreAleatoire(moleculePropriete);
+					FenetreParametreAleatoire frameAleatoire= new FenetreParametreAleatoire(moleculePropriete,1);
 					frameAleatoire.setVisible(true);
 					break;
 				default:
@@ -169,7 +178,46 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 				}
 			}
 		});
-		menu.add(item);
+		menu.add(itemAbscisse);
+
+		if (!Controleur.isChercheur){
+			itemOrdonnee = new JMenuItem("Propriete Ordonnee");
+
+			itemOrdonnee.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("FenetreProprieteMolecule" + moleculePropriete.numero());
+					System.out.println(moleculePropriete.getEffet().getClass().getName());
+					switch (moleculePropriete.getEffet().getClass().getName()){
+					case "Tenu":
+						FenetreParametreTenu frameTenu = new FenetreParametreTenu(moleculePropriete,2);
+						frameTenu.setVisible(true);
+						break;
+					case "Glissando":
+						FenetreParametreGlissando frameGlissando = new FenetreParametreGlissando(moleculePropriete,2);
+						frameGlissando.setVisible(true);
+						break;
+					case "Tremolo":
+						FenetreParametreTremolo frameTremolo = new FenetreParametreTremolo(moleculePropriete,2);
+						frameTremolo.setVisible(true);
+						break;
+					case "Boucle":
+						FenetreParametreBoucle frameBoucle = new FenetreParametreBoucle(moleculePropriete,2);
+						frameBoucle.setVisible(true);
+						break;
+					case "Aleatoire":
+						FenetreParametreAleatoire frameAleatoire= new FenetreParametreAleatoire(moleculePropriete,2);
+						frameAleatoire.setVisible(true);
+						break;
+					default:
+						break;
+
+					}
+
+				}
+			});
+			menu.add(itemOrdonnee);
+		}
+
 
 		ListeImmobile = new ArrayList<Molecule>();
 		ListeConfine = new ArrayList<Molecule>();
@@ -190,9 +238,9 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		dim.width -= 50;
 		setBounds(0, 0, (int) dim.getWidth(), (int) dim.getHeight());
-		
+
 		Dimension maxDim = Controleur.maxDimension();
-		
+
 		JPanel panelHautGauche = new JPanel();
 		panelHautGauche.setBounds(0, 0, (int) (dim.getWidth()/2), (int) dim.getHeight() / 2);
 		panelHautGauche.setLayout(new BoxLayout(panelHautGauche, BoxLayout.X_AXIS));
@@ -588,7 +636,7 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 				Midi.jouerSequence();
 			}
 		});
-		
+
 		btnSave = new JButton("Enregistrer le son");
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
 		gbc_btnSave.gridwidth = 3;
@@ -598,20 +646,20 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		panel.add(btnSave, gbc_btnSave);
 		btnSave.addActionListener(this);
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSave){
 			JFileChooser chooser = new JFileChooser();
-	    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt", "trc");
-	    	chooser.setFileFilter(filter);
-	    	int returnVal = chooser.showSaveDialog(this);
-	    	if (returnVal == JFileChooser.APPROVE_OPTION) {
-	    		try {
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt", "trc");
+			chooser.setFileFilter(filter);
+			int returnVal = chooser.showSaveDialog(this);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				try {
 					Midi.saveMidi(chooser.getSelectedFile().getPath());
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				} 
-	    	}
+			}
 		}
 	}
 
