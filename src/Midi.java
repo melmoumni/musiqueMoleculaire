@@ -98,11 +98,58 @@ public class Midi{
 		Soundbank soundbank = synthetiseur.getDefaultSoundbank();
 		Instrument[] instr = soundbank.getInstruments();
 		m[numChannel].programChange(instr[instrument].getPatch().getBank(), instr[instrument].getPatch().getProgram());
-		if (numChannel % 2 == 0){
-			m[numChannel].controlChange(PANORAMIQUE, 1);//gauche
-		}
-		else {
+		switch (numChannel % 16) {
+		case 0:
+			m[numChannel].controlChange(PANORAMIQUE, 0);//gauche
+			break;
+		case 1:
+			m[numChannel].controlChange(PANORAMIQUE, 8);
+			break;
+		case 2:
+			m[numChannel].controlChange(PANORAMIQUE, 16);
+			break;
+		case 3:
+			m[numChannel].controlChange(PANORAMIQUE, 24);
+			break;
+		case 4:
+			m[numChannel].controlChange(PANORAMIQUE, 32);
+			break;
+		case 5:
+			m[numChannel].controlChange(PANORAMIQUE, 40);
+			break;
+		case 6:
+			m[numChannel].controlChange(PANORAMIQUE, 48);
+			break;
+		case 7:
+			m[numChannel].controlChange(PANORAMIQUE, 56);
+			break;
+		case 8:
+			m[numChannel].controlChange(PANORAMIQUE, 64);//milieu
+			break;
+		case 9:
+			m[numChannel].controlChange(PANORAMIQUE, 72);
+			break;
+		case 10:
+			m[numChannel].controlChange(PANORAMIQUE, 80);
+			break;
+		case 11:
+			m[numChannel].controlChange(PANORAMIQUE, 88);
+			break;
+		case 12:
+			m[numChannel].controlChange(PANORAMIQUE, 96);
+			break;
+		case 13:
+			m[numChannel].controlChange(PANORAMIQUE, 104);
+			break;
+		case 14:
+			m[numChannel].controlChange(PANORAMIQUE, 112);
+			break;
+		case 15:
+			m[numChannel].controlChange(PANORAMIQUE, 120);
+			break;
+		default:
 			m[numChannel].controlChange(PANORAMIQUE, 127);//droite
+			break;
 		}
 	}
 
