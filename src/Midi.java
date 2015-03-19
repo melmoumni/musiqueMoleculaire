@@ -22,6 +22,7 @@ public class Midi{
 
 	static private Sequencer sequenceur;
 	static private Synthesizer synthetiseur;
+	static final int PANORAMIQUE = 10;
 
 	public Midi(){
 		try{
@@ -97,6 +98,12 @@ public class Midi{
 		Soundbank soundbank = synthetiseur.getDefaultSoundbank();
 		Instrument[] instr = soundbank.getInstruments();
 		m[numChannel].programChange(instr[instrument].getPatch().getBank(), instr[instrument].getPatch().getProgram());
+		if (numChannel % 2 == 0){
+			m[numChannel].controlChange(PANORAMIQUE, 1);//gauche
+		}
+		else {
+			m[numChannel].controlChange(PANORAMIQUE, 127);//droite
+		}
 	}
 
 
