@@ -17,6 +17,7 @@ abstract class Controleur{
 	public static ArrayList<Molecule> molecules;
 	public static ArrayList<Intervalle> intervalles;
 	static public int noteRef;
+	static public float intensiteMoy;
 	//private Vue vue;
 	public Vector<Fenetre> fenetres;
 	public int periode;
@@ -434,13 +435,21 @@ abstract class Controleur{
 	 * méthode qui remplit les attributs des molécules qui doivent être calculés
 	 */
 	protected static void analyseMolecules(){
+		float intensiteMoyIntermediaire = 0;
 		for (Molecule mol : molecules()){
 			mol.analyseMolecule(alphaSeparation, isChercheur);
 			mol.analyseDistance();
 			mol.analyseIntensite();
+			if (mol.moyenneIntensite() > intensiteMoyIntermediaire) {
+				intensiteMoyIntermediaire = mol.moyenneIntensite();
+			}
 		}
+		intensiteMoy = intensiteMoyIntermediaire;
 		analyseDistanceMaxDirectionnelle();
 		analyseMSD();
+		for (Molecule mol : molecules()){
+			mol.setVolume((int) ((mol.moyenneIntensite() * 125) / intensiteMoy));
+			}
 		Collections.sort(molecules);
 	}
 

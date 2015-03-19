@@ -40,6 +40,7 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		}
 		System.out.println("vitesseAbs : "+ vitesseAbs+" , vitesseOrd : "+ vitesseOrd);
 		System.out.println("alpha : " + alpha);
+		System.out.println("volume : " + volume);
 		System.out.println("MSD : " + msd);
 		System.out.println("Effet" + effet.getClass().getName());
 		//System.out.println("Tempo : "+tempo);
@@ -335,6 +336,14 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 
 	public float getAlpha() {
 		return alpha;
+	}
+	
+	public float maxIntensite(){
+		return maxIntensite;
+	}
+	
+	public void setMaxIntensite(float max){
+		maxIntensite = max;
 	}
 
 }
