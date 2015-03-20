@@ -306,4 +306,39 @@ public class Midi{
 	return names;
     }
 
+    static public String getNote(int n){
+	int note = n % 12;
+	String noteString;
+	switch (note) {
+	case 0:  noteString = "Do";
+	    break;
+	case 1:  noteString = "Do #";
+	    break;
+	case 2:  noteString = "Ré";
+	    break;
+	case 3:  noteString = "Ré #";
+	    break;
+	case 4:  noteString = "Mi";
+	    break;
+	case 5:  noteString = "Fa";
+	    break;
+	case 6:  noteString = "Fa #";
+	    break;
+	case 7:  noteString = "Sol";
+	    break;
+	case 8:  noteString = "Sol #";
+	    break;
+	case 9: noteString = "La";
+	    break;
+	case 10: noteString = "La #";
+	    break;
+	case 11: noteString = "Si";
+	    break;
+	default: noteString = "Invalid Note";
+	    break;
+	}
+	
+	return noteString;
+    }
+    
 }

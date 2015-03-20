@@ -309,7 +309,7 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		panelDroit.setLayout(null);
 		Box boxHautGauche = Box.createVerticalBox();
 		for (Molecule mol : ListeImmobile){
-			JCheckBox j = new MyJCheckBox("Immobile "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")", mol);
+		    JCheckBox j = new MyJCheckBox("Immobile "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")" + " " + Midi.getNote(mol.noteAbs()) + " " + Midi.getNote(mol.noteOrd()), mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxHautGauche.add(j);
@@ -317,7 +317,7 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		}
 		Box boxHautDroit = Box.createVerticalBox();
 		for (Molecule mol : ListeConfine){
-			JCheckBox j = new MyJCheckBox("Confine "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")", mol);
+		    JCheckBox j = new MyJCheckBox("Confine "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")" + " " + Midi.getNote(mol.noteAbs()) + " " + Midi.getNote(mol.noteOrd()), mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxHautDroit.add(j);
@@ -325,7 +325,7 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		}
 		Box boxBasGauche = Box.createVerticalBox();
 		for (Molecule mol : ListeDirectionnelle){
-			JCheckBox j = new MyJCheckBox("Directionnelle "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")", mol);
+		    JCheckBox j = new MyJCheckBox("Directionnelle "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")" + " " + Midi.getNote(mol.noteAbs()) + " " + Midi.getNote(mol.noteOrd()), mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxBasGauche.add(j);
@@ -333,7 +333,7 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		}
 		Box boxBasDroit = Box.createVerticalBox();
 		for (Molecule mol : ListeAleatoire){
-			JCheckBox j = new MyJCheckBox("Aleatoire "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")", mol);
+		    JCheckBox j = new MyJCheckBox("Aleatoire "+mol.numero()+"      ("+mol.instantInitial()+" - "+ mol.instantFinal()+")" + " " + Midi.getNote(mol.noteAbs()) + " " + Midi.getNote(mol.noteOrd()), mol);
 			j.setSelected(true);
 			j.addActionListener(actionListener);
 			boxBasDroit.add(j);
