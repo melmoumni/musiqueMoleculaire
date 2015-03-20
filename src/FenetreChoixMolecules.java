@@ -150,8 +150,8 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 		itemAbscisse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("FenetreProprieteMolecule" + moleculePropriete.numero());
-				System.out.println(moleculePropriete.getEffet().getClass().getName());
-				switch (moleculePropriete.getEffet().getClass().getName()){
+				System.out.println(moleculePropriete.getEffetAbs().getClass().getName());
+				switch (moleculePropriete.getEffetAbs().getClass().getName()){
 				case "Tenu":
 					FenetreParametreTenu frameTenu = new FenetreParametreTenu(moleculePropriete,1);
 					frameTenu.setVisible(true);
@@ -186,8 +186,8 @@ public class FenetreChoixMolecules extends JFrame implements ActionListener{
 			itemOrdonnee.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("FenetreProprieteMolecule" + moleculePropriete.numero());
-					System.out.println(moleculePropriete.getEffet().getClass().getName());
-					switch (moleculePropriete.getEffet().getClass().getName()){
+					System.out.println(moleculePropriete.getEffetOrd().getClass().getName());
+					switch (moleculePropriete.getEffetOrd().getClass().getName()){
 					case "Tenu":
 						FenetreParametreTenu frameTenu = new FenetreParametreTenu(moleculePropriete,2);
 						frameTenu.setVisible(true);

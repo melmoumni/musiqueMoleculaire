@@ -110,7 +110,7 @@ public class FenetreParametreTenu extends JFrame {
 		
 		comboBox_1 = new JComboBox(listeEffets.toArray());
 		comboBox_1.setBounds(90, 110, 94, 22);
-		comboBox_1.setSelectedItem(mol.getEffet().getClass().getName());
+		comboBox_1.setSelectedItem(mol.getEffetAbs().getClass().getName());
 		contentPane.add(comboBox_1);
 
 		JLabel lblVolume = new JLabel("Volume :");
@@ -156,19 +156,19 @@ public class FenetreParametreTenu extends JFrame {
 					mol.setNoteOrd((int) spinnerNoteOrd.getValue());
 					mol.setTimbreOrd(Controleur.tableauTimbre[comboTimbreOrd.getSelectedIndex()]);					
 				}
-				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
+				if (!(mol.getEffetAbs().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Glissando":
-						mol.setEffet(new Glissando());
+						mol.setEffetAbs(new Glissando());
 						break;
 					case "Boucle":
-						mol.setEffet(new Boucle());
+						mol.setEffetAbs(new Boucle());
 						break;
 					case "Aleatoire":
-						mol.setEffet(new Aleatoire());
+						mol.setEffetAbs(new Aleatoire());
 						break;
 					case "Tremolo":
-						mol.setEffet(new Tremolo());
+						mol.setEffetAbs(new Tremolo());
 						break;
 					default:
 						break;

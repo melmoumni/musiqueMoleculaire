@@ -113,7 +113,7 @@ public class FenetreParametreBoucle extends JFrame {
 		
 		comboBox_1 = new JComboBox(listeEffets.toArray());
 		comboBox_1.setBounds(90, 110, 94, 22);
-		comboBox_1.setSelectedItem(mol.getEffet().getClass().getName());
+		comboBox_1.setSelectedItem(mol.getEffetAbs().getClass().getName());
 		contentPane.add(comboBox_1);
 
 		JLabel lblVolume = new JLabel("Volume :");
@@ -188,7 +188,7 @@ public class FenetreParametreBoucle extends JFrame {
 		}
 
 		
-		sliderInt = new JFloatSlider(0,(float) 0, (float) 4, (float) ((Boucle) mol.getEffet()).interNote()/Controleur.dureeNoire, (float) 1);
+		sliderInt = new JFloatSlider(0,(float) 0, (float) 4, (float) ((Boucle) mol.getEffetAbs()).interNote()/Controleur.dureeNoire, (float) 1);
 		sliderInt.setBounds(151, 273, 200, 50);
 		contentPane.add(sliderInt);
 		
@@ -205,7 +205,7 @@ public class FenetreParametreBoucle extends JFrame {
 		sliderAmp.setMaximum(9);
 		sliderAmp.setMajorTickSpacing(1);
 		sliderAmp.setBounds(176, 349, 229, 52);
-		sliderAmp.setValue(((Boucle) mol.getEffet()).nbNotes());
+		sliderAmp.setValue(((Boucle) mol.getEffetAbs()).nbNotes());
 		System.out.println("nbNotes value : " + sliderAmp.getValue());
 		contentPane.add(sliderAmp);
 		
@@ -221,23 +221,23 @@ public class FenetreParametreBoucle extends JFrame {
 					mol.setNoteOrd((int) spinnerNoteOrd.getValue());
 					mol.setTimbreOrd(Controleur.tableauTimbre[comboTimbreOrd.getSelectedIndex()]);					
 				}
-				((Boucle) mol.getEffet()).setNbNotes(sliderAmp.getValue());
+				((Boucle) mol.getEffetAbs()).setNbNotes(sliderAmp.getValue());
 				if ((int) (((JFloatSlider) sliderInt).getFloatValue()) != 0){
-					((Boucle) mol.getEffet()).setInterNote((int) (((JFloatSlider) sliderInt).getFloatValue()*Controleur.dureeNoire));
+					((Boucle) mol.getEffetAbs()).setInterNote((int) (((JFloatSlider) sliderInt).getFloatValue()*Controleur.dureeNoire));
 				}
-				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
+				if (!(mol.getEffetAbs().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Tenu":
-						mol.setEffet(new Tenu());
+						mol.setEffetAbs(new Tenu());
 						break;
 					case "Glissando":
-						mol.setEffet(new Glissando());
+						mol.setEffetAbs(new Glissando());
 						break;
 					case "Aleatoire":
-						mol.setEffet(new Aleatoire());
+						mol.setEffetAbs(new Aleatoire());
 						break;
 					case "Tremolo":
-						mol.setEffet(new Tremolo());
+						mol.setEffetAbs(new Tremolo());
 						break;
 					default:
 						break;
