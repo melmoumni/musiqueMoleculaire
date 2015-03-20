@@ -1,3 +1,4 @@
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -43,7 +44,7 @@ public class FenetreTrajectoires extends javax.swing.JPanel {
 					JFrame jf = new JFrame("test");
 					jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					jf.setSize(300, 300);
-					jf.add(new JScrollPane(new FenetreTrajectoires(Controleur.molecules(), d.width + d.width/10 ,d.height + d.height/10, true)));
+					jf.add(new JScrollPane(new FenetreTrajectoires(Controleur.molecules(), d.width + d.width/10 ,d.height + d.height/10, false)));
 					jf.setVisible(true);	
 
 				} catch (Exception e) {
@@ -212,10 +213,14 @@ public class FenetreTrajectoires extends javax.swing.JPanel {
 			for (Molecule mol : molecules){
 				if(mol.positions().size()>0){   //si la molecule a plus de 50 positions on l'affiche
 					g2.setColor(mol.getCouleur());
-					g2.drawLine((int) (mol.positions.get(0).x()*w),
+	                g2.setStroke(new BasicStroke(1));
+					/*g2.drawLine((int) (mol.positions.get(0).x()*w),     //pour faire des carres :)
 							(int) (mol.positions.get(0).y()*h),
 							(int) (mol.positions.get(0).x()*w),
-							(int) (mol.positions.get(0).y()*h));
+							(int) (mol.positions.get(0).y()*h));*/
+	                //affichage avec des ronds
+	                g2.drawOval((int)(mol.positions.get(0).x()*w)-2,(int)(mol.positions.get(0).y()*h)-2,4,4);
+	                g2.fillOval((int)(mol.positions.get(0).x()*w)-2,(int)(mol.positions.get(0).y()*h)-2,4,4);
 				}       
 			}
 			
