@@ -112,7 +112,7 @@ public class FenetreParametreTremolo extends JFrame {
 		
 		comboBox_1 = new JComboBox(listeEffets.toArray());
 		comboBox_1.setBounds(90, 110, 94, 22);
-		comboBox_1.setSelectedItem(mol.getEffet().getClass().getName());
+		comboBox_1.setSelectedItem(mol.getEffetAbs().getClass().getName());
 		contentPane.add(comboBox_1);
 
 		JLabel lblVolume = new JLabel("Volume :");
@@ -166,7 +166,7 @@ public class FenetreParametreTremolo extends JFrame {
 		sliderAmpl.setMinimum(1);
 		sliderAmpl.setMaximum(10);
 		sliderAmpl.setBounds(185, 277, 235, 52);
-		sliderAmpl.setValue(((Tremolo) mol.getEffet()).variationNote());
+		sliderAmpl.setValue(((Tremolo) mol.getEffetAbs()).variationNote());
 		contentPane.add(sliderAmpl);
 		
 		sliderFreq = new JSlider();
@@ -176,7 +176,7 @@ public class FenetreParametreTremolo extends JFrame {
 		sliderFreq.setMinimum(1);
 		sliderFreq.setMajorTickSpacing(49);
 		sliderFreq.setBounds(185, 342, 235, 52);
-		sliderFreq.setValue(((Tremolo) mol.getEffet()).nombrePas());
+		sliderFreq.setValue(((Tremolo) mol.getEffetAbs()).nombrePas());
 		contentPane.add(sliderFreq);
 		
 		JButton btnValider = new JButton("Valider");
@@ -190,21 +190,21 @@ public class FenetreParametreTremolo extends JFrame {
 					mol.setNoteOrd((int) spinnerNoteOrd.getValue());
 					mol.setTimbreOrd(Controleur.tableauTimbre[comboTimbreOrd.getSelectedIndex()]);					
 				}
-				((Tremolo) mol.getEffet()).setNombrePas(sliderFreq.getValue());
-				((Tremolo) mol.getEffet()).setVariationNote(sliderAmpl.getValue());
-				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
+				((Tremolo) mol.getEffetAbs()).setNombrePas(sliderFreq.getValue());
+				((Tremolo) mol.getEffetAbs()).setVariationNote(sliderAmpl.getValue());
+				if (!(mol.getEffetAbs().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Tenu":
-						mol.setEffet(new Tenu());
+						mol.setEffetAbs(new Tenu());
 						break;
 					case "Boucle":
-						mol.setEffet(new Boucle());
+						mol.setEffetAbs(new Boucle());
 						break;
 					case "Aleatoire":
-						mol.setEffet(new Aleatoire());
+						mol.setEffetAbs(new Aleatoire());
 						break;
 					case "Glissando":
-						mol.setEffet(new Glissando());
+						mol.setEffetAbs(new Glissando());
 						break;
 					default:
 						break;

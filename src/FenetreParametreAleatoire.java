@@ -113,7 +113,7 @@ public class FenetreParametreAleatoire extends JFrame {
 		
 		comboBox_1 = new JComboBox(listeEffets.toArray());
 		comboBox_1.setBounds(90, 110, 94, 22);
-		comboBox_1.setSelectedItem(mol.getEffet().getClass().getName());
+		comboBox_1.setSelectedItem(mol.getEffetAbs().getClass().getName());
 		contentPane.add(comboBox_1);
 
 		JLabel lblVolume = new JLabel("Volume :");
@@ -187,7 +187,7 @@ public class FenetreParametreAleatoire extends JFrame {
 			public float getFloatValue() { return (float)getValue()/(float)SCALE; }
 		}
 
-		sliderInt = new JFloatSlider(0,(float) 0, (float) 4, (float) ((Aleatoire) mol.getEffet()).interNote()/Controleur.dureeNoire, (float) 1);
+		sliderInt = new JFloatSlider(0,(float) 0, (float) 4, (float) ((Aleatoire) mol.getEffetAbs()).interNote()/Controleur.dureeNoire, (float) 1);
 		sliderInt.setBounds(151, 273, 200, 50);
 		contentPane.add(sliderInt);
 
@@ -204,20 +204,20 @@ public class FenetreParametreAleatoire extends JFrame {
 					mol.setNoteOrd((int) spinnerNoteOrd.getValue());
 					mol.setTimbreOrd(Controleur.tableauTimbre[comboTimbreOrd.getSelectedIndex()]);
 				}
-				((Aleatoire) mol.getEffet()).setInterNote((int) (((JFloatSlider) sliderInt).getFloatValue()*Controleur.dureeNoire));
-				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
+				((Aleatoire) mol.getEffetAbs()).setInterNote((int) (((JFloatSlider) sliderInt).getFloatValue()*Controleur.dureeNoire));
+				if (!(mol.getEffetAbs().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Tenu":
-						mol.setEffet(new Tenu());
+						mol.setEffetAbs(new Tenu());
 						break;
 					case "Boucle":
-						mol.setEffet(new Boucle());
+						mol.setEffetAbs(new Boucle());
 						break;
 					case "Glissando":
-						mol.setEffet(new Glissando());
+						mol.setEffetAbs(new Glissando());
 						break;
 					case "Tremolo":
-						mol.setEffet(new Tremolo());
+						mol.setEffetAbs(new Tremolo());
 						break;
 					default:
 						break;
