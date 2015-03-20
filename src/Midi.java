@@ -168,6 +168,15 @@ public class Midi{
     static public void jouerSequence(){
 	sequenceur.start();
     }
+    
+
+    static public void stopperSequence(){
+	sequenceur.stop();
+    }
+    // En millisecondes
+     static public void deplacerSequence(long tick){
+	sequenceur.setTickPosition(tick);
+    }
 
     static public void tremolo(Molecule mol,int timbre, int nbPas, int variation) throws InvalidMidiDataException{  //pour tester, en théorie on doit ne passer que la molécule                    
 	int i;
