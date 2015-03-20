@@ -460,7 +460,7 @@ abstract class Controleur{
 		float minMSD = Float.MAX_VALUE;
 		float maxMSD = 0;
 		for (Molecule mol : molecules){
-			if (mol.getEffet().getClass().getName().equals("Confine")){
+			if (mol.getEffetAbs().getClass().getName().equals("Confine")){
 				if (minMSD > mol.msd()){
 					minMSD = mol.msd();
 				}
@@ -481,7 +481,7 @@ abstract class Controleur{
 		float maxDistance = 0;
 		if (isChercheur){
 			for (Molecule mol : molecules){
-				if (mol.getEffet().getClass().getName().equals("Directionnelle")){
+				if (mol.getEffetAbs().getClass().getName().equals("Directionnelle")){
 					if (mol.distance() > maxDistance){
 						maxDistance = mol.distance();
 					}
@@ -489,7 +489,7 @@ abstract class Controleur{
 			}
 		}else{
 			for (Molecule mol : molecules){
-				if (mol.getEffet().getClass().getName().equals("Directionnelle") || mol.getEffet().getClass().getName().equals("Diffusif")){
+				if (mol.getEffetAbs().getClass().getName().equals("Directionnelle") || mol.getEffetAbs().getClass().getName().equals("Diffusif")){
 					if (mol.distance() > maxDistance){
 						maxDistance = mol.distance();
 					}

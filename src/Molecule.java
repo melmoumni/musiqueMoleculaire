@@ -20,7 +20,8 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 	private float alpha;
 	private float msd;
 	private Color couleur;
-	private Effet effet;
+	private Effet effetAbs;
+	private Effet effetOrd;
 	private int noteAbs;
 	private int noteOrd;
 	private float moyenneIntensite;
@@ -42,7 +43,7 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		System.out.println("alpha : " + alpha);
 		System.out.println("volume : " + volume);
 		System.out.println("MSD : " + msd);
-		System.out.println("Effet" + effet.getClass().getName());
+		System.out.println("Effet" + effetAbs.getClass().getName());
 		//System.out.println("Tempo : "+tempo);
 		System.out.println("PasMax : " + pasMax);
 		System.out.println("Intensité moyenne : " + moyenneIntensite);
@@ -165,17 +166,21 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 		return (float) Math.sqrt(Math.abs (Math.pow( (abs2-abs1), 2.0) + Math.pow( (ord2-ord1), 2.0))) ; 
 	}
 
-	public Effet getEffet (){
-		return effet;
+	public Effet getEffetAbs (){
+		return effetAbs;
 	}
 	
-	public void setEffet (Effet effett){
-		effet = effett;
+	public void setEffetAbs (Effet effett){
+		effetAbs = effett;
 	}
 
-//	public void setTempo (int tempot){
-//		tempo = tempot;
-//	}
+	public Effet getEffetOrd (){
+		return effetOrd;
+	}
+	
+	public void setEffetOrd (Effet effett){
+		effetOrd = effett;
+	}
 
 	public void setTimbreAbs(Timbre timbret){
 		timbreAbs = timbret;
@@ -207,19 +212,26 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 
 	}	
 	private void analyseAlpha(float[] alphaSeparation, boolean isChercheur) {
-		if (alpha < alphaSeparation[0]){
-			effet = new Tenu();
+		if (alpha < alphaSeparation[0] && isChercheur){
+			effetAbs = new Tenu();
+		}else if (alpha < alphaSeparation[0] && !isChercheur){
+			effetAbs = new Tenu();
+			effetOrd = new Tenu();
 		}else if (alpha > alphaSeparation[0] && alpha < alphaSeparation[1] && isChercheur){
-			effet = new Boucle(msd);
-		}
-		else if (alpha > alphaSeparation[0] && alpha < alphaSeparation[1] && !isChercheur){
-			effet = new Tremolo();
+			effetAbs = new Boucle(msd);
+		}else if (alpha > alphaSeparation[0] && alpha < alphaSeparation[1] && !isChercheur){
+			effetAbs = new Tremolo();
+			effetOrd = new Tremolo();
 		}else if (alpha > alphaSeparation[1] && alpha < alphaSeparation[2] && isChercheur){
-			effet = new Aleatoire();
+			effetAbs = new Aleatoire();
 		}else if (alpha > alphaSeparation[1] && alpha < alphaSeparation[2] && !isChercheur){
-			effet = new Glissando();
-		}else {
-			effet = new Glissando(); 
+			effetAbs = new Glissando();
+			effetOrd = new Glissando();
+		}else if (alpha < alphaSeparation[2] && isChercheur){
+			effetAbs = new Glissando(); 
+		}else if (alpha < alphaSeparation[2] && !isChercheur){
+			effetAbs = new Glissando();
+			effetOrd = new Glissando(); 
 		}
 		//creation de l'effet
 	}
@@ -285,7 +297,10 @@ class Molecule implements Comparable<Molecule>, Cloneable{
 
 	public void remplirSequenceMolecule(){
 		try{
-			effet.remplirSequenceur(this);
+			effetAbs.remplirSequenceur(this);
+			if (!Controleur.isChercheur){
+				effetOrd.remplirSequenceur(this);
+			}
 		}catch (Exception e){
 
 		}

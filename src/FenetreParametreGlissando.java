@@ -113,7 +113,7 @@ public class FenetreParametreGlissando extends JFrame {
 		
 		comboBox_1 = new JComboBox(listeEffets.toArray());
 		comboBox_1.setBounds(90, 110, 94, 22);
-		comboBox_1.setSelectedItem(mol.getEffet().getClass().getName());
+		comboBox_1.setSelectedItem(mol.getEffetAbs().getClass().getName());
 		contentPane.add(comboBox_1);
 
 		JLabel lblVolume = new JLabel("Volume :");
@@ -156,7 +156,7 @@ public class FenetreParametreGlissando extends JFrame {
 		sliderMol.setMajorTickSpacing(10);
 		sliderMol.setMaximum(64);
 		sliderMol.setBounds(150, 285, 212, 56);
-		sliderMol.setValue(((Glissando) mol.getEffet()).molette());
+		sliderMol.setValue(((Glissando) mol.getEffetAbs()).molette());
 		contentPane.add(sliderMol);
 		
 		JLabel lblMolette = new JLabel("Molette : ");
@@ -174,20 +174,20 @@ public class FenetreParametreGlissando extends JFrame {
 					mol.setNoteOrd((int) spinnerNoteOrd.getValue());
 					mol.setTimbreOrd(Controleur.tableauTimbre[comboTimbreOrd.getSelectedIndex()]);					
 				}
-				((Glissando) mol.getEffet()).setMolette(sliderMol.getValue());
-				if (!(mol.getEffet().getClass().getName().equals(comboBox_1.getSelectedItem()))){
+				((Glissando) mol.getEffetAbs()).setMolette(sliderMol.getValue());
+				if (!(mol.getEffetAbs().getClass().getName().equals(comboBox_1.getSelectedItem()))){
 					switch((String) comboBox_1.getSelectedItem()){
 					case "Tenu":
-						mol.setEffet(new Tenu());
+						mol.setEffetAbs(new Tenu());
 						break;
 					case "Boucle":
-						mol.setEffet(new Boucle());
+						mol.setEffetAbs(new Boucle());
 						break;
 					case "Aleatoire":
-						mol.setEffet(new Aleatoire());
+						mol.setEffetAbs(new Aleatoire());
 						break;
 					case "Tremolo":
-						mol.setEffet(new Tremolo());
+						mol.setEffetAbs(new Tremolo());
 						break;
 					default:
 						break;
