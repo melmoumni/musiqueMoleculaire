@@ -17,11 +17,11 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JComboBox<String> typeInstruments = new JComboBox<String>(new String[]{"Instruments a vent","Instruments a corde", "Percussions" });
+	private final JComboBox<String> typeInstruments = new JComboBox<String>(new String[]{"Instruments a vent","Instruments a corde", "Percussions", "Sons de Synthese" });
 	private JComboBox<String> boxInstruments = new JComboBox<String>();
 
 	@SuppressWarnings("rawtypes")
-	private ComboBoxModel[] models = new ComboBoxModel[3];
+	private ComboBoxModel[] models = new ComboBoxModel[4];
 
 	int indexInstrument;
 
@@ -36,13 +36,16 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 		for (int i = 0 ; i < 128 ; i++){
 			listeTimbres.add(Integer.toString(Controleur.tableauTimbre[i].timbreMIDI()) + " - " + Controleur.tableauTimbre[i].nom());
 		}
+		
 		/* instruments à vent */
 		ArrayList<String> listeTimbresVent = new ArrayList<String>();		
 		for (int i = 57 ; i < 80 ; i++){
 			listeTimbresVent.add(listeTimbres.get(i));
 		}
+		listeTimbresVent.add(listeTimbres.get(109));
+		listeTimbresVent.add(listeTimbres.get(111));
+		
 		Object[] instrumentsVent = listeTimbresVent.toArray();
-		models[0]= new DefaultComboBoxModel<>(instrumentsVent);
 
 		/* instruments à corde */
 		ArrayList<String> listeTimbresCorde = new ArrayList<String>();		
@@ -52,6 +55,10 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 		for (int i = 24 ; i < 56 ; i++){
 			listeTimbresCorde.add(listeTimbres.get(i));
 		}
+		for (int i = 104 ; i < 108 ; i++){
+			listeTimbresCorde.add(listeTimbres.get(i));
+		}
+		listeTimbresCorde.add(listeTimbres.get(110));
 		Object[] instrumentsCorde = listeTimbresCorde.toArray();
 
 		/*percussions*/
@@ -59,14 +66,26 @@ public class InstrumentsBox extends JPanel implements ActionListener, ItemListen
 		for (int i = 8 ; i < 16 ; i++){
 			listeTimbresPercussions.add(listeTimbres.get(i));
 		}
+		listeTimbresPercussions.add(listeTimbres.get(108));
 		for (int i = 112 ; i < 120 ; i++){
 			listeTimbresPercussions.add(listeTimbres.get(i));
 		}
 		Object[] percussions = listeTimbresPercussions.toArray();
+		
+		/*Sons de syntheses */
+		ArrayList<String> listeTimbresSyntheses= new ArrayList<String>();
+		for (int i = 80 ; i < 104 ; i++){
+			listeTimbresSyntheses.add(listeTimbres.get(i));
+		}
+		for (int i = 120 ; i < 128 ; i++){
+			listeTimbresSyntheses.add(listeTimbres.get(i));
+		}
+		Object[] syntheses = listeTimbresSyntheses.toArray();
 
 		models[0]= new DefaultComboBoxModel<>(instrumentsVent);
 		models[1]= new DefaultComboBoxModel<>(instrumentsCorde);
 		models[2]= new DefaultComboBoxModel<>(percussions);
+		models[3]= new DefaultComboBoxModel<>(syntheses);
 
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		boxInstruments.setModel(models[0]);

@@ -35,11 +35,15 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private JTextField filenameT; // nom du fichier Trajectoires
 	private JTextField filenameM; // nom du fichier Mouvements
+	private JTextField banqueMidi; // nom du fichier pour la banque Mifdi
+	private JTextField parametres; // nom du fichier des anciens parametres sauvegardes
 	
 	/* Declaration des boutons, necessaires pour lancer des actions */
 	JButton btnChoisirTrajectoires;
 	JButton btnChoisirMvt;
 	JButton btnValider;
+	JButton btnChoisirParametres;
+	JButton btnChoisirBanqueMidi;
 	
 	JSpinner valeurH; // hauteur de l'image
 	JSpinner valeurL; // largeur de l'image
@@ -56,7 +60,6 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	JSlider valeurI; // valeur du seuil intensité, uniquement pour le compositeur
 	
 	ButtonGroup groupe;
-	
 	/**
 	 * Launch the application.
 	 */
@@ -69,7 +72,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	 */
 	public FenetreParametres() {
 		this.setTitle("Parametres de l'application");
-		this.setBounds(100, 100, 555, 601);
+		this.setBounds(100, 100, 555, 672);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,7 +92,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		filenameM = new JTextField();
 		filenameM.setColumns(10);
 		
-		JLabel label_6 = new JLabel("Mouvements");
+		JLabel label_6 = new JLabel("Analyse");
 		
 		btnChoisirTrajectoires = new JButton("Choisir un fichier");
 		btnChoisirTrajectoires.addActionListener(this);
@@ -188,6 +191,26 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		 *  Layout GroupLayout
 		 *  Realise a l'aide du plugin WindowsBuilder sur Eclipse
 		 */
+		
+		JLabel lblChargerDesParamtres = new JLabel("Charger des parametres");
+		
+		JLabel lblEn = new JLabel("en %");
+		
+		parametres = new JTextField();
+		parametres.setColumns(10);
+		
+		btnChoisirParametres = new JButton("Choisir un fichier");
+		btnChoisirParametres.addActionListener(this);
+		
+		JLabel lblBanqueMidi = new JLabel("Banque Midi");
+		
+		banqueMidi= new JTextField();
+		banqueMidi.setColumns(10);
+		
+		btnChoisirBanqueMidi= new JButton("Choisir un fichier");
+		btnChoisirBanqueMidi.addActionListener(this);
+		
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -215,16 +238,16 @@ public class FenetreParametres extends JFrame implements ActionListener{
 								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblDirectionnelles)))
+									.addComponent(lblDiffusives)))
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGap(1)
+									.addComponent(valeurAlpha3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addGap(18)
 									.addComponent(label_3)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(lblDiffusives))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addGap(1)
-									.addComponent(valeurAlpha3, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))))
+									.addComponent(lblDirectionnelles))))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblNoteDeRfrnce)
@@ -238,14 +261,30 @@ public class FenetreParametres extends JFrame implements ActionListener{
 							.addContainerGap()
 							.addComponent(lblSeuilIntensite)
 							.addGap(18)
-							.addComponent(valeurI, GroupLayout.PREFERRED_SIZE, 313, GroupLayout.PREFERRED_SIZE))
+							.addComponent(valeurI, GroupLayout.PREFERRED_SIZE, 313, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblEn))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(124)
+							.addGap(113)
 							.addComponent(rdbtnChercheur)
-							.addGap(72)
+							.addGap(71)
 							.addComponent(rdbtnCompositeur))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(221)
+							.addContainerGap()
+							.addComponent(lblBanqueMidi)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(banqueMidi, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnChoisirBanqueMidi))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblChargerDesParamtres)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(parametres, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnChoisirParametres))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(206)
 							.addComponent(btnValider)))
 					.addContainerGap(23, Short.MAX_VALUE))
 		);
@@ -266,9 +305,9 @@ public class FenetreParametres extends JFrame implements ActionListener{
 						.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblConfines)
 						.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDirectionnelles)
+						.addComponent(lblDiffusives)
 						.addComponent(label_3)
-						.addComponent(lblDiffusives))
+						.addComponent(lblDirectionnelles))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(valeurAlpha2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -277,25 +316,37 @@ public class FenetreParametres extends JFrame implements ActionListener{
 					.addGap(25)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(valeurI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSeuilIntensite))
-					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+						.addComponent(lblSeuilIntensite)
+						.addComponent(lblEn))
+					.addGap(48)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(rdbtnChercheur)
-						.addComponent(rdbtnCompositeur))
-					.addGap(30)
+						.addComponent(lblBanqueMidi)
+						.addComponent(banqueMidi, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnChoisirBanqueMidi))
+					.addGap(31)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblChargerDesParamtres)
+						.addComponent(parametres, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnChoisirParametres))
+					.addGap(18)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(rdbtnCompositeur)
+						.addComponent(rdbtnChercheur))
+					.addGap(13)
 					.addComponent(btnValider)
-					.addGap(30))
+					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
 		GroupLayout groupLayout = new GroupLayout(this.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(10)
-							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 465, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 541, Short.MAX_VALUE))
+					.addGap(10)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 465, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(78, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -303,7 +354,7 @@ public class FenetreParametres extends JFrame implements ActionListener{
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(4)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
@@ -312,6 +363,8 @@ public class FenetreParametres extends JFrame implements ActionListener{
 		JLabel label_1 = new JLabel("pixels");
 		
 		chckbxAjusterLaTaille = new JCheckBox("<html>Ajuster la taille par rapport au fichier</html>");
+		chckbxAjusterLaTaille.setSelected(true);
+		
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -417,6 +470,22 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	            filenameM.setText(chooser.getSelectedFile().getPath());
 	        }
 	    }
+	    else if (e.getSource() == btnChoisirBanqueMidi) {
+	    	JFileChooser chooser = new JFileChooser();
+	    	int returnVal = chooser.showOpenDialog(this);
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            banqueMidi.setText(chooser.getSelectedFile().getPath());
+	        }
+	    }
+	    else if (e.getSource() == btnChoisirParametres) {
+	    	JFileChooser chooser = new JFileChooser();
+	    	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt");
+	    	chooser.setFileFilter(filter);
+	    	int returnVal = chooser.showOpenDialog(this);
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            parametres.setText(chooser.getSelectedFile().getPath());
+	        }
+	    }
 	}
 	
 	/* Accesseurs pour les differents champs de formulaire */
@@ -426,6 +495,25 @@ public class FenetreParametres extends JFrame implements ActionListener{
 	
 	public String getFilenameM(){
 		return filenameM.getText();
+	}
+	
+	public String getBanqueMidi(){
+		String banque="";
+		try{
+			banque = banqueMidi.getText();
+		}
+		catch(NullPointerException e){}
+		return banque;
+	}
+	
+	public String getParametres(){
+		String Fparametres="";
+		try{
+			Fparametres = parametres.getText();
+		}
+		catch(NullPointerException e){}
+		return Fparametres;
+
 	}
 	
 	public int getHauteur(){

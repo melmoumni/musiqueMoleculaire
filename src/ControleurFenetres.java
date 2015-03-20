@@ -15,6 +15,9 @@ public class ControleurFenetres {
 	static String utilisateur;
 	static int seuilIntensite;
 	
+	static String fichierBanqueMidi;
+	static String fichierParametres;
+	
 	static Controleur controleur;
 	
 	public ControleurFenetres(){
@@ -98,6 +101,8 @@ public class ControleurFenetres {
 		fichierMvts = params.getFilenameM();
 		utilisateur = params.getUtilisateur();
 		seuilIntensite = params.getIntensite();
+		fichierBanqueMidi = params.getBanqueMidi();
+		fichierParametres = params.getParametres();
 		
 		if((tempo>0) && (((largeur>0) && (hauteur>0)) || (params.isAutoSize())) && !(fichierTrajectoire.isEmpty()) && !(fichierMvts.isEmpty())
 				&& !(utilisateur.isEmpty()))
