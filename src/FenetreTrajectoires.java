@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Line2D;
@@ -44,7 +45,7 @@ public class FenetreTrajectoires extends javax.swing.JPanel {
 					JFrame jf = new JFrame("test");
 					jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					jf.setSize(300, 300);
-					jf.add(new JScrollPane(new FenetreTrajectoires(Controleur.molecules(), d.width + d.width/10 ,d.height + d.height/10, false)));
+					jf.add(new JScrollPane(new FenetreTrajectoires(Controleur.molecules(), d.width + d.width/10 ,d.height + d.height/10, true)));
 					jf.setVisible(true);	
 
 				} catch (Exception e) {
@@ -80,6 +81,36 @@ public class FenetreTrajectoires extends javax.swing.JPanel {
 		this.molecules=mols;
 		init();
 
+	}
+	
+	public FenetreTrajectoires(ArrayList<Molecule> mols, int w, int h, ArrayList<Float> abscisses,ArrayList<ArrayList<Float>> ordonnees) {
+		move = true;
+		largeurInitiale=w;
+		hauteurInitiale=h;
+		this.molecules=mols;
+		init(abscisses, ordonnees);
+
+	}
+	
+	private void init(ArrayList<Float> abscisses,ArrayList<ArrayList<Float>> ordonnees){
+		float maxTabAbsc=abscisses.get(abscisses.size()-1);
+		float maxTabOrd = ordonnees.get(0).get(ordonnees.get(0).size()-1);
+		float scaleAbsc= maxTabAbsc/ControleurFenetres.getLargeurVideo();
+		float scaleOrd=maxTabOrd/ControleurFenetres.getHauteurVideo();
+		
+
+		Graphics g=this.getGraphics();
+		
+		Graphics2D g2 =(Graphics2D) g ;
+	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+	        RenderingHints.VALUE_ANTIALIAS_ON);
+
+	    g2.setPaint(Color.gray);
+	    g2.draw(new Line2D.Double(0, 0, 200, 200));
+
+		
+		init();
+		
 	}
 
 	private void init(){
